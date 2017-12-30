@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= config.title %></title>
+  <meta name="description" content="<%= config.subtitle %>" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="<%= url_for(theme.css.global) %>">
+</head>
+<body>
+  <header class="header header_component_global">
+    <h1 class="header__title header__title"><a href="<%= config.root %>"><%= config.title %></a></h1>
+    <p class="header__description"><%= config.subtitle %></p>
+    <blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote>
+  </header>
+  <div class="container">
+    <nav class="navigation navigation-global">
+      <a href="<%= config.root %>" class="navigation__link" routerLinkActive="active">📘 Latest Articles</a>
+    </nav>
+    <%- body %>
+  </div>
+</body>
+</html>

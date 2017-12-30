@@ -1,0 +1,11 @@
+<main class="main">
+<% page.posts.each( (post, i) => { %>
+<section class="article-summary">
+  <header class="header">
+    <h1 class="header__title"><a href="<%- url_for(post.path) %>"><%= post.title %></a></h1>
+  </header>
+  <div class="content"><%- post.excerpt %></div>
+  <div><a href="<%- url_for(post.path) %>">📖 続きを読む</a></div>
+</section>
+<% }) %>
+</main>

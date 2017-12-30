@@ -1,20 +1,14 @@
 ---
-title: "Gatsbyでスタティックサイトを作成する"
+title: Gatsbyでスタティックサイトを作成する
 layout: post
-path: "/initial-post/"
-category: "web"
-description: "Description"
-tags:
-  - "gatsby"
 ---
-
 更新しなくなったブログをリニューアルしようと思って、[Gatsby](https://www.gatsbyjs.org) で構築しようと思い立って、今作成してみている。
-
+<!-- more -->
 Gatsbyは「Blazing-fast static site generator for React」ということで、Reactベースのスタティックサイトジェネレータらしいのだけど、実のところまだよくわかっていない。[Getting Started](https://www.gatsbyjs.org/docs/) のドキュメントをみて、[gatsby-starter-blog](https://github.com/gatsbyjs/gatsby-starter-blog) のstarterをGithub pages で公開しているだけなのだ。
 
 とはいえ、一応最初に行ったことをそのまま書き記しておこうと思う。
 
-### nvmで Node 9.xをインストール
+## nvmで Node 9.xをインストール
 インストール時か`gatsby develop`のときか失念してしまったが、どこかのタイミングで`error serve@6.4.3: The engine "node" is incompatible with this module. Expected version ">=6.9.0".`というエラーが発生してしまったので、ローカル環境に9.2をインストール（今確認したらすでに最新は9.3だったが）。[nvm](https://github.com/creationix/nvm)はだいぶ前にインストールしたのでどうインストールしたか失念。[Homebrew](https://brew.sh/)でインストールしたのかもしれない。
 
 ```bash
@@ -24,7 +18,7 @@ nvm alias default 9
 
 デフォルトの設定を6.xにしていたのだけど、これを機にローカルで使用するバージョンは9.xに変更した。
 
-### Gatsby CLI のインストール とサイトの作成
+## Gatsby CLI のインストール とサイトの作成
 ここから先は基本的には[Gatsby getting started](https://www.gatsbyjs.org/docs/)と同じことをただやった。
 
 ```bash
@@ -32,7 +26,7 @@ npm install -g gatsby-cli
 gatsby new memolog https://github.com/gatsbyjs/gatsby-starter-blog
 ```
 
-### Github Pages へのデプロイ
+## Github Pages へのデプロイ
 Github pagesにデプロイするためにレポジトリをGithub上で作成して、レポジトリを設定。
 
 ```bash
@@ -60,4 +54,5 @@ yarn deploy
 ----
 
 ちなみにこの文章を書いているエディタはVisual Code Basicを使用しているが、以前にSlack Appでも問題があった[Electronで日本語入力でバックスペースすると文字化けする問題](https://github.com/electron/electron/issues/9173)が残っていて、少々辛い。[Visual Code Base のソース](https://github.com/Microsoft/vscode/blob/master/package.json)を見ると、Electron 1.7.0 を使用している雰囲気だが、1.7でもまだ問題が残っているということなのでしょう。現状のステータスがよくわからないけど、公開前に不要な文字を消すように何か対策を考えようと今は思っている（何もしないかもしれないけど）。
+
 

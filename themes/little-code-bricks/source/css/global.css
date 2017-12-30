@@ -1,0 +1,138 @@
+body {
+  background-color: lightblue;
+  color: black;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  margin: 0 auto;
+  font-family: Garamond, 'Times New Roman', serif; }
+
+.header_component_global {
+  background-color: white;
+  text-align: center;
+  padding-bottom: 12px; }
+
+.header__title {
+  display: inline-block;
+  background-color: gainsboro;
+  margin: 15px 0 9px;
+  padding: 5px;
+  font-size: 1.8em;
+}
+
+.header__title a {
+  color: black;
+  text-decoration: none;
+}
+
+.header_component_global .header__title {
+  font-size: 2em;
+}
+
+.header_component_global .header__title a {
+  text-decoration: none;
+  color: black;
+}
+
+.header__description {
+  margin-top: 0;
+  margin-bottom: 1em; }
+
+.header_component_global .header__description {
+  color: #666;
+  margin: 0 auto;
+  padding: 0 5px; }
+
+.header__epigraph {
+  font-style: italic;
+  color: #666;
+  margin: 0 auto;
+  padding: 5px; }
+
+.container {
+  max-width: 750px;
+  margin: 27px auto;
+  background-color: white;
+  padding: 25px;
+  border-radius: 3px; }
+
+.content {
+  font-size: 1em;
+  line-height: 2em;
+  text-align: justify;
+  color: #444;
+  -webkit-font-smoothing: antialiased;
+}
+
+.content h2 {
+  font-size: 1.4em;
+  margin: 2em 0 0 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.content hr {
+  border-top-width: 0;
+  border-bottom-width: 1;
+  border-style: solid;
+  border-color: #ddd;
+  margin-top: 4em;
+}
+
+.content code {
+  background-color: #f5f2f0;
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: .3em;
+  color: black;
+}
+
+.form__item {
+  margin-bottom: 10px; }
+
+.form__response-message {
+  background-color: palevioletred;
+  padding: 10px;
+  margin-bottom: 1em;
+  border-radius: 4px;
+  color: white; }
+
+.form__item_type_submit {
+  margin-top: 25px; }
+
+.form__label {
+  display: block; }
+
+.form__input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid gainsboro;
+  font-size: 1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%; }
+
+.form__button {
+  padding: 10px;
+  border-radius: 4px;
+  border: 0 none;
+  font-size: 1em; }
+
+.form__button_type_signin {
+  background-color: khaki;
+  -webkit-box-shadow: 0 2px 0 darkkhaki;
+          box-shadow: 0 2px 0 darkkhaki;
+  margin-top: 0;
+  margin-bottom: 2px; }
+  .form__button_type_signin:hover, .form__button_type_signin:focus, .form__button_type_signin:active {
+    background-color: darkkhaki;
+    -webkit-box-shadow: 0 0 0 darkkhaki;
+            box-shadow: 0 0 0 darkkhaki;
+    margin-top: 2px;
+    margin-bottom: 0; }
+
+.article-summary {
+  margin-bottom: 2em;
+}
