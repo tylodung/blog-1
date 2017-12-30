@@ -2,21 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>The Little Code Bricks</title>
-  <meta name="description" content="The Little Code Bricks aims to provide some piece of code which make solid web site/application 🔧" id="meta-description">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/global.css">
-</head>
+  <link rel="stylesheet" href="/site/css/global.css">
+  <link rel="preload" href="/site/css/prism.css" as="style" onload="this.rel='stylesheet'">
+<link rel="stylesheet" href="/site/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/site/css/prism-line-numbers.css" type="text/css"></head>
 <body>
-  &lt;main class=&#34;main&#34;&gt;
-  &lt;header class=&#34;header&#34;&gt;
-    &lt;h1 class=&#34;header__title&#34;&gt;hello hexo&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;div id=&#34;article-content&#34; class=&#34;content&#34;&gt;&amp;lt;p&amp;gt;&amp;lt;a href=&amp;#34;https://www.gatsbyjs.org/&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;Gatsby&amp;lt;/a&amp;gt;はなかなかに高機能で素晴らしく、React、GraphQL、PWAなど技術的なプレイグラウンドとしても魅力的だったのだけど、それゆえにたとえばデザインを少し変えたいというときに、&amp;lt;a href=&amp;#34;http://kyleamathews.github.io/typography.js/&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;Typography&amp;lt;/a&amp;gt;の実装上でどう変更するかを調べる必要があったり、&amp;lt;a href=&amp;#34;https://github.com/KyleAMathews/react-responsive-grid&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;react-responsive-grid&amp;lt;/a&amp;gt;とかバンドルされてるReact Componentがどんな実装になっているかを確認したりとか、とにかく面倒くさい。この最初のラーニングカーブを乗り切ってしまえば便利なのかもしれないけど、メモ書きサイトを作るのにあまり時間をかけたくない（でもデザインは調整したい）という目的には、どうもオーバースペック感があった。あとpublicに生成されるファイルが変に多くて把握しにくいし、LightHouseのPerformanceのスコアも70前後（十分だけど）なのが少し気になった。&amp;lt;/p&amp;gt;
-&amp;lt;p&amp;gt;なので、何か別のスタティックサイトジェネレーターを使おうと思っていろいろ探した。&amp;lt;a href=&amp;#34;https://github.com/developit/preact-cli&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;preact cli&amp;lt;/a&amp;gt;からのサイト生成も良さそうだったけど、この状態から個別のページを生成する実装を作るのはだいぶ面倒くさそうだったので諦めた。&amp;lt;a href=&amp;#34;https://jekyllrb.com/&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;jekyll&amp;lt;/a&amp;gt;は必要十分な感じはあるけど実装がRubyなので、できればNode.jsで実装されているものを使いたい。&amp;lt;/p&amp;gt;
-&amp;lt;p&amp;gt;それで結局&amp;lt;a href=&amp;#34;https://hexo.io/&amp;#34; target=&amp;#34;_blank&amp;#34; rel=&amp;#34;noopener&amp;#34;&amp;gt;Hexo&amp;lt;/a&amp;gt;を試している。今のところ簡単にスタティックサイトを作成したい（学習コストは低めに）という目的に十分あっているような気はしている。&amp;lt;/p&amp;gt;
-&lt;/div&gt;
-&lt;/main&gt;
+  <header class="header header_component_global">
+    <h1 class="header__title header__title"><a href="/site/">メモログ</a></h1>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote>
+  </header>
+  <div class="container">
+    <nav class="navigation navigation-global">
+      <a href="/site/" class="navigation__link" routerLinkActive="active">📘 Latest Articles</a>
+    </nav>
+    <main class="main">
+  <header class="header">
+    <h1 class="header__title">hello hexo</h1>
+  </header>
+  <div id="article-content" class="content"><p><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>はなかなかに高機能で素晴らしく、React、GraphQL、PWAなど技術的なプレイグラウンドとしても魅力的だったのだけど、結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>にすることにした。<br><a id="more"></a><br><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>は高機能ゆえにたとえばデザインを少し変えたいというときに、<a href="http://kyleamathews.github.io/typography.js/" target="_blank" rel="noopener">Typography</a>の実装上でどう変更するかを調べる必要があったり、<a href="https://github.com/KyleAMathews/react-responsive-grid" target="_blank" rel="noopener">react-responsive-grid</a>とかバンドルされてるReact Componentがどんな実装になっているかを確認したりとか、とにかく面倒くさい。この最初のラーニングカーブを乗り切ってしまえば便利なのかもしれないけど、メモ書きサイトを作るのにあまり時間をかけたくない（でもデザインは調整したい）という目的には、どうもオーバースペック感があった。あとpublicに生成されるファイルが変に多くて把握しにくいし、LightHouseのPerformanceのスコアも70前後（十分だけど）なのが少し気になった。</p>
+<p>なので、何か別のスタティックサイトジェネレーターを使おうと思っていろいろ探した。<a href="https://github.com/developit/preact-cli" target="_blank" rel="noopener">preact cli</a>からのサイト生成も良さそうだったけど、この状態から個別のページを生成する実装を作るのはだいぶ面倒くさそうだったので諦めた。<a href="https://jekyllrb.com/" target="_blank" rel="noopener">jekyll</a>は必要十分な感じはあるけど実装がRubyなので、できればNode.jsで実装されているものを使いたい。</p>
+<p>それで結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>を試している。今のところ簡単にスタティックサイトを作成したい（学習コストは低めに）という目的に十分あっているような気はしている。</p>
+</div>
+</main>
 
+  </div>
+    <script type="text/javascript" src="/site/js/prism.js"></script>
 </body>
 </html>
