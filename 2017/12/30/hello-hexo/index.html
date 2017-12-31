@@ -10,22 +10,22 @@
 <link rel="stylesheet" href="/site/css/prism-line-numbers.css" type="text/css"></head>
 <body>
   <header class="header header_component_global">
-    <h1 class="header__title header__title"><a href="/site/">メモログ</a></h1>
+    <div class="header__title header__title"><a href="/site/">メモログ</a></div>
     <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
     <blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote>
-  </header>
-  <div class="container">
     <nav class="navigation navigation-global">
       <a href="/site/" class="navigation__link" routerLinkActive="active">📘 Latest Articles</a>
     </nav>
+  </header>
+  <div class="container">
     <main class="main">
   <header class="header">
     <h1 class="header__title">Hello Hexo</h1>
-    <div><time datetime="2017-12-30T04:38:05.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月30日 22:44</time></div>
+    <div><time datetime="2017-12-29T15:00:00.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月30日</time></div>
   </header>
-  <div id="article-content" class="content"><p><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>はなかなかに高機能で素晴らしく、React、GraphQL、PWAなど技術的なプレイグラウンドとしても魅力的だったのだけど、結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>にすることにした。<br><a id="more"></a><br><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>は高機能ゆえにたとえばデザインを少し変えたいというときに、<a href="http://kyleamathews.github.io/typography.js/" target="_blank" rel="noopener">Typography</a>の実装上でどう変更するかを調べる必要があったり、<a href="https://github.com/KyleAMathews/react-responsive-grid" target="_blank" rel="noopener">react-responsive-grid</a>とかバンドルされてるReact Componentがどんな実装になっているかを確認したりとか、とにかく面倒くさい。この最初のラーニングカーブを乗り切ってしまえば便利なのかもしれないけど、メモ書きサイトを作るのにあまり時間をかけたくない（でもデザインは調整したい）という目的には、どうもオーバースペック感があった。あとpublicに生成されるファイルが変に多くて把握しにくいし、LightHouseのPerformanceのスコアも70前後（十分だけど）なのが少し気になった。</p>
-<p>なので、何か別のスタティックサイトジェネレーターを使おうと思っていろいろ探した。<a href="https://github.com/developit/preact-cli" target="_blank" rel="noopener">preact cli</a>からのサイト生成も良さそうだったけど、この状態から個別のページを生成する実装を作るのはだいぶ面倒くさそうだったので諦めた。<a href="https://jekyllrb.com/" target="_blank" rel="noopener">jekyll</a>は必要十分な感じはあるけど実装がRubyなので、できればNode.jsで実装されているものを使いたい。</p>
-<p>それで結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>を試している。今のところ簡単にスタティックサイトを作成したい（学習コストは低めに）という目的に十分あっているような気はしている。</p>
+  <div id="article-content" class="content"><p><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>はなかなかに高機能で素晴らしく、React、GraphQL、PWAなど技術的なプレイグラウンドとしても魅力的だったのだけど、結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>にすることにした。<br><a id="more"></a><br><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">Gatsby</a>は高機能ゆえにたとえばデザインを少し変えたいというときに、<a href="http://kyleamathews.github.io/typography.js/" target="_blank" rel="noopener">Typography</a>の実装上でどう変更するかを調べる必要があったり、<a href="https://github.com/KyleAMathews/react-responsive-grid" target="_blank" rel="noopener">react-responsive-grid</a>とかバンドルされてるReact Componentがどんな実装になっているかを確認したりとか、とにかく面倒くさい。この最初のラーニングカーブを乗り切ってしまえば便利なのかもしれないけど、メモ書きサイトを作るのにあまり時間をかけたくない（でもデザインは調整したい）という目的には、どうもオーバースペック感があった。あとpublicに生成されるファイルが変に多くて把握しにくいし、LightHouseのPerformanceのスコアも70前後（十分だけど）なのが少し気になった。</p>
+<p>なので、何か別のスタティックサイトジェネレーターを使おうと思っていろいろ探した。<a href="https://github.com/developit/preact-cli" target="_blank" rel="noopener">preact cli</a>からのサイト生成も良さそうだったけど、この状態から個別のページを生成する実装を作るのはだいぶ面倒くさそうだったので諦めた。<a href="https://jekyllrb.com/" target="_blank" rel="noopener">jekyll</a>は必要十分な感じはあるけど実装がRubyなので、できればNode.jsで実装されているものを使いたい。</p>
+<p>それで結局<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>を試している。今のところ簡単にスタティックサイトを作成したい（学習コストは低めに）という目的に十分あっているような気はしている。</p>
 <p>Hexoのインストールと公開はとりたてていうことがないくらい簡単で、<code>npm install -g hexo-cli</code>でCLIをインストールしたあとで</p>
 <pre class="line-numbers language-bash"><code class="language-bash">hexo init hexo-site
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -42,8 +42,8 @@
 <p>して、_config.yml の deploy の箇所のrepo欄にレポジトリのURLを追加して、</p>
 <pre class="line-numbers language-bash"><code class="language-bash">hexo deploy -g
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>しただけである。これでGithub Pagesにスタティックサイトを構築できるというのはなんとも簡単だなあ。</p>
-<p>そのあとはデフォルトで入ってたlandscapeのテーマをコピーして、以前に使おうと思って作成していたHTMLとCSSをそのまま適用させただけである。Microdataとか今どき必要なのかは不明ではあるが、そのあたりの修正とかはそのうちにやろうと思っている。リソースの最適化もそのうちやるであろうけど、現時点では何もしなくても大丈夫な感は大いにある。Authorの情報とかは少しは必要かなと思っている。</p>
+<p>しただけである。</p>
+<p>そのあとは、デフォルトで入ってたlandscapeのテーマをコピーして、以前に使おうと思って作成していたHTMLとCSSをそのまま適用させただけである。Microdataとか今どき必要なのかは不明ではあるが、そのあたりの修正とかはそのうちにやろうと思っている。リソースの最適化もそのうちやるであろうけど、現時点では何もしなくても大丈夫な感は大いにある。Authorの情報とかは少しは必要かなと思っている。</p>
 <p>あとは <code>yarn add hexo-prism-plugin --save</code> してコードのハイライトをprismにしたくらいかな。</p>
 <p>ejsのフォーマットは初めて利用するので、少し変な感じはあるけれど、このくらいの学習は全く問題ない。やはり始めるときはこのくらいの手軽さがいいなと思う。</p>
 </div>

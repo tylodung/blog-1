@@ -18,9 +18,10 @@ body {
 .header__title {
   display: inline-block;
   background-color: gainsboro;
-  margin: 15px 0 9px;
+  margin: .5em 0 .2em;
   padding: 5px;
   font-size: 1.8em;
+  font-weight: normal;
 }
 
 .header__title a {
@@ -29,7 +30,7 @@ body {
 }
 
 .header_component_global .header__title {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
 .header_component_global .header__title a {
@@ -146,4 +147,10 @@ body {
 
 .calendar-icon {
   margin-right: .5em;
+}
+
+.content blockquote {
+  border-left: 5px solid #ddd;
+  margin: 0;
+  padding: 0 1em;
 }
