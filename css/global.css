@@ -136,3 +136,14 @@ body {
 .article-summary {
   margin-bottom: 2em;
 }
+
+.header time {
+  display: inline-block;
+  font-size: .9125em;
+  color: #666;
+  border-bottom: 1px dashed #bababa;
+}
+
+.calendar-icon {
+  margin-right: .5em;
+}
