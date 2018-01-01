@@ -171,3 +171,17 @@ a:visited {
 .content code[class*="language-"] {
   color: #444;  
 }
+
+@media screen and (max-width: 500px) {
+  .header__epigraph {
+    display: none;
+  }
+
+  .header__title {
+    font-size: 1.2em;
+  }
+
+  .content h2 {
+    font-size: 1.2em;
+  }
+} 
