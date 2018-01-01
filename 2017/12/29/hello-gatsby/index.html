@@ -19,11 +19,16 @@
   </header>
   <div class="container">
     <main class="main">
-      <header class="header">
-        <h1 class="header__title">Gatsbyでスタティックサイトを作成する</h1>
-        <div><time datetime="2017-12-28T15:00:00.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月29日</time></div>
-      </header>
-      <div id="article-content" class="content"><p>更新しなくなったブログをリニューアルしようと思って、<a href="https://www.gatsbyjs.org" target="_blank" rel="noopener">Gatsby</a> で構築しようと思い立って、今作成してみている。<br><a id="more"></a><br>Gatsbyは「Blazing-fast static site generator for React」ということで、Reactベースのスタティックサイトジェネレータらしいのだけど、実のところまだよくわかっていない。<a href="https://www.gatsbyjs.org/docs/" target="_blank" rel="noopener">Getting Started</a> のドキュメントをみて、<a href="https://github.com/gatsbyjs/gatsby-starter-blog" target="_blank" rel="noopener">gatsby-starter-blog</a> のstarterをGithub pages で公開しているだけなのだ。</p>
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Gatsbyでスタティックサイトを作成する</h1>
+          <div>
+            <time datetime="2017-12-28T15:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2017年12月29日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>更新しなくなったブログをリニューアルしようと思って、<a href="https://www.gatsbyjs.org" target="_blank" rel="noopener">Gatsby</a> で構築しようと思い立って、今作成してみている。<br><a id="more"></a><br>Gatsbyは「Blazing-fast static site generator for React」ということで、Reactベースのスタティックサイトジェネレータらしいのだけど、実のところまだよくわかっていない。<a href="https://www.gatsbyjs.org/docs/" target="_blank" rel="noopener">Getting Started</a> のドキュメントをみて、<a href="https://github.com/gatsbyjs/gatsby-starter-blog" target="_blank" rel="noopener">gatsby-starter-blog</a> のstarterをGithub pages で公開しているだけなのだ。</p>
 <p>とはいえ、一応最初に行ったことをそのまま書き記しておこうと思う。</p>
 <h2 id="nvmで-Node-9-xをインストール"><a href="#nvmで-Node-9-xをインストール" class="headerlink" title="nvmで Node 9.xをインストール"></a>nvmで Node 9.xをインストール</h2><p>インストール時か<code>gatsby develop</code>のときか失念してしまったが、どこかのタイミングで<code>error serve@6.4.3: The engine &quot;node&quot; is incompatible with this module. Expected version &quot;&gt;=6.9.0&quot;.</code>というエラーが発生してしまったので、ローカル環境に9.2をインストール（今確認したらすでに最新は9.3だったが）。<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>はだいぶ前にインストールしたのでどうインストールしたか失念。<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>でインストールしたのかもしれない。</p>
 <pre class="line-numbers language-bash"><code class="language-bash">nvm <span class="token function">install</span> 9
@@ -53,6 +58,7 @@ yarn deploy
 <hr>
 <p>それで上記の問題をExtension作って解決しようかなと思って、<a href="https://code.visualstudio.com/docs/extensions/example-hello-world" target="_blank" rel="noopener">Your First Visual Studio Code Extension - Hello World</a>を見ながらExtensionを作る方法を調べていたんだけど、<a href="https://github.com/satokaz/vscode-bs-ctrlchar-remover" target="_blank" rel="noopener">vscode-bs-ctrlchar-remover</a>が同じ問題をすでに解決していることを発見し、それをインストールしてしばらく様子見することにした。</p>
 </div>
+      </article>
     </main>
   </div>
 </body>

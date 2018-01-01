@@ -19,11 +19,16 @@
   </header>
   <div class="container">
     <main class="main">
-      <header class="header">
-        <h1 class="header__title">HTMLの構造を再確認する</h1>
-        <div><time datetime="2017-12-30T15:00:00.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月31日</time></div>
-      </header>
-      <div id="article-content" class="content"><p>久しくHTML要素について振り返っていなかったので、このタイミングで一度主要な構造についてのHTML要素について振り返ってみようと思う。（TL;DR:適切な見出し要素が大事。あとはおまけ）<br><a id="more"></a></p>
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">HTMLの構造を再確認する</h1>
+          <div>
+            <time datetime="2017-12-30T15:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2017年12月31日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>久しくHTML要素について振り返っていなかったので、このタイミングで一度主要な構造についてのHTML要素について振り返ってみようと思う。（TL;DR:適切な見出し要素が大事。あとはおまけ）<br><a id="more"></a></p>
 <h2 id="セクショニングコンテンツについて"><a href="#セクショニングコンテンツについて" class="headerlink" title="セクショニングコンテンツについて"></a>セクショニングコンテンツについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/dom.html#sectioning-content-2" target="_blank" rel="noopener">HTML 5.2: 3.2.4.2.3. Sectioning content</a>より</p>
 <blockquote>
 <p>Sectioning content is content that defines the scope of headings and footers.</p>
@@ -163,6 +168,7 @@
 <p>と、見出し要素で暗黙的にセクションを区切るより、セクショニングコンテンツの要素で区切る方を奨励されてはいる。</p>
 <p>見出し要素のないセクショニングコンテンツは、セクショニングコンテンツの要素で区切った方がすっきりはするけど、実際にブラウザが構築するアウトラインとしては意味がないものとなる。ので、セクションを区切りたいときは見出しも用意した方がいい。</p>
 </div>
+      </article>
     </main>
   </div>
 </body>
