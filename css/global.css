@@ -6,6 +6,14 @@ body {
   padding: 0;
 }
 
+a {
+  color: darkred;
+}
+
+a:visited {
+  color: rebeccapurple;
+}
+
 .header {
   margin: 0 auto;
   font-family: Garamond, 'Times New Roman', serif; }
@@ -56,7 +64,7 @@ body {
 .container {
   max-width: 750px;
   margin: 0 auto 4em;
-  padding: 0;
+  padding: 0 15px;
   border-radius: 3px;
 }
 
