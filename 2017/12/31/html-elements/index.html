@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
   <title>メモログ</title>
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,21 +9,21 @@
 <link rel="stylesheet" href="/site/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/site/css/prism-line-numbers.css" type="text/css"></head>
 <body>
-  <header class="header header_component_global">
+    <header class="header header_component_global">
     <div class="header__title header__title"><a href="/site/">メモログ</a></div>
     <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
-    <blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
     <nav class="navigation navigation-global">
-      <a href="/site/" class="navigation__link" routerLinkActive="active">📘 Latest Articles</a>
+      <a href="/site/" class="navigation__link">📘 Latest Articles</a>
     </nav>
   </header>
   <div class="container">
     <main class="main">
-  <header class="header">
-    <h1 class="header__title">HTMLの構造を再確認する</h1>
-    <div><time datetime="2017-12-30T15:00:00.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月31日</time></div>
-  </header>
-  <div id="article-content" class="content"><p>久しくHTML要素について振り返っていなかったので、このタイミングで一度主要な構造についてのHTML要素について振り返ってみようと思う。（TL;DR: 文書全体で見出しレベルを扱うべし）<br><a id="more"></a></p>
+      <header class="header">
+        <h1 class="header__title">HTMLの構造を再確認する</h1>
+        <div><time datetime="2017-12-30T15:00:00.000Z" itemprop="datePublished" class="updated dt-published"><span class="calendar-icon">📅</span>2017年12月31日</time></div>
+      </header>
+      <div id="article-content" class="content"><p>久しくHTML要素について振り返っていなかったので、このタイミングで一度主要な構造についてのHTML要素について振り返ってみようと思う。（TL;DR:適切な見出し要素が大事。あとはおまけ）<br><a id="more"></a></p>
 <h2 id="セクショニングコンテンツについて"><a href="#セクショニングコンテンツについて" class="headerlink" title="セクショニングコンテンツについて"></a>セクショニングコンテンツについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/dom.html#sectioning-content-2" target="_blank" rel="noopener">HTML 5.2: 3.2.4.2.3. Sectioning content</a>より</p>
 <blockquote>
 <p>Sectioning content is content that defines the scope of headings and footers.</p>
@@ -32,7 +32,7 @@
 </blockquote>
 <p>セクショニングコンテンツは見出し（h1〜h6要素）やフッター（footer要素）のスコープを定義するためのコンテンツで、articleやaside、nav、sectionなどの要素がそれに当たる。それぞれのセクショニングコンテンツは見出しとアウトラインを持つ可能性がある。それぞれのセクショニングコンテンツの要素については<a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#sections" target="_blank" rel="noopener">HTML5.2: 4.3. Sections</a>に詳細が記載されているが、特に詳述するほどでもないので、箇条書きに記す。</p>
 <ul>
-<li>article: いわゆる記事とか論文、レポート、ブログとかのポストなんかで、ドキュメント内の完結または独立した構成に使われる。</li>
+<li>article: いわゆる記事とか論文、レポート、ブログとかのポストなんかで、ドキュメント内の完結または独立した構成に使われる。</li>
 <li>section: 汎用的な要素で、セクションを区切るために使われる。</li>
 <li>nav: ナビゲーションリンクを構成するセクションに使われる。</li>
 <li>aside: 親セクションと関連したコンテンツであるが、内容的には独立したものとみなせるセクションで、サイドバーとかPull Quoteなどに使われる。</li>
@@ -43,7 +43,7 @@
 <p>Certain elements are said to be sectioning roots, including blockquote and td elements. These elements can have their own outlines, but the sections and headings inside these elements do not contribute to the outlines of their ancestors.</p>
 <p>-&gt; blockquote body details dialog fieldset figure td</p>
 </blockquote>
-<p>以上のセクショニングルートは独自のアウトライン構造を持つことができ、親要素の構造には影響与えないとされる。仕様の中でセクショニングコンテンツと併記して扱われることが多いが、あまり意識しなくても大丈夫（と思う）。</p>
+<p>以上のセクショニングルートは独自のアウトライン構造を持つことができ、親要素の構造には影響与えないとされる。仕様の中でセクショニングコンテンツと併記して扱われることが多いが、あまり意識しなくても大丈夫（と思う）。</p>
 <h2 id="アウトラインについて"><a href="#アウトラインについて" class="headerlink" title="アウトラインについて"></a>アウトラインについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#outline" target="_blank" rel="noopener">HTML 5.2: 4.3.9.1. Creating an outline</a>より</p>
 <blockquote>
 <p>The outline for a sectioning content element or a sectioning root element consists of a list of one or more potentially nested sections. The element for which an outline is created is said to be the outline’s owner.</p>
@@ -54,6 +54,11 @@
 </blockquote>
 <p>現状では、アウトラインの処理を行うブラウザが存在しないため、このセクションで書かれているアウトラインの処理に依拠したかたちでドキュメント構造をユーザーには提供できない。<strong>なので、実際のHTMLにおいては、セクショニングコンテンツのアウトライン構造に関わらず、ドキュメント全体で見出しのランクを扱うことでドキュメント構造を用意するしかない。</strong></p>
 <p>この現状を踏まえると、アウトラインを構成する要素はあまり気にしないで見出しレベルだけ気にすれば良いということになるが、将来性という意味でできるだけ適切な構造を用意しておく方が良いは良いと思われる。</p>
+<p>参考</p>
+<ul>
+<li><a href="http://adrianroselli.com/2013/12/the-truth-about-truth-about-multiple-h1.html" target="_blank" rel="noopener">The Truth about “The Truth About Multiple H1 Tags” | Adrian Roselli</a></li>
+<li><a href="http://adrianroselli.com/2016/08/there-is-no-document-outline-algorithm.html" target="_blank" rel="noopener">There Is No Document Outline Algorithm | Adrian Roselli</a></li>
+</ul>
 <h2 id="header-要素"><a href="#header-要素" class="headerlink" title="header 要素"></a>header 要素</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#the-header-element" target="_blank" rel="noopener">HTML 5.2: 4.3.7 The header element</a> より</p>
 <blockquote>
 <p>The header element represents introductory content for its nearest ancestor main element or sectioning content or sectioning root element. A header typically contains a group of introductory or navigational aids.</p>
@@ -158,8 +163,7 @@
 <p>と、見出し要素で暗黙的にセクションを区切るより、セクショニングコンテンツの要素で区切る方を奨励されてはいる。</p>
 <p>見出し要素のないセクショニングコンテンツは、セクショニングコンテンツの要素で区切った方がすっきりはするけど、実際にブラウザが構築するアウトラインとしては意味がないものとなる。ので、セクションを区切りたいときは見出しも用意した方がいい。</p>
 </div>
-</main>
-
+    </main>
   </div>
 </body>
 </html>

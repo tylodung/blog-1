@@ -1,5 +1,5 @@
 body {
-  background-color: lightblue;
+  background-color: white;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
@@ -13,7 +13,8 @@ body {
 .header_component_global {
   background-color: white;
   text-align: center;
-  padding-bottom: 12px; }
+  margin: 1em 0;
+}
 
 .header__title {
   display: inline-block;
@@ -55,9 +56,9 @@ body {
 
 .container {
   max-width: 750px;
-  margin: 27px auto;
+  margin: 0 auto;
   background-color: white;
-  padding: 25px;
+  padding: 0;
   border-radius: 3px; }
 
 .content {
