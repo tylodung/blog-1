@@ -29,13 +29,13 @@
           </div>
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>久しくHTML要素について振り返っていなかったので、このタイミングで一度主要な構造についてのHTML要素について振り返ってみようと思う。（TL;DR:適切な見出し要素が大事。あとはおまけ）<br><a id="more"></a></p>
-<h2 id="セクショニングコンテンツについて"><a href="#セクショニングコンテンツについて" class="headerlink" title="セクショニングコンテンツについて"></a>セクショニングコンテンツについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/dom.html#sectioning-content-2" target="_blank" rel="noopener">HTML 5.2: 3.2.4.2.3. Sectioning content</a>より</p>
+<h2 id="セクショニングコンテンツについて"><a href="#セクショニングコンテンツについて" class="headerlink" title="セクショニングコンテンツについて"></a>セクショニングコンテンツについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/dom.html#sectioning-content-2" target="_blank" rel="noopener">HTML 5.2: 3.2.4.2.3. Sectioning content</a> より</p>
 <blockquote>
 <p>Sectioning content is content that defines the scope of headings and footers.</p>
 <p>-&gt; article aside nav section</p>
 <p>Each sectioning content element potentially has a heading and an outline. See the section on headings and sections for further details.</p>
 </blockquote>
-<p>セクショニングコンテンツは見出し（h1〜h6要素）やフッター（footer要素）のスコープを定義するためのコンテンツで、articleやaside、nav、sectionなどの要素がそれに当たる。それぞれのセクショニングコンテンツは見出しとアウトラインを持つ可能性がある。それぞれのセクショニングコンテンツの要素については<a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#sections" target="_blank" rel="noopener">HTML5.2: 4.3. Sections</a>に詳細が記載されているが、特に詳述するほどでもないので、箇条書きに記す。</p>
+<p>セクショニングコンテンツは見出し（h1〜h6要素）やフッター（footer要素）のスコープを定義するためのコンテンツで、articleやaside、nav、sectionなどの要素がそれに当たる。それぞれのセクショニングコンテンツは見出しとアウトラインを持つ可能性がある。それぞれのセクショニングコンテンツの要素については<a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#sections" target="_blank" rel="noopener">HTML5.2: 4.3. Sections</a> に詳細が記載されているが、特に詳述するほどでもないので、箇条書きに記す。</p>
 <ul>
 <li>article: いわゆる記事とか論文、レポート、ブログとかのポストなんかで、ドキュメント内の完結または独立した構成に使われる。</li>
 <li>section: 汎用的な要素で、セクションを区切るために使われる。</li>
@@ -43,13 +43,13 @@
 <li>aside: 親セクションと関連したコンテンツであるが、内容的には独立したものとみなせるセクションで、サイドバーとかPull Quoteなどに使われる。</li>
 </ul>
 <p>後述するが、ブラウザが構築するアウトライン上ではセクショニングコンテンツの要素自体は考慮されないため、文書構造のアウトラインとして機能させるには、見出し要素と併用してアウトラインを作成する必要がある。</p>
-<h2 id="セクショニングルートについて"><a href="#セクショニングルートについて" class="headerlink" title="セクショニングルートについて"></a>セクショニングルートについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#sectioning-roots" target="_blank" rel="noopener">HTML 5.2: Sectioning Root</a>より</p>
+<h2 id="セクショニングルートについて"><a href="#セクショニングルートについて" class="headerlink" title="セクショニングルートについて"></a>セクショニングルートについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#sectioning-roots" target="_blank" rel="noopener">HTML 5.2: Sectioning Root</a> より</p>
 <blockquote>
 <p>Certain elements are said to be sectioning roots, including blockquote and td elements. These elements can have their own outlines, but the sections and headings inside these elements do not contribute to the outlines of their ancestors.</p>
 <p>-&gt; blockquote body details dialog fieldset figure td</p>
 </blockquote>
 <p>以上のセクショニングルートは独自のアウトライン構造を持つことができ、親要素の構造には影響与えないとされる。仕様の中でセクショニングコンテンツと併記して扱われることが多いが、あまり意識しなくても大丈夫（と思う）。</p>
-<h2 id="アウトラインについて"><a href="#アウトラインについて" class="headerlink" title="アウトラインについて"></a>アウトラインについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#outline" target="_blank" rel="noopener">HTML 5.2: 4.3.9.1. Creating an outline</a>より</p>
+<h2 id="アウトラインについて"><a href="#アウトラインについて" class="headerlink" title="アウトラインについて"></a>アウトラインについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#outline" target="_blank" rel="noopener">HTML 5.2: 4.3.9.1. Creating an outline</a> より</p>
 <blockquote>
 <p>The outline for a sectioning content element or a sectioning root element consists of a list of one or more potentially nested sections. The element for which an outline is created is said to be the outline’s owner.</p>
 </blockquote>
@@ -101,7 +101,7 @@
 <blockquote>
 <p>Contact information for the author or editor of a section belongs in an address element, possibly itself inside a footer. Bylines and other information that could be suitable for both a header or a footer can be placed in either (or neither).</p>
 </blockquote>
-<p>著作者の情報は（そのセクションのintroductory contentだから）headerにも入る余地がある。<a href="https://www.w3.org/TR/2017/REC-html52-20171214/grouping-content.html#elementdef-address" target="_blank" rel="noopener">address要素</a>で扱われるようなコンタクト情報などはフッターに入る方が良さそうだけど、Bylineとかその他の著者情報はheaderかfooter、どちらにも適しているかもしれない（あるいはどちらにも適さないかもしれない）。</p>
+<p>著作者の情報は（そのセクションのintroductory contentだから）headerにも入る余地がある。<a href="https://www.w3.org/TR/2017/REC-html52-20171214/grouping-content.html#elementdef-address" target="_blank" rel="noopener">address要素</a> で扱われるようなコンタクト情報などはフッターに入る方が良さそうだけど、Bylineとかその他の著者情報はheaderかfooter、どちらにも適しているかもしれない（あるいはどちらにも適さないかもしれない）。</p>
 <p>上記のあたり、大変微妙なところではあるけど、headerには基本的にセクションの内容を補足する情報が入るのに対して、footerにはセクションの内容と関連するけど独立したコンテンツが入るみたいな感覚で良いのではなかろうか。</p>
 <blockquote>
 <p>Footers don’t necessarily have to appear at the end of a section, though they usually do.</p>
@@ -123,7 +123,7 @@
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>footer</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Back to index...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>footer</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="heading要素とセクションについて"><a href="#heading要素とセクションについて" class="headerlink" title="heading要素とセクションについて"></a>heading要素とセクションについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#headings-and-sections" target="_blank" rel="noopener">HTML5.2: 4.3.9. Headings and sections</a>より</p>
+<h2 id="heading要素とセクションについて"><a href="#heading要素とセクションについて" class="headerlink" title="heading要素とセクションについて"></a>heading要素とセクションについて</h2><p><a href="https://www.w3.org/TR/2017/REC-html52-20171214/sections.html#headings-and-sections" target="_blank" rel="noopener">HTML5.2: 4.3.9. Headings and sections</a> より</p>
 <blockquote>
 <p>The first element of heading content in an element of sectioning content represents the heading for that explicit section. Subsequent headings of equal or higher rank start new implied subsections that are part of the previous section’s parent section. Subsequent headings of lower rank start new implied subsections that are part of the previous one. In both cases, the element represents the heading of the implied section.</p>
 </blockquote>
