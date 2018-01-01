@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  background-color: #FCFAF2;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
@@ -11,14 +11,13 @@ body {
   font-family: Garamond, 'Times New Roman', serif; }
 
 .header_component_global {
-  background-color: white;
   text-align: center;
   margin: 1em 0;
 }
 
 .header__title {
   display: inline-block;
-  background-color: gainsboro;
+  background-color: #D3D1C6;
   margin: .5em 0 .2em;
   padding: 5px;
   font-size: 1.8em;
@@ -56,10 +55,10 @@ body {
 
 .container {
   max-width: 750px;
-  margin: 0 auto;
-  background-color: white;
+  margin: 0 auto 4em;
   padding: 0;
-  border-radius: 3px; }
+  border-radius: 3px;
+}
 
 .content {
   font-size: 1em;
