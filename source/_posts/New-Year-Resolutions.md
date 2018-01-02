@@ -10,4 +10,3 @@ date: 2018-01-03 07:34:59
 * touch OpenCV
 * touch Microsoft cognitive service
 * touch Tensorflow
-
