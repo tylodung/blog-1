@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Jasmineでのテストで、requireJSのmoduleに対してspyOnしたい</h1>
+          <div>
+            <time datetime="2013-08-02T05:30:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年8月2日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>jasmineでのテストで、requireJSのmoduleに対してspyOnしたい場合、どうしたら良いのかなという話。moduleを呼び出す側の処理で、moduleに適切な値をちゃんと渡しているかを確認したいときが、ある。普通はないかもしれないけど。とにかく、そういうときにspyOnしてその値を確認したい。</p>
+<a id="more"></a>
+<p>たとえば下記のようなモジュールの場合。foo.jsというファイル名でモジュール名は「foo」となるとして。</p>
+<p>define(function(){<br>  return function(arg1,arg2){<br>    // do sutekina something<br>  }<br>});</p>
+<p>上記のモジュールをDependencyとして扱う下記のようなモジュールがあるとする。モジュール名は「bar」となるとして。</p>
+<p>define([foo],function(Foo){<br>  return function(){<br>    var foo = new Foo(‘hoge’,’fuga’);<br>  }<br>});</p>
+<p>それで、barのモジュールのテストで、fooにきちんと値がわたっているかを確認したいとする。</p>
+<p>it(‘a small world’,function(){<br>  var flag;<br>  var stubModule = {<br>    stub: function (arg1, arg2) {<br>      // write some code to work tests well<br>      flag = true;<br>    }<br>  };</p>
+<p>  define(‘foo’, [], function(){<br>    return stubModule.stub;<br>  });</p>
+<p>  spyOn(stubModule, ‘stub’).andCallThrough();</p>
+<p>  require([‘bar’], function (Bar) {<br>    new Bar();<br>  });</p>
+<p>  waitsFor(function () {<br>    return flag;<br>  }, ‘timeout error on require foo or bar’, 3000);</p>
+<p>  runs(function () {<br>    var args = stubModule.stub.mostRecentCall.args;<br>    expect(args[0]).toEqual(‘hoge’);<br>    expect(args[1]).toEqual(‘fuga’);<br>  });<br>});</p>
+<p>spyOnはspyOn(object, methodName)という形で、第一引数でobjectを渡して、第二引数でobjectの中のメソッド名を指定するという風に使うので、stubModuleはオブジェクトとして用意する。 そして、defineでfooモジュールを定義して、stubModule.stubを返すようにする。</p>
+<p>それでstubModuleのstubをspyOn(stubModule,’stub’)でspyOnすると。</p>
+<p>すでにmoduleがrequireされている場合は、require.undef(‘foo’)で<a href="http://requirejs.org/docs/api.html#undef" target="_blank" rel="noopener">undefining</a>して、$(‘script[src$=”foo.js”]‘).remove();とかして、requireされていないのと同様の状態に戻さないとだめかもしれない（そしてテスト後に、stubをrequire.undefしてrequireし直す）。</p>
+<p>というメモ… 内容は<a href="http://iterativo.wordpress.com/2012/03/06/unit-testing-javascript-
+modules-using-requirejs-and-jasmine/" target="_blank" rel="noopener">Unit testing JavaScript modules using RequireJS and Jasmine | iterativo</a>の記事を参考にしました。TDDで開発しているとこうしたTestability的にgoodでない状況に陥らないのかどうなのか。もっと良いやり方あるかなあ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

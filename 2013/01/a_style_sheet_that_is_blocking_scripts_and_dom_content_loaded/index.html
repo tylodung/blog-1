@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">a style sheet that is blocking scripts と DOMContentLoaded</h1>
+          <div>
+            <time datetime="2013-01-23T06:07:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年1月23日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://molily.de/weblog/domcontentloaded" target="_blank" rel="noopener">DOMContentLoaded and stylesheets · molily</a>（via <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/DOMContentLoaded_&#x25;28event&#x25;29" target="_blank" rel="noopener">DOMContentLoaded - Mozilla event reference | MDN</a>）にて、head内のスタイルシートとJavascriptの配置の違いで、DOMContentLoadedイベントが発生するタイミングが変わるという内容が掲載されています。スタイルシートのあとにJavascriptが入っていると、DOMContentLoadedはスタイルシートをロードしたあとに発生して、スタイルシートのあとにJavascriptがないと、スタイルシートのロードを待たずにDOMContentLoadedが発生する。</p>
+<a id="more"></a>
+<p>これは<a href="http://www.w3.org/TR/html5/syntax.html#parsing-main-incdata" target="_blank" rel="noopener">Parsingの仕様</a>によると、<a href="http://www.w3.org/TR/html5/scripting-1.html#pending-parsing-blocking-script" target="_blank" rel="noopener">pending parsing-blocking script</a>の実行前に、Documentが <a href="http://www.w3.org/TR/html5/document-metadata.html#has-no-style-sheet-that-is-blocking-scripts" target="_blank" rel="noopener">has no style sheet that is blocking scripts</a>の状態になるまで、<a href="http://www.w3.org/TR/html5/webappapis.html#spin-the-event-loop" target="_blank" rel="noopener">event loopをspinさせる</a>からということになるみたい。</p>
+<blockquote>
+<p>If the parser’s Document has a style sheet that is blocking scripts or the script’s “ready to be parser-executed” flag is not set: spin the event loop until the parser’s Document has no style sheet that is blocking scripts and the script’s “ready to be parser-executed” flag is set.</p>
+</blockquote>
+<p>つまり、pending parsing-blocking script（HTMLパーサーがinsertしたscriptタグのうち、deferやasync属性がついていないもの）が実行前に、style sheet that is blocking scripts（HTMLパーサーが追加したスタイルシートのうち、ロードされていないもの（style sheet ready flag is not yet set））がある場合、ロードされるまで<a href="http://www.w3.org/TR/html5/webappapis.html#processing-model-3" target="_blank" rel="noopener">event loopをまわす</a>。スタイルシートがロードされ、style sheet readyの状態になると、event loopの「update the rendering」のステップでscriptでの利用が可能な状態になり、他にロード待ちがなければscriptの実行に移ると。こうすることで、スタイルシートで指定しているフォントの色なんかの値を、scriptが適切に受け取ることができると。</p>
+<p>DOMContentLoadedのイベントは、<a href="http://www.w3.org/TR/html5/syntax.html#the-end" target="_blank" rel="noopener">8.2.6 The end</a>に記載によれば、HTMLのパースが一通り完了して、defer属性がついたscriptなどを処理したあとに発生する。ので、スタイルシートの後にscriptがある場合、scriptがパーサーをブロックしつつスタイルシートのロードを待った上で実行されるため、DOMContentLoadedはスタイルシートがロードされるまで待つことになる。一方、スタイルシートの後にscriptがない場合は、パーサーをブロックしてロードを待つことがないため、ロードが完了していなくても、HTMLパースが完了してDOMContentLoadedのイベントが発生する。と、いうことになる。みたい。</p>
+<p>ただ、<a href="http://molily.de/weblog/domcontentloaded" target="_blank" rel="noopener">DOMContentLoaded and stylesheets · molily</a>の<a href="http://molily.de/assets/domcontentloaded/t2-link-external-script.html" target="_blank" rel="noopener">Testcase #2</a>で試した感じでは、Operaはscriptの実行前にスタイルシートのロードを待たない雰囲気。そのためDOMContentLoadedの実行がロードより早く、getComputedStyleで取得したフォントの色の値にスタイルシートで設定した色が反映できていない（他のブラウザはheadの部分でパーサーがブロックされるのでコンテンツが表示されるまでに時間がかかる）。</p>
+<p>Operaの動作の差異を気にしないとしても、scriptの実行時（ダウンロード時ではない）にスタイルシートがavailableな状態になっていないと、実行はブロックされた状態になるので、スタイルシートのロードをできるだけ先にして、javascriptはできるだけ後にする、というのが基本的には良いかもしれない。</p>
+<p>scriptで現在のスタイルの値をまったく参照しないみたいな、スタイルシートとscriptを独立できるのであれば、scriptを先に読み込むというのもありかもしれません（その方がロードによるブロックは発生しない）。ただ、Safari(6)とChrome(24)では、結局スタイルシートがロードし終わるまでコンテンツが表示されなかったですが…（Firefoxは表示される）</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

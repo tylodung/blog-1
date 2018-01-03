@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Cordovaプロジェクトをアーカイブしたときにエラー</h1>
+          <div>
+            <time datetime="2013-12-04T18:30:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年12月5日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>Cordova/PhoneGapで作成したXcodeのプロジェクトをアーカイブしようとしたときに下記のようなエラーが発生するようになりまして。</p>
+<pre class="line-numbers language-none"><code class="language-none">Stripping /Users/me/Library/Developer/Xcode/DerivedData/AppName-fiikgzftwgndirfiyeacmuhhgnft/Build/Intermediates/ArchiveIntermediates/AppName/IntermediateBuildFilesPath/UninstalledProducts/libCordova.a
+
+<!-- more -->
+    cd /Users/me/path/to/AppName/platforms/ios/CordovaLib
+    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -S /Users/me/Library/Developer/Xcode/DerivedData/AppName-fiikgzftwgndirfiyeacmuhhgnft/Build/Intermediates/ArchiveIntermediates/AppName/IntermediateBuildFilesPath/UninstalledProducts/libCordova.a
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip: can't open temporary file: (null) (Bad address)
+Command /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip failed with exit code 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>どうもCordovaLibのStrip Linked Productのプロセスで、Strippingするときにtemporary fileを開くところで失敗しているみたい。なので、CordovaLibの「Strip Linked Product」を「No」に設定すると回避できる。  </p>
+<p><img src="http://farm6.staticflickr.com/5546/11203619224_9584d6cf87_o.png" alt=""></p>
+<p>根本的にはtmpディレクトリにアクセスできないのが原因のようなので、/private/tmpのディレクトリのパーミッションを変更すればエラーが発生しなくなる。tmpディレクトリのパーミションを変更した記憶はないのだけど…</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cd</span> /private
+<span class="token function">sudo</span> <span class="token function">chmod</span> 777 tmp
+<span class="token function">sudo</span> <span class="token function">chmod</span> +t tmp
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>ほかの人や他のMacではこのパーミッションであったので、設定自体は問題ないと思いますけど、変えた記憶はないんだよなあ。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

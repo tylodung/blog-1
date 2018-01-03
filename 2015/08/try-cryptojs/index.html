@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">CryptoJSを使ったクライアントとサーバー間の暗号化と復号化</h1>
+          <div>
+            <time datetime="2015-08-16T18:30:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2015年8月17日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>CryptoJSを使ったクライアントサイド（Javascript）とサーバーサイド（Node.js）での暗号化と復号化について。CryptoJSは<a href="https://github.com/brix/crypto-js" target="_blank" rel="noopener">brix/crypto-js</a>のやつを使用します。</p>
+<a id="more"></a>
+<h2 id="クライアントサイドの実装"><a href="#クライアントサイドの実装" class="headerlink" title="クライアントサイドの実装"></a>クライアントサイドの実装</h2><p>CryptoJSのライブラリ（crypto-js.js）をheadで読み込ませているとします。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> str <span class="token operator">=</span> <span class="token string">"Lorem ipsum dolor sit amet"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> key <span class="token operator">=</span> <span class="token string">"12345678901234567890123456789012"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> encrypted <span class="token operator">=</span> CryptoJS<span class="token punctuation">.</span>AES<span class="token punctuation">.</span><span class="token function">encrypt</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>encrypted<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>encryptメソッドで生成した変数をtoString()すると、ciphertextやiv、saltなど復号化に必要なものをまとめて一つのBase64フォーマットの文字列に変換してくれます（例：U2FsdGVkX19c2KuWxFQsC9fhaum9z8w6MtoMikCmy0Om+Mi+cAEEFu7JZl8JLOf3）。これをNode.js側に送ります。</p>
+<h2 id="サーバーサイドの実装"><a href="#サーバーサイドの実装" class="headerlink" title="サーバーサイドの実装"></a>サーバーサイドの実装</h2><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> CryptoJS <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'crypto-js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> str <span class="token operator">=</span> <span class="token string">"U2FsdGVkX19c2KuWxFQsC9fhaum9z8w6MtoMikCmy0Om+Mi+cAEEFu7JZl8JLOf3"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> key <span class="token operator">=</span> <span class="token string">"12345678901234567890123456789012"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> decrypted <span class="token operator">=</span> CryptoJS<span class="token punctuation">.</span>AES<span class="token punctuation">.</span><span class="token function">decrypt</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>decrypted<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>CryptoJS<span class="token punctuation">.</span>enc<span class="token punctuation">.</span>Utf8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>という感じで、CryptoJSを使うと簡単に暗号化と復号化ができます。ただ、クライアントサイドのソースは公開されてしまうので、クライントサイドとサーバーサイドでどうkeyを共有するかというのが考えどころ（ajaxで取得するようにするとか？）。また、keyはsaltingした上で使うらしいので（<a href="http://qiita.com/yaegaki/items/9701317a76a35bea1684" target="_blank" rel="noopener">[JavaScript]CryptoJSでAES暗号のsaltとパスフレーズからkeyを求める - Qiita</a>参照）、他の暗号化/復号化ライブラリと連携して使おうとすると、実際使われているkeyがわからなくて難儀するかもなあと思いました。</p>
+<h2 id="追記"><a href="#追記" class="headerlink" title="追記"></a>追記</h2><p>いわゆるブラウザ（クライアントサイド）とサーバーサイドで暗号化してやりとりするなら、<a href="https://ja.wikipedia.org/wiki/&#x25;E5&#x25;85&#x25;AC&#x25;E9&#x25;96&#x25;8B&#x25;E9&#x25;8D&#x25;B5&#x25;E6&#x25;9A&#x25;97&#x25;E5&#x25;8F&#x25;B7" target="_blank" rel="noopener">公開鍵</a>の方がいいよねと今さらながら思った。そして<a href="https://github.com/wwwtyro/cryptico" target="_blank" rel="noopener">Cryptico</a>なら、サーバーサイド（Node.js）で公開鍵を生成して、クライアントサイドに送信、それを使ってクライアントサイドで暗号化して、送り返すということができそう。そのうち試してみたい。</p>
+<p>あとうっかり失念していたけど、標準の<a href="http://www.w3.org/TR/WebCryptoAPI/" target="_blank" rel="noopener">Web Cryptography</a>。<a href="http://caniuse.com/#feat=cryptography" target="_blank" rel="noopener">Can I use… Support tables for HTML5, CSS3, etc</a>を見ると、なかなかいい感じのサポート具合になっている。このあたりもそのうち見直してみたい（そのうち…）</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

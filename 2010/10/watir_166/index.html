@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir 1.6.6 リリース</h1>
+          <div>
+            <time datetime="2010-10-15T06:45:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2010年10月15日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>2週間近く前ですが、watirの1.6.6がリリースされましたね。変更点は<a href="http://watir.com/2010/10/04/watir-1-6-6-final-released/" target="_blank" rel="noopener">Watir 1.6.6 final released</a>に書かれている通りで、個人的には確実に使用するclick_no_waitのメソッドが修正されているのが大きいなあと思います。以前に「<a href="http://memolog.org/2010/07/watir_click_no_wait_doesnt_work.php" target="_blank" rel="noopener">watir: click_no_wait が動作しない - メモログ</a>」で行った修正で動作することにはするのですが、処理に妙に時間がかかってしまってました。1.6.6ではそういう副作用もなく解消されているようです。</p>
+<a id="more"></a>
+<p>その他いくつか魅力的な実装が追加されています。一つは#elementと#elementsのメソッド。詳しくは<a href="http://jira.openqa.org/browse/WTR-103" target="_blank" rel="noopener">implement IE#element and IE#elements</a>に書いてある通りなのですが、ie.link(:id, “id”).click とリンクタグを特定する代わりに、ie.element(:id, ‘id’).click とタグを特定しなくてもできるようになりました。</p>
+<p>あと、ie.link(:id,’id’).styleみたいな指定で、インラインのCSS以外の情報も取得できるようになったようです。watir上でCSSファイルに書かれているスタイル情報を取得するのは難しそうなので、必要としている人にはありがたい機能と思われます。私はこのメソッドを使用したことありませんが。</p>
+<p>そのほかtable(:id,’id’).row(:index,1).to_a みたいな形で、特定したtableの行のテキストを配列で返してくれるようなったみたいです。いつ使用するんだろうと思わなくもありませんが。</p>
+<p>まあ、とにかく。1.6.5から1.6.6にアップデートしてみましたが、特に問題なく動作しているみたいです。うむうむ。すばらしい。ちなみにrubyのバージョンは1.8.6です。</p>
+<p>留意点としては、watirを1.6.6にアップデートするとactionsupportも2.3.9にアップデートされることでしょうか。actionsupportはactionpackとactionmailerの2.3.9が必要のようで、それらをインストールしている場合は一緒にアップデートする必要があります。そして、これらの2.3.9では<a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5555-actionmailer-239-should-now-require-uri#ticket-5555-11" target="_blank" rel="noopener">actionmailer 2.3.9 should now require ‘uri’</a>というエラーが発生するようですが、このURLのdiffを適用すれば問題解消します。actionpackもactionmailerも3.0.0が最新のようですが、rubyのバージョンが1.8.7である必要があるみたいです。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

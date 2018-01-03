@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Navigation TimingとDom processing phase</h1>
+          <div>
+            <time datetime="2013-01-28T13:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年1月28日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.w3.org/TR/navigation-timing/" target="_blank" rel="noopener">Navigation Timing</a>の仕様では、ナビゲーションや要素にアクセスするタイミングの情報を得ることができる。このNavigation Timingの情報を表示するには、ブラウザのデベロッパーツールなどのコンソールで、<a href="http://www.w3.org/TR/navigation-timing/#sec-window.performance-attribute" target="_blank" rel="noopener">window.performance.timing</a>を実行する。現在のサポートブラウザは<a href="http://caniuse.com/#feat=nav-timing" target="_blank" rel="noopener">Can I use… Support tables for HTML5, CSS3, etc</a>の通り。</p>
+<a id="more"></a>
+<p>取得できる情報は下の画像のグラフのような値。最初の値であるnavigationStartは、ひとつ前のDocumentをunloadする作業を開始した直後に発生する（前のDocumentがなければfetchStartと同じになる）。そして、リダイレクトが必要なリダイレクトの時間、新しいDocumentの取得をし始めたらfetchStart、domainのlookup、サーバーとの接続、リクエスト、レスポンス、そしてDOMの処理へと進みます。このあたりは<a href="http://www.w3.org/TR/navigation-timing/#sec-navigation-timing-interface" target="_blank" rel="noopener">4.2 The PerformanceTiming interface</a>に詳しく載っています。 <img src="http://www.w3.org/TR/navigation-timing/timing-overview.png" alt=""></p>
+<p><a href="http://www.w3.org/TR/navigation-timing/#dom-performancetiming-domloading" target="_blank" rel="noopener">domLoading</a>には、current document readinessが”loading”の状態になる直前の時間が入る（This attribute must return the time immediately before the user agent sets the current document readiness to “loading”）。<a href="http://www.w3.org/TR/html5/dom.html#current-document-readiness" target="_blank" rel="noopener">current document readiness</a>は、Documentオブジェクトの待ち受け状態で、Documentオブジェクトが新しく作成されると、そのDocumentのcurrent document readinessは「loading」の状態になる。つまり、domLoadingはDocumentオブジェクトが新しく作成されたタイミングで発生すると。</p>
+<p>上の画像ではすべての処理が直列に行われるようなイメージですが、実際の動きを確認した限りでは、DocumentはresponseStartの直後に新しく作成するようで、responseEndより若干先に始まる（並列で処理される）。Firebugでperformance.timingを実行すると、下の画像のようなグラフィカルな感じになって見やすいのですが、「Dom Processing」の項目がresponseEndからdomCompleteの間までのグラフになっているので、若干語弊があるように見えなくもない（domLoadingは「Recieving」の途中で発生している）。でもクリティカルパスの可視化という意味では間違いではないかもしれない（responseEndが終わらない限りはDom processingが終わることはない）。そのあたりの意図は不明… <img src="http://farm9.staticflickr.com/8055/8404329267_eeba922823_z.jpg" alt=""></p>
+<p>そしてdomLoadingの次はdomInteractive。これはcurrent document redinessが「interactive」の状態になる直前の時間で、<a href="http://www.w3.org/TR/html5/syntax.html#the-end" target="_blank" rel="noopener">interactive</a>は、HTML parserがストップしたらそのように設定される。つまり、HTML(DOM)のパースと、Javascriptの実行（スクリプトの評価とかイベントハンドラの登録とか）などが含まれる。scriptタグにdefer属性がある場合は「interactive」よりも後に実行される（DOMContentLoadedのイベント発生より前）。CSSについては<a href="http://memolog.org/2013/01/a_style_sheet_that_is_blocking_scripts_and_dom_content_loaded.php" target="_blank" rel="noopener">a style sheet that is blocking scripts と DOMContentLoaded</a>で記載した通り、Javascriptがパーサーをブロックするかどうかで異なるけれど、たいていはinteractiveの前にavailable to scriptな状態になっているはず。</p>
+<p>domInteractiveの後に、defer属性のついたscriptが処理されて、DOMContentLoadedのイベントが発生して、このイベントを待っている処理が実行される（DOMContentLoadedEventStart）。jQueryでready状態を待って処理を実行する場合は、DOMContentLoadedのイベントを待っているので、このタイミングで実行されることになる。</p>
+<p>そしてDOMContentLoadedで実行された処理が終わるとDOMContentLoadedEventEndとなり、HTMLパースしたときに見つけた画像の読み込みなど、load event前に終わらないといけないものが残っていたら、終わるのを待って、current document redinessが「complete」になる。そして(on)loadイベントが発生する。(on)loadでイベントを待っている処理がある場合はそこから実行される。</p>
+<p>という感じで、performance.timingでDom processingの流れをながめると、(1) domLoading -&gt; (2) domInteractive -&gt; (3) domContentLoadedEventStart -&gt; (4) domContentLoadedEventEnd) -&gt; (5) domComplete -&gt; (6) load(EventStart/EventEnd) という観測地点があることが分かる。(1)から(2)までは、HTMLのパース（とJavascriptの読み込みと実行、あとたいていの場合CSSのロード）の処理の長さが推測できる。(2)から(3)は主にdeferになったscriptの実行時間、(3)から(4)はdomContentLoadedのイベントで発生した処理の時間（主にjQueryでreadyにしていた処理が入ると思われる）、(4)から(5)は、パース時に取得した画像の読み込みなど、そのほかload前に終わられる処理の時間などが推測される（(5)から(6)はほぼ同時）。たぶん。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

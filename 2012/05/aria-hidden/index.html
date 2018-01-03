@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">aria-hiddenについて</h1>
+          <div>
+            <time datetime="2012-05-26T06:48:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年5月26日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://css-tricks.com/html-for-icon-font-usage/" target="_blank" rel="noopener">HTML for Icon Font Usage | CSS-Tricks</a>でアイコン用フォントを使用して、対象の左側にアイコン画像を表示するという方法が紹介されているのですが、その中でスクリーンリーダー対策として「aria-hidden」という属性を入れている。</p>
+<a id="more"></a>
+<p></p><h2 id="stats"><br>  <span aria-hidden="true" data-icon="&#x21dd;"></span><br>  Stats<br></h2><br>----<br>[data-icon]:before {<br>  font-family: icons; /<em> BYO icon font, mapped smartly </em>/<br>  content: attr(data-icon);<br>  speak: none; /<em> Not to be trusted, but hey. </em>/<br>}<p></p>
+<p>このaria-hiddenについて知らなかったので（というよりARIAはlandmarkしか分からない…）、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden" target="_blank" rel="noopener">仕様</a>を読んだ。</p>
+<blockquote>
+<p>Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author. See related aria-disabled.</p>
+<p>If an element is only visible after some user action, authors MUST set the aria-hidden attribute to true. When the element is presented, authors MUST set the aria-hidden attribute to false or remove the attribute, indicating that the element is visible. Some assistive technologies access WAI-ARIA information directly through the DOM and not through platform accessibility supported by the browser. Authors MUST set aria-hidden=”true” on content that is not displayed, regardless of the mechanism used to hide it. This allows assistive technologies or user agents to properly skip hidden elements in the document.</p>
+<p>…</p>
+<p>Authors MAY, with caution, use aria-hidden to hide visibly rendered content from assistive technologies only if the act of hiding this content is intended to improve the experience for users of assistive technologies by removing redundant or extraneous content. Authors using aria-hidden to hide visible content from screen readers MUST ensure that identical or equivalent meaning and functionality is exposed to assistive technologies.</p>
+</blockquote>
+<p>aria-hiddenは、その要素と子孫要素が、どんなユーザーにも表示されない、または知覚されないということを示すために使用される。たとえば、何かのアクションをしたときにはじめて表示されるような要素は、aria-hiddenをtrueに設定して、その要素が表示されたときにaria-hiddenをfalseにする（または属性を取り除く）ということをする。コンテンツの状態をスクリーンリーダーなどに明示することができると。</p>
+<p>また、aria-hiddenではコンテンツが冗長だったり無関係なコンテンツなどを取り除いて、スクリーンリーダなどassistive technologiesでのエクスペリエンスを向上させるために、それらのみに対して非表示にするという使用方法にも言及している。ただ、その場合は、意味的・機能的に同じになるように配慮しなければならない。</p>
+<p>上の例の場合は「Stats」というテキストが、アイコン画像と意味的に同じだから問題ないと。CSS-Tricksの記事の次の例では、アイコンだけ表示したい場合に、スクリーンリーダー用の代替テキストもHTML上に記述するように配慮されてある（通常のPCでは見えないようにCSSを指定している）。</p>
+<p>なるほど！</p>
+<p>このへんの勉強のために、<a href="http://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/" target="_blank" rel="noopener">HTML5 Accessibility Chops: hidden and aria-hidden | The Paciello Group Blog</a>という記事と<a href="http://john.foliot.ca/aria-hidden/" target="_blank" rel="noopener">HTML5 Accessibility: aria-hidden and role=”presentation” « Unrepentant</a>も読みました。hidden要素やrole=presentationについても別の機会にきちんと勉強したい。</p>
+<p>あと、このCSS-Tricksの記事についての蛇足としては、コメント欄でdata-icon属性でcontentの内容を指定するより普通にclassを使って指定した方が分かりやすいという意見が出ていました。個人的にはdata-iconの方が汎用的で魅力的に感じますけど、その意見も一理あるかも。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

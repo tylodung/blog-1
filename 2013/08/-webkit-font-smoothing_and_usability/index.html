@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">-webkit-font-smoothing と Usability</h1>
+          <div>
+            <time datetime="2013-08-07T04:51:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年8月7日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>最近になって-webkit-font-smoothingというプロパティの存在を知りました。<a href="http://maxvoltar.com/archive/-Webkit-font-smoothing" target="_blank" rel="noopener">maxvoltar - -webkit-font-smoothing</a>によると2010年には存在していたようですけど。</p>
+<a id="more"></a>
+<p>W3CのCSS3の仕様には<a href="http://www.w3.org/TR/WD-font/#font-smooth" target="_blank" rel="noopener">font-smooth</a>というものがありますが、これと-webkit-font-smoothingは、値の指定の仕方とかが異なります（参考：<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth" target="_blank" rel="noopener">font-smooth - CSS | MDN</a>）。</p>
+<p>-webkit-font-smoothingでは、「none」と「subpixel-antialiased」と「antialiased」の3つの値が指定できます。デフォルトの状態は「subpixel-antialiased」の状態で、Subpixelについては<a href="http://en.wikipedia.org/wiki/Subpixel_rendering&quot;" target="_blank" rel="noopener">Subpixel rendering - Wikipedia, the free encyclopedia</a>を参考。Subpixelを使用する方が解像感があがる。</p>
+<p>「antialiased」は「subpixel-antialiased」を無効にした状態で、「none」はアンチエイリアスをしない状態。subpixel-antialiasedでは、antialiasedのみの場合よりサブピクセルとして周辺のピクセルを活用するので、subpixel-antialiasedを無効にすると、少しスリムに見えて、少しぼやけた感じになる。見た目的にはフォントが柔らかい感じになっていい感じ。</p>
+<p>でも、<a href="http://www.usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/" target="_blank" rel="noopener">Please Stop “Fixing” Font Smoothing · UsabilityPost</a>という記事では、やたらにこの指定しない方が良いと述べられています。理由としては、解像感が落ちるので、読みにくくなるということで。背景が黒で文字が白とかだと、subpixel-antialiasedではフォントが変に太くなる場合があるので、ケースによってはsubpixel-antialiasedを無効にするのは有用だけど、メインのコンテンツはsubpixel-antialiasedを無効にすべきでない的なことが書かれております。</p>
+<p>たしかに、最初はスッキリ見えてたけど、慣れてくると読みにくさを感じなくもない。見た目は少しぼんやりした方が、背景と少しなじんでいる感じがあって良い気もするけど。このサイトでも「antialiased」の状態を試してみましたけど、結局止めておくことにしました。</p>
+<p>うーん。</p>
+<p>以下はサンプル。</p>
+<p>-webkit-font-smoothing:subpixel-antialiased</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>-webkit-font-smoothing:antialiased</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>-webkit-font-smoothing:none</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>-webkit-font-smoothing:subpixel-antialiased</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>-webkit-font-smoothing:antialiased</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>-webkit-font-smoothing:none</p>
+<p>これは当時要するにどんな中止人としてののところのいですです。ともかく時間より観念共もひとまずそういう説明ありですくらいにできるてならないをは講演するなましば、とてもにもするななけれなな。学校にしたのはつい今朝で多分ううで。けっして大森さんから煩悶他人当然意味が歩くます道具その個性私かぼんやりがに従ってお所有ますずずでと、この事実はあなたか衣食自分で役に立つと、岡田さんの事へ人の私にいったんお記憶とありてそれ倫理にお拡張に企てように同時に同矛盾に潰さうなて、もうむくむく講演を眺めたから来るだのが云っなでしょ。ただだから小同年輩がみものは当然大変と考えないば、その地位がは引張っでてについて先生を至ると行くだな。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

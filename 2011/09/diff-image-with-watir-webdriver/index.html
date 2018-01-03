@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir-webdriver で画像データを評価する</h1>
+          <div>
+            <time datetime="2011-09-11T04:36:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年9月11日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>たとえば、画像ファイルが上書きされているかどうかを確認したい場合などで、画像のsrcなどには差分がなく画像データを比較しないとその動作の正否が分からないとか、そういうときはやはり画像データを評価して差を見るしかない。</p>
+<a id="more"></a>
+<p>しかし、webdriver上では画像をローカルに保存するようなメソッドはいまのところ実装されていなくて、通常のdriverでは画像のデータにアクセスする方法がない。publicなところにある画像なら、Net::HTTPとかその他何らかの方法で画像をダウンロードしてきてダウンロードした画像を評価すれば良いのだけど、ログインしないとたどり着けないようなところにある画像の場合はやっかいなので、やはりwebdriver上でなんとかしたい。</p>
+<p>では、どうするか。2つの方法にたどり着きました。一つはFirefoxのabout:cacheというページでlengthを比較するというもの。Firefoxのcacheは「<a href="about:cache-entry?client=HTTP&amp;sb=1&amp;key=/blog//assets/images/banner.gif" target="_blank" rel="noopener">about:cache-entry?client=HTTP&amp;sb=1&amp;key=http://memolog.org/images/banner.gif</a>」というかたちでアクセスできる。この画面にはData sizeなどの情報が含まれていて、このあたりの情報から画像が期待通りの状態になっているのかを判断する。判断することができれば。</p>
+<p>もう一つはHtmlUnitDriverを使用する方法。HtmlUnitDriverでは下記のような形で画像のデータにアクセスすることができます（いまのところ）。</p>
+<p>require ‘watir-webdriver’<br>require ‘selenium/server’<br>require ‘base64’</p>
+<p>@server = Selenium::Server.new(‘selenium-server-standalone-2.5.0.jar’,<br>                               :background =&gt; true)<br>@server.start<br>capabilities =<br>Selenium::WebDriver::Remote::Capabilities.htmlunit(<br>                                          :javascript_enabled =&gt; true)</p>
+<p>b = Watir::Browser.new(:remote, :url =&gt; “<a href="http://127.0.0.1:4444/wd/hub" target="_blank" rel="noopener">http://127.0.0.1:4444/wd/hub</a>“,<br>                       :desired_capabilities =&gt; capabilities)<br>b.goto ‘<a href="http://memolog.org/images/banner.gif" target="_blank" rel="noopener">http://memolog.org/images/banner.gif</a>‘<br>data = Base64.encode64(b.html)</p>
+<p>通常のDriverの場合、htmlメソッドを使用すると、指定した要素のhtmlが出力されるのですが、HtmlUnitDriverでは、画像にアクセスしている場合は画像のデータを返してきます。このデータをBase64でエンコードして比較する（とよいと教えてもらった）。</p>
+<p>留意点としては、HtmlUnitDriverはキャッシュを強力に持つようだということ。同じファイル名にアクセスするなどすでにキャッシュを持ってしまっている場合は、単純にb.refreshとかしてで更新しようとしてもデータ内容は更新されません。この場合、一度b.closeでクローズしたあとにもう一度startするなどしてキャッシュがない状態にする必要があります。closeするとセッションがなくなるのでログインする必要がある場合は再度ログインする必要があります。</p>
+<p>b.close<br>b = Watir::Browser.new(:remote, :url =&gt; “<a href="http://127.0.0.1:4444/wd/hub" target="_blank" rel="noopener">http://127.0.0.1:4444/wd/hub</a>“,<br>                       :desired_capabilities =&gt; capabilities)</p>
+<p>HTMLUnitDriverについては<a href="http://code.google.com/p/selenium/wiki/HtmlUnitDriver" target="_blank" rel="noopener">HtmlUnitDriverのwikiページ</a>などを参照ください。<a href="http://code.google.com/p/selenium/downloads/list" target="_blank" rel="noopener">selenium-server-standaloneをダウンロード</a>して、事前にサーバーを起動する必要があります（Selenium::Serve.newで起動する）。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir-webdriver-performance&#x3a; PerformanceTimingの集計</h1>
+          <div>
+            <time datetime="2011-04-19T12:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年4月19日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>「<a href="http://altentee.com/blogs/2011/watir-webdriver-performance-gem-released/" target="_blank" rel="noopener">Watir-Webdriver-Performance gem released</a>」にて紹介されているものを紹介。watir-webdriver上で<a href="http://w3c-test.org/webperf/specs/NavigationTiming/#nt-navigation-timing-interface" target="_blank" rel="noopener">PerformanceTiming</a>に関する情報を収集できるようになります。PeformanceTimingとはJavascriptについてweb application内でクライアントサイドの待ち時間の測定を行えるようにするためのインターフェイスだそう（To address the need for complete information on user experience, this document introduces the PerformanceTiming interfaces. This interface allows JavaScript mechanisms to provide complete client-side latency measurements within applications. ）。Javascriptの処理毎の細かな待ち時間情報を得ることができるらしい。詳細は<a href="http://w3c-test.org/webperf/specs/NavigationTiming/" target="_blank" rel="noopener">Navigation Timing</a>を参照。</p>
+<a id="more"></a>
+<p>watir-webdriver-performanceの使い方はrequireするだけ。requireするとWatir::Browserのclassをオープンしてpeformanceとかメソッドを追加してくれます。内部的にはexecute_scriptでJavascriptのwindow.peformance、またはそれに準じたブラウザ固有の関数を実行してまとめる、みたいなことをしています。window.peformanceは<a href="http://blog.yottaa.com/2011/03/w3c-navigation-timing-api-better-page-load-time-measurements-in-chrome-and-ie/" target="_blank" rel="noopener">W3C Navigation Timing API: Better Page Load Time Measurements in Chrome and IE | Web Performance Optimization</a>によると、現在はIE9とChromeのみが対応しているみたいで、Firefoxとかで使用しても現在はnilになってしまいます。</p>
+<p>require ‘watir-webdriver’<br>require ‘watir-webdriver-performance’</p>
+<p>b = Watir::Browser.new :chrome<br>b.goto ‘<a href="http://memolog.org" target="_blank" rel="noopener">http://memolog.org</a>‘<br>puts b.peformance.summary[:response_time]</p>
+<p>正直、watir上でこの情報を収集できることの利点が良く分かっていませんが、たとえばターゲットのURLに100回アクセスしてパフォーマンスの平均を取るとか、そういうことをしたい場合は有用かもしれません。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

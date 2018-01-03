@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Firefox &#x3a; link prefetching（リンクの先読み機能）</h1>
+          <div>
+            <time datetime="2007-08-21T06:41:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月21日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.mozilla.org/ja/docs/Link_prefetching_FAQ" target="_blank" rel="noopener">Link prefetching FAQ</a></li>
+<li><a href="http://sks.s201.xrea.com/blog/archives/413" target="_blank" rel="noopener">sks blog » FirefoxのLink Prefetching（リンクの先読み機能）</a></li>
+</ul>
+<a id="more"></a>
+<p>いろいろ調べものをしていたときに見つけました。他のブラウザまでは調べていないのですが、Firefoxではlinkタグのうちrelが「next」もしくは「prefetch」となっているhrefのURLを、ブラウザのアイドル時間中に先に読み込んでおきます。こうすることによって、次のページに遷移したときにスムーズにページが表示されます。たとえばHTMLでプレゼンを作成した場合に、次のページの画像などもprefetch対象にしておくと読み込みがスムーズになって良いかもしれない。</p>
+<p>ただし、hrefにクエリストリングが含まれるような場合や（/blog//index/?foo=0 みたいな）、hrefがhttp以外の場合はprefetchは行わないようになっている。逆に言えば、prefetchしてほしくないときはhrefに適当なクエリストリング的なパスを入れておけば良いみたい。</p>
+<p>prefetchによるHTTP リクエストには「X-moz: prefetch」というヘッダが付与されているのでどのリクエストがprefetchによるものかは判別できる。これをうまく利用してprefetchをしないようにすることもできるかのかなと思います。 <img src="http://memolog.org/i/2007/08/cap082101.png" alt="cap082101.png"></p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">indexOf とビット演算子</h1>
+          <div>
+            <time datetime="2014-08-29T21:47:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2014年8月30日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf" target="_blank" rel="noopener">String.prototype.indexOf() - JavaScript | MDN</a>は、Stringの中の文字があったら、その文字の開始位置を返して、ない場合は「-1」を返します。</p>
+<a id="more"></a>
+<p>配列に対しても同様のメソッドがあり（<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf" target="_blank" rel="noopener">Array.prototype.indexOf() - JavaScript | MDN</a>）、配列の中の要素と、与えた値がマッチするか（===で比較する）どうかを調べて、マッチしたら配列のindexを返して、ない場合は「-1」を返します。</p>
+<p>たとえば、indexOfを使って、対象の文字列もしくは配列に、渡した値が存在するかどうかを確かめる場合、</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'foobar'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'bar'</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Matched'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>とする（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test" target="_blank" rel="noopener">RegExp.prototype.test() - JavaScript | MDN</a>もあるけど）。</p>
+<p>ビット演算子（<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators - JavaScript | MDN</a>）は、ビットを扱う演算子。その中で「~」はNOTの扱う演算子で（<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT" target="_blank" rel="noopener">~ (Bitwise NOT)</a>）、それぞれのbitを反転した値を返す。</p>
+<p>Javascriptのビット演算子はSigned 32-bit integer に変換される、というMDNの記述を下記に引用する（ECMAScriptの仕様は確認してない…）。</p>
+<blockquote>
+<p>The operands of all bitwise operators are converted to signed 32-bit integers in two’s complement format. Two’s complement format means that a number’s negative counterpart (e.g. 5 vs. -5) is all the number’s bits inverted (bitwise NOT of the number, a.k.a. ones’ complement of the number) plus one. For example, the following encodes the integer 314:</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/ja/docs/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">日本語の情報</a>もあったので、該当箇所もあわせて引用。</p>
+<blockquote>
+<p>すべてのビット演算でオペランドは符号付き 32 ビット演算に、ビッグエンディアンおよび 2 の補数形式で変換されます。ビッグエンディアン形式とは、32 ビットを水平方向に並べたとき最上位ビット (最大値のビット位置) が左端にある形式です。2 の補数形式とは、ある値に対する負数 (例えば 5 と -5) は、正数のビットをすべて反転 (正数の NOT ビット演算、1 の補数として知られています) して 1 を加えたものです。例えば以下は、整数値 314 (10 進数) を表しています:</p>
+</blockquote>
+<p>つまり、32bitにおける-1（base 10）は以下のようなbitになる。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">(</span>base <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">11111111111111111111111111111111</span> <span class="token punctuation">(</span>base <span class="token number">2</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>それを~のビット演算子で反転させると「00000000000000000000000000000000」というビットになる。これは10進数に数値にすると「0」になる。</p>
+<p>Javascriptにおいて、数値の「0」はfalsyとして扱われ、それ以外はtruthyとなるので、上の方のindexOfの例を下記のように書き換えることができる。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'foobar'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">~</span>a<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Matched'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>a.indexOfでマッチしなかった場合のみ「-1」となり、-1を~のビット演算子で反転させた場合「0」となる。マッチしたときは「-1」以外になり、その場合ビット演算子で反転させた値も「0」以外となるので、truthyとなる。</p>
+<p>なので、!== -1 で比較しても、~を使って比較しても、結果としては同じになる。</p>
+<p>気分的に「~」を使う方が「!== -1」を使うより洗練されててエレガントな感じがある。どこかで使いたい。でも「!== -1」の方が直接的だし読みやすいよねえ、、と思って、結局いつも「!== -1」で比較している。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

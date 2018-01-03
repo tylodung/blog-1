@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">縦方向のfloatを実現するjQuery Masonry</h1>
+          <div>
+            <time datetime="2012-06-18T03:36:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年6月18日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>いわゆる<a href="http://pinterest.com/" target="_blank" rel="noopener">Pinterest</a>風な縦方向にfloatさせるjQueryのpluginが<a href="http://www.netmagazine.com/shop/magazines/july-2012-229" target="_blank" rel="noopener">.net Magazine</a>で紹介されていたので、試してみました。floatさせたいコンテンツのclass（と全体を囲っているコンテナのclass）と、1カラムあたりの幅を指定するだけで、縦方向にfloatさせることができます。便利。<a href="http://memolog.org/photo/" target="_blank" rel="noopener">写真の記事一覧画面</a>とか、写真があるとやはり映えますなあとか、悦に入っています（写真最近撮ってないな）。</p>
+<a id="more"></a>
+<p>オプションもいろいろあって、<a href="http://masonry.desandro.com/docs/options.html" target="_blank" rel="noopener">jQuery Mansory</a>に書かれています。isFitWidthをtrueにすると、表示幅にあわせて横に配置できるコンテンツの数を自動的に調整してくれるのでそれを指定。</p>
+<p>どのように縦方向にfloatさせるかというと、コンテンツのdivにposition:absoluteを設定して、高さをOuterHeightとかで取得して積み上げて配置している様子（詳細は勉強不足…）。そのため、画像などがロードされるまえに高さの計算がされると、画像がロードされたときにコンテンツの高さが変わるのでレイアウトが重なってしまう。</p>
+<p>そのあたりの対策が<a href="http://masonry.desandro.com/docs/help.html" target="_blank" rel="noopener">Help</a>に書かれていて、方法としてはロードし終わったあとにmasonryを実行するか、imagesLoadedのtriggerを使用して、triggerが反応したときにmasonry.reload()をするといい。</p>
+<p>Demoも充実していて、Demoの画面とそこに書かれているmasonry用のコードをコピペするだけでも使えてしまう。すばらしい。 特に<a href="http://masonry.desandro.com/demos/tumblelog.html" target="_blank" rel="noopener">Tumblelog example</a>はいい感じ。pinterest風なカラムの幅が一定のデザインも良いですけど、大中小の横幅がバランスよく混じっているのも動きがあって良いですね。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

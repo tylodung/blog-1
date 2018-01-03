@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/css_supports_at-rule/">CSSのサポート状態で条件分岐をする @supports</a></h1>
+            <div><time datetime="2012-12-28T07:12:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月28日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://dev.opera.com/articles/view/native-css-feature-detection-via-the-supports-rule/" target="_blank" rel="noopener">Native CSS feature detection via the @supports rule - Dev.Opera</a>と<a href="http://my.opera.com/ODIN/blog/why-use-supports-instead-of-modernizr" target="_blank" rel="noopener">Opera Developer News - Why use @supports instead of Modernizr?</a>と<a href="http://www.w3.org/TR/css3-conditional/#at-supports" target="_blank" rel="noopener">Feature queries: the ‘@supports’ rule</a>についての話。</p></div>
+            <div><a href="/blog/2012/12/css_supports_at-rule/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/adobe_css_filterlab/">Filter Effects / Adobe CSS FilterLab</a></h1>
+            <div><time datetime="2012-12-24T13:10:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月24日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.w3.org/TR/filter-effects/" target="_blank" rel="noopener">Filter Effects 1.0</a>では、HTML上に配置した画像とかにグレースケールなどのフィルターをかけることができます。<a href="http://www.html5rocks.com/en/tutorials/filters/understanding-css/" target="_blank" rel="noopener">Understanding CSS Filter Effects - HTML5 Rocks</a>にて詳しく紹介されていますが、HTMLの要素に適用できるようにSVGから取り入れられた仕様で、多くのFilter Functionは高速に動きます（手元で試している限りではblurも速い）。対応状況は、<a href="http://caniuse.com/css-filters" target="_blank" rel="noopener">Can I use CSS Filter Effects</a>にて。今のところChromeとSafariでのみwebkitのプレフィックス付きで確認できます。</p></div>
+            <div><a href="/blog/2012/12/adobe_css_filterlab/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/android_camera_kills_phonegap_app/">PhoneGap&#x3a; Androidでカメラを使用するとアプリが止まる</a></h1>
+            <div><time datetime="2012-12-21T03:11:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月21日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>PhoneGapからAndroidでカメラを起動して撮影すると、たまにアプリが止まってしまうという問題について。</p>
+<p>これは<a href="https://issues.apache.org/jira/browse/CB-1513" target="_blank" rel="noopener">[#CB-1513] Cordova app gets killed by garbage collector when out of memory due to camera - ASF JIRA</a>に書いてある内容によると、カメラが起動している間は、PhoneGapのアプリ本体はバックグラウンドにいるので、その間にガベージコレクタがメモリを解放しようとして、アプリ本体のアクティビティをkillするのだそう（おそらくカメラ機能はメモリをたくさん使う）。</p></div>
+            <div><a href="/blog/2012/12/android_camera_kills_phonegap_app/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/hayaku_sublime_plugin_for_writing_css_faster/">Hayaku &#x3a; CSSを早く書くためのSublime text 2 plugin</a></h1>
+            <div><time datetime="2012-12-09T03:51:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月9日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.brucelawson.co.uk/2012/reading-list-33/" target="_blank" rel="noopener">Bruce Lawsonのreading list</a>で小さく紹介されていた「<a href="https://github.com/hayaku/hayaku" target="_blank" rel="noopener">Hayaku</a>」というSublime Text 2のpluginを簡単に紹介。使ってみた感じは、今のところ劇的に役立っている感じはないですけど…邪魔にもならない。人によっては便利かも。</p></div>
+            <div><a href="/blog/2012/12/hayaku_sublime_plugin_for_writing_css_faster/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/11/inspect_uiwebview_with_safari/">SafariからUIWebViewのHTMLをinspectする</a></h1>
+            <div><time datetime="2012-11-18T11:37:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年11月18日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.mobilexweb.com/blog/iphone-5-ios-6-html5-developers" target="_blank" rel="noopener">iPhone 5 and iOS 6 for HTML5 developers, a big step forward: web inspector, new APIs and more | Breaking the Mobile Web</a>に、iPhone 5とiOS 6について詳しく載っていますが、その中で「Remote Debugging」というところの項目の話。</p></div>
+            <div><a href="/blog/2012/11/inspect_uiwebview_with_safari/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/11/notes_around_marathon/">マラソンとジョギングのメモ</a></h1>
+            <div><time datetime="2012-11-08T05:35:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年11月8日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>2012年11月3日に行われた湘南国際マラソンに参加しました。去年（2011年）の湘南国際マラソンが初マラソンで、今回が2回目。目標にしていたサブフォーを達成できた。<br><img src="http://farm9.staticflickr.com/8204/8153861310_47dfefe4cf_z.jpg" alt=""></p></div>
+            <div><a href="/blog/2012/11/notes_around_marathon/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/09/css_transforms_sample/">CSS Transforms&#x3a; くるくる回るサイコロのサンプル</a></h1>
+            <div><time datetime="2012-09-26T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月26日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>CSS Transforms関連記事のまとめ的意味を込めて、くるくる回るサイコロを作成してみました。下のサイコロ（の開き）をクリック（またはhover）すると、クリックした間だけアニメーションします。CSSのみ（と思ったらiPhoneだと期待したようにactive状態にならないので、touchstartしたときにdice-actionというclassを追加するようにJavascriptを入れた）。</p></div>
+            <div><a href="/blog/2012/09/css_transforms_sample/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/09/phonegap21-xcode45/">PhoneGap2.1とXcode4.5でエラー</a></h1>
+            <div><time datetime="2012-09-25T18:28:07.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月26日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.phonegap.com/" target="_blank" rel="noopener">PhoneGap</a>の2.1を使用して作成したプロジェクトを、Xcodeの4.5でRunしたら下記のようなエラーが発生。</p>
+<p>clang: error: no such file or directory: </p></div>
+            <div><a href="/blog/2012/09/phonegap21-xcode45/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/09/fallback_warning_in_sass/">Sass&#x3a; Fallbackでpollingしているとwarning</a></h1>
+            <div><time datetime="2012-09-25T04:03:56.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月25日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>Sassを–watchで動かしているときに下記のようなwarningが発生する。</p>
+<blockquote>
+<blockquote>
+<p>> Sass is watching for changes. Press Ctrl-C to stop.<br>WARNING: Listen has fallen back to polling, learn more at <a href="https://github.com/guard/listen#fallback" target="_blank" rel="noopener">https://github.com/guard/listen#fallback</a>.</p>
+</blockquote>
+</blockquote></div>
+            <div><a href="/blog/2012/09/fallback_warning_in_sass/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/09/css_transforms_backface-visibility/">CSS Transforms&#x3a; backface-visibility</a></h1>
+            <div><time datetime="2012-09-23T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月23日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>CSS Transformsには<a href="http://www.w3.org/TR/css3-transforms/#backface-visibility" target="_blank" rel="noopener">backface-visibility</a>という設定もあって、これはその名の通り、背面側を表示するかどうかの設定。</p></div>
+            <div><a href="/blog/2012/09/css_transforms_backface-visibility/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">YSLOW 勉強 &#x3a; 7&#x3a; Avoid CSS Expressions</h1>
+          <div>
+            <time datetime="2007-08-09T06:58:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月9日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.yahoo.com/performance/rules.html#css_expressions" target="_blank" rel="noopener">7: Avoid CSS Expressions</a></li>
+</ul>
+<p><a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="noopener">rules for high performance web sites</a>の七つ目。CSS Expressions の使用を避けよう。CSS Expressionsとは、background-color: expression( (new Date()).getHours()&#x25;2 ? “#B8D4FF” : “#F08A00” ); （2で割れたら#B8D4FF、割れなかったらF08A00）というように、CSSの指定をダイナミックに行えるIEの独自拡張のこと。 便利な機能だけど、expressionsの判定がマウスを動かしたりするだけで行われてしまうため、何千回も判定を繰り返す可能性がある（パフォーマンスにも影響がある）。</p>
+<a id="more"></a>
+<p>わたしはこの機能そのもののことを知らなかったからそう感じるのかもしれませんが、この独自拡張を使っている人っているのかなあ・・</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

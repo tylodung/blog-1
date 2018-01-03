@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+</head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Sublime Text 2 で Zen Coding (Emmet)</h1>
+          <div>
+            <time datetime="2012-05-25T07:52:13.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年5月25日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>（追記 2013/1/30）Packageの名前がZen Codingから「<a href="https://github.com/sergeche/emmet-sublime" target="_blank" rel="noopener">Emmet</a>」に変わっていました。ので、Packageの名前をEmmetに差し替えました。あわせて最後に書いていたスニペットの変更方法もちゃんとした（？）方法に書き換えました。</p>
+<a id="more"></a>
+<p><a href="http://designshack.net/articles/css/cant-get-into-preprocessors-try-zen-coding/" target="_blank" rel="noopener">Can’t Get Into Preprocessors? Try Zen Coding | Design Shack</a>でSublime Text 2でZen Codingのインストール方法が紹介されていたので、試してみました。</p>
+<p>まずSublime Package Controlをインストール。起動してSublimeのコンソールを開く（View-&gt;Show Console）。コンソール上で、<a href="http://wbond.net/sublime_packages/package_control/installation" target="_blank" rel="noopener">Installation - Sublime Package Control - a Sublime Text 2 Package Manager by wbond</a>に書かれているインストール用のコマンドを実行する。</p>
+<blockquote>
+<p>import urllib2,os; pf=’Package Control.sublime-package’; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace(" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace(</a>‘ ‘,’&#x25;20’)).read()); print ‘Please restart Sublime Text to finish installation’</p>
+</blockquote>
+<p>コンソールに「’Please restart Sublime Text to finish installation’」と出力されるので、Sublimeを再起動する。再起動後はPackage Contorlが使用可能になっている。</p>
+<p>再起動後、コマンドパレットを開く（Tools-&gt;Command Palette)。コマンドパレット上で「install」とか入力すると、候補に「Package Control: Install Package」が出てくるので、それを選択。</p>
+<p>その後、コマンドパレットに「Emmet」と入力するとEmmetという名のパッケージが見つかるので、選択してインストールを実行。少しするとインストールが完了する。</p>
+<p>完了したら、新規でファイルを開いて、シンタックスのモードを「HTML」にして、「html:5」と入力して、TABのキーを押すと、HTML5的なひな形がファイルに挿入される。簡単。</p>
+<p>ただ、標準のEmmetのパッケージでは、下記のようにlangの設定として「en-US」が入ってくる。</p>
+<p>&lt;!DOCTYPE HTML&gt;</p>
+<html lang="en-US"><br><head><br>  <meta charset="UTF-8"><br>  <title></title><br><link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head><br><body><br><br></body><br></html>
+
+<p>これを変更するには、ユーザーの設定で上書きする。Sublime Text 2のメニューから「Preferences」を選んで、「Package Settings -&gt; Emmet -&gt; Settings - User」を選択する。Sublime text上にオープンされた「Emmet.sublime-settings - User」というファイルに下記のような設定を追加する。</p>
+<p>{<br>  “snippets”: {<br>    “html”: {<br>        “snippets”: {<br>          “html:5”: “&lt;!doctype html&gt;\n<html>\n<head>\n\t<meta charset="\\"${charset}\\"">\n\t<title>${1:Document}</title>\n</head>\n<body>\n\t${child}${2}\n</body>\n</html>“<br>        }<br>      }<br>  }<br>}</p>
+<p>SASSのようなPreprocessorとEmmetとどちらの方が良いかは使う人（使う目的）次第だとは思いますけど、そこそこ便利な感（まだよく分かってないけど）。SubLimeは標準の入力補完も充実している感があるので、Emmetをインストールしなくても便利な感はあるけれども。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

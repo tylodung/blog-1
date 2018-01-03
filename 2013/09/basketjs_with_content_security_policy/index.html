@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">basket.js と Content Security Policy</h1>
+          <div>
+            <time datetime="2013-09-08T12:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年9月8日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://memolog.org/2013/09/github_content_security_policy.php" target="_blank" rel="noopener">Github の Content Security Policy - メモログ</a>の続きのような感じで。</p>
+<a id="more"></a>
+<p><a href="http://addyosmani.github.io/basket.js/" target="_blank" rel="noopener">basket.js - a simple script loader that caches scripts with localStorag</a>というライブラリでは、requireで指定したURLのライブラリをlocalStorageに保存して再利用することができます。対象はスクリプトファイルだけですが、AppCacheと比べて1ファイル単位でキャッシュのexpireを設定できるので柔軟に扱える。</p>
+<p>ただ、basket.jsはキャッシュをロードする場合、localStorageにキャッシュした内容をscript要素のtextとして使用するので、インラインのscriptとして挿入することになる。そのため、Content Security Policy（CSP）を導入しようとすると、script-srcにunsafe-inlineを設定する必要が出てしまう。</p>
+<p>script-srcでのunsafe-inlineの許可は、<a href="https://github.com/blog/1477-content-security-policy" target="_blank" rel="noopener">Content Security Policy</a>で言うところの、last layer of defense としてのCSPの役割を大きく損なってしまう。innerHTMLに外部から取得したデータを挿入するとして、そのデータに悪意のあるscriptが含まれていた場合、悪意のあるコードが実行されてしまう。それができないようにescape処理などしてできないようにするわけですが、そういうセキュリティ対策がすり抜けてしまった場合でもCSPが設定されていれば実行されないで終わる。でも、unsafe-inlineを有効にしてしまうと、実行を許可することになるので、last layer of defense としての機能が半減してしまう。script-srcのunsafe-inlineは、インラインscriptが明確に安全という状況でなければ、設定すべきでない。</p>
+<p>なので、CSPを有効に機能させた上で、basket.jsを使うというのが、難しい。両立する方法があるかもしれませんけど、今のところ調査不足もあって分からない。</p>
+<p>というメモ</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

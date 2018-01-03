@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">jQuery 1.10.1とIE11の組み合わせでエラーが発生する場合がある</h1>
+          <div>
+            <time datetime="2013-11-20T11:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年11月20日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>モーダルなどjQueryでiframeを開いた場合に、jQuery 1.10.1とIE11の組み合わせだとエラーが発生する。ので、モーダル使っているなら、1.10.2にアップデートしないといけない。これはバンドルされてるSizzleに下記のような処理があるため。</p>
+<a id="more"></a>
+<pre class="line-numbers language-javascript"><code class="language-javascript">setDocument <span class="token operator">=</span> Sizzle<span class="token punctuation">.</span>setDocument <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> node <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> doc <span class="token operator">=</span> node <span class="token operator">?</span> node<span class="token punctuation">.</span>ownerDocument <span class="token operator">||</span> node <span class="token punctuation">:</span> preferredDoc<span class="token punctuation">,</span>
+    parent <span class="token operator">=</span> doc<span class="token punctuation">.</span>parentWindow<span class="token punctuation">;</span>
+
+  <span class="token punctuation">(</span><span class="token operator">...</span> snip <span class="token operator">...</span><span class="token punctuation">)</span>
+
+  <span class="token comment" spellcheck="true">// Support: IE>8</span>
+  <span class="token comment" spellcheck="true">// If iframe document is assigned to "document" variable and if iframe has been reloaded,</span>
+  <span class="token comment" spellcheck="true">// IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> parent <span class="token operator">&amp;&amp;</span> parent<span class="token punctuation">.</span>frameElement <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    parent<span class="token punctuation">.</span><span class="token function">attachEvent</span><span class="token punctuation">(</span> <span class="token string">"onbeforeunload"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">setDocument</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>parentWindowで値がとれて、かつframeElement（iframeとか）があると、attachEventが実行される。IE11にはattachEventは存在しないので、エラーとなるみたいな感じ。parentWindowは<a href="http://www.quirksmode.org/dom/w3c_html.html" target="_blank" rel="noopener">quirksmode</a>によるとIE（と古いOpera）でのみ使われているプロパティ。</p>
+<p>この処理が、1.10.2だと下記のようになる。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">setDocument <span class="token operator">=</span> Sizzle<span class="token punctuation">.</span>setDocument <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> node <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> doc <span class="token operator">=</span> node <span class="token operator">?</span> node<span class="token punctuation">.</span>ownerDocument <span class="token operator">||</span> node <span class="token punctuation">:</span> preferredDoc<span class="token punctuation">,</span>
+    parent <span class="token operator">=</span> doc<span class="token punctuation">.</span>defaultView<span class="token punctuation">;</span>
+
+  <span class="token punctuation">(</span><span class="token operator">...</span> snip <span class="token operator">...</span><span class="token punctuation">)</span>
+
+  <span class="token comment" spellcheck="true">// Support: IE>8</span>
+  <span class="token comment" spellcheck="true">// If iframe document is assigned to "document" variable and if iframe has been reloaded,</span>
+  <span class="token comment" spellcheck="true">// IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936</span>
+  <span class="token comment" spellcheck="true">// IE6-8 do not support the defaultView property so parent will be undefined</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> parent <span class="token operator">&amp;&amp;</span> parent<span class="token punctuation">.</span>attachEvent <span class="token operator">&amp;&amp;</span> parent <span class="token operator">!==</span> parent<span class="token punctuation">.</span>top <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    parent<span class="token punctuation">.</span><span class="token function">attachEvent</span><span class="token punctuation">(</span> <span class="token string">"onbeforeunload"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">setDocument</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>parentにattachEventメソッドがある場合のみに実行されるので、IE11では処理されなくなる。parentの取得がparentWindowからdefaultViewになっているのは（<a href="http://www.quirksmode.org/dom/w3c_html.html" target="_blank" rel="noopener">defaultViewはIE9以降しか使えない</a>）、そもそもこの対応は<a href="http://bugs.jquery.com/ticket/14535" target="_blank" rel="noopener">#13936 (SCRIPT70 Permission denied in selectors after iframe was submitted in IE9-10, jQuery 1.9.1 and 2.0.0)</a>のissueに対するものなので、IE8以前は不要だからみたい。</p>
+<p>ということで、1.10.2であればIE11でもエラーが発生しない。</p>
+<p>けれども、どうも#13936の問題はIE11でも発生するようで、<a href="http://bugs.jquery.com/ticket/14535" target="_blank" rel="noopener">#14535 (Selection fails in IE11 when the last context is a no-longer-present iframe document)</a>で追加修正が1.11で入りそうな様子（child iframeでreloadをさせなければ発生しない問題みたい）。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

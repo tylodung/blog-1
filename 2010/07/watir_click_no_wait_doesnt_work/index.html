@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir&#x3a; click_no_wait が動作しない</h1>
+          <div>
+            <time datetime="2010-07-13T03:45:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2010年7月13日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>普段watirで使用していないPCにwatir (version 1.6.5) をインストールして使用したところ、click_no_waitのメソッドがなぜか動作しない。clickとclick!のメソッドは問題なく動作しました。</p>
+<a id="more"></a>
+<p>うーん。</p>
+<p><a href="http://rubyforge.org/pipermail/wtr-development/2009-January/000400.html" target="_blank" rel="noopener">click_no_wait patch</a>のパッチをあてたら動作するようになりました。page_contaienrでのシステムの呼び出し方がよくない模様。</p>
+<p>click_no_waitが動かなかった環境はWindows XPの Service Pack 3のIE8という環境。Service Pack 2でIE6、watir 1.5.xの環境では正常に動作しているので、Service Packの違いかブラウザかwaitrのバージョンの違いに関連がありそうですが、詳しくは分かりませんでした。</p>
+<p>click_no_waitは、ファイル挿入の「ファイルを選択」ボタンを押すときなどに使用します。clickのメソッドはwaitを実行するので、「ファイルを選択」ボタンのようにボタンを押した後にモーダルウィンドウが表示される場合はclick_no_waitを使用する必要があります。click!のメソッドはcontainerに対してはwaitしないけど、ole_objectに対してはwaitするから（たぶん）、「ファイルの選択」ボタンのようなケースではうまく動かない、みたい。</p>
+<ul>
+<li><a href="http://wtr.rubyforge.org/rdoc/1.6.5/classes/Watir/Element.html#M000553" target="_blank" rel="noopener">Watir::Element [Watir API Reference]</a></li>
+</ul>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

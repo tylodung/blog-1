@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">a&#x3a;link, a&#x3a;visitedの詳細度はclass selectorのみより大きい</h1>
+          <div>
+            <time datetime="2013-08-30T12:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年8月30日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>a:link、a:visitedで宣言されたスタイルは、type selector（aタグ）とpseudo-classes（:visited）を組み合わせた詳細度になる。<a href="http://www.w3.org/TR/css3-selectors/#specificity" target="_blank" rel="noopener">Calculating a selector’s specificity</a>を参照すると、詳細度は(0,1,1)となる（<a href="http://www.w3.org/TR/CSS2/cascade.html#specificity" target="_blank" rel="noopener">CSS2.1</a>ではstyle属性も含めて(0,0,1,1)と表現されるけど内容は同じ）。</p>
+<a id="more"></a>
+<p>class selector (.foobar)のみで宣言されているスタイルは、詳細度では(0,1,0)となるため、a:link、a:visitedの方が詳細度が上となり、より強く反映されることになる。</p>
+<pre class="line-numbers language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
+<span class="token selector">a<span class="token pseudo-class">:link</span> </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.foobar</span> </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foobar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>FOOBAR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上記のような例だと、リンクの色はgreenではなく、redとなる。仕様通りではあるけど、なんとなくclassだけの方が詳細度が上のように感じてしまい、不思議な振る舞いに見える。けど、仕様通り。</p>
+<pre class="line-numbers language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
+<span class="token selector">a<span class="token pseudo-class">:link</span> </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token selector">a<span class="token pseudo-class">:visited</span> </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token selector">a<span class="token class">.foobar</span> </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foobar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>FOOBAR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上記のように「a.foobar」となると、詳細度は(0,1,1)で同じとなるので、宣言順で後になるa.foobarの方が強く反映される。ので、greenとなる。逆に訪問済み（visited）の場合でもblueになることはない。訪問済みの場合はblueにしたいなら、.foobar:link で宣言すればいい（詳細度は0.2.0になる）。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

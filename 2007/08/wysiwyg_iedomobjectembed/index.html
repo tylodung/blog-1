@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">WYSIWYG &#x3a; IEのDOMではobjectタグの中にあるembedタグを認識しない？</h1>
+          <div>
+            <time datetime="2007-08-06T05:45:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月6日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>あいまいなタイトル。実のところ、詳しくはよくわかっていないのですが、どうもIEのDOMではobjectタグの中にあるembedタグは削ってしまうようなのである。謎なのです。</p>
+<p>webアプリケーションでよくあるWYSIWYGエディタ（リッチテキスト）では、すごくざっくりいうと、Javascriptで入力フォームであるiframe中のHTMLをツールボタンのクリックなどのイベントにあわせて、書き換えて動かしている。言い換えると、ブラウザが持っている情報を引き出して、変更して押し込んで、というやりとりをしている。そのため、ブラウザ側で期待されるデータを出力してくれないと、エディタから情報が消えてしまったりする可能性がある。</p>
+<a id="more"></a>
+<p>たとえば&lt;object classid=&guot;” &gt;<embed> というobjectタグの中にembedタグが入っている状態のタグをコピーしてWYSIWYGエディタで貼付けると、Firefoxでは貼付けたままのものが出力されるけれど、IEではembedタグが抜けた状態で出力される。</p>
+<p>objectタグとembedタグを別々に使っている分には、特に問題ないように見受けられる。どうもobjectタグの中にembedタグが入るということをIEがDOM構造として認めていない（無視している）のではないだろうかと推察している。IE developer toolでDOMを見たところでも、objectタグに埋めたembedはどこにも表示されない。しかし確たる情報もなく、悶々としている。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

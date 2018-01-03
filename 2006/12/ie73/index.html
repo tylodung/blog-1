@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">IE7対応しているかどうかを確認するための3つのポイント</h1>
+          <div>
+            <time datetime="2006-12-29T05:02:36.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2006年12月29日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>既存のウェブサイトのCSSについて、IE7対応しているかどうかを確認するためのポイントは大きく3つかなと思います。</p>
+<ol>
+<li>スターハック（* html）の記述があるかどうか</li>
+<li>プロパティハック（_property:value）の記述があるかどうか</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li>html&gt;bodyの記述があるかどうか</li>
+</ol>
+<p>これらの記述がなく、それでいてIE6で十分きれいに表示できていれば、IE7でも大体大丈夫だと思います。IE7で確認する必要がないということではありませんが。</p>
+<h4 id="スターハック対応"><a href="#スターハック対応" class="headerlink" title="スターハック対応"></a>スターハック対応</h4><p>スターハックで記述されている箇所はIE7では無視されてしまいますが、その上の行に*+htmlで指定を追加すると問題なくなります。きれいなCSSとはいえませんけど、他のブラウザに影響を与えない方法としては有効です。</p>
+<p><code>*+html body .class {height : 100px;} * html body .class {height : 100px;}</code></p>
+<p>同じ指定を並記するなら、「<em>+html, </em> html」という形で記述した方がきれいなのですが、この形ではIE6でハックが有効に機能しないようです（<em> html, </em>+htmlという順番では試してません）。</p>
+<h4 id="プロパティハック対応"><a href="#プロパティハック対応" class="headerlink" title="プロパティハック対応"></a>プロパティハック対応</h4><p>プロパティハック（_property:value）もスターハックと同様に、IE7では無効となります。スターハックの場合と同様に<em>+htmlで追加で指定することで対応することができます。_propaty:valueを、「</em>property:value」という形に置き換えることで対応することも可能のようですが、実際に試したことがないのできちんと動作するかは分かりません。</p>
+<p><code>body { width:100px; _width:120px; } * html body { width:120px; }</code></p>
+<h4 id="html-gt-body対応"><a href="#html-gt-body対応" class="headerlink" title="html&gt;body対応"></a>html&gt;body対応</h4><p>html&gt;bodyの指定はIE6では対応していなかったのですが、IE7では対応しています。そのため、*+htmlで記述を相殺させる必要があります。</p>
+<p><code>html&gt;body { background-image: url(src);} *+html body {background-image: none;}</code></p>
+<h4 id="より完璧な対応をほどこすための参考サイト"><a href="#より完璧な対応をほどこすための参考サイト" class="headerlink" title="より完璧な対応をほどこすための参考サイト"></a>より完璧な対応をほどこすための参考サイト</h4><p>上記の対応方法は、時間をかけずに、かつ他のブラウザの影響を与えずに対応するための一例です。CSSハックを工夫したり、HTMLにIE 7用のタグを埋め込んだりすることでより美しい修正方法もあると思います。下記にはその参考になるサイトを紹介しておきます。</p>
+<ul>
+<li><a href="http://centricle.com/ref/css/filters/" target="_blank" rel="noopener">css filters (css hacks)</a>：CSS hackとブラウザ対応がマトリクスになっていて見やすい</li>
+<li><a href="http://www.blazenewmedia.com/articles/targeting-ie-70" target="_blank" rel="noopener">Blaze New Media:Targeting IE 7.0</a>：IE7だけに適用させるCSS hackと、htmlのheadにIE7用のCSSを記述する方法の紹介</li>
+<li><a href="http://www.lucky-bag.com/archives/2006/06/css-hacks.html" target="_blank" rel="noopener">Lucky bag::blog：IE7 を含むモダンブラウザ向けの CSS ハックまとめ</a></li>
+</ul>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

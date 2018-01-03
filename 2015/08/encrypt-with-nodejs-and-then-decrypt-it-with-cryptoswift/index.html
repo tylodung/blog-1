@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Node.js で AES-256-CBC で暗号化したデータを CryptoSwift で復号化する</h1>
+          <div>
+            <time datetime="2015-08-27T05:15:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2015年8月27日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="/blog//2015/08/encrypt-with-cryptswift-and-then-decrypt-it-with-nodejs/">CryptoSwiftを使ってAES-256-CBCで暗号化してNodeで復号化する</a>の記事で、CryptoSwift (iOS) で暗号化したデータをサーバー側（Node.js）で復号化する話をしましたが、今回はその逆向きで、Node.jsでABS-256-CBCで暗号化したデータをCryptoSwiftで復号化するという話。</p>
+<a id="more"></a>
+<h2 id="Node-jsで暗号化"><a href="#Node-jsで暗号化" class="headerlink" title="Node.jsで暗号化"></a>Node.jsで暗号化</h2><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> crypto <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'crypto'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token string">"Lorem ipsum dolor sit amet"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> key <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Buffer</span><span class="token punctuation">(</span><span class="token string">'12345678901234567890123456789012'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> iv <span class="token operator">=</span> crypto<span class="token punctuation">.</span><span class="token function">randomBytes</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> cipher <span class="token operator">=</span> crypto<span class="token punctuation">.</span><span class="token function">createCipheriv</span><span class="token punctuation">(</span><span class="token string">'aes-256-cbc'</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> iv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> encrypted <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+encrypted <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span>iv<span class="token punctuation">,</span> encrypted<span class="token punctuation">,</span> cipher<span class="token punctuation">.</span><span class="token function">final</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  encryptedToken<span class="token punctuation">:</span> encrypted<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上の例だとBase64で返しても良くて（たぶんbinary arrayでも大丈夫）、たぶんBase64の方がswiftでの取り扱いがやりやすいと思うのですが、「?token=xxxx」みたいにクエリストリングで返したい場合があったのでhexにしました。</p>
+<p>「637c04482cf264a7b39cc…」みたいな値が暗号化されたデータとして送られます。最後のresは<a href="http://expressjs.com/" target="_blank" rel="noopener">Express</a>のレスポンスオブジェクトを想定。</p>
+<h2 id="CryptoSwiftで復号化"><a href="#CryptoSwiftで復号化" class="headerlink" title="CryptoSwiftで復号化"></a>CryptoSwiftで復号化</h2><p>iOS(swift)側では、decryptというfuncを使って復号化するようにしてみました。encryptedStringに暗号化された文字列が入ります。hex string から UInt8 array にする簡単な方法がなかったので、hexStringToUInt8 という funcで処理するようにしています（もっといい方法ないのかな）。</p>
+<p>あと最後のCStringのencodingは「NSASCIIStringEncoding」にしていますけど（暗号化した文字列にアルファベットのみだったので）、日本語を暗号化するときは「NSUTF8StringEncoding」にしないと文字化けする（と思う）。</p>
+<pre class="line-numbers language-swift"><code class="language-swift"><span class="token keyword">import</span> <span class="token builtin">UIKit</span>
+<span class="token keyword">import</span> <span class="token builtin">CryptoSwift</span>
+
+<span class="token keyword">func</span> <span class="token function">decrypt</span><span class="token punctuation">(</span>encryptedString<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">String</span><span class="token operator">?</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> key <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token builtin">UInt8</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">"12345678901234567890123456789012"</span><span class="token punctuation">.</span>utf8<span class="token punctuation">)</span>
+
+    <span class="token keyword">let</span> ivRange <span class="token operator">=</span> <span class="token function">NSMakeRange</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> iv <span class="token operator">=</span> <span class="token function">hexStringToUInt8</span><span class="token punctuation">(</span>encryptedString<span class="token punctuation">,</span> range<span class="token punctuation">:</span> ivRange<span class="token punctuation">)</span>
+
+    <span class="token keyword">let</span> dataLength <span class="token operator">=</span> encryptedStr<span class="token punctuation">.</span>characters<span class="token punctuation">.</span><span class="token builtin">count</span> <span class="token operator">-</span> <span class="token number">32</span>
+    <span class="token keyword">if</span> dataLength <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token constant">nil</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">let</span> dataRange <span class="token operator">=</span> <span class="token function">NSMakeRange</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span> dataLength<span class="token punctuation">)</span>
+    <span class="token keyword">let</span> data <span class="token operator">=</span> <span class="token function">hexStringToUInt8</span><span class="token punctuation">(</span>encryptedStr<span class="token punctuation">,</span> range<span class="token punctuation">:</span> dataRange<span class="token punctuation">)</span>
+
+    <span class="token keyword">do</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> aes <span class="token operator">=</span> <span class="token keyword">try</span> <span class="token function">AES</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> key<span class="token punctuation">,</span> iv<span class="token punctuation">:</span> iv<span class="token punctuation">,</span> blockMode<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token constant">CBC</span><span class="token punctuation">)</span>
+        <span class="token keyword">let</span> decrypted <span class="token operator">=</span> <span class="token keyword">try</span> aes<span class="token punctuation">.</span><span class="token function">decrypt</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">convertUInt8ToUTF</span><span class="token punctuation">(</span>decrypted<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token keyword">let</span> error <span class="token keyword">as</span> <span class="token builtin">NSError</span> <span class="token punctuation">{</span>
+        <span class="token function">debugPrint</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token constant">nil</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// http://stackoverflow.com/questions/24465475/how-can-i-create-a-string-from-utf8-in-swift</span>
+<span class="token keyword">func</span> <span class="token function">convertUInt8ToUTF</span><span class="token punctuation">(</span>bytes<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token builtin">UInt8</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">String</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> ret <span class="token operator">=</span> <span class="token string">""</span>
+  <span class="token keyword">var</span> decoder <span class="token operator">=</span> <span class="token function">UTF8</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">var</span> generator <span class="token operator">=</span> bytes<span class="token punctuation">.</span><span class="token function">generate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">var</span> finished <span class="token operator">=</span> <span class="token boolean">false</span>
+
+  <span class="token keyword">repeat</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> decodingResult <span class="token operator">=</span> decoder<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>generator<span class="token punctuation">)</span>
+    <span class="token keyword">switch</span> decodingResult <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token punctuation">.</span><span class="token function">Result</span><span class="token punctuation">(</span><span class="token keyword">let</span> char<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      ret<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>char<span class="token punctuation">)</span>
+    <span class="token keyword">default</span><span class="token punctuation">:</span>
+      finished <span class="token operator">=</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>finished<span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> ret
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">hexStringToUInt8</span><span class="token punctuation">(</span>str<span class="token punctuation">:</span><span class="token builtin">String</span><span class="token punctuation">,</span> range<span class="token punctuation">:</span><span class="token builtin">NSRange</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">[</span><span class="token builtin">UInt8</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> nsstr<span class="token punctuation">:</span><span class="token builtin">NSString</span> <span class="token operator">=</span> <span class="token punctuation">(</span>str <span class="token keyword">as</span> <span class="token builtin">NSString</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substringWithRange</span><span class="token punctuation">(</span>range<span class="token punctuation">)</span>
+    <span class="token keyword">let</span> strLength <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>nsstr<span class="token punctuation">)</span><span class="token punctuation">.</span>characters<span class="token punctuation">.</span><span class="token builtin">count</span>
+    <span class="token keyword">var</span> result<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token builtin">UInt8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>strLength<span class="token punctuation">;</span> i <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">let</span> r <span class="token operator">=</span> <span class="token function">NSMakeRange</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">let</span> substr <span class="token operator">=</span> nsstr<span class="token punctuation">.</span><span class="token function">substringWithRange</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+        result<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token function">UInt8</span><span class="token punctuation">(</span><span class="token function">strtoul</span><span class="token punctuation">(</span>substr<span class="token punctuation">,</span> <span class="token constant">nil</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> result
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上です。</p>
+<p>(2015/12/22 追記) UInt8からUTF8に変換するときの処理を以下のようにしていたのですが</p>
+<pre class="line-numbers language-swift"><code class="language-swift">
+<span class="token keyword">let</span> p <span class="token operator">=</span> <span class="token function">UnsafePointer</span><span class="token punctuation">(</span>decrypted<span class="token punctuation">)</span>
+<span class="token keyword">let</span> ret <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token builtin">CString</span><span class="token punctuation">:</span> p<span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token builtin">NSUTF8StringEncoding</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>これだと結果が不安定になる様子（原因までは追求していない）。1000回実行するとnilになったり、末尾に変な文字がついたりする。なので、<a href="http://stackoverflow.com/a/30629181/634197" target="_blank" rel="noopener">How can I create a String from UTF8 in Swift? - Stack Overflow</a>の回答を参考にして処理を変更しました。</p>
+<p>(2016/01/25 追記) CryptoSwift 0.2.2 用のコードに変更。</p>
+<p>(2016/05/30 追記) CryptoSwift 0.4.1 用のコードに変更。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

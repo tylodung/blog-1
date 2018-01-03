@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">YSLOW 勉強 &#x3a; 13&#x3a; Configure ETags</h1>
+          <div>
+            <time datetime="2007-08-16T07:29:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月16日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.yahoo.com/performance/rules.html#etags" target="_blank" rel="noopener">13: Configure ETags</a></li>
+</ul>
+<p><a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="noopener">rules for high performance web sites</a>の十三個目（最後）。ETags（Entity Tags）を設定しよう。ブラウザが持ったキャッシュが古いかどうかを判断するための情報として、構成要素（component：画像とかスクリプトとか）のバージョンをETagで特定させることで、last-modified（修正日）よりも柔軟（で確度の高い）情報を提供することができる。</p>
+<a id="more"></a>
+<p>ETagにおける問題は、サーバーを特定させるような属性で（ETagが）構成されていると、複数台のサーバーで運用している場合に、キャッシュしたサーバーと、再度アクセスしたときのサーバーのEtagが異なるために、304（not modified）ではなく200のレスポンスを返してしまうということ。</p>
+<p>複数台で運用しているウェブサービスで、ETagがサーバーを特定させるような書式になっている場合は（デフォルトの書式ではサーバーを特定させるような状態になっている）、ETagを利用すると返って動作が遅くなってしまう。ETagの恩恵に授かれない場合には、ETagを削除してしまった方がいい。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

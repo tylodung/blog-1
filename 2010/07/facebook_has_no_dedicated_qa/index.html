@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Facebookには専任のQAチームがいない</h1>
+          <div>
+            <time datetime="2010-07-26T06:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2010年7月26日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://www.quora.com/What-kind-of-automated-testing-does-Facebook-do" target="_blank" rel="noopener">Quora - What kind of automated testing does Facebook do?</a></li>
+</ul>
+<a id="more"></a>
+<p>Facebookのテストエンジニアリグの技術リーダーによると、Facebookに専任のQAチームがいないらしいです ( Facebook has no dedicated QA team )。テストエンジニアはいる。どうやら大量の自動テストをエンジニアが作成/メンテナンスしていて、そのテストを断続的に実行し、テスト結果は通知が届くようにしているみたい。QAチームがやるようなことは自動化しているということか。</p>
+<p>そんな話が<a href="http://www.quora.com/What-kind-of-automated-testing-does-Facebook-do" target="_blank" rel="noopener">Quora - What kind of automated testing does Facebook do?</a>に掲載されています。下記にリスト部分のてきとう抄訳で紹介します（すべての内容をきちんと訳しているわけではないので、興味のあるかたはリンクを参照してください）。</p>
+<ul>
+<li>PHPコードに対してはPHPUnitを使って1500を超えるクラスのテストスイートを用意している。開発ツールでは自動的にコードカバレッジデータを使用して開発サンドボックスでの目立った変更をカバーするようなテストを実施している。<br>また、テスト結果はパッチがレビューにサブミットされたときに自動的にコードレビューツールに入る。</li>
+<li>ブラウザベースのテストではWatirを使用している。Watirのテストはサイトの機能テストをカバーしている（特にプライバシー関連機能にフォーカスしてる）。</li>
+<li>全自動のWatirテストに加えて、フォームの入力とか面倒な作業を避けるための半自動のWatirテストもある。ただそれらは正しい動作かどうかの検証は（人が）別途する必要がある</li>
+<li>Javascriptのunit testingについてはJSSpecを使い始めている。</li>
+<li>バックグラウンドのサービスについては、サービスによって種々のテストフレームワークを使用している。オープンソースで提供しているプロジェクトではBoostやJUnitなどのようなオープソースのフレームワークを使用している。外部に公開しないプロジェクトではオープンソースのものや、C++のテストフレームワークを使ったりする。大半のバックエンドサービスはcontinuous integration / build system と結合していて、最新のソースコードに対して断続的にテストを実施している。テスト結果はデータベースに保存されるのと、通知システムに通知される</li>
+<li>HipHop は countinuous-integration system に若干のひねりをいれたシステムを持っていて、unit testの実行だけじゃなくてPHPUnitのテストも実行してくれる。テスト結果はplainなPHP interpreterで実行したPHPコードの結果と比較して、その振るまいの違いを見つける。</li>
+</ul>
+<p>あと、テスト結果の通知の仕方も工夫してたり、バグ管理システムとの連携もしているみたい。ここには書かれていない取り込みもいろいろやっているのでしょう。すごいなあ。</p>
+<p>多くのテストが”push blocking”にあたるみたいなので、そんなに細かいテストはしていないように見えなくもない。そのへんの粒度は不明。特定の条件でしか発生しないような問題はどのように対処しているのだろう。ユーザーからのフィードバックをうまく利用したりしているのか、それともそのような問題は無視するのか。いずれにせよ、Facebook的には十分な粒度であって、うまく機能しているだろうなあ。たぶん。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Github の Content Security Policy</h1>
+          <div>
+            <time datetime="2013-09-07T02:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年9月7日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>github.com のサイトでdelicious bookmarklet を動かしても、モーダルが開いてくれない。これはなんでかなと思っていたら、どうやら Content Security Policy と関連するらしいです。詳しくは <a href="https://github.com/blog/1477-content-security-policy" target="_blank" rel="noopener">Content Security Policy</a>に書かれています。Shortcomingsの部分。<a href="http://www.w3.org/TR/CSP/#script-src" target="_blank" rel="noopener">W3Cの仕様</a>的には、Content Security Policy (CSP) がbookmarkletの挙動を阻害するものではないはずだけど、実際にはbookmarkletの動作に影響を及ぼしていると。</p>
+<a id="more"></a>
+<p>それで、ついでにGithubでどんなCSPの設定がされているのかを見てみました。それがこんな感じ（x-content-security-policyのheader）。</p>
+<ul>
+<li>default-src *;</li>
+<li>script-src ‘self’ <a href="https://github.global.ssl.fastly.net" target="_blank" rel="noopener">https://github.global.ssl.fastly.net</a> <a href="https://jobs.github.com" target="_blank" rel="noopener">https://jobs.github.com</a> <a href="https://ssl.google-analytics.com" target="_blank" rel="noopener">https://ssl.google-analytics.com</a> <a href="https://collector.githubapp.com" target="_blank" rel="noopener">https://collector.githubapp.com</a> <a href="https://analytics.githubapp.com" target="_blank" rel="noopener">https://analytics.githubapp.com</a>;</li>
+<li>style-src ‘self’ ‘unsafe-inline’ <a href="https://github.global.ssl.fastly.net" target="_blank" rel="noopener">https://github.global.ssl.fastly.net</a>;</li>
+<li>object-src ‘self’ <a href="https://github.global.ssl.fastly.net" target="_blank" rel="noopener">https://github.global.ssl.fastly.net</a></li>
+</ul>
+<p>policyの内容については<a href="https://developer.mozilla.org/ja/docs/Security/CSP/CSP_policy_directives" target="_blank" rel="noopener">CSP policy directives - Security | MDN</a>に詳しく書かれています。W3Cにも<a href="http://www.w3.org/TR/CSP/#examples" target="_blank" rel="noopener">Examples</a>が書かれています。</p>
+<p>default-srcの設定は、srcの設定がされていない場合に使われます。アスタリスク(<em>)は<a href="http://www.w3.org/TR/CSP/#matching" target="_blank" rel="noopener">Matching</a>に仕様が書かれてありますが、</em>のみで設定されている場合はすべてのURLが許可の対象となります。</p>
+<p>script-srcは、Javascriptを対象にしていて、’self’のexpressionは、Same Origin なURLが許可の対象になります（the set of URIs which are in the same origin as the protected resource）。’unsafe-inline’や’unsafe-eval’が指定されていないので、インラインスクリプトの挿入やevalの実行ができなくなる。</p>
+<p>style-srcは、スタイルシートを対象にしていて、’unsafe-inline’を指定しているのでstyle要素やstyle属性でのCSSの指定が可能になっている。style属性でのスタイルの操作はjQueryでも普通に行われるので、意識的に使わないようにしていないと、unsafe-inlineは必要になってくるかなと思われます。</p>
+<p>object-srcはobject、embeded、applet要素が対象になる。</p>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

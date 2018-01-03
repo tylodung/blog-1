@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">テスターの仕事とは何か</h1>
+          <div>
+            <time datetime="2011-04-29T06:40:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年4月29日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.satisfice.com/blog/archives/572" target="_blank" rel="noopener">James Bach’s Blog » Blog Archive » What Testers Find</a>の記事の紹介。James Bachは<a href="http://www.amazon.co.jp/gp/product/482228154X/ref=as_li_ss_tl?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=as2&amp;camp=247&amp;creative=7399&amp;creativeASIN=482228154X" target="_blank" rel="noopener">ソフトウェアテスト293の鉄則</a><img src="http://www.assoc-amazon.jp/e/ir?t=&amp;l=as2&amp;o=9&amp;a=482228154X" alt="">の著者でもある。</p>
+<a id="more"></a>
+<p>What testers find、直訳すると「テスターは何を見つけるのか」です。テスターとはテストをすることで「発見する」ことを職務として求められているわけですから、テスターが見つけるものは何かということは、テスターの仕事とは何か、テスターとは何かに通じてくるわけです。つまりテスターの要件とも通じてくるわけです。上記のURLでは下記のようなことが「テスターが見つけるもの」として挙げられています。以下は半分は原文の意訳的なものですが、半分は個人的な意見を述べています。</p>
+<ol>
+<li>テスターは不具合(bugs)を見つける</li>
+<li>テスターはリスク(risks)を見つける</li>
+<li>テスターは課題(issues)を見つける</li>
+<li>テスターはテストしやすさ(testability)についての問題を見つける</li>
+<li>テスターは人為的な結果(artifacts)を見つける</li>
+<li>テスターは変なこと(curios)を見つける</li>
+</ol>
+<p>最初のは普通ですけど、不具合（bugs）を見つける。ここでいうbugsとは、製品の価値を脅かすような何か。人によっては欠陥(defect)と言うけど、欠陥って言い方あんまり良くないよねと、エンジニアによっては気分を害するよねと。私自身は「バグ」と「欠陥」は日本語的に同じように感じるので、「イシュー」とか「現象」と言うのが好きなんですけど。そうした言葉選びができるのもテスターの要件の一つなのかもしれません（些細なことかもしれませんけど）。</p>
+<p>2つ目は潜在的な問題（risks)について。例に挙げられているのは、使用しているHTMLタグが旧くて次世代のブラウザでは動かないかもしれない、みたいなこと。その実装が将来どのようなリスクがあるのか、それを指摘するには製品で扱われている技術の根本的な知識（プラス経験）がないと難しいところ（上記の例でいえばHTMLの知識がないとそのリスクは指摘できない）。その意味で、（ウェブアプリケーションのテスターの要件として）HTMLとかCSS（できればJavascript）などフロントエンドの知識から、脆弱性（特にXSSとSQL injection）などセキュリティに関するところについても広汎な知識があるべしと言えます（脆弱性は検査ツール使えばいいんですけど）。</p>
+<p>3つ目の課題(issues)は、製品というよりプロジェクトに関する問題点について。動的なコンテンツをどうやってテストしようとか。テスト期間は限られていますから、現実的で妥当なテスト方法を考えないといけない。テスト技法の知識とか、あとは知恵（おそらくこちらが重要）が必要とされるところ。</p>
+<p>4つ目はテストしやすさ(testability)の問題について。3つ目と類似するけれども注目すべき重要な話。たとえば外部的に結果が出てこない場合など、検証が難しい場合がある。それをエンジニアと話をして検証できるように（検証しやすくなるように）話を進めていく必要あると。テスターは実装に対してのどのようにテストするかを考える必要があり、テストの結果をどのように検証するか、結果の妥当性を検証が難しい場合はそれを解決すべく動かなくてはいけない。</p>
+<p>5つ目の人為的な結果(artifacts)というのは、なんというか、不具合っぽい動きをしているけどテスト上の問題であることを見つけるみたいな話。テスト環境は外部のネットワークから制限されていたりと実際のプロダクションと異なる場合があります。そうした環境の違いによる問題があったりするわけです。広義的に捉えると、テスターはその現象が不具合かどうかの切り分けができる必要がある、ということでしょうか。問題を報告するテスターが、現象の切り分けを適切に行えないと、余計な調査作業がエンジニアに発生することになります。これは開発の効率を下げることにもつながるため、テスターはそのあたりにも気を使わないといけません。</p>
+<p>最後の変なこと(curios)というのは、製品の価値には脅かすものではないけど、製品の裏技的な使い方を見つけて、それを駆使することでエンジニア自身も想定していない仕様を見つけ出すみたいな。探索的テストの究極形という感じでしょうか。誰も知らないことを見つけ出してくる嗅覚みたいなものが求められる。</p>
+<p>こうして挙げていくと、テスターの仕事もなかなか奥深いですね。結局どの仕事でも浅くするも深くするもある意味その人しだいと言えるのかもしれませんけど。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

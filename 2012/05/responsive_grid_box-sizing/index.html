@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">responsive grid と box-sizing</h1>
+          <div>
+            <time datetime="2012-05-21T06:25:46.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年5月21日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.netmagazine.com/tutorials/building-modern-grid-system" target="_blank" rel="noopener">Building a modern grid system | Tutorial | .net magazine</a>にwidthをパーセントで指定したresponsiveなgrid（で、かつネストできてサイズの変更が簡単で..云々）を作成するという話が掲載されている。</p>
+<a id="more"></a>
+<p>このgridが便利かどうかは使ってみないとなんともですが、その中で紹介されているbox-sizingというプロパティが面白い（ずいぶん前からあるみたいですけど）。box-sizingではwidth/heightの数値にどの範囲までを含めるかを設定することができる（参照:<a href="https://developer.mozilla.org/En/CSS/Box-sizing" target="_blank" rel="noopener">box-sizing - MDN</a>）。初期設定は標準モードで使われる「content-box（widthはコンテンツのエリアのみでpadding/border/marginは含まれない）」。これを「border-box」に設定すると、widthにpaddingとborderを含めることができる（IE6の互換モードと同じ）。</p>
+<p>たとえば画像にborderで枠をつけつつ、横幅いっぱいに表示したいというときに、便利。content-boxのままだと、borderの1pxとかpaddingの幅をある程度考慮してwidthを調整しないといけなくなるけど、border-boxにしてしておけば</p>
+<p>img.image-full{<br>  -moz-box-sizing: border-box;<br>  -webkig-box-sizing: border-box;<br>  box-sizing: border-box;<br>  border: 1px solid #ddd;<br>  padding: 5px;<br>  max-width: 100&#x25;;<br>}</p>
+<p>みたいな感じで簡単に指定できる。IE8以降ではないと使用できないけど、<a href="https://github.com/Schepp/box-sizing-polyfill" target="_blank" rel="noopener">IE7/6用のpolyfill</a>が存在するので、IE6にも適用したい場合はそれを使うという手がある（試してないけど）。</p>
+<p>responsiveなレイアウトではwidthには&#x25;が使われるので、border-boxを使うことでborderとpaddingを気にしなくて良いというのはそうとう便利な気がする（特にborderは&#x25;で指定できないのできびしい）。<a href="http://paulirish.com/2012/box-sizing-border-box-ftw/" target="_blank" rel="noopener">* { box-sizing: border-box } FTW « Paul Irish</a>では、さらに全称セレクタでborder-boxを指定するというアイデアが紹介されている（box-sizingの指定は継承されない）。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

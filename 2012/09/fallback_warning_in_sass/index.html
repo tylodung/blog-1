@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Sass&#x3a; Fallbackでpollingしているとwarning</h1>
+          <div>
+            <time datetime="2012-09-25T04:03:56.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年9月25日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>Sassを–watchで動かしているときに下記のようなwarningが発生する。</p>
+<blockquote>
+<blockquote>
+<p>> Sass is watching for changes. Press Ctrl-C to stop.<br>WARNING: Listen has fallen back to polling, learn more at <a href="https://github.com/guard/listen#fallback" target="_blank" rel="noopener">https://github.com/guard/listen#fallback</a>.</p>
+</blockquote>
+</blockquote>
+<a id="more"></a>
+<p>詳しくは調べていないけど、内容的にファイルの変更をlistenするための仕組みが動いていなくて、Fallbackとしてpollingするかたちになっている、ということのよう。pollingの状態になっていると変更は一定間隔で反映されるようになる、と思う。pollingだから。なので少し反応が鈍い感じになる。その上、私のMacだとCPUをかなり使う。たぶん頻繁にpollingするから。</p>
+<p>メッセージにある <a href="https://github.com/guard/listen" target="_blank" rel="noopener">guard/listen ? GitHub</a>がローカルにインストールされていなかったので、とりあえずgem install listenでインストールしてみた。そうすると下記のようなdependencyのwarningが表示。</p>
+<blockquote>
+<blockquote>
+<p>> Sass is watching for changes. Press Ctrl-C to stop.<br>[Listen warning]:<br>  Missing dependency ‘rb-fsevent’ (version ‘~&gt; 0.9.1’)!<br>  Please run the following to satisfy the dependency:<br>    gem install –version ‘~&gt; 0.9.1’ rb-fsevent</p>
+</blockquote>
+</blockquote>
+<p>  For a better performance, it’s recommended that you satisfy the missing dependency.<br>  Listen will be polling changes. Learn more at <a href="https://github.com/guard/listen#polling-fallback" target="_blank" rel="noopener">https://github.com/guard/listen#polling-fallback</a>.</p>
+<p>なので、gem install rb-fsevent を一緒にインストール。そうしたらとりあえずwarningは解消されましたと。少し様子を見た感じではCPUを無用に食う状態も解消されている雰囲気。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

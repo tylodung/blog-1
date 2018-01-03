@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Sublime Text 2 の JSLint から node がみつからない</h1>
+          <div>
+            <time datetime="2013-02-17T11:28:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年2月17日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>Sublime Text 2に<a href="https://github.com/darrenderidder/Sublime-JSLint" target="_blank" rel="noopener">JSLint</a>というpackageをインストールしているのですが、これが下記のようなno such file or directoryでエラーになる。</p>
+<a id="more"></a>
+<p>[Errno 2] No such file or directory<br>[cmd:  [u’node’, u’/Users/…/Library/Application Support/<br>Sublime Text 2/Packages/JSLint/linter.js’, u’–sloppy’,<br>u’–indent’, u’2’, u’–node’, u’–nomen’, u’–vars’,<br>u’–plusplus’, u’–stupid’, u’–todo’, u’foobar.js’]]<br>[dir:  /Users/…]<br>[path: /usr/bin:/bin:/usr/sbin:/sbin]<br>[Finished]</p>
+<p>どうやらhomebrewでインストールしたnodeが、/usr/local/bin/nodeに存在していて、/usr/bin:/bin:/usr/sbin:/sbinに存在していないためみたい。</p>
+<p><a href="https://github.com/darrenderidder/Sublime-JSLint/issues/5" target="_blank" rel="noopener">[Error 2] The system cannot find the file specified ? Issue #5 ? darrenderidder/Sublime-JSLint ? GitHub</a>の話を参考に、JSLint.sublime-buildのcmdの「node」を「/usr/local/bin/node」に変更したら、動くようになりましたと..</p>
+<p>{<br>    “cmd”: [<br>      “/usr/local/bin/node”,<br>      “${packages}/JSLint/linter.js”,<br>      // tolerate missing ‘use strict’ pragma<br>      “–sloppy”,<br>      // suggest an indent level of two spaces<br>      “–indent”, “2”,<br>      // assume node.js to predefine node globals</p>
+<p>でも少し考えて、/usr/bin にsymlinkつけても良いかと思って、上の変更は止めて、symlinkをつける方向に。</p>
+<p>cd /usr/bin<br>sudo ln -s /usr/local/bin/node</p>
+<p>というメモ。Sublime Text 2でコマンド実行したときに/usr/local/binも参照してくれれば良いのにとか思うのですけど、あ、symlinkじゃなくてPATHを通せば良いのか..（いや、PATHは通ってる雰囲気…）</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

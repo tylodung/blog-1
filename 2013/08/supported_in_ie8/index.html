@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">あらためて IE8 について</h1>
+          <div>
+            <time datetime="2013-08-08T05:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年8月8日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>少し前までIE6で動かないから… というような気がするのですが、気がついたら過去のブラウザになっていて、サポート対象でもIE8が最低限のバージョンという感じになってきました。いつのまにか。</p>
+<p>しかしながらIE6の時代が長かったのもあり、IE6でもできることをベースに作成するクセがついている。個人的に。</p>
+<a id="more"></a>
+<p>それでこのあいだ機会があったのでIE8でできることをあらためて列挙してみた。おもにCSS。</p>
+<ul>
+<li>標準モード対応</li>
+<li>box-sizing property</li>
+<li>max-width/min-width/max-height/min-height</li>
+<li>:first-child/:last-child</li>
+<li>:before/:after</li>
+<li>display: table</li>
+<li>display: inline-block</li>
+<li>png transparency support</li>
+<li>inherit property</li>
+<li>localStorage support</li>
+</ul>
+<p>last-childには対応していない。first-childは使えるけど完璧ではないみたい（<a href="http://quirksmode.org/css/selectors/#t51" target="_blank" rel="noopener">Quirksmode: CSS selectors</a>）。<a href="http://selectivizr.com/" target="_blank" rel="noopener">selectivizr</a>で使えるようにはなる。</p>
+<p>あと、max-width/min-width/max-height/min-heightは、box-sizingを変更してもcontent boxの状態で計算されるという問題がありました。</p>
+<p>box-sizingについては、<a href="http://memolog.org/2012/05/responsive_grid_box-sizing.php" target="_blank" rel="noopener">responsive grid と box-sizing</a>で紹介していましたが（忘れてたけど）、widthの対象をborderまで含めると、いろいろと楽な面が大きい。vendor-prefixを含めれば、どのブラウザでもほぼ問題なく使用できる。もうボックスモデルの問題は過去のものになったと言える。たぶん。</p>
+<p>max-width/min-widthも地味に便利。IE8以前では、コンテンツの幅より大きなサイズの画像の場合だけ、コンテンツの幅にあわせて表示する、ということが簡単にできなかった。display:inline-block や display:table はverticalな配置を整えるときに便利。</p>
+<p>とかまあいろいろ省略しますけど、他の最新ブラウザと比べると、IE8でできることはかなり少ないのですけど、それでも以前よりだいぶましになっている。</p>
+<p>そして、以下は一緒に調べたIEのリリースの年月。</p>
+<ul>
+<li>IE6 : 2001/8</li>
+<li>IE7 : 2006/10</li>
+<li>IE8 : 2009/3</li>
+<li>IE9 : 2011/3</li>
+<li>IE10 : 2013/2 (2012/11 Release Preview)</li>
+</ul>
+<p>というメモ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

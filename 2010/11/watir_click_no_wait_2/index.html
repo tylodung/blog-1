@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir&#x3a; click_no_wait が動作しない その2</h1>
+          <div>
+            <time datetime="2010-11-06T06:50:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2010年11月6日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://memolog.org/2010/07/watir_click_no_wait_doesnt_work.php" target="_blank" rel="noopener">watir 1.6.5ではclick_no_waitが動作しない</a>という話をして、その後<a href="http://memolog.org/2010/10/watir_166.php" target="_blank" rel="noopener">watir 1.6.6</a>では修正されているという話をしました。<a href="http://jira.openqa.org/browse/WTR-449" target="_blank" rel="noopener">1.6.6では性能も改善されていて</a>、click_no_waitのメソッドを実行すると、10〜20秒くらい止まってしまうということもなくなりました。</p>
+<a id="more"></a>
+<p>それで基本的に動作に問題はなくなったのですが、自分の環境で動作させたときにclick_no_waitが動作しない場合がありました。それのメモ。</p>
+<p>click_no_waitのメソッドのソースを<a href="http://rdoc.info/gems/watir/1.6.7/Watir/Element:click_no_wait" target="_blank" rel="noopener">rdoc.info</a>から抜粋</p>
+<p># File ‘lib/watir/element.rb’, line 234</p>
+<p>def click_no_wait<br>  assert_exists<br>  assert_enabled<br>  highlight(:set)<br>  element = “#{self.class}.new(#{@page_container.attach_command}, :unique_number, #{self.unique_number})”<br>  ruby_code = “require ‘rubygems’;” &lt;&lt;<br>          “require ‘#{File.expand_path(File.dirname(__FILE__))}/core’;” &lt;&lt;<br>          “#{element}.click!”<br>  system(spawned_click_no_wait_command(ruby_code))<br>  highlight(:clear)<br>end</p>
+<p>element = ほにゃららというところで、”Button.new(Watir::IE.attach(:hwnd, 11111),:unique_number, 1)”みたいな文字列を生成する。最初がself.classなので、buttonメソッドを実行しているときはButtonとなる。<a href="http://rdoc.info/gems/watir/1.6.7/Watir/IE:attach_command" target="_blank" rel="noopener">attach_command</a>というメソッドは”Watir::IE.attach(:hwnd, #{hwnd})”という書式の文字列を返す。<a href="http://rdoc.info/gems/watir/1.6.7/Watir/IE:hwnd" target="_blank" rel="noopener">hwnd</a>はwindowのhandleを返す。このhandleのIDでwindowを特定してattachしている。</p>
+<p>次のruby_codeの行で、systemに渡すコマンドの文字列を生成しています。rubygemsをrequireしたあとに、__FILE__（実行中のファイル）からパスをとって、watir/lib/coreをrequireして、上の行で作成したエレメントをclick!する。その下のspawned_click_no_wait_commandというのは、ruby_codeで作成した文字列に”start rubyw -e”を追加する。また、$DEBUGがtrueの場合はコマンドの実行ログ的なものを出力します。</p>
+<p>ruby_codeの最後に指定しているelement.click!の<a href="http://rdoc.info/gems/watir/1.6.7/Watir/Element:click!" target="_blank" rel="noopener">click!メソッド</a>のソースは下記のような感じ。ole_objectというCOMで操作できるオブジェクトがあって<a href="http://msdn.microsoft.com/en-us/library/ms536363&#x25;28v=VS.85&#x25;29.aspx" target="_blank" rel="noopener">clickメソッド</a>を実行します。</p>
+<p>def click!<br>  assert_exists<br>  assert_enabled</p>
+<p>  highlight(:set)<br>  ole_object.click<br>  highlight(:clear)<br>end</p>
+<p>COMのclickメソッドについては詳細はよくわからず… とにかくクリックした後に戻りを待つようでボタン押した後にエラーが発生すると、待ちっぱなしの状態になってしまいます。そのために、click_no_waitのメソッドではそれを回避するために、systemメソッドを使用して動作中のrubyとは別のプロセスでclickメソッドを実行するようにしています。</p>
+<p>別のプロセスで実行されるため、click_no_waitが失敗した場合は（$DEBUGをtrueにしていない限り）エラーとして何も出力されずに次の処理に進んでしまう。なので外部的にはいつまでもクリックが実行されないで止まっているように見える（実際に実行に時間がかかっている場合もあるが、外部的には失敗しているか実行待ちの状態かはわからない）。</p>
+<p>実行が失敗する要因としては2カ所あって、ひとつはwindowを操作するhwndが異なる場合。hwndは最初にhwndが呼ばれたときに@ie（WIN32OLE.new(‘InternetExplorer.Application’)のオブジェクト）のhwndを参照する。それ以降はその値が保存されている限りは更新されないので、一度closeしたあとに<a href="http://rdoc.info/gems/watir/1.6.7/Watir/IE:_new_window_init" target="_blank" rel="noopener">_new_window_init</a>とかで新しいウィンドウを呼び出し直すと、hwndが更新されないということが起きます。自分でhwnd=ie.hwnd的なことをしないといけない（あとcloseしたあとは@closingがtrueになるので、ie.closing=nil とかしないとexist?したときにfalseになってしまう）。これをしないとattachしたときに失敗してしまいます。</p>
+<p>もう一つはclick_no_waitメソッドを自分用のスクリプトファイルで上書きした場合。__FILE__が実行中のファイルのパスを表示するので、自分用のスクリプトファイルで上書きしていると__FILE__の場所が変わってしまって、うまくrequire ができなくなってしまう。click_no_waitメソッドは上書きしないか、__FILE__の場所を”#{Gem.loaded_specs(“watir”).full_gem_path}/lib/watir/“とかに変更する（または直接watirのディレクトリを指定）。</p>
+<p>という感じのメモ、です（ながい）。click_no_waitはどうしても時間がかかってしまうのでできるだけ使用しない方が良いですね。</p>
+<p>これはまだ実験中なのですが、Thread.new{ buttons.first.click! } みたいにThreadで囲んだらどうかなーと思ったのですが、やはりボタンが押された後で止まってしまう。下記のような感じでWatir::IE.attachで同じブラウザを別のオブジェクトでボタンだけ操作するというのはどうかなあ。まだ試していないので結果は不明。</p>
+<p>b = Watir::Browser.new<br>b.goto “<a href="http://memolog.org" target="_blank" rel="noopener">http://memolog.org</a>“</p>
+<p>Thread.new do<br>  c = Watir::Attach(:hwnd,b.hwnd)<br>  c.button(:id,”id”).click<br>end</p>
+<p>b.wait_until(30){ Watir.autoit.WinExists(title) == 1 }<br>…<br>…</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

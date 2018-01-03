@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">独自要素を作成する</h1>
+          <div>
+            <time datetime="2012-05-29T06:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2012年5月29日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>少し前に<a href="http://meyerweb.com/eric/thoughts/2012/03/23/invented-elements/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Invented Elements</a>、<a href="http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Customizing Your Markup</a>、<a href="http://meyerweb.com/eric/thoughts/2012/04/10/element-customization/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Element Customization</a>で解説されていた話。</p>
+<a id="more"></a>
+<p><a href="http://typebutter.com/" target="_blank" rel="noopener">TypeButter</a>というサービスで、カーニング処理をするために「kern」という要素を挿入する。</p>
+<p><em style="font-size: 36px; line-height: 36px;">T</em></p>
+<p><kern style="letter-spacing:-0.02em">h</kern><br>e New <kern style="letter-spacing:-0.09em">Y</kern></p>
+<p><kern style="letter-spacing:-0.01em">o</kern>rk Knicks Are </p>
+<p><kern style="letter-spacing:-0.04em">F</kern></p>
+<p><kern style="letter-spacing:-0.02em">a</kern></p>
+<p><kern style="letter-spacing:-0.01em">m</kern></p>
+<p><kern style="letter-spacing:-0.02em">o</kern></p>
+<p><kern style="letter-spacing:-0.02em">u</kern>s<br><br>(<a href="http://typebutter.com/" target="_blank" rel="noopener">http://typebutter.com/</a>)</p>
+<p>kernという要素はHTML5に存在する要素ではなくて、TypeButterがカーニング処理のために独自に用意している要素。存在しない要素がブラウザ上で正常に処理するかというと、問題なく処理される。では、特定の用途のために独自の要素を用意していいかというと、HTML5の仕様上は許されない。</p>
+<p>下記のようにelement要素を使用して要素のカスタマイズすることは可能らしい。</p>
+<p><element extends="span" name="x-kern"></element></p>
+<p></p><h1><br><span is="x-kern" style="...">A</span><br><span is="x-kern" style="...">u</span><br><span is="x-kern" style="...">t</span><br><span is="x-kern" style="...">u</span><br>mn<br></h1><br>(<a href="http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/" target="_blank" rel="noopener">http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/</a>)<p></p>
+<p>しかし、この仕様に沿ったカスタマイズ方法は不格好だし、独自の要素を使ったときに「既存のCSSとコンフリクトしない（span要素にCSSが設定されていたらそれに影響される）」という利点がなくなってしまう。だから現状使えるのだから独自要素を用意しても良いのではないかみたいなことを述べています。</p>
+<p>懸念事項としては、将来HTMLの仕様に「kern」が追加された場合にコンフリクトが発生してしまうておいうこと。だから「x-kern」のように「x-」のプレフィックスをつける方が安全だけど、要素の名前に「-」を追加できないという<a href="http://www.w3.org/TR/html5/syntax.html#syntax-tag-name" target="_blank" rel="noopener">タグ名の仕様</a>になっている。</p>
+<p>という話。</p>
+<p>新しい要素を使用しなければならないような状況はあんまりないようには思いますけど、CSSの厳密な管理が要求されるようなパーツであるなら、一考の余地はあるかもしれません。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">YSLOW 勉強 &#x3a; 10&#x3a; Minify JavaScript</h1>
+          <div>
+            <time datetime="2007-08-13T05:52:01.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月13日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.yahoo.com/performance/rules.html#minify" target="_blank" rel="noopener">10: Minify JavaScript</a></li>
+</ul>
+<p><a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="noopener">rules for high performance web sites</a>の十個目。Javascriptを最小化しよう。スクリプト内の不要なスペースとか改行やタブとかを削除することで、ダウンロードするファイルのサイズが減るのでレスポンスタイムを短くすることができる。代表的なツールには<a href="http://www.crockford.com/javascript/jsmin.html" target="_blank" rel="noopener">JSMIN</a>がある。</p>
+<a id="more"></a>
+<p>スクリプトを難読化（Obfuscation：不要な文字を削るのとともに、functionや変数の名前を変えて短くする）させることは、最小化よりもファイルサイズを削ることにつながるけれど、バグを誘発する恐れがあるためここではお勧めしていません。</p>
+<p>最小化の方がメンテナンスコストも低いと記述されていますが、スペースや改行、タブなどを削った時点でメンテナンスコストは結構高い（メンテナンスしにくい）状態であるように思いますが、どうなんでしょう。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

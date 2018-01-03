@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Facebookの開発体制&#x3a; developer driven culture</h1>
+          <div>
+            <time datetime="2011-01-28T17:22:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年1月29日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>「<a href="http://www.infoq.com/news/2011/01/facebook-coding-practices" target="_blank" rel="noopener">InfoQ: How Facebook Ships Code</a>（<a href="http://www.infoq.com/jp/news/2011/01/facebook-coding-practices" target="_blank" rel="noopener">日本語版記事</a>が出た）」にて、Facebookではどのように開発し、サービスを公開しているかについて紹介していて、その開発の仕方を developer driven culture と呼んでいます。日本語にすると、開発者駆動文化でしょうか（開発者中心主義の方が近い気が）。記事によると、Facebookでは開発者が自分で実装を考え、フロントエンドからバックエンドまで開発して、バグの発見/修正までするみたい。必要な場合はデザイナーにも助けを借りることができるけど、基本的には自分で全部開発する、らしい。プロダクトマネージャーもいるみたいですけど、エンジニアマネージャーとかと話し合って、実装に対する合意を得ないといけない。興味のそそらない実装は認可されないという意味で、開発者は常に自分の好きなことに集中できるようになっているみたい。</p>
+<a id="more"></a>
+<p>QAについては、公式なQAチームは存在しないと言及しています（「<a href="http://memolog.org/2010/07/facebook_has_no_dedicated_qa.php" target="_blank" rel="noopener">Facebookには専任のQAチームがいない - メモログ</a>」でも以前に紹介しました）。開発者同士でコードレビューしたり、ステージング的な環境に問題があった場合はみんなで報告し合う。</p>
+<p>そのへん「<a href="http://framethink.wordpress.com/2011/01/17/how-facebook-ships-code/" target="_blank" rel="noopener">How Facebook Ships Code « FrameThink</a>」の記事の長いリストの中で少し詳しく触れられています。前に紹介していたunit testとかintegration testとかは散発的に(sporadically)使用しているみたいで、日常的にはあまり使用していない雰囲気。あとQAチームがあるとバグはQAで発見するからと自分のコードを精査しないで投げちゃうインセンティブになる的なことが書かれています（主観的な意見だけど、通常の開発体制との引き合いで記載しているとの但し書き付き。私の知っているエンジニアの人にはそんな人いません）。あと、push-blockingのテストはリリース前に必ずやるみたい。</p>
+<blockquote>
+<p>“most engineers are capable of writing bug-free code. it’s just that they don’t have an incentive to do so at most companies. when there’s a QA department, it’s easy to just throw it over to them to find the errors.” [EDIT: please note that this was subjective opinion, I chose to include it in this post because of the stark contrast that this draws with standard development practice at other companies]</p>
+<p>CORRECTION thx epriest] “We have automated testing, including “push-blocking” tests which must pass before the release goes out. We absolutely do not believe “most engineers are capable of writing bug-free code”, much less that this is a reasonable notion to base a business upon.”</p>
+</blockquote>
+<p>個人的なイメージとしては、垂直統合という感じ。普通の開発体制は、仕様の策定はプロダクトマネージャーがして、開発をエンジニア（開発者）が行い、テストをテスター（QA）が行って出荷する（水平統合）。Facebookの場合はそれを開発者が原則的にはすべて行う。水平的な開発体制に比べると、開発者はオールラウンダーではなくてはならないわけで、個人個人のスキル要件は厳しそう。でも自分の好きなことを好きなだけできるとしたら楽しそうですね。</p>
+<p>また後者の記事によると2000人の従業員のうち、エンジニアとOPSがそれぞれざっと400-500人くらいらしいです（二つを会わせると従業員の半分がエンジニアとOPSということになる）。そしてサーバーの台数は60,000以上らしい。この規模でfacebookという一つのサービスを集中して作っているからこそ、この垂直統合的な開発体制が機能するのかもしれませんね。この記事には他にもいろんな情報が載っているので興味のある方は読んでみると良いと思います。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

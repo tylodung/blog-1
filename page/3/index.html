@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/11/ios_software_keyboard_with_input_types/">input typeで表示されるキーボード</a></h1>
+            <div><time datetime="2013-11-29T20:06:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年11月30日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>iOSではinputフォームのtypeでキーボードの配置が変わります（Androidは4.2のstock browserでは変わらなかったけど、網羅的には調べていない）。その配置を覚えてるようであまり覚えてない。ので、忘れた時のリファレンスとして。</p></div>
+            <div><a href="/blog/2013/11/ios_software_keyboard_with_input_types/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/11/grunt-plistbuddy/">gruntでXcodeプロジェクトのVersion/Buildを変更する</a></h1>
+            <div><time datetime="2013-11-28T18:30:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年11月29日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.flickr.com/photos/91221720@N00/11110211616" title="Xcode_General_setting by Yutaka Yamaguchi, on Flickr" target="_blank" rel="noopener"><img src="http://farm4.staticflickr.com/3709/11110211616_9223de9a3f.jpg" alt="Xcode_General_setting"></a>  </p></div>
+            <div><a href="/blog/2013/11/grunt-plistbuddy/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/11/jquery_1101ie11/">jQuery 1.10.1とIE11の組み合わせでエラーが発生する場合がある</a></h1>
+            <div><time datetime="2013-11-20T11:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年11月20日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>モーダルなどjQueryでiframeを開いた場合に、jQuery 1.10.1とIE11の組み合わせだとエラーが発生する。ので、モーダル使っているなら、1.10.2にアップデートしないといけない。これはバンドルされてるSizzleに下記のような処理があるため。</p></div>
+            <div><a href="/blog/2013/11/jquery_1101ie11/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/11/brew_update_error/">brew update でエラー</a></h1>
+            <div><time datetime="2013-11-20T02:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年11月20日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="articleBody"><p>brew updateしたら下記のようなエラーになった。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">error: Your local changes to the following files would be overwritten by merge:
+
+<span class="token operator">&lt;</span><span class="token operator">!</span>-- <span class="token function">more</span> --<span class="token operator">></span>
+  Library/Contributions/brew_bash_completion.sh
+  Library/Contributions/brew_fish_completion.fish
+  Library/Contributions/manpages/brew.1.md
+  Library/ENV/4.3/cc
+  Library/Formula/ace.rb
+  Library/Formula/afflib.rb
+  Library/Formula/android-sdk.rb
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>調べてみたら<a href="http://spring-mt.tumblr.com/post/18484480866/homebrew-brew-update" target="_blank" rel="noopener">homebrewのbrew updateでこけた件 - CubicLouve</a>と同じことで、homebrewで内部的に使用しているgitに変更がはいっていて、エラーになっている。特に変更した記憶はないけど。<a href="https://github.com/mxcl/homebrew/issues/5128#issuecomment-9020785" target="_blank" rel="noopener">snez commented</a>の内容に従うのがよさそう。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cd</span> /usr/local
+<span class="token function">git</span> reset <span class="token function">head</span> --hard
+<span class="token function">git</span> clean -f
+brew update
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>わたしは何となくstashでしましたけど。homebrew関連ファイルの場所は brew –prefix で分かります。</p>
+<p>cd `brew –prefix`<br>sudo git stash –include-untracked<br>sudo brew update<br>sudo git stash clear</p>
+<p>というメモ。</p>
+</div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/10/ie8_dontenum_bug/">IE8のDontEnum bug</a></h1>
+            <div><time datetime="2013-10-07T04:40:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年10月7日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="https://developer.mozilla.org/en-US/docs/ECMAScript_DontEnum_attribute#JScript_DontEnum_Bug" target="_blank" rel="noopener">ECMAScript DontEnum attribute | MDN</a>とか、<a href="https://github.com/jashkenas/underscore/issues/60" target="_blank" rel="noopener">_.extend should work-around JScript’s DontEnum bug ? Issue #60 ? jashkenas/underscore</a>とか、<a href="http://stackoverflow.com/questions/3705383/ie8-bug-in-for-in-javascript-statement" target="_blank" rel="noopener">internet explorer - IE8 bug in for-in JavaScript statement? - Stack Overflow</a>あたり参照。well known JScript bug らしい。</p></div>
+            <div><a href="/blog/2013/10/ie8_dontenum_bug/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/10/date_parse_and_timzone/">Date.parseとタイムゾーン</a></h1>
+            <div><time datetime="2013-10-06T00:50:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年10月6日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>Date.parse(‘1999-07-07’)を実行すると、値は931305600000とUTCのタイムゾーンで解釈されるのに対して、Date.parse(‘1999/07/07’)を実行すると、値は931273200000とJSTのタイムゾーンで解釈される。あ、ローカルの時間がJSTの場合。現時点（Firefox 24、Chrome 31）</p></div>
+            <div><a href="/blog/2013/10/date_parse_and_timzone/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/ios7safariremote_debugging/">iOS7のSafariでremote debuggingできない</a></h1>
+            <div><time datetime="2013-09-25T06:30:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月25日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>iOS7のSafariでremote debuggingをしようとすると、inspect内容が途中で戻ってこなかったり、styleの情報が取得できなかったりする。</p>
+<p><a href="http://www.mobilexweb.com/blog/safari-ios7-html5-problems-apis-review" target="_blank" rel="noopener">Safari on iOS 7 and HTML5: problems, changes and new APIs | Breaking the Mobile Web</a>によると、Safariが6.1じゃないとダメらしい。でも、6.1は<a href="https://developer.apple.com/downloads/index.action?name=Safari&#x25;206.1" target="_blank" rel="noopener">プレビュー版</a>でしか使えない（現在の最新は6.0.5）。</p></div>
+            <div><a href="/blog/2013/09/ios7safariremote_debugging/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/css_vertical_alignment/">CSSで横並びで真ん中にそろえたい</a></h1>
+            <div><time datetime="2013-09-14T17:55:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月15日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>横並びにした要素を真ん中揃えにしたいという話。アプローチはいろいろあります。floatは真ん中揃えはむずかしそうなので、除外…（できるのかな）</p>
+<ul>
+<li>line-heightでそろえる</li>
+<li>display:inline-boxでそろえる</li>
+</ul></div>
+            <div><a href="/blog/2013/09/css_vertical_alignment/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/try_typesquare/">TypeSquareを試してみる</a></h1>
+            <div><time datetime="2013-09-10T13:55:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月10日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://typesquare.com/" target="_blank" rel="noopener">TypeSquare</a>で0円キャンペーンをやっていて、登録だけでフォントを試すことができるので、試してみています。現在、本文には「UD新ゴ」があたっています（すぐ変えるかもしれませんけど）。なかなかいい感じ。他にも良い感じのフォントがたくさんあって悩みます。</p></div>
+            <div><a href="/blog/2013/09/try_typesquare/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/test_content_security_policy_with_grunt-contrib-connect/">grunt で Content Security Policy をテストする</a></h1>
+            <div><time datetime="2013-09-09T12:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月9日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>Content Security Policy (CSP)をgrunt-contrib-connectで設定するのにはどうしたら良いかという話。</p>
+<p>やり方としては、<a href="http://memolog.org/2013/07/grunt-contrib-connect_with_cors.php" target="_blank" rel="noopener">grunt-contrib-connect タスクで CORS を有効にする - メモログ</a>と同様、middlewareのオプションに追加する。</p></div>
+            <div><a href="/blog/2013/09/test_content_security_policy_with_grunt-contrib-connect/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+    </main>
+  </div>
+</body>
+</html>

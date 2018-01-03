@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">Bitcodeを使ったアプリがCrashlyticsでmissing dSYMsになる</h1>
+          <div>
+            <time datetime="2016-02-03T12:37:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2016年2月3日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>Xcodeでpublishした内部テスター向けのビルドで、<a href="https://fabric.io/kits/ios/crashlytics" target="_blank" rel="noopener">Crashlytics</a>へクラッシュレポートが届かない。「missing dSYM」というエラーが出てるので、dSYMの問題だろうというところまでわかるけど、<a href="https://docs.fabric.io/ios/crashlytics/index.html" target="_blank" rel="noopener">CrashlyticsのDocument</a>などを読んでもわからない。Crashlyticsのmissing dSYMの画面に出てるUUIDを検索しても見つからない…</p>
+<a id="more"></a>
+<p>それで、わりとさんざん悩んだ末に<a href="https://twittercommunity.com/t/any-alternative-to-manually-uploading-dsyms-for-bitcode-enabled-apps/60064" target="_blank" rel="noopener">Any alternative to manually uploading dSYMs for bitcode enabled apps? - Crashlytics - Twitter Developers</a>に書いてある現象なのがわかった。</p>
+<blockquote>
+<p>Awesome question and we’re actively looking at ways to simplify this process, however there’s a few difficulties. When using Bitcode, which isn’t required for iOS apps, Apple is recompiling your app on their servers and can do this whenever they want to, with any changes, which would result in a new dSYM that is generated. There is also no way to know currently when Apple has done this.</p>
+<p>Also, as mentioned in the link you provided, the only way to get these dSYMs currently is via Xcode. We are looking into workarounds, but these are a few of the restrictions we’re trying to get around.</p>
+<p>In the meantime, if this is causing you pain or difficulty, I’d recommend disabling Bitcode for your app.</p>
+</blockquote>
+<p>つまり、Bitcodeを有効にした状態でビルドをパブリッシュすると、Apple側でrecompileするときに新しいUUID/dSYMが生成されるのでそれをCrashlyticsにアップロードしないといけないと。</p>
+<p>なので、<a href="https://itunesconnect.apple.com/" target="_blank" rel="noopener">iTunes Connect</a>のTestFlight -&gt; iOS(TestFlight iOS ビルド)からビルドを選択して「dSYM をダウンロード」して、下記のような手順で解凍して検索したら、missingなUUIDを発見することができました。それをCrashlyticsのmissing dSYMの画面でアップロードしたら問題解消できました。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">
+<span class="token function">cd</span> ~/Downloads
+unzip dSYMs -d _dSYMs
+<span class="token function">cd</span> _dSYMs
+<span class="token function">ls</span> -q <span class="token operator">|</span> <span class="token function">grep</span> -v META-INF <span class="token operator">|</span> <span class="token function">xargs</span> dwarfdump -u
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>今のところ新しいビルドをパブリッシュしたら、毎回手動でdSYMをアップロードしないといけないみたい。AppleがrecompileしたアプリのdSYMはiTunes Connectで処理完了するまでは取得する手段もなさそう。これはなかなかに面倒くさい。</p>
+<p>とはいえ、recompileしてもCocoaPodsでインストールしてるモジュールのUUIDは変わらない（更新しなければ）みたいだし、毎回アップロードしないといけないdSYMは自分のアプリのarmv7版とarm64版の2つだけっぽいので、いまのところこういうものとわりきって作業することにした。</p>
+<p>というメモ。たぶんそのうちもっと良い感じになる、はず。</p>
+<p>そのほか参考：</p>
+<ul>
+<li><a href="http://qiita.com/usagimaru/items/cb19f283db4ac0cd8bd6#bitcode" target="_blank" rel="noopener">App Thinning メモ - Qiita</a></li>
+<li><a href="http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/how-to-solve-symbolication-problems" target="_blank" rel="noopener">How to solve symbolication problems / Client Integration (iOS &amp; Mac OS X) / Knowledge Base - HockeyApp Support</a></li>
+</ul>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

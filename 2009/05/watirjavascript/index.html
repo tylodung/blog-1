@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watirでJavascriptのアラートを操作する</h1>
+          <div>
+            <time datetime="2009-05-09T07:27:30.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2009年5月9日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>watirで操作をしているときに、Javascriptのアラートを操作しないといけないときがたまにあります。私は、最近は下記のようにautoitを使って操作しています。</p>
+<p>def handling_javascript()</p>
+<a id="more"></a>
+<p>  title = @ie.Name<br>  Watir.autoit.WinWait(title,””,”10”)<br>  if Watir.autoit.WinExists(title) == 1<br>    Watir.autoit.ControlFocus(title,””,””)<br>    Watir.autoit.ControlClick(title,””,”OK”)<br>  end<br>end</p>
+<p>title=@ie.Name では、IEの名称を取得しています。これはJavascriptのアラートを操作するときのwindowのtitleとして必要なのですが、IEの名称はIE6とIE7以降では異なるため、その都度取得しています。WinWaitは、titleに合致したwindowが表示されるまで待ちます。3つ目の引数でタイムアウトを設定できます。WinExistsは、titleで指定したwindowが存在する場合は1を返します。ControlFocusはtitleで指定したwindowにフォーカスします。ControlClickではtitleで指定したwindowにある、3つ目の引数で指定した文字列のボタンをクリックします。</p>
+<p>これだけなのですが、最低限の操作はこれで可能です。そのほかJavascriptの操作の方法は、<a href="http://wiki.openqa.org/display/WTR/JavaScript+Pop+Ups" target="_blank" rel="noopener">watirのFAQ</a>や<a href="http://wtr.rubyforge.org/rdoc/" target="_blank" rel="noopener">WinClickerによる操作</a>とかを参照するといいかもしれません。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

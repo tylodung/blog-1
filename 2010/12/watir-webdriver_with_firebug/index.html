@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir-webdriver で開いたFirefoxのFirebugを起動状態にする</h1>
+          <div>
+            <time datetime="2010-12-12T18:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2010年12月13日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>watir-webdriverからFirefoxを起動すると、webdriver用に調整された設定(profile)を使用します（厳密にはSelenium::Webdriverが用意した設定）。この調整された設定では、アドオンはwebdriverしか起動状態になりません。そのため、watir-webdriverで開いたFirefoxでFirebugを起動させたい場合は、用意された設定に予め追加しておく必要があります。具体的には下記のような感じ。<a href="http://groups.google.com/group/watir-general/browse_thread/thread/54058823b655f7e6" target="_blank" rel="noopener">Handle Security warining - Watir General | Google グループ</a>の情報を参考にしています。</p>
+<a id="more"></a>
+<p>require ‘rubygems’<br>require ‘watir-webdriver’</p>
+<p>profile = Selenium::WebDriver::Firefox::Profile.new<br>profile.add_extension(“./firebug.xpi”,:firebug)<br>selenium = Selenium::WebDriver.for :firefox,:profile=&gt;profile<br>watir = Watir::Browser.new selenium</p>
+<p>単純にWatir::Browser.newとすると、Selenium::Webdriverで用意したデフォルトの設定しか利用できないため、Selenium::Webdriver用の独自のプロフィールファイルを作成して、それを読み込ませたSelenium::WebdriverをWatirで操作するオブジェクトとします。</p>
+<p>add_extensionで追加するアドオンのファイルはxpiかzip形式である必要があります。Firebugのxpiファイルは<a href="http://getfirebug.com/releases/firebug/" target="_blank" rel="noopener">Firebugのリリースの一覧</a>から適切なバージョンをダウンロードします。add_extensionの詳細については<a href="http://code.google.com/p/selenium/source/browse/trunk/rb/lib/selenium/webdriver/firefox/profile.rb#131" target="_blank" rel="noopener">profile.rb - selenium - Project Hosting on Google Code</a>を参考に。</p>
+<p>これでwebdriverで起動したFirefoxにFirebugのアドオンが追加されるようになります。通常のテストではFirebugを起動状態にする必要はありませんが、テストスクリプトを作成する場合には便利。FirebugでHTML構造をみつつ、Waitrで実際に操作しながら作成することができます。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

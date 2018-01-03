@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">YSLOW 勉強 &#x3a; 1&#x3a; Minimize HTTP Requests</h1>
+          <div>
+            <time datetime="2007-08-04T06:46:10.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月4日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.yahoo.com/yslow/" target="_blank" rel="noopener">YSlow for Firebug</a></li>
+</ul>
+<p>内向きに話題になっていたYSLOWをインストールして試してみるという話。YSLOWは<a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="noopener">rules for high performance web sites</a>（ウェブサイトを高速にするルール）に記載されている法則に則って、ウェブページの表示を遅くしている原因が何かを教えてくれるFirebugzの拡張プラグインです。</p>
+<a id="more"></a>
+<p>rules for high performance web sites のルールは全部で13個。その一つずつを、小刻みに勉強していこうという試みです。</p>
+<p>一つ目は「1.Minimize HTTP Requests」。ユーザーの待ち時間の大半は画像やCSS、javascript、Flashなどのページの構成要素のダウンロードに費やされているから、これらの数を減らして HTTP request の数を減らしていこうということ。ページのリッチさを保ちつつ、HTTP requestを減らすアイデアが記されています。</p>
+<ol>
+<li>イメージマップを利用して画像の点数を少なくする：ナビゲーションバーなど、統合できる画像を統合して、HTTP request を減らす</li>
+<li>「<a href="http://alistapart.com/articles/sprites" target="_blank" rel="noopener">CSS Sprites</a>」という手法を使う：いくつかの画像を一つの画像にまとめて、background-positionでずらしながら利用する。</li>
+<li>インライン（imgタグ）で挿入している画像をCSSで表示するようにする：インライン上の画像は実際のページに組み込まれるため、HTML ドキュメントのサイズを増やしてしまう。だから（キャッシュされる）CSS上で呼び出す方が良い。</li>
+<li>ファイルを統合する：JavascriptやCSSなどのファイルをひとつにまとめて HTTP request の数を少なくする。</li>
+</ol>
+<p>ちなみに、memolog.orgのトップページの判定はD判定・・、Feed Flareの外部Javascriptがエントリーごとに入っているために、評価が下がっているようです。スタッツ用に埋め込んでいるけど（たぶん）トップページには必要なさそうなので、外してみよう。 <img src="/blog//assets/i/2007/08/cap080501.gif" alt="cap080501.gif"></p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

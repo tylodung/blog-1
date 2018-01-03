@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">YSLOW 勉強 &#x3a; 9&#x3a; Reduce DNS Lookups</h1>
+          <div>
+            <time datetime="2007-08-12T06:24:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2007年8月12日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><ul>
+<li><a href="http://developer.yahoo.com/performance/rules.html#dns_lookups" target="_blank" rel="noopener">9: Reduce DNS Lookups</a></li>
+</ul>
+<p><a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="noopener">rules for high performance web sites</a>の九つ目。DNS lookups を減らそう。あるhost名とIPアドレスを関連づけるためにDNS（Domain Name System）lookupを行うけれど、これには20〜120ミリ秒の時間がかかる。lookupが完了するまではそのhostからダウンロードすることはできない。</p>
+<a id="more"></a>
+<p>ウェブページに存在するhostについてOSにもブラウザにもDNSのキャッシュがない場合に、DNS lookupが行われる。Webページ上で利用しているhost名が少ない方がDNS lookupがおこなれる回数が少なくなる。</p>
+<p>ただ、hostを単一に減らすことは、ページ上での並行したダウンロードを減らすことにもつながる。DNS lookupの数を減らしてレスポンスタイムを下げる一方で、並行したダウンロードが減ったことによってレスポンスタイムが増えてしまうかもしれない。ガイドラインでは、hostはすくなくとも2つ、多くても4つとしている。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

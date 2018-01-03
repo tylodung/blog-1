@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">リンクの色の方が優先される理由</h1>
+          <div>
+            <time datetime="2009-04-26T06:40:56.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2009年4月26日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>たとえば下記のようなHTMLに、下記のようなCSSを指定した場合、aタグに指定したCSSの方が有効に作用する。</p>
+<h3 class="entry-header"><a href="/post.html">記事のタイトル</a></h3>
+
+<a id="more"></a>
+<p>----<br>a {color: blue;}<br>h3.entry-header {color: red;}</p>
+<p>まあそういうものなのだと、普段はたいして気にとめていなかったのですが、あらためて説明しようとすると、これがよく分からない。単純に詳細度で考えたら、h3.entry-headerの方が強いのにどうしてだろう。ということで、<a href="http://www.amazon.co.jp/gp/product/487311232X?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=xm2&amp;camp=247&amp;creativeASIN=487311232X" target="_blank" rel="noopener">CSS完全ガイド</a>を購入して、きちんと読んでみました（3章まで）。p71〜p74あたりにそのあたりのことが説明されていた。</p>
+<p>要するに、祖先から継承した指定の詳細度は「なし」という扱いになるため、aタグに指定した内容の方が詳細度が高く、より強く作用するということなのだ。うーん、調べてみてみると、そんなに難しい話じゃない。継承した指定の詳細度がもともとと同じ詳細度を持っていたら、たとえば body#foo というような指定があったら、いろんな子孫に不要に作用してしまう。うまくできている。</p>
+<p>ふむ。つまり。この件について、CSSを生業としていないような人に質問されたら、「より内側にあるタグに指定したCSSの方が、外側のタグに指定したものより有効に作用します」と伝えても特に問題はなさそうだ。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

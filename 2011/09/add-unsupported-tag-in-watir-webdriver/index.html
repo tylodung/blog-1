@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">watir-webdriver&#x3a; 使用できる要素を追加する</h1>
+          <div>
+            <time datetime="2011-09-15T06:25:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年9月15日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>watir-webdriverでは広範囲のHTMLタグ（ほとんど全部）をサポートしているけれど、svgやcircleなど一部のタグは現在のところサポートしていません（参考：<a href="http://groups.google.com/group/watir-general/msg/271325e18d2b98f2?pli=1" target="_blank" rel="noopener">Does watir support svg - Watir General | Google グループ</a>）。</p>
+<a id="more"></a>
+<p>なので、自分で追加して使おうという話。watir-webdriver上にタグを追加するのは仕組み上は簡単で、下記のようにclassを追加すれば良い（circleでの追加例）。</p>
+<p>module Watir<br>class Circle &lt; HTMLElement<br>  attributes(:string =&gt; [:cx,:cy,:r,:stroke,:’stroke-width’,<br>                         :’fill-opacity’,:fill])<br>end<br>class CircleCollection &lt; ElementCollection</p>
+<p>def element_class<br>  Circle<br> end<br>end</p>
+<p>module Container<br>  def circle(*args)<br>    Circle.new(self, extract_selector(args).merge(:tag_name =&gt; “circle”))<br>  end</p>
+<p>  def circles(*args)<br>    CircleCollection.new(self,<br>                     extract_selector(args).merge(:tag_name =&gt; “circle”))<br>  end<br>end<br>end</p>
+<p>これで「b.circle」とか「b.circles」とかでcircleタグの要素を取ってくることができます</p>
+<p>ただし制限があって、「b.circle(:fill,’#ffffff’)」のように属性を指定して取得することが今のところできません。watir-webdriverでの要素の取得は、属性を指定する場合、最終的にseleniumのインスタンスに対して、find_elementメソッドと内部生成したxpathを使って取得します（element_locator.rbのlocateメソッド）。しかしseleniumにおいて、find_element(:xpath,”.//circle[@fill=’#ffffff’]“)というようなxpathで要素を取得することができないみたいです（現在のところ）。</p>
+<p>属性を指定しない場合（「b.circle」みたいに）は内部的にtag_nameを使って取得するため大丈夫みたいです（find_element(:tag_name,’circle’)）。なので、b.circle(:fill,’#ffffff’)と同じ要素を取得したい場合は、b.circles.find{|c| c.fill == ‘#ffffff’}みたいな感じで回避することができます。ちょっと不格好ですけど。</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

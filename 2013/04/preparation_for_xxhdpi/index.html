@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">xxhdpiの準備とdpiとdpについて</h1>
+          <div>
+            <time datetime="2013-04-21T06:00:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2013年4月21日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density" target="_blank" rel="noopener">List of displays by pixel density - Wikipedia, the free encyclopedia</a> を見ていて気がついたのですけど、Galaxy S4は<a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank" rel="noopener">Supporting Multiple Screens | Android Developers</a>で言うところの「xxhdpi」という枠に入るらしい。Android Developersには記載がないのですけど、<a href="https://plus.google.com/+NickButcher/posts/ePQya3KsTjW" target="_blank" rel="noopener">Nick Butcher - Google+ - Nexus 10 launcher icons The gorgeous screen on the Nexus…</a>に、（Nexus 10はxhdpiの範囲を超えてくるので）xxhdpiかdrawable-480dpiフォルダーを用意する必要がある、というような記述がある（Nexus 10は300ppiと仕様には書かれていますけど、事実関係は未調査）。</p>
+<a id="more"></a>
+<p>Androidの画面のサイズで出てくる単位としては、dpiとdpがあり、<a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank" rel="noopener">Supporting Multiple Screens | Android Developers</a>に用語の説明が書かれています。</p>
+<p>dpiは、dots per inchのことで、1インチの中に含まれるdotの数を表しますと（<a href="http://ja.wikipedia.org/wiki/Dpi" target="_blank" rel="noopener">dpi - Wikipedia</a>）。ピクセルとドットが1対1の関係であれば、<a href="http://ja.wikipedia.org/wiki/Ppi" target="_blank" rel="noopener">ppi - Wikipedia</a>の計算式で算出できます。</p>
+<p>dpは、density-independent pixelのことだそうで、px = dp * (dpi / 160)という計算式で算出するそうです。dpi = 240 の場合、px = 1.5dp になるので、dp=1なら、pxは1.5になる。つまり、dpは、1dpあたりのpixel数が、dpiによって増減するので、画面の密度とは独立して扱うことができると。160dpiでも、240dpiでも、1インチあたりのdpは160になる。ピクセルの数に影響されずに画面のサイズを特定することができる。</p>
+<p>アイコンとかの画像は通常ピクセルで用意するので、dpiに応じた大きさを用意しないいけない。そこでdrawable-ldpiみたいな、dpiのグループごとに画像を用意する。<br><img src="http://developer.android.com/images/screens_support/screens-ranges.png" alt=""></p>
+<p>たいていの端末はxhdpiで設定されている値（〜320dpi）に収まるわけですが、Galaxy S4は、約5インチのディスプレイで「1080×1920」という解像度を持っていて、そのdpiは計算すると（<a href="https://www.google.co.jp/search?q=sqr&#x25;281080^2&#x25;2B1920^2&#x25;29&#x25;2F4.99" target="_blank" rel="noopener">sqr(1080^2+1920^2)/4.99</a>）、約441dpiとなり（<a href="http://www.apple.com/jp/iphone/specs.html" target="_blank" rel="noopener">iphone 5 は326 ppi</a>）、xhdpiを大きく超えるdpiとなる。</p>
+<p>それでxxhdpiというフォルダを作って画像を用意する必要がある、という話になると。Android Developersにxxhdpiの記載が見つからないので、ちゃんと適用されるのか微妙に不安ではありますけど（<a href="http://developer.android.com/reference/android/util/DisplayMetrics.html#DENSITY_XXHIGH" target="_blank" rel="noopener">DisplayMetrics | Android Developers</a>の実装がそれにあたるみたいだそうですけど）、xxhdpiは〜480dpiまでという前提で言うと、480/160ということで、mdpiから3倍の大きさの画像を用意する感じになる。</p>
+<p>アイコンだと、<a href="http://developer.android.com/guide/practices/screens_support.html#DesigningResources" target="_blank" rel="noopener">Supporting Multiple Screens | Android Developers</a>の話を参考にすると、144x144で、スプラッシュスクリーンは、normal sizeなスクリーンの場合は少なくとも960x1410 (470dp*3, 320dp*3)という感じになるんですけど、実際に登場するGalaxy S4が1080×1920なので、1080×1920で用意しておくのがとりあえず無難かなと思う次第であります。</p>
+<p>というメモ</p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

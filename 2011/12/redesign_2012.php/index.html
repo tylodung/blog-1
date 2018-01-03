@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="utf-8">
+  <title>メモログ</title>
+  <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/blog/css/global.css">
+<link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+    <header class="header header_component_global">
+    <div class="header__title header__title"><a href="/blog/">メモログ</a></div>
+    <p class="header__description">💡 Personal notes about somthing I&#39;m interested in</p>
+    <aside><blockquote class="header__epigraph">Well, he fuffed, and he puffed, and he huffed and he puffed, and he puffed and huffed; but he could not get the house down.</blockquote></aside>
+    <nav class="navigation navigation-global">
+      <a href="/blog/" class="navigation__link">📘 Latest Articles</a>
+    </nav>
+  </header>
+  <div class="container">
+    <main class="main">
+      <article itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+        <header class="header">
+          <h1 class="header__title" itemprop="name">デザインを変更（2011/12）</h1>
+          <div>
+            <time datetime="2011-12-24T09:04:00.000Z" itemprop="datePublished">
+              <span class="calendar-icon">📅</span><span>2011年12月24日</span>
+            </time>
+          </div>
+        </header>
+        <div id="article-content" class="content" itemprop="articleBody"><p>デザインを変更してみました。前回の変更は<a href="http://memolog.org/2010/12/redesign_2011.php" target="_blank" rel="noopener">こちら</a>。今回はコンテンツ部分はほとんど変えずに、ヘッダー/フッター周りとかを中心に。</p>
+<a id="more"></a>
+<p>メインの変更としましては、今年流行の<a href="http://www.alistapart.com/articles/responsive-web-design/" target="_blank" rel="noopener">responsive web design</a>的な対応をしてみました。<a href="http://coliss.com/articles/build-websites/operation/javascript/jquery-plugin-breakpoints.html" target="_blank" rel="noopener">Breakpoints.js</a>というjqueryのpluginを使用すると、bodyに「breakpoint-1024」みたいなclassを表示サイズにあわせて追加してくれるので、そこでCSSを追加しただけというシンプルな方法で。あとviewpointの設定を<meta name="viewport" content="width=device-width">に変更しました。まあとりあえず動作するところまで作りたかったので、もろもろ随時改善はしていきたいなあと思っています（思っているだけ）。</p>
+<p>いまのところCSSで非表示にしているだけなので、コンテンツの出力はするし、画像も表示サイズにフィットするようにはしてみましたがファイルサイズは変わらないので、3Gで写真系のコンテンツを見ようとすると結構時間がかかってします。そのあたりも最適化できるのが理想ではあります。けど、まあ、簡単にできる方法がわからないので保留（簡単な方法あるのかな）。</p>
+<p>そして、今さらはまったこととしては、Retinaディスプレイの解像度。解像度が高いけど表示領域は320pxだから、小さな画像を表示しようとすると（解像度が足らずに）画像がぼやけた感じになる。そのぼやけた感じが、あまりにあんまりだったので、小さい画面用のバナー画像は一回作り直しました。320pxの幅のイメージを表示するのに、640pxの画像を作成してそれを50&#x25;で表示するって、、なんかあれですね、変な感じですね。</p>
+<p>こうやってあれこれやってみると、なんというか、WEBデザインって数年前に比べてやること増えましたよねえ。技術的にも複雑になっていて、ただHTMLを書けるだけでは、なんかもう不十分。新しいコンセプトもどんどこ出てくるし。simplebitsの人がA List Apartの記事に下記のようなことを書いていたのですが、すべての技術を掌握するのではなく、必要なタイミングで必要な技術をがばっとつかんでそれを積み上げていく、そんな仕事の仕方が求められるんだろうなあと思った次第です。pushからpullみたいな。</p>
+<blockquote>
+<p>These recent advances can seem overwhelming to keep up with: HTML5! CSS3! Responsive Web Design! Mobile! Web Fonts! Grids! It’s become impossible to keep up with everything. And that’s why I’ve learned to let go and focus on incrementally folding these new ways of thinking into daily work as I grasp them–while at the same time trying not to worry about everything being perfect or solving a problem “correctly.”<br><a href="http://www.alistapart.com/articles/what-i-learned-about-the-web-in-2011/" target="_blank" rel="noopener">A List Apart: Articles: What I Learned About the Web in 2011</a></p>
+</blockquote>
+<p>また気が向いたところでデザインを変えたりするので、今の状態のキャプチャを最後に貼付け。デザイン的には<a href="http://parklafun.com/blog/" target="_blank" rel="noopener">Blog – Park La Fun</a>とか、<a href="http://mediaqueri.es/popular/" target="_blank" rel="noopener">Popular - Media Queries</a>をひたすらながめてみたりしました。  </p>
+<p><img src="http://farm8.staticflickr.com/7035/6578557639_364f4f23c3_o.png" alt=""> <img src="http://farm8.staticflickr.com/7171/6564730745_58630bbece.jpg" alt=""></p>
+<p>あ、下のコンテンツの区切りに使っているオーナメント的なものは<a href="http://designshack.net/articles/freebies/weekly-freebies-flourishes-and-ornaments/" target="_blank" rel="noopener">design shack</a>で紹介されていたサイトからダウンロードしてきました。</p>
+<h4 id="追記（2012-1-4）"><a href="#追記（2012-1-4）" class="headerlink" title="追記（2012/1/4）"></a>追記（2012/1/4）</h4><p>フォントのサイズは<a href="http://www.abookapart.com/products/responsive-web-design" target="_blank" rel="noopener">A Book Apart, Responsive Web Design</a>を参考に、ブラウザのデフォルトが16pxと想定してem表記に変更した。ブラウザのデフォルトが12pxとか小さい場合、それに応じてフォントサイズが変更されるようになりました。</p>
+<p>コンテンツの横幅は最初breakpointで一つずつ固定値を指定していたけれど、100&#x25;を指定する形に変更。記事内容部分にはmax-width:840pxを追加。</p>
+<p>記事タイトル部分（h1）はデフォルトをfont-size:0.875emとして、表示サイズが768px以上の場合は1.125emとなるように変更。breakponints.jsが付与するclassに対して指定しているので、javascriptが処理されるまでの間のフォントサイズが少し小さく表示されるのが若干気持ちよくないのだけれど、とりあえず現状維持。</p>
+<h4 id="追記（2012-3-17"><a href="#追記（2012-3-17" class="headerlink" title="追記（2012/3/17)"></a>追記（2012/3/17)</h4><p>トップページとカテゴリーアーカイブについては、記事部分の幅を「95&#x25;」にしつつ、各記事が3つずつ並ぶように調整してみました。float:leftで回り込みさせているだけなので、概要の長さによって期待通りに3列になってくれない場合がある。ので、.post:nth-child(3n+1)でclear:floatしてみました。nth-childに対応していないブラウザでは気にしない方向で..</p>
+<p>.index #posts,.category #posts{ max-width: 95&#x25;; }<br>.breakpoint-768 .list-post,.breakpoint-1024 .list-post{width: 31&#x25;; float:left; margin: 1em 1em 0 0;}<br>.post:nth-child(3n+1){clear:both;}</p>
+<h4 id="追記-2012-5-23"><a href="#追記-2012-5-23" class="headerlink" title="追記 (2012/5/23)"></a>追記 (2012/5/23)</h4><p>Breakpoint.jsをやめて、普通にmedia queriesで処理するように変更しました。フォントサイズも少し大きく。</p>
+<h4 id="追記（2012-6-18）"><a href="#追記（2012-6-18）" class="headerlink" title="追記（2012/6/18）"></a>追記（2012/6/18）</h4><p>JQuery Masonryを使用してpinterest風にしてみました。<a href="http://memolog.org/2012/06/jquery_masonry.php" target="_blank" rel="noopener">縦方向のfloatを実現するjQuery Masonry - メモログ</a></p>
+</div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
