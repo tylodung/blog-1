@@ -31,8 +31,17 @@
         <div id="article-content" class="content" itemprop="articleBody"><p>「<a href="http://watirmelon.com/2010/12/14/watir-webdriver-a-detailed-introduction/" target="_blank" rel="noopener">Watir-WebDriver: A detailed introduction | WatirMelon</a>」の「The remote WebDriver Server」と「Hello Watir-WebDriver in Headless (HTML Unit)」あたりの話。Seleniumのサーバーを使うことで、ブラウザを立ち上げずにバックグラウンドでwebdriverを実行することができます。</p>
 <a id="more"></a>
 <p>使用方法は（上のブログとほぼ同じですが…）下記のような感じ。てきとうに改行入れています。selenium-serverは<a href="http://code.google.com/p/selenium/downloads/list" target="_blank" rel="noopener">Downloads - selenium - Project Hosting on Google Code</a>のページからダウンロードできます。サーバーはJavaで動作します。</p>
-<p>require ‘selenium/server’<br>Selenium_Server = File.expand_path(‘selenium-server-standalone-2.0b1.jar’)<br>@server = Selenium::Server.new(Selenium_Server, :background =&gt; true)<br>@server.start<br>capabilities = Selenium::WebDriver::Remote::Capabilities<br>                                 .htmlunit(:javascript_enabled =&gt; true)<br>@b = Watir::Browser.new(:remote, :url =&gt; “<a href="http://127.0.0.1:4444/wd/hub" target="_blank" rel="noopener">http://127.0.0.1:4444/wd/hub</a>“,<br>                                 :desired_capabilities =&gt; capabilities)<br>## いろいろな動作<br>@server.stop # 最後にサーバーを止める</p>
-<p>ブラウザを立ち上げずに実行できるので、Hudson(Jenkins)などを使ってインテグレーションテストをするようなときに便利、という話。通常のブラウザと比較するとまだ動作が不安定のように見えますけど（betaだし）。</p>
+<pre><code>require &#39;selenium/server&#39;
+Selenium_Server = File.expand_path(&#39;selenium-server-standalone-2.0b1.jar&#39;)
+@server = Selenium::Server.new(Selenium_Server, :background =&gt; true)
+@server.start
+capabilities = Selenium::WebDriver::Remote::Capabilities
+                                 .htmlunit(:javascript_enabled =&gt; true)
+@b = Watir::Browser.new(:remote, :url =&gt; &quot;http://127.0.0.1:4444/wd/hub&quot;, 
+                                 :desired_capabilities =&gt; capabilities)
+## いろいろな動作
+@server.stop # 最後にサーバーを止める
+</code></pre><p>ブラウザを立ち上げずに実行できるので、Hudson(Jenkins)などを使ってインテグレーションテストをするようなときに便利、という話。通常のブラウザと比較するとまだ動作が不安定のように見えますけど（betaだし）。</p>
 </div>
       </article>
     </main>

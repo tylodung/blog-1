@@ -40,11 +40,33 @@
 <h4 id="phpファイルの生成"><a href="#phpファイルの生成" class="headerlink" title="phpファイルの生成"></a>phpファイルの生成</h4><p>phpでないと動作しないので、phpファイルのインデックステンプレートを生成します。「インデックスページ」の中身を丸ごとコピーして、新たに「インデックスページ（ページネート）」というテンプレートを作成しました。ファイル名は「index.php」。インデックスページをそのまま利用しても良かったのですが、この方が何か問題が起きたときに後戻りしやすそうだったので。</p>
 <p>そして、さくらのレンタルサーバーはファイルのパーミッションが705か755でないとphpを利用できないので、mt-config.cgiに<a href="http://movabletype.jp/documentation/appendices/config-directives/htmlperms.html" target="_blank" rel="noopener">HTMLPerm 0755</a> と追記。</p>
 <h4 id="ページネーション部分のタグを記述"><a href="#ページネーション部分のタグを記述" class="headerlink" title="ページネーション部分のタグを記述"></a>ページネーション部分のタグを記述</h4><p>エントリーの生成部分を下記のように変更。max_sectionsで1ページあたりのエントリー数を指定して、ページネートするエントリーの件数はMTEntriesで100件に指定。</p>
-<mtpaginate><br><mtpaginatecontent max_sections="5"><br><mtentries lastn="100"><br><mtpaginatesectionid>&lt;$MTEntryID&gt;</mtpaginatesectionid><br>&lt;$MTInclude module=”ブログ記事の概要”$&gt;<br>&lt;$MTPaginateSectionBreak$&gt;<br></mtentries><br></mtpaginatecontent><br><br><mtpaginateifmultiplepages><br><div class="pagenate">&lt;$MTPaginateNavigator style=”links” separator=” “ $&gt;</div><br></mtpaginateifmultiplepages><br><br><mtpaginateiflastpage_><br><div class="lastpage">より過去の記事は<a href="<$MTBlogURL$>archives.html">記事タイトル一覧</a>を参照ください。</div><br></mtpaginateiflastpage_><br><br></mtpaginate>
+<pre><code>&lt;MTPaginate&gt;
+&lt;MTPaginateContent max_sections=&quot;5&quot;&gt;
+&lt;MTEntries lastn=&quot;100&quot;&gt;
+&lt;MTPaginateSectionID&gt;&lt;$MTEntryID&gt;&lt;/MTPaginateSectionID&gt;
+&lt;$MTInclude module=&quot;ブログ記事の概要&quot;$&gt;
+&lt;$MTPaginateSectionBreak$&gt;
+&lt;/MTEntries&gt;
+&lt;/MTPaginateContent&gt;
 
-<h4 id="CSSの追加"><a href="#CSSの追加" class="headerlink" title="CSSの追加"></a>CSSの追加</h4><p>CSSはこんな感じのを追加しました（そのうち変更するかもしれません）。</p>
-<p>/* pagenate */<br>.pagenate,.lastpage {font-size:11px; color:#666; margin:1em 0; border-top:1px dashed #ccc; padding-top:0.7em;}<br>.lastpage {border:none;margin-top:0; padding-top:0;}<br>.pagenate a {border:1px solid #ccc; text-decoration:none;padding:2px 1px; font-size:11px;}<br>.pagenate a:hover {color:#fff; background-color:#fc3; border-color:#fc3;}<br>.pagenate .pagenate-last {border:none; text-decoration:underline;}<br>.pagenate a.pagenate-last:hover{background-color:transparent; color:#666;}</p>
-<h4 id="index-html-の撤収"><a href="#index-html-の撤収" class="headerlink" title="index.html の撤収"></a>index.html の撤収</h4><p>FTPにてindex.htmlファイルを削除して、index.htmlが再構築されないように「インデックスページ」の「再構築オプション」のチェックをオフにして保存。index.htmlでアクセスがあった場合に、index.phpにリダイレクトするように.htaccessを指定（詳細は省略）。</p>
+&lt;MTPaginateIfMultiplePages&gt;
+&lt;div class=&quot;pagenate&quot;&gt;&lt;$MTPaginateNavigator style=&quot;links&quot; separator=&quot; &quot; $&gt;&lt;/div&gt;
+&lt;/MTPaginateIfMultiplePages&gt;
+
+&lt;MTPaginateIfLastPage_&gt;
+&lt;div class=&quot;lastpage&quot;&gt;より過去の記事は&lt;a href=&quot;&lt;$MTBlogURL$&gt;archives.html&quot;&gt;記事タイトル一覧&lt;/a&gt;を参照ください。&lt;/div&gt;
+&lt;/MTPaginateIfLastPage_&gt;
+
+&lt;/MTPaginate&gt;
+</code></pre><h4 id="CSSの追加"><a href="#CSSの追加" class="headerlink" title="CSSの追加"></a>CSSの追加</h4><p>CSSはこんな感じのを追加しました（そのうち変更するかもしれません）。</p>
+<pre><code>/* pagenate */
+.pagenate,.lastpage {font-size:11px; color:#666; margin:1em 0; border-top:1px dashed #ccc; padding-top:0.7em;}
+.lastpage {border:none;margin-top:0; padding-top:0;}
+.pagenate a {border:1px solid #ccc; text-decoration:none;padding:2px 1px; font-size:11px;}
+.pagenate a:hover {color:#fff; background-color:#fc3; border-color:#fc3;}
+.pagenate .pagenate-last {border:none; text-decoration:underline;}
+.pagenate a.pagenate-last:hover{background-color:transparent; color:#666;}
+</code></pre><h4 id="index-html-の撤収"><a href="#index-html-の撤収" class="headerlink" title="index.html の撤収"></a>index.html の撤収</h4><p>FTPにてindex.htmlファイルを削除して、index.htmlが再構築されないように「インデックスページ」の「再構築オプション」のチェックをオフにして保存。index.htmlでアクセスがあった場合に、index.phpにリダイレクトするように.htaccessを指定（詳細は省略）。</p>
 <p>以上です。作業内容はこれだけなのですが、ローカルで試したりしているうちにあっというまに時間がすぎていきました。ページングのもっと賢いやり方があれば、ぜひ教えてください。</p>
 </div>
       </article>

@@ -30,24 +30,26 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>垂直方向に隣接するマージンは<a href="http://www.w3.org/TR/CSS21/box#collapsing-margins" target="_blank" rel="noopener">マージンの相殺（collapsing）</a>が働くけれど、overflow:hiddenがあると相殺されない、という仕様の話。あとclearanceについて。</p>
 <a id="more"></a>
-<style>
+<pre><code>&lt;style&gt;
 .foo {margin:10px 0 20px 0;}
 .bar {margin:25px 0 5px 0;}
 .baz {margin:20px 0 30px 0;}
-</style>
+&lt;/style&gt;
 
-<p></p><h3 class="foo">foo</h3><p></p>
-<div class="bar"><br>  <p class="baz">baz</p><br></div>
-
-<p>上のようなHTML/CSSの場合、h3.fooのmargin bottomとdiv.barとp.bazのmargin topが、垂直方向に隣接するマージンとなるので相殺の対象となる。その場合、大きい値のマージンが残る。上の例ではdiv.barの25pxのマージンが残る。</p>
+&lt;h3 class=&quot;foo&quot;&gt;foo&lt;/h3&gt;
+&lt;div class=&quot;bar&quot;&gt;
+  &lt;p class=&quot;baz&quot;&gt;baz&lt;/p&gt;
+&lt;/div&gt;
+</code></pre><p>上のようなHTML/CSSの場合、h3.fooのmargin bottomとdiv.barとp.bazのmargin topが、垂直方向に隣接するマージンとなるので相殺の対象となる。その場合、大きい値のマージンが残る。上の例ではdiv.barの25pxのマージンが残る。</p>
 <p>マージンの相殺は</p>
-<style>
+<pre><code>&lt;style&gt;
 p{ margin:10px; }
-</style>
+&lt;/style&gt;
 
-<p>foo</p><br><p>bar</p><br><p>baz</p>
-
-<p>のようなHTML/CSSの場合に、3つのpタグの上下にマージンを入れつつ、pタグの間のマージンも重複しないで同じマージン幅であけることができるので、状況によって便利</p>
+&lt;p&gt;foo&lt;/p&gt;
+&lt;p&gt;bar&lt;/p&gt;
+&lt;p&gt;baz&lt;/p&gt;
+</code></pre><p>のようなHTML/CSSの場合に、3つのpタグの上下にマージンを入れつつ、pタグの間のマージンも重複しないで同じマージン幅であけることができるので、状況によって便利</p>
 <p>ただしマージンの相殺には除外要件があって、下記のようなもの</p>
 <blockquote>
 <p>Adjoining vertical margins collapse, except:</p>
@@ -72,18 +74,19 @@ p{ margin:10px; }
 </ul>
 </blockquote>
 <p>と書いてあり、「same block formatting」の中にある要素でないと、マージンの相殺は発生しない。</p>
-<p>overflowは<a href="http://memolog.org/2012/05/float_and_width_auto.php" target="_blank" rel="noopener">floatとwidth:auto - メモログ</a>でも触れましたけれど、visible以外の値が設定されている場合は、new block formatting contextsを構築するので、マージンの相殺が発生しなくなる。</p>
+<p>overflowは<a href="/blog//2012/05/float_and_width_auto/">floatとwidth:auto - メモログ</a>でも触れましたけれど、visible以外の値が設定されている場合は、new block formatting contextsを構築するので、マージンの相殺が発生しなくなる。</p>
 <p>上の例の場合だと</p>
-<style>
+<pre><code>&lt;style&gt;
 .foo {margin:10px 0 20px 0;}
 .bar {margin:25px 0 5px 0; overflow:hidden;}
 .baz {margin:20px 0 30px 0;}
-</style>
+&lt;/style&gt;
 
-<p></p><h3 class="foo">foo</h3><p></p>
-<div class="bar"><br>  <p class="baz">baz</p><br></div>
-
-<p>のように、div.barにoverflow:hiddenがつくと、h3.fooとdiv.bar/p.bazとの間のマージンの相殺は行われなくなる（div.barとp.bazとの間の相殺は発生する）。</p>
+&lt;h3 class=&quot;foo&quot;&gt;foo&lt;/h3&gt;
+&lt;div class=&quot;bar&quot;&gt;
+  &lt;p class=&quot;baz&quot;&gt;baz&lt;/p&gt;
+&lt;/div&gt;
+</code></pre><p>のように、div.barにoverflow:hiddenがつくと、h3.fooとdiv.bar/p.bazとの間のマージンの相殺は行われなくなる（div.barとp.bazとの間の相殺は発生する）。</p>
 <p>上のような具体例として、仕様上に下記のように箇条書きされている。</p>
 <blockquote>
 <p>Note the above rules imply that:</p>

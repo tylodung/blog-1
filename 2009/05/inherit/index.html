@@ -28,14 +28,20 @@
             </time>
           </div>
         </header>
-        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://memolog.org/2009/04/post-185.php" target="_blank" rel="noopener">リンクの色の方が優先される理由</a>の記事で、下記のHTMLの場合はリンクの色の方が優先されるという話をした。</p>
-<h3 class="entry-header"><a href="/post.html">記事のタイトル</a></h3>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="/blog//2009/04/post-185/">リンクの色の方が優先される理由</a>の記事で、下記のHTMLの場合はリンクの色の方が優先されるという話をした。</p>
+<pre><code>&lt;h3 class=&quot;entry-header&quot;&gt;&lt;a href=&quot;/post.html&quot;&gt;記事のタイトル&lt;/a&gt;&lt;/h3&gt;
 
-<a id="more"></a>
-<p>----<br>a {color: blue;}<br>h3.entry-header {color: red;}</p>
-<p>では、h3.entry-headerで指定した色をリンク色として継承したい場合はどうしたら良いのか。それにはcolorプロパティにinheritを設定する。inheritは親要素の値を継承するので、h3.entry-headerで指定した色になる。これは便利。親要素の色をリンク色に継承するためのclass属性を用意しておけば、一つずつリンク色を指定する必要がなくなる。</p>
-<p></p><h3 class="entry-header"><a href="/post.html" class="inherit">記事のタイトル</a></h3><br>----<br>a {color: blue;}<br>h3.entry-header {color: red;}<br>.inherit {color: inherit;}<p></p>
-<p>ところが、<a href="http://hxxk.jp/2008/10/27/2057" target="_blank" rel="noopener">IE6、IE7ではこの値が機能しない（IE8では機能するらしい）</a>。そのため、しばらくは他の手段で対応するしかないわけですが、 いずれはinheritを設定するだけで思いどおりの表示にできそう。世の中はますます便利に。</p>
+&lt;!-- more --&gt;
+----
+a {color: blue;}
+h3.entry-header {color: red;}
+</code></pre><p>では、h3.entry-headerで指定した色をリンク色として継承したい場合はどうしたら良いのか。それにはcolorプロパティにinheritを設定する。inheritは親要素の値を継承するので、h3.entry-headerで指定した色になる。これは便利。親要素の色をリンク色に継承するためのclass属性を用意しておけば、一つずつリンク色を指定する必要がなくなる。</p>
+<pre><code>&lt;h3 class=&quot;entry-header&quot;&gt;&lt;a href=&quot;/post.html&quot; class=&quot;inherit&quot; &gt;記事のタイトル&lt;/a&gt;&lt;/h3&gt;
+----
+a {color: blue;}
+h3.entry-header {color: red;}
+.inherit {color: inherit;}
+</code></pre><p>ところが、<a href="http://hxxk.jp/2008/10/27/2057" target="_blank" rel="noopener">IE6、IE7ではこの値が機能しない（IE8では機能するらしい）</a>。そのため、しばらくは他の手段で対応するしかないわけですが、 いずれはinheritを設定するだけで思いどおりの表示にできそう。世の中はますます便利に。</p>
 </div>
       </article>
     </main>

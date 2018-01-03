@@ -46,7 +46,7 @@
 </ul>
 <p>last-childには対応していない。first-childは使えるけど完璧ではないみたい（<a href="http://quirksmode.org/css/selectors/#t51" target="_blank" rel="noopener">Quirksmode: CSS selectors</a>）。<a href="http://selectivizr.com/" target="_blank" rel="noopener">selectivizr</a>で使えるようにはなる。</p>
 <p>あと、max-width/min-width/max-height/min-heightは、box-sizingを変更してもcontent boxの状態で計算されるという問題がありました。</p>
-<p>box-sizingについては、<a href="http://memolog.org/2012/05/responsive_grid_box-sizing.php" target="_blank" rel="noopener">responsive grid と box-sizing</a>で紹介していましたが（忘れてたけど）、widthの対象をborderまで含めると、いろいろと楽な面が大きい。vendor-prefixを含めれば、どのブラウザでもほぼ問題なく使用できる。もうボックスモデルの問題は過去のものになったと言える。たぶん。</p>
+<p>box-sizingについては、<a href="/blog//2012/05/responsive_grid_box-sizing/">responsive grid と box-sizing</a>で紹介していましたが（忘れてたけど）、widthの対象をborderまで含めると、いろいろと楽な面が大きい。vendor-prefixを含めれば、どのブラウザでもほぼ問題なく使用できる。もうボックスモデルの問題は過去のものになったと言える。たぶん。</p>
 <p>max-width/min-widthも地味に便利。IE8以前では、コンテンツの幅より大きなサイズの画像の場合だけ、コンテンツの幅にあわせて表示する、ということが簡単にできなかった。display:inline-block や display:table はverticalな配置を整えるときに便利。</p>
 <p>とかまあいろいろ省略しますけど、他の最新ブラウザと比べると、IE8でできることはかなり少ないのですけど、それでも以前よりだいぶましになっている。</p>
 <p>そして、以下は一緒に調べたIEのリリースの年月。</p>

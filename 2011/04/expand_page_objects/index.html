@@ -28,22 +28,62 @@
             </time>
           </div>
         </header>
-        <div id="article-content" class="content" itemprop="articleBody"><p>以前に<a href="http://memolog.org/2010/11/page_objects.php" target="_blank" rel="noopener">Page Objects : テストスイート構築のためのデザインパターン - メモログ</a>というのを紹介しました。今回はそのパターンをちょっと拡張してみようという話。なお、特に参考にした訳ではないのですが、<a href="http://fijiaaron.wordpress.com/2009/09/02/selenium-page-objects-site-objects-data-objects-high-level-navigation/" target="_blank" rel="noopener">Selenium Page Objects + Site Objects, Data Objects &amp; High Level Navigation « Fiji Ecuador Seattle Greece Montana</a>に同じような話を提示している人はいます（2年前に）。</p>
+        <div id="article-content" class="content" itemprop="articleBody"><p>以前に<a href="/blog//2010/11/page_objects/">Page Objects : テストスイート構築のためのデザインパターン - メモログ</a>というのを紹介しました。今回はそのパターンをちょっと拡張してみようという話。なお、特に参考にした訳ではないのですが、<a href="http://fijiaaron.wordpress.com/2009/09/02/selenium-page-objects-site-objects-data-objects-high-level-navigation/" target="_blank" rel="noopener">Selenium Page Objects + Site Objects, Data Objects &amp; High Level Navigation « Fiji Ecuador Seattle Greece Montana</a>に同じような話を提示している人はいます（2年前に）。</p>
 <a id="more"></a>
 <p>Page Objectsは、自動化テストのスクリプトをまとめるための一つのパターン。ページを一つのオブジェクトとして捉えて、そのページのアクション（サービス）を一つの「区切り」にしてスクリプトをまとめます。他のページに移動する場合は、移動するページのオブジェクトを返り値として渡す（そうすることで複数ページのアクションを続けていくことができる）。</p>
 <p>ただ、テスト手順として、連続性のない複数のページのアクションを実行する場合、Page Objectsのパターンでは悩ましいところがあります。たとえば、ブログの設定ページで設定をしたあとに、記事作成ページで記事を作成して、その記事がブログに期待通りに生成されているかを確認する、とか。それぞれのページは独立していて、アクション間の連携はない場合、Page Objectを渡すわけにはいかない。リンクをクリックしてページを遷移していくことで連携させることもできるけれど、効率性から考えるとやはり直接該当のページにアクセスしたい（リンクをたどった方がより人間的と言えるかもしれないけど）。とか。</p>
 <p>Page Objectsの上位のオブジェクトして「Site Object」を設けて、そこから操作するとそうした悩みがなくなります。たとえば<a href="http://zenback.jp" target="_blank" rel="noopener">zenback</a>なら、「Dashboard」とか「Customize」とかのPage Objectsの他に「zenback」というSite Objectを設ける。zenbackというSite Objectから、DashboardやCustomizeなどのPage Objectsを操作したり、ページ間の移動を行うことでDashboardとCustomizeのページがアクション（サービス）で連携がない場合でも連続的に操作を行うことができる。</p>
 <p>イメージとしてはこんな感じ。</p>
-<p>(lib/zenback)<br>require ‘watir-webdriver’</p>
-<p>module Zenback<br>class Zenback<br>  def initialize<br>    @b = Webdriver::Browser.new<br>  end<br>  def dashboard<br>    Dashboard.new @b<br>  end<br>  def customize<br>    Customize.new @b<br>  end<br>end</p>
-<p>class Dashboard<br>  def initialize(b)<br>    @b = b<br>  end<br>  def add(blog)<br>     @b.link(:href,/add_blog/).click</p>
-<pre><code> # scripts for adding blog action (service)
-</code></pre><p>  end<br>end<br>….<br>end</p>
-<p>require ‘lib/zenback’<br>z = Zenback::Zenback.new<br>z.goto ‘<a href="http://zenback.jp/dashboard" target="_blank" rel="noopener">http://zenback.jp/dashboard</a>‘<br>z.dashboard.add ‘<a href="http://memolog.org" target="_blank" rel="noopener">http://memolog.org</a>‘<br>z.goto ‘<a href="http://zenback.jp/dashboard/blog/123456789/" target="_blank" rel="noopener">http://zenback.jp/dashboard/blog/123456789/</a>‘<br>z.customize.set_modules</p>
-<p>実際のスクリプトはページごとにスクリプトファイル変えたりとか、単純にgotoメソッドで画面遷移しないとかいろいろあったりしますが、基本的なイメージとしてはこんな感じです。「zenback」というSite Objectを呼び出して、Site ObjectからPage Objectsを操作していく。Page Objectsのパターンではアクション実行後にPage Objectを返すのが基本ですが、Site ObjectがあるとPage Objectsの選択はSite Object上で自分で選択できるのでPage Objectの返りはあってもなくてもいい。あとzenbackのSite Objectで起動したwatir-webdriverのオブジェクトをPage Objectsの引数として渡すことでPage Objects個々の独立性を保ちつつ、サイト全体でwatir-webdriverのオブジェクトを使えるようにしています。</p>
+<pre><code>(lib/zenback)
+require &#39;watir-webdriver&#39;
+
+module Zenback
+class Zenback
+  def initialize
+    @b = Webdriver::Browser.new
+  end
+  def dashboard
+    Dashboard.new @b
+  end
+  def customize
+    Customize.new @b
+  end
+end
+
+class Dashboard
+  def initialize(b)
+    @b = b
+  end
+  def add(blog)
+     @b.link(:href,/add_blog/).click
+     # scripts for adding blog action (service)
+  end
+end
+....
+end
+</code></pre><pre><code>require &#39;lib/zenback&#39;
+z = Zenback::Zenback.new
+z.goto &#39;http://zenback.jp/dashboard&#39;
+z.dashboard.add &#39;http://memolog.org&#39;
+z.goto &#39;http://zenback.jp/dashboard/blog/123456789/&#39;
+z.customize.set_modules
+</code></pre><p>実際のスクリプトはページごとにスクリプトファイル変えたりとか、単純にgotoメソッドで画面遷移しないとかいろいろあったりしますが、基本的なイメージとしてはこんな感じです。「zenback」というSite Objectを呼び出して、Site ObjectからPage Objectsを操作していく。Page Objectsのパターンではアクション実行後にPage Objectを返すのが基本ですが、Site ObjectがあるとPage Objectsの選択はSite Object上で自分で選択できるのでPage Objectの返りはあってもなくてもいい。あとzenbackのSite Objectで起動したwatir-webdriverのオブジェクトをPage Objectsの引数として渡すことでPage Objects個々の独立性を保ちつつ、サイト全体でwatir-webdriverのオブジェクトを使えるようにしています。</p>
 <p>そして、Page Objectの下位のオブジェクトとして「Data Objects」も（必要に応じて）設けます。たとえば記事の一覧のページなど、ページには表示するデータがあって、それをひとつのオブジェクトとして捉えて、データの各要素（idとかtitleとか）を取り出しやすい形にしておく。イメージとしてはこんな感じ（こちらもかなり省略しています）。</p>
-<p>module Zenback<br>class Dashboard<br>  class Blog<br>    attr_accessor :id, :name<br>    def initialize(tr)<br>       @id = tr.th.link.href.slice(/[0-9]+/)<br>       @name = tr.tr.link.text<br>    end<br>  end<br>  def blog(tr)<br>    Blog.new tr<br>  end<br>end<br>end</p>
-<p>zenbackで言うと、ダッシュボードに表示されるブログ一覧の一つのブログを「Data Object」として捉えて、idや名前を取り出しやすい形にしておく。これでblog.id とかでブログのidを取り出すことできます。Blogのclassに「tr」を渡していますが、これはこの一覧がtableで組まれていて、trごとにブログのデータが記載されるためです。</p>
+<pre><code>module Zenback
+class Dashboard
+  class Blog
+    attr_accessor :id, :name
+    def initialize(tr)
+       @id = tr.th.link.href.slice(/[0-9]+/)
+       @name = tr.tr.link.text
+    end
+  end
+  def blog(tr)
+    Blog.new tr
+  end
+end
+end
+</code></pre><p>zenbackで言うと、ダッシュボードに表示されるブログ一覧の一つのブログを「Data Object」として捉えて、idや名前を取り出しやすい形にしておく。これでblog.id とかでブログのidを取り出すことできます。Blogのclassに「tr」を渡していますが、これはこの一覧がtableで組まれていて、trごとにブログのデータが記載されるためです。</p>
 <p>このへん、私自身としてはまだ試行錯誤中といったところではありますが、今のところテストスクリプトを構築する上でのモデルになっています。</p>
 </div>
       </article>

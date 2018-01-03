@@ -32,13 +32,23 @@
 <a id="more"></a>
 <p>html.slice(/data-expanded-url=\“([^”]+)\“/,1)みたいにしてhtmlからsliceすることはできますけど、やはり「link.data-expanded-url」みたいなかたちで取得できる方が良い</p>
 <p>そこで要素で使用できる属性を追加するという話。属性はmodule Watirの中のclassでattributesのクラスメソッドによってメソッド化されています。同じような手順で好きな属性を追加することができます。</p>
-<p>require ‘watir-webdriver’</p>
-<p>module Watir<br>  class Anchor<br>    attributes(:string =&gt; [:’data-expanded-url’])<br>  end<br>end</p>
-<p>これでlinkのメソッドに「data-expaneded-url」が追加されます（メソッド名にハイフンが含まれると、その部分がマイナスの演算子として認識されてしまうので、実際にはlink.send(‘data-expanded-url’)みたいな形で使用するかなんとかにしないといけませんが）。</p>
+<pre><code>require &#39;watir-webdriver&#39;
+
+module Watir
+  class Anchor
+    attributes(:string =&gt; [:&#39;data-expanded-url&#39;])
+  end
+end
+</code></pre><p>これでlinkのメソッドに「data-expaneded-url」が追加されます（メソッド名にハイフンが含まれると、その部分がマイナスの演算子として認識されてしまうので、実際にはlink.send(‘data-expanded-url’)みたいな形で使用するかなんとかにしないといけませんが）。</p>
 <p>metaタグのproperty属性（og:imageとか指定するのに使う）を取得したい場合も同じ要領で簡単にとれるようになります。</p>
-<p>module Watir<br>  class Meta<br>    attributes(:string =&gt; [:property])<br>  end<br>end</p>
-<p>b.meta(:property,’og:image’).content</p>
-</div>
+<pre><code>module Watir
+  class Meta
+    attributes(:string =&gt; [:property])
+  end
+end
+
+b.meta(:property,&#39;og:image&#39;).content
+</code></pre></div>
       </article>
     </main>
   </div>

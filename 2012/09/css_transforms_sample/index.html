@@ -39,83 +39,293 @@
 <p>6</p>
 <p>Firefox/Chromeでは動作確認済み。Operaは<a href="http://caniuse.com/transforms3d" target="_blank" rel="noopener">transformの3Dが未対応</a>なので、動作しません。IE10でも動きますが、何か変…</p>
 <p>sassのコードは下記のような感じ。</p>
-<p>@import “compass/css3/box-sizing”;<br>@import “compass/css3/transform”;</p>
-<p>@mixin position($top:null,$right:null,$bottom:null,$left:null){<br>  @if($top){ top: $top }<br>  @if($right){ right: $right }<br>  @if($left){ left: $left }<br>  @if($bottom){ bottom: $bottom }<br>}</p>
-<p>* {<br>  @include box-sizing(border-box);<br>}</p>
-<p>.dice {<br>  @include transform-style(preserve-3d);<br>  @include perspective(1000px);<br>  @include perspective-origin(50&#x25; 50&#x25;);</p>
-<p>  position: relative;<br>  width: 400px;<br>  height: 400px;</p>
-<p>  > div,<br>  .five,.six {<br>    position: absolute;<br>    width: 100px;<br>    height: 100px;<br>    border: 1px solid #ddd;<br>    background-color: rgba(158,158,158,0.1);<br>    line-height: 100px;<br>    text-align: center;<br>  }</p>
-<p>  .one {<br>    @include position(100px,null,null,200px);<br>  }</p>
-<p>  .two {<br>    @include position(0,null,null,200px);<br>    @include transform-origin(bottom,left);<br>    border-bottom: none;<br>  }</p>
-<p>  .three {<br>    @include position(100px,null,null,300px);<br>    @include transform-origin(top,left);<br>    border-left: none;<br>    .inner {<br>      @include transform(rotateZ(90deg));<br>    }<br>  }</p>
-<p>  .four {<br>    @include position(100px,null,null,100px);<br>    @include transform-origin(top,right);<br>    border-right: none;<br>    .inner {<br>      @include transform(rotateZ(-90deg));<br>    }<br>  }</p>
-<p>  .five-six {<br>    @include position(200px,null,null,200px);<br>    @include transform-origin(top,left);<br>    border: none;<br>    background: transparent;<br>    height: 200px;<br>    @include transform-style(preserve-3d);<br>  }</p>
-<p>  .five {<br>    @include position(0,null,null,0);<br>    border-top: none;<br>    border-bottom: none;<br>    .inner {<br>      @include transform(rotateZ(180deg));<br>    }<br>  }</p>
-<p>  .six {<br>    @include position(100px,null,null,0);<br>    @include transform-origin(top,left);<br>    .inner {<br>      @include transform(rotateZ(180deg));<br>    }<br>  }</p>
-<p>}</p>
-<p>.dice:hover,<br>.dice:active,<br>.dice-active {<br>  @each $vendor in -moz-,-webkit-,-ms-,-o-,null {</p>
-<pre><code>#{$vendor}animation-duration: 5s;
-#{$vendor}animation-name: cube;
-#{$vendor}animation-iteration-count: infinite;
-#{$vendor}animation-timing-function: linear;
-</code></pre><p>  }</p>
-<p>  .two {<br>    @include transform(rotateX(-90deg));<br>  }</p>
-<p>  .three {<br>    @include transform(rotateY(-90deg));<br>  }</p>
-<p>  .four {<br>    @include transform(rotateY(90deg));<br>  }</p>
-<p>  .five-six {<br>    @include transform(rotateX(90deg));</p>
-<p>  }  </p>
-<p>  .six {<br>    @include transform(rotateX(90deg));<br>  }  </p>
-<p>  @each $num in two,three,four,five-six {<br>    .#{$num} {<br>      @each $vendor in -moz-,-webkit-,-ms-,-o-,null {</p>
-<pre><code>    #{$vendor}animation-duration: 2s;
-    #{$vendor}animation-name: cube-#{$num};
-    #{$vendor}animation-iteration-count: 1;
-    #{$vendor}animation-timing-function: ease;
-    #{$vendor}animation-delay: 0s;
-  }
+<pre><code>@import &quot;compass/css3/box-sizing&quot;;
+@import &quot;compass/css3/transform&quot;;
+
+@mixin position($top:null,$right:null,$bottom:null,$left:null){
+  @if($top){ top: $top }
+  @if($right){ right: $right }
+  @if($left){ left: $left }
+  @if($bottom){ bottom: $bottom }  
 }
-</code></pre><p>  }</p>
-<pre><code>.six {
+
+* {
+  @include box-sizing(border-box);
+}
+
+.dice {
+  @include transform-style(preserve-3d);
+  @include perspective(1000px);
+  @include perspective-origin(50&amp;#x25; 50&amp;#x25;);
+
+  position: relative;
+  width: 400px;
+  height: 400px;
+
+  &gt; div,
+  .five,.six {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    background-color: rgba(158,158,158,0.1);
+    line-height: 100px;
+    text-align: center;
+  }
+
+  .one {
+    @include position(100px,null,null,200px);
+  }
+
+  .two {
+    @include position(0,null,null,200px);
+    @include transform-origin(bottom,left);
+    border-bottom: none;
+  }
+
+  .three {
+    @include position(100px,null,null,300px);
+    @include transform-origin(top,left);
+    border-left: none;
+    .inner {
+      @include transform(rotateZ(90deg));
+    }
+  }
+
+  .four {
+    @include position(100px,null,null,100px);
+    @include transform-origin(top,right);
+    border-right: none;
+    .inner {
+      @include transform(rotateZ(-90deg));
+    }
+  }
+
+  .five-six {
+    @include position(200px,null,null,200px);
+    @include transform-origin(top,left);
+    border: none;
+    background: transparent;
+    height: 200px;
+    @include transform-style(preserve-3d);
+  }
+
+  .five {
+    @include position(0,null,null,0);
+    border-top: none;
+    border-bottom: none;
+    .inner {
+      @include transform(rotateZ(180deg));
+    }
+  }
+
+  .six {
+    @include position(100px,null,null,0);
+    @include transform-origin(top,left);
+    .inner {
+      @include transform(rotateZ(180deg));
+    }
+  }
+
+}
+
+.dice:hover,
+.dice:active,
+.dice-active {
   @each $vendor in -moz-,-webkit-,-ms-,-o-,null {
-    #{$vendor}animation-duration: 4s;
-    #{$vendor}animation-name: cube-six;
-    #{$vendor}animation-iteration-count: 1;
-    #{$vendor}animation-timing-function: ease;
-    #{$vendor}animation-delay: 0s;
+    #{$vendor}animation-duration: 5s;
+    #{$vendor}animation-name: cube;
+    #{$vendor}animation-iteration-count: infinite;
+    #{$vendor}animation-timing-function: linear;
   }
+
+  .two {
+    @include transform(rotateX(-90deg));
+  }
+
+  .three {
+    @include transform(rotateY(-90deg));
+  }
+
+  .four {
+    @include transform(rotateY(90deg));
+  }
+
+  .five-six {
+    @include transform(rotateX(90deg));
+
+  }  
+
+  .six {
+    @include transform(rotateX(90deg));
+  }  
+
+  @each $num in two,three,four,five-six {
+    .#{$num} {
+      @each $vendor in -moz-,-webkit-,-ms-,-o-,null {
+        #{$vendor}animation-duration: 2s;
+        #{$vendor}animation-name: cube-#{$num};
+        #{$vendor}animation-iteration-count: 1;
+        #{$vendor}animation-timing-function: ease;
+        #{$vendor}animation-delay: 0s;
+      }
+    }
+  }
+
+    .six {
+      @each $vendor in -moz-,-webkit-,-ms-,-o-,null {
+        #{$vendor}animation-duration: 4s;
+        #{$vendor}animation-name: cube-six;
+        #{$vendor}animation-iteration-count: 1;
+        #{$vendor}animation-timing-function: ease;
+        #{$vendor}animation-delay: 0s;
+      }
+    }
 }
-</code></pre><p>}</p>
-<p>  @-moz-keyframes cube {<br>    0&#x25; { -moz-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }<br>    20&#x25; { -moz-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }<br>    40&#x25; { -moz-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }<br>    60&#x25; { -moz-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }<br>    80&#x25; { -moz-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }<br>    100&#x25; { -moz-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }<br>  }</p>
-<p>  @-moz-keyframes cube-two {<br>    0&#x25; { -moz-transform: rotateX(0deg) }<br>    100&#x25;{ -moz-transform: rotateX(-90deg) }<br>  }</p>
-<p>  @-moz-keyframes cube-three {<br>    0&#x25; { -moz-transform: rotateY(0deg) }<br>    100&#x25;{ -moz-transform:rotateY(-90deg) }<br>  }</p>
-<p>  @-moz-keyframes cube-four {<br>    0&#x25;{ -moz-transform: rotateY(0deg) }<br>    100&#x25;{ -moz-transform: rotateY(90deg) }<br>  }</p>
-<p>  @-moz-keyframes cube-five-six {<br>    0&#x25;{ -moz-transform: rotateX(0deg) }<br>    100&#x25;{ -moz-transform: rotateX(90deg) }<br>  }</p>
-<p>  @-moz-keyframes cube-six {<br>    0&#x25;{ -moz-transform: rotateX(0deg) }<br>    100&#x25;{ -moz-transform: rotateX(90deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube {<br>    0&#x25; { -webkit-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }<br>    20&#x25; { -webkit-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }<br>    40&#x25; { -webkit-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }<br>    60&#x25; { -webkit-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }<br>    80&#x25; { -webkit-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }<br>    100&#x25; { -webkit-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube-two {<br>    0&#x25; { -webkit-transform: rotateX(0deg) }<br>    100&#x25;{ -webkit-transform: rotateX(-90deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube-three {<br>    0&#x25; { -webkit-transform: rotateY(0deg) }<br>    100&#x25;{ -webkit-transform:rotateY(-90deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube-four {<br>    0&#x25;{ -webkit-transform: rotateY(0deg) }<br>    100&#x25;{ -webkit-transform: rotateY(90deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube-five-six {<br>    0&#x25;{ -webkit-transform: rotateX(0deg) }<br>    100&#x25;{ -webkit-transform: rotateX(90deg) }<br>  }</p>
-<p>  @-webkit-keyframes cube-six {<br>    0&#x25;{ -webkit-transform: rotateX(0deg) }<br>    100&#x25;{ -webkit-transform: rotateX(90deg) }<br>  }</p>
-<p>  @-o-keyframes cube {<br>    0&#x25; { -o-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }<br>    20&#x25; { -o-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }<br>    40&#x25; { -o-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }<br>    60&#x25; { -o-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }<br>    80&#x25; { -o-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }<br>    100&#x25; { -o-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }<br>  }</p>
-<p>  @-o-keyframes cube-two {<br>    0&#x25; { -o-transform: rotateX(0deg) }<br>    100&#x25;{ -o-transform: rotateX(-90deg) }<br>  }</p>
-<p>  @-o-keyframes cube-three {<br>    0&#x25; { -o-transform: rotateY(0deg) }<br>    100&#x25;{ -o-transform:rotateY(-90deg) }<br>  }</p>
-<p>  @-o-keyframes cube-four {<br>    0&#x25;{ -o-transform: rotateY(0deg) }<br>    100&#x25;{ -o-transform: rotateY(90deg) }<br>  }</p>
-<p>  @-o-keyframes cube-five-six {<br>    0&#x25;{ -o-transform: rotateX(0deg) }<br>    100&#x25;{ -o-transform: rotateX(90deg) }<br>  }</p>
-<p>  @-o-keyframes cube-six {<br>    0&#x25;{ -o-transform: rotateX(0deg) }<br>    100&#x25;{ -o-transform: rotateX(90deg) }<br>  }</p>
-<p>  @keyframes cube {<br>    0&#x25; { @include transform(rotateY(0deg) rotateX(0deg) rotateZ(0deg)) }<br>    20&#x25; { @include transform(rotateY(30deg) rotateX(180deg) rotateZ(72deg)) }<br>    40&#x25; { @include transform(rotateY(60deg) rotateX(230deg) rotateZ(144deg)) }<br>    60&#x25; { @include transform(rotateY(90deg) rotateX(280deg) rotateZ(236deg)) }<br>    80&#x25; { @include transform(rotateY(180deg) rotateX(300deg) rotateZ(298deg)) }<br>    100&#x25; { @include transform(rotateY(360deg) rotateX(360deg) rotateZ(360deg)) }<br>  }</p>
-<p>  @keyframes cube-two {<br>    0&#x25; { @include transform(rotateX(0deg)) }<br>    100&#x25;{ @include transform(rotateX(90deg)) }<br>  }</p>
-<p>  @keyframes cube-three {<br>    0&#x25; { @include transform(rotateY(0deg)) }<br>    100&#x25;{ @include transform(rotateY(90deg)) }<br>  }</p>
-<p>  @keyframes cube-four {<br>    0&#x25;{ @include transform(rotateY(0deg)) }<br>    100&#x25;{ @include transform(rotateY(-90deg)) }<br>  }</p>
-<p>  @keyframes cube-five-six {<br>    0&#x25;{ @include transform(rotateX(0deg)) }<br>    100&#x25;{ @include transform(rotateX(-90deg)) }<br>  }</p>
-<p>  @keyframes cube-six {<br>    0&#x25;{ @include transform(rotateX(0deg)) }<br>    100&#x25;{ @include transform(rotateX(-90deg)) }<br>  }</p>
-<p>vendor prefixのせいもありやたら長いですが、やっていることは全体をてきとうに回転させつつ、サイコロの各面の要素を90度に回転させているだけです。あとは、各面の接しているところが離れないようにtransform-originを設定していたりとか、「5」と「6」は二面を90度に曲げたあとに「6」だけさらに90度曲げるために、five-sixという親divを用意してそこに3D rendering contextを別途生成しています。でも、そのくらい。</p>
+
+  @-moz-keyframes cube {
+    0&amp;#x25; { -moz-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }
+    20&amp;#x25; { -moz-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }
+    40&amp;#x25; { -moz-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }
+    60&amp;#x25; { -moz-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }
+    80&amp;#x25; { -moz-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }
+    100&amp;#x25; { -moz-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }
+  }
+
+  @-moz-keyframes cube-two {
+    0&amp;#x25; { -moz-transform: rotateX(0deg) }
+    100&amp;#x25;{ -moz-transform: rotateX(-90deg) }
+  }
+
+  @-moz-keyframes cube-three {
+    0&amp;#x25; { -moz-transform: rotateY(0deg) }
+    100&amp;#x25;{ -moz-transform:rotateY(-90deg) }
+  }
+
+  @-moz-keyframes cube-four {
+    0&amp;#x25;{ -moz-transform: rotateY(0deg) }
+    100&amp;#x25;{ -moz-transform: rotateY(90deg) }
+  }
+
+  @-moz-keyframes cube-five-six {
+    0&amp;#x25;{ -moz-transform: rotateX(0deg) }
+    100&amp;#x25;{ -moz-transform: rotateX(90deg) }
+  }
+
+  @-moz-keyframes cube-six {
+    0&amp;#x25;{ -moz-transform: rotateX(0deg) }
+    100&amp;#x25;{ -moz-transform: rotateX(90deg) }
+  }
+
+  @-webkit-keyframes cube {
+    0&amp;#x25; { -webkit-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }
+    20&amp;#x25; { -webkit-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }
+    40&amp;#x25; { -webkit-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }
+    60&amp;#x25; { -webkit-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }
+    80&amp;#x25; { -webkit-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }
+    100&amp;#x25; { -webkit-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }
+  }
+
+  @-webkit-keyframes cube-two {
+    0&amp;#x25; { -webkit-transform: rotateX(0deg) }
+    100&amp;#x25;{ -webkit-transform: rotateX(-90deg) }
+  }
+
+  @-webkit-keyframes cube-three {
+    0&amp;#x25; { -webkit-transform: rotateY(0deg) }
+    100&amp;#x25;{ -webkit-transform:rotateY(-90deg) }
+  }
+
+  @-webkit-keyframes cube-four {
+    0&amp;#x25;{ -webkit-transform: rotateY(0deg) }
+    100&amp;#x25;{ -webkit-transform: rotateY(90deg) }
+  }
+
+  @-webkit-keyframes cube-five-six {
+    0&amp;#x25;{ -webkit-transform: rotateX(0deg) }
+    100&amp;#x25;{ -webkit-transform: rotateX(90deg) }
+  }
+
+  @-webkit-keyframes cube-six {
+    0&amp;#x25;{ -webkit-transform: rotateX(0deg) }
+    100&amp;#x25;{ -webkit-transform: rotateX(90deg) }
+  }
+
+  @-o-keyframes cube {
+    0&amp;#x25; { -o-transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) }
+    20&amp;#x25; { -o-transform: rotateY(30deg) rotateX(180deg) rotateZ(72deg) }
+    40&amp;#x25; { -o-transform:rotateY(60deg) rotateX(230deg) rotateZ(144deg) }
+    60&amp;#x25; { -o-transform: rotateY(90deg) rotateX(280deg) rotateZ(236deg) }
+    80&amp;#x25; { -o-transform: rotateY(180deg) rotateX(300deg) rotateZ(298deg) }
+    100&amp;#x25; { -o-transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg) }
+  }
+
+  @-o-keyframes cube-two {
+    0&amp;#x25; { -o-transform: rotateX(0deg) }
+    100&amp;#x25;{ -o-transform: rotateX(-90deg) }
+  }
+
+  @-o-keyframes cube-three {
+    0&amp;#x25; { -o-transform: rotateY(0deg) }
+    100&amp;#x25;{ -o-transform:rotateY(-90deg) }
+  }
+
+  @-o-keyframes cube-four {
+    0&amp;#x25;{ -o-transform: rotateY(0deg) }
+    100&amp;#x25;{ -o-transform: rotateY(90deg) }
+  }
+
+  @-o-keyframes cube-five-six {
+    0&amp;#x25;{ -o-transform: rotateX(0deg) }
+    100&amp;#x25;{ -o-transform: rotateX(90deg) }
+  }
+
+  @-o-keyframes cube-six {
+    0&amp;#x25;{ -o-transform: rotateX(0deg) }
+    100&amp;#x25;{ -o-transform: rotateX(90deg) }
+  }
+
+  @keyframes cube {
+    0&amp;#x25; { @include transform(rotateY(0deg) rotateX(0deg) rotateZ(0deg)) }
+    20&amp;#x25; { @include transform(rotateY(30deg) rotateX(180deg) rotateZ(72deg)) }
+    40&amp;#x25; { @include transform(rotateY(60deg) rotateX(230deg) rotateZ(144deg)) }
+    60&amp;#x25; { @include transform(rotateY(90deg) rotateX(280deg) rotateZ(236deg)) }
+    80&amp;#x25; { @include transform(rotateY(180deg) rotateX(300deg) rotateZ(298deg)) }
+    100&amp;#x25; { @include transform(rotateY(360deg) rotateX(360deg) rotateZ(360deg)) }
+  }
+
+  @keyframes cube-two {
+    0&amp;#x25; { @include transform(rotateX(0deg)) }
+    100&amp;#x25;{ @include transform(rotateX(90deg)) }
+  }
+
+  @keyframes cube-three {
+    0&amp;#x25; { @include transform(rotateY(0deg)) }
+    100&amp;#x25;{ @include transform(rotateY(90deg)) }
+  }
+
+  @keyframes cube-four {
+    0&amp;#x25;{ @include transform(rotateY(0deg)) }
+    100&amp;#x25;{ @include transform(rotateY(-90deg)) }
+  }
+
+  @keyframes cube-five-six {
+    0&amp;#x25;{ @include transform(rotateX(0deg)) }
+    100&amp;#x25;{ @include transform(rotateX(-90deg)) }
+  }
+
+  @keyframes cube-six {
+    0&amp;#x25;{ @include transform(rotateX(0deg)) }
+    100&amp;#x25;{ @include transform(rotateX(-90deg)) }
+  }
+</code></pre><p>vendor prefixのせいもありやたら長いですが、やっていることは全体をてきとうに回転させつつ、サイコロの各面の要素を90度に回転させているだけです。あとは、各面の接しているところが離れないようにtransform-originを設定していたりとか、「5」と「6」は二面を90度に曲げたあとに「6」だけさらに90度曲げるために、five-sixという親divを用意してそこに3D rendering contextを別途生成しています。でも、そのくらい。</p>
 <p>という感じ。実用的かどうかはさておき、いつの間にかCSSだけでここまでできるようになっていて、いろいろすごい。隔世の感があります。</p>
 <h2 id="CSS-Transforms-関連記事"><a href="#CSS-Transforms-関連記事" class="headerlink" title="CSS Transforms 関連記事"></a>CSS Transforms 関連記事</h2><ul>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d.php" target="_blank" rel="noopener">CSS Transforms: transform</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d_2.php" target="_blank" rel="noopener">CSS Transforms: transform-origin</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_perspective.php" target="_blank" rel="noopener">CSS Transforms: perspective</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php" target="_blank" rel="noopener">CSS Transforms: 3D rendering context (transform-style)</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_backface-visibility.php" target="_blank" rel="noopener">CSS Transforms: backface-visibility</a></li>
+<li><a href="/blog//2012/09/css_transforms_2d/">CSS Transforms: transform</a></li>
+<li><a href="/blog//2012/09/css_transforms_2d_2/">CSS Transforms: transform-origin</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_perspective/">CSS Transforms: perspective</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_transform-style/">CSS Transforms: 3D rendering context (transform-style)</a></li>
+<li><a href="/blog//2012/09/css_transforms_backface-visibility/">CSS Transforms: backface-visibility</a></li>
 </ul>
 <p>var dice = document.getElementById(‘dice’); dice.addEventListener(‘touchstart’,function(e){ e.preventDefalt(); e.stopPropagation(); dice.className = ‘dice dice-active’; }); dice.addEventListener(‘touchend’,function(e){ dice.className = ‘dice’; });</p>
 </div>

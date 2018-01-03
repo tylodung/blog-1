@@ -29,14 +29,40 @@
           </div>
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>Mac(10.4.11)にgem istall mysqlしようとしたら、下記のようなエラーが出たのでメモ。</p>
-<p>~ sudo gem install mysql – –with-mysql-config=/usr/local/mysql/bin/mysql_config </p>
-<a id="more"></a>
-<p>Password:<br>Building native extensions.  This could take a while…<br>ERROR:  Error installing mysql:<br>        ERROR: Failed to build gem native extension.</p>
-<p>/opt/local/bin/ruby extconf.rb –with-mysql-config=/usr/local/mysql/bin/mysql_config<br>checking for mysql_ssl_set()… no<br>checking for mysql.h… yes<br>creating Makefile</p>
-<p>make<br>gcc -I. -I. -I/opt/local/lib/ruby/1.8/i686-darwin8.10.1 -I. -DHAVE_MYSQL_H -I/opt/local/include -I/usr/local/mysql/include  -g -Os -arch i386 -no-cpp-precomp -mmacosx-version-min=10.4 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -fno-common   -D_P1003_1B_VISIBLE -DSIGNAL_WITH_VIO_CLOSE -DSIGNALS_DONT_BREAK_READ -DIGNORE_SIGHUP_SIGQUIT -fno-common -O2  -fno-common -pipe -fno-common  -c mysql.c<br>cc -dynamic -bundle -undefined suppress -flat_namespace -L/opt/local/lib   -L”/opt/local/lib” -o mysql.bundle mysql.o  -lruby -arch i386  -L/usr/local/mysql/lib -lmysqlclient -lz -lm     -lmygcc  -lpthread -ldl -lobjc<br>/usr/bin/ld: /usr/local/mysql/lib/libmysqlclient.dylib load command 5 unknown cmd field<br>/usr/bin/ld: warning multiple definitions of symbol _setregid<br>/opt/local/lib/libruby.dylib(process.o) definition of _setregid<br>/usr/lib/gcc/i686-apple-darwin8/4.0.1/../../../libm.dylib(setregid.So) definition of _setregid<br>/usr/bin/ld: warning multiple definitions of symbol _setreuid<br>/opt/local/lib/libruby.dylib(process.o) definition of _setreuid<br>/usr/lib/gcc/i686-apple-darwin8/4.0.1/../../../libm.dylib(setreuid.So) definition of _setreuid<br>collect2: ld returned 1 exit status<br>make: <em>*</em> [mysql.bundle] Error 1</p>
-<p>いろいろ試してみましたが、最終的にはXcodeのバージョンが古かったのが原因みたいでした。2.5をWebからダウンロードしてインストールしたら、インストールすることができました。</p>
-<p>~ sudo gem install mysql – –with-mysql-config=/usr/local/mysql/bin/mysql_config<br>Password:<br>Building native extensions.  This could take a while…<br>Successfully installed mysql-2.7<br>1 gem installed<br>Installing ri documentation for mysql-2.7…<br>Installing RDoc documentation for mysql-2.7…</p>
-<p>XcodeのバージョンアップにはApple developerサイトからダウンロードしてこないといけないのですが、Tiger用のXcodeはすでに最新のバージョンではないので、ダウンロードする場所がおそろしく分かりにくい。ので、メモ。</p>
+<pre><code>~ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config 
+
+&lt;!-- more --&gt;
+Password:
+Building native extensions.  This could take a while...
+ERROR:  Error installing mysql:
+        ERROR: Failed to build gem native extension.
+
+/opt/local/bin/ruby extconf.rb --with-mysql-config=/usr/local/mysql/bin/mysql_config
+checking for mysql_ssl_set()... no
+checking for mysql.h... yes
+creating Makefile
+
+make
+gcc -I. -I. -I/opt/local/lib/ruby/1.8/i686-darwin8.10.1 -I. -DHAVE_MYSQL_H -I/opt/local/include -I/usr/local/mysql/include  -g -Os -arch i386 -no-cpp-precomp -mmacosx-version-min=10.4 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -fno-common   -D_P1003_1B_VISIBLE -DSIGNAL_WITH_VIO_CLOSE -DSIGNALS_DONT_BREAK_READ -DIGNORE_SIGHUP_SIGQUIT -fno-common -O2  -fno-common -pipe -fno-common  -c mysql.c
+cc -dynamic -bundle -undefined suppress -flat_namespace -L/opt/local/lib   -L&quot;/opt/local/lib&quot; -o mysql.bundle mysql.o  -lruby -arch i386  -L/usr/local/mysql/lib -lmysqlclient -lz -lm     -lmygcc  -lpthread -ldl -lobjc  
+/usr/bin/ld: /usr/local/mysql/lib/libmysqlclient.dylib load command 5 unknown cmd field
+/usr/bin/ld: warning multiple definitions of symbol _setregid
+/opt/local/lib/libruby.dylib(process.o) definition of _setregid
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/../../../libm.dylib(setregid.So) definition of _setregid
+/usr/bin/ld: warning multiple definitions of symbol _setreuid
+/opt/local/lib/libruby.dylib(process.o) definition of _setreuid
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/../../../libm.dylib(setreuid.So) definition of _setreuid
+collect2: ld returned 1 exit status
+make: *** [mysql.bundle] Error 1
+</code></pre><p>いろいろ試してみましたが、最終的にはXcodeのバージョンが古かったのが原因みたいでした。2.5をWebからダウンロードしてインストールしたら、インストールすることができました。</p>
+<pre><code>~ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config 
+Password:
+Building native extensions.  This could take a while...
+Successfully installed mysql-2.7
+1 gem installed
+Installing ri documentation for mysql-2.7...
+Installing RDoc documentation for mysql-2.7...
+</code></pre><p>XcodeのバージョンアップにはApple developerサイトからダウンロードしてこないといけないのですが、Tiger用のXcodeはすでに最新のバージョンではないので、ダウンロードする場所がおそろしく分かりにくい。ので、メモ。</p>
 <ol>
 <li><a href="http://developer.apple.com/mac/" target="_blank" rel="noopener">Mac Dev Center</a> にアクセス</li>
 <li>ログイン（登録していない場合は、まず登録する必要があります）</li>

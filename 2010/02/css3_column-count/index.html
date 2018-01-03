@@ -38,8 +38,9 @@
 </ul>
 <p>フッター部分を3列にしてみようかなと唐突に思いついて、以前から興味あったcolumn-countを使って3列にしてみました。FirefoxとSafariでのみ対応（IEでは1列のまま表示されます）。Picoのデザインのバランスを崩している気がしないでもないですけど、まあいいか。</p>
 <p>追加したCSSは下記のよう感じです。他にもいろいろ追加してますけど不要な部分は割愛。</p>
-<p>-webkit-column-count: 3; -webkit-column-gap: 10px;<br>-moz-column-count: 3; -moz-column-gap: 10px;</p>
-<p>-webkitがSafari用で-mozがFirefox用。colum-countは列（カラム）の数を指定して、column-gapは列と列の間の隙間の大きさを指定します。</p>
+<pre><code>-webkit-column-count: 3; -webkit-column-gap: 10px;
+-moz-column-count: 3; -moz-column-gap: 10px;
+</code></pre><p>-webkitがSafari用で-mozがFirefox用。colum-countは列（カラム）の数を指定して、column-gapは列と列の間の隙間の大きさを指定します。</p>
 <p>簡単ですなあ。これで<a href="http://www.css3.info/preview/multiple-backgrounds/" target="_blank" rel="noopener">背景画像を複数指定</a>できるようになったらdivを複数囲うなんてことは必要なくなるんでしょうね。</p>
 </div>
       </article>

@@ -36,10 +36,10 @@
 <ul>
 <li><a href="/blog//2007/07/pseudo-classes-pseudo-elements/">疑似クラス、疑似要素とは何か - メモログ</a></li>
 </ul>
-<p>CSS3にあるtarget疑似クラスをつかって表示をオン・オフすることができるんだよ。それはすごい！というような内容の話。target疑似クラスとはアンカーのあるリンクを特定する方法で、たとえば「#test:target」というCSSは、URLが「<a href="http://memolog.org/index.html#test」の場合にのみ作用します。言い換えると、「" target="_blank" rel="noopener">http://memolog.org/index.html#test」の場合にのみ作用します。言い換えると、「</a><a href="index.html#test">test</a>」というリンクをクリックしたあとのページで作用するようなCSSになります。</p>
+<p>CSS3にあるtarget疑似クラスをつかって表示をオン・オフすることができるんだよ。それはすごい！というような内容の話。target疑似クラスとはアンカーのあるリンクを特定する方法で、たとえば「#test:target」というCSSは、URLが「/blog//index/#test」の場合にのみ作用します。言い換えると、「<a href="index.html#test">test</a>」というリンクをクリックしたあとのページで作用するようなCSSになります。</p>
 <p>実際にトラックバック欄で試してみました。下記のCSSを追加しました。</p>
-<p>#trackbacks:target #trackbacks-open-content {display:block !important;}</p>
-<p>このサイト（メモログ）では、トラックバック入力欄は通常非表示の状態になっていますが、記事タイトル下側にある「<a href="http://memolog.org/2008/02/target_pseudo_selector.html#trackbacks" target="_blank" rel="noopener">トラックバック(0)</a>」というリンクをクリックした場合は、トラックバック入力欄が表示されます。!importantがついているのは、<a href="http://memolog.org/2007/10/prototypejs.html" target="_blank" rel="noopener">prototype.jsを利用した項目の開閉</a>をするのにインラインにdisplay:none;が入っているため。display:noneをスタイルシート上で指定していれば、!imortantは必要ありません。</p>
+<pre><code>#trackbacks:target #trackbacks-open-content {display:block !important;}
+</code></pre><p>このサイト（メモログ）では、トラックバック入力欄は通常非表示の状態になっていますが、記事タイトル下側にある「<a href="/blog//2008/02/target_pseudo_selector/#trackbacks">トラックバック(0)</a>」というリンクをクリックした場合は、トラックバック入力欄が表示されます。!importantがついているのは、<a href="/blog//2007/10/prototypejs/">prototype.jsを利用した項目の開閉</a>をするのにインラインにdisplay:none;が入っているため。display:noneをスタイルシート上で指定していれば、!imortantは必要ありません。</p>
 <p><a href="http://www.css3.info/target-pseudo-selector-tutorial/" target="_blank" rel="noopener">CSS3 . Info</a>によると、target疑似クラスはすべての「current browser」でサポートしているとのこと。実際にFirefox 2.0とsafari 3（mac）で試してみましたが、きちんと動作していました。</p>
 <p>:target を利用して表示したコンテンツをふたたび元の状態（非表示）にしたい場合は、たとえば<a href="index.html#void">void</a>みたいに、ターゲットを外すことで可能です。とはいえトリッキーな感じ。<a href="http://www.thinkvitamin.com/features/css/stay-on-target" target="_blank" rel="noopener">Vitamin</a>で紹介しているように、常に何かを表示させておくような、タブ型のコンテンツを作るときのほうがスマートに利用できます。</p>
 <p>応用として考えられるのは、たとえばQ&amp;Aのページとか、操作手順のページとか。ページとしては1ページでほしいけれど、ユーザーに明示的にクリックすることでコンテンツを表示したいとか、1ページ内でコンテンツの流れ・動線を作りたい場合。Javascriptでもできますけど、こちらの方がつくるのは楽だと思います。IE6のシェアが下がらないとなかなか実践での利用というのは難しいかもしれませんが、あと1、2年もすれば、表示開閉のためのスタンダードな方法になるのではないかと推察する次第です。</p>

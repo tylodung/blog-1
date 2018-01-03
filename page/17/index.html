@@ -22,6 +22,17 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2009/06/proust_and_squid/">本：プルーストとイカ - 読書は脳をどのように変えるのか?</a></h1>
+            <div><time datetime="2009-06-20T16:24:25.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年6月21日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://www.amazon.co.jp/gp/product/4772695133?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=xm2&amp;camp=247&amp;creativeASIN=4772695133" target="_blank" rel="noopener"><img src="https://images-na.ssl-images-amazon.com/images/I/51A&#x25;2Bh6ZB4iL._SL180_.jpg" alt=""></a> 「文字を読む」というのは、「ものを見る」ことや「音を聞く」のような、生来備わっている能力ではない。人は読書をどのように習得するのか、脳内ではどのように認識するのか、というような内容を「文字の発明の歴史」「子供が文字をどのように学ぶのか」「読字障害者（ディスレクシア）の研究」という3つのアプローチで紹介しています。</p></div>
+            <div><a href="/blog/2009/06/proust_and_squid/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2009/06/kamakura-enoshima/">鎌倉・新江ノ島水族館・片瀬西浜海水浴場</a></h1>
             <div><time datetime="2009-06-13T05:06:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年6月13日</span></time></div>
           </header>
@@ -49,9 +60,20 @@
             <div><time datetime="2009-05-09T07:27:30.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年5月9日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p>watirで操作をしているときに、Javascriptのアラートを操作しないといけないときがたまにあります。私は、最近は下記のようにautoitを使って操作しています。</p>
-<p>def handling_javascript()</p></div>
-            <div><a href="/blog/2009/05/watirjavascript/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p>watirで操作をしているときに、Javascriptのアラートを操作しないといけないときがたまにあります。私は、最近は下記のようにautoitを使って操作しています。</p>
+<pre><code>def handling_javascript()
+
+&lt;!-- more --&gt;
+  title = @ie.Name
+  Watir.autoit.WinWait(title,&quot;&quot;,&quot;10&quot;)
+  if Watir.autoit.WinExists(title) == 1
+    Watir.autoit.ControlFocus(title,&quot;&quot;,&quot;&quot;)
+    Watir.autoit.ControlClick(title,&quot;&quot;,&quot;OK&quot;)
+  end
+end
+</code></pre><p>title=@ie.Name では、IEの名称を取得しています。これはJavascriptのアラートを操作するときのwindowのtitleとして必要なのですが、IEの名称はIE6とIE7以降では異なるため、その都度取得しています。WinWaitは、titleに合致したwindowが表示されるまで待ちます。3つ目の引数でタイムアウトを設定できます。WinExistsは、titleで指定したwindowが存在する場合は1を返します。ControlFocusはtitleで指定したwindowにフォーカスします。ControlClickではtitleで指定したwindowにある、3つ目の引数で指定した文字列のボタンをクリックします。</p>
+<p>これだけなのですが、最低限の操作はこれで可能です。そのほかJavascriptの操作の方法は、<a href="http://wiki.openqa.org/display/WTR/JavaScript+Pop+Ups" target="_blank" rel="noopener">watirのFAQ</a>や<a href="http://wtr.rubyforge.org/rdoc/" target="_blank" rel="noopener">WinClickerによる操作</a>とかを参照するといいかもしれません。</p>
+</div>
           
         </article>
       
@@ -61,9 +83,21 @@
             <div><time datetime="2009-05-06T00:27:10.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年5月6日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p><a href="http://memolog.org/2009/04/post-185.php" target="_blank" rel="noopener">リンクの色の方が優先される理由</a>の記事で、下記のHTMLの場合はリンクの色の方が優先されるという話をした。</p>
-<h3 class="entry-header"><a href="/post.html">記事のタイトル</a></h3></div>
-            <div><a href="/blog/2009/05/inherit/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p><a href="/blog//2009/04/post-185/">リンクの色の方が優先される理由</a>の記事で、下記のHTMLの場合はリンクの色の方が優先されるという話をした。</p>
+<pre><code>&lt;h3 class=&quot;entry-header&quot;&gt;&lt;a href=&quot;/post.html&quot;&gt;記事のタイトル&lt;/a&gt;&lt;/h3&gt;
+
+&lt;!-- more --&gt;
+----
+a {color: blue;}
+h3.entry-header {color: red;}
+</code></pre><p>では、h3.entry-headerで指定した色をリンク色として継承したい場合はどうしたら良いのか。それにはcolorプロパティにinheritを設定する。inheritは親要素の値を継承するので、h3.entry-headerで指定した色になる。これは便利。親要素の色をリンク色に継承するためのclass属性を用意しておけば、一つずつリンク色を指定する必要がなくなる。</p>
+<pre><code>&lt;h3 class=&quot;entry-header&quot;&gt;&lt;a href=&quot;/post.html&quot; class=&quot;inherit&quot; &gt;記事のタイトル&lt;/a&gt;&lt;/h3&gt;
+----
+a {color: blue;}
+h3.entry-header {color: red;}
+.inherit {color: inherit;}
+</code></pre><p>ところが、<a href="http://hxxk.jp/2008/10/27/2057" target="_blank" rel="noopener">IE6、IE7ではこの値が機能しない（IE8では機能するらしい）</a>。そのため、しばらくは他の手段で対応するしかないわけですが、 いずれはinheritを設定するだけで思いどおりの表示にできそう。世の中はますます便利に。</p>
+</div>
           
         </article>
       
@@ -84,9 +118,17 @@
             <div><time datetime="2009-04-26T06:40:56.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年4月26日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p>たとえば下記のようなHTMLに、下記のようなCSSを指定した場合、aタグに指定したCSSの方が有効に作用する。</p>
-<h3 class="entry-header"><a href="/post.html">記事のタイトル</a></h3></div>
-            <div><a href="/blog/2009/04/post_185/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p>たとえば下記のようなHTMLに、下記のようなCSSを指定した場合、aタグに指定したCSSの方が有効に作用する。</p>
+<pre><code>&lt;h3 class=&quot;entry-header&quot;&gt;&lt;a href=&quot;/post.html&quot;&gt;記事のタイトル&lt;/a&gt;&lt;/h3&gt;
+
+&lt;!-- more --&gt;
+----
+a {color: blue;}
+h3.entry-header {color: red;}
+</code></pre><p>まあそういうものなのだと、普段はたいして気にとめていなかったのですが、あらためて説明しようとすると、これがよく分からない。単純に詳細度で考えたら、h3.entry-headerの方が強いのにどうしてだろう。ということで、<a href="http://www.amazon.co.jp/gp/product/487311232X?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=xm2&amp;camp=247&amp;creativeASIN=487311232X" target="_blank" rel="noopener">CSS完全ガイド</a>を購入して、きちんと読んでみました（3章まで）。p71〜p74あたりにそのあたりのことが説明されていた。</p>
+<p>要するに、祖先から継承した指定の詳細度は「なし」という扱いになるため、aタグに指定した内容の方が詳細度が高く、より強く作用するということなのだ。うーん、調べてみてみると、そんなに難しい話じゃない。継承した指定の詳細度がもともとと同じ詳細度を持っていたら、たとえば body#foo というような指定があったら、いろんな子孫に不要に作用してしまう。うまくできている。</p>
+<p>ふむ。つまり。この件について、CSSを生業としていないような人に質問されたら、「より内側にあるタグに指定したCSSの方が、外側のタグに指定したものより有効に作用します」と伝えても特に問題はなさそうだ。</p>
+</div>
           
         </article>
       
@@ -120,17 +162,6 @@
           
             <div class="content" itemprop="description"><p>野川公園でパシャリ。<a href="http://www.amazon.co.jp/gp/product/4635596206?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=xm2&amp;camp=247&amp;creativeASIN=4635596206" target="_blank" rel="noopener">散歩で楽しむ野鳥の本</a>を参考に、撮った野鳥をチェックする。写真のカモはたぶんカルガモ。1年中生息しているカモ科の鳥。マガモの雌と色形が似ているので、ぱっと見できちんと判別できません。青色の鳥は、本に載っているアオサギの写真と少し違うのですが、くちばしの色と首すじの色が似ているのでたぶんアオサギ。</p></div>
             <div><a href="/blog/2009/04/post_184/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2009/04/shinjuku-gyoen-1/">兼六園菊桜とハクセキレイ</a></h1>
-            <div><time datetime="2009-04-12T05:01:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2009年4月12日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p>カメラから花見とバードウォッチングに趣味がシフトしつつある今日この頃。本日は新宿御苑で兼六園菊桜とハクセキレイを見つけてきました。野鳥はまだメジロ、シジュウカラ、ヒヨドリ、ムクドリくらいしか判別できない。ハクセキレイは今回初めて認知できました。これハクセキレイですよね・・シロクロな鳥を見つけたら、とりあえずシジュウカラと思うようにしてたので、若干自信薄。</p></div>
-            <div><a href="/blog/2009/04/shinjuku-gyoen-1/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       

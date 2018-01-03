@@ -30,13 +30,22 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>jQueryで要素を作成する場合、<a href="http://api.jquery.com/jQuery/#entry-examples-1" target="_blank" rel="noopener">jQuery()のExample</a>を参考にすると、作り方としては下記の二通りの方法があります。</p>
 <a id="more"></a>
-<p>$( “<div><p>Hello</p></div>“ ).appendTo( “body” )</p>
-<p>$( “<div>“, {<br>“class”: “test”,<br>text: “Click me!”,<br>click: function() {<br>$( this ).toggleClass( “test” );<br>}<br>}).appendTo( “body” );</div></p>
-<p>処理としては、前者は最終的にdocumentFragmentにappendしたdiv要素のinnerHTMLを使って要素を作成して、後者はcreateElementで要素を作成した後に二番目の引数に指定したattributeをそれぞれ設定していく感じ。</p>
+<pre><code>$( &quot;&lt;div&gt;&lt;p&gt;Hello&lt;/p&gt;&lt;/div&gt;&quot; ).appendTo( &quot;body&quot; )
+</code></pre><pre><code>$( &quot;&lt;div/&gt;&quot;, {
+&quot;class&quot;: &quot;test&quot;,
+text: &quot;Click me!&quot;,
+click: function() {
+$( this ).toggleClass( &quot;test&quot; );
+}
+}).appendTo( &quot;body&quot; );
+</code></pre><p>処理としては、前者は最終的にdocumentFragmentにappendしたdiv要素のinnerHTMLを使って要素を作成して、後者はcreateElementで要素を作成した後に二番目の引数に指定したattributeをそれぞれ設定していく感じ。</p>
 <p>それでどちらの方法が処理的に速いのかなと思って、<a href="http://jsperf.com/innerhtml-vs-addattribute-later" target="_blank" rel="noopener">jsperfにテストを用意してみました</a>。このテストでは、前者のinnerHTMLを使用する方が速かったです。後者の場合はattributeを一つずつ設定していくので、結果としてinnerHTMLより遅くなる雰囲気（たぶん）。設定するプロパティが増えてくると、innerHTMLとの差がより顕著に出るかもしれません。</p>
 <p>jsperfのテストでは、さらに下記のような素のJavaScriptで実行した場合の結果もつけてみました。素の方が当たり前ですが、色々何もしないので高速。</p>
-<p>var div = document.createElement(‘div’);<br>div.setAttribute(‘class’,’foobar’);<br>‘textContent’ in div ? div.textContent = ‘foobar’ : div.appendChild(document.createTextNode(‘foobar’));<br>var $div = $(div);</p>
-<p>最後の行の「var $div = $(div);」のように、引数がDOMElementの場合はjQueryオブジェクトのcontextにその引数を設定するだけみたいなので、素のJavaScriptでDOMElementを生成して、それをjQueryオブジェクトとしてラップする方が速い雰囲気（buildFragmentの過程で生成されるキャッシュが有効に活用できる場合はjQueryで生成した方が総合的には速いのかもしれないけど未確認）。</p>
+<pre><code>var div = document.createElement(&#39;div&#39;);
+div.setAttribute(&#39;class&#39;,&#39;foobar&#39;);
+&#39;textContent&#39; in div ? div.textContent = &#39;foobar&#39; : div.appendChild(document.createTextNode(&#39;foobar&#39;));
+var $div = $(div);
+</code></pre><p>最後の行の「var $div = $(div);」のように、引数がDOMElementの場合はjQueryオブジェクトのcontextにその引数を設定するだけみたいなので、素のJavaScriptでDOMElementを生成して、それをjQueryオブジェクトとしてラップする方が速い雰囲気（buildFragmentの過程で生成されるキャッシュが有効に活用できる場合はjQueryで生成した方が総合的には速いのかもしれないけど未確認）。</p>
 <p>このテストの場合、<a href="http://www.quirksmode.org/dom/w3c_html.html" target="_blank" rel="noopener">IE8でtextContentが使用できない</a>ので、そこだけ調整をしています（IE8まで対応したかった）。jQueryにはクロスブラウザを意識した細かい対応が随所にあるので、互換性が低い要素やその操作の場合にはやはりjQueryを使用するのが良さそう。</p>
 <p>（追記）<a href="http://jsperf.com/innerhtml-vs-addattribute-later-with-jquery1-9" target="_blank" rel="noopener">jQuery 1.9でも同様のテストをしてみました</a>（上のテストは1.8.3）。createElementしたあとのattributeの設定が簡素化されたようで（<a href="http://bugs.jquery.com/ticket/12840" target="_blank" rel="noopener">#12840 (Remove (private) parameter “pass” from jQuery.attr and jQuery.access)</a>）、innerHTMLと遜色なく動作する雰囲気。createElementした後でchainで個別にattributeを設定する方が少しだけ早い。</p>
 </div>

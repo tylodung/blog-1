@@ -30,11 +30,16 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://dev.opera.com/articles/view/native-css-feature-detection-via-the-supports-rule/" target="_blank" rel="noopener">Native CSS feature detection via the @supports rule - Dev.Opera</a>と<a href="http://my.opera.com/ODIN/blog/why-use-supports-instead-of-modernizr" target="_blank" rel="noopener">Opera Developer News - Why use @supports instead of Modernizr?</a>と<a href="http://www.w3.org/TR/css3-conditional/#at-supports" target="_blank" rel="noopener">Feature queries: the ‘@supports’ rule</a>についての話。</p>
 <a id="more"></a>
-<p>@supports (display:flex) {<br>  section { display: flex }<br>  …<br>}</p>
-<p>@supportsは、上記のような感じで「(property:value)」と指定して、そのプロパティと値をブラウザがサポートしている場合のみ、{}内のCSSが適用されるというもの。at-ruleなので、@supportsを使用できないブラウザでは、{}内は無視される（このへんの詳細は<a href="http://memolog.org/2012/06/how_css_handles_errors.php" target="_blank" rel="noopener">CSSのエラーの扱い方 - メモログ</a>を参照）。サポート状況は<a href="http://caniuse.com/css-featurequeries" target="_blank" rel="noopener">Can I use CSS Feature Queries</a>によると、現時点ではOpera（と<a href="http://www.mozilla.jp/firefox/preview/" target="_blank" rel="noopener">Firefox Aurora</a>）のみなので、実用にはまだ時間がかかりそう。</p>
+<pre><code>@supports (display:flex) {
+  section { display: flex }
+  ...
+}
+</code></pre><p>@supportsは、上記のような感じで「(property:value)」と指定して、そのプロパティと値をブラウザがサポートしている場合のみ、{}内のCSSが適用されるというもの。at-ruleなので、@supportsを使用できないブラウザでは、{}内は無視される（このへんの詳細は<a href="/blog//2012/06/how_css_handles_errors/">CSSのエラーの扱い方 - メモログ</a>を参照）。サポート状況は<a href="http://caniuse.com/css-featurequeries" target="_blank" rel="noopener">Can I use CSS Feature Queries</a>によると、現時点ではOpera（と<a href="http://www.mozilla.jp/firefox/preview/" target="_blank" rel="noopener">Firefox Aurora</a>）のみなので、実用にはまだ時間がかかりそう。</p>
 <p>@supportsの指定では「and」と「or」を使って条件を複数指定することと、「not」を指定して否定の条件を指定することもできます。「else」のようなものはないので、特定の機能をサポートしている場合としていない場合でCSSを宣言したい場合は、@supportsのルールを二つ用意する必要がある。</p>
-<p>@supports (display:flex and color:red){ … }<br>@supports (display:flex or display:none){ … }<br>@supports not (display:flex){ … }</p>
-<p>CSSの場合は、基本的にサポートしていない値が指定されている場合はうまい感じに無視してくれるので、@supportsはあまり必要としませんが、flexboxのように特定の機能のサポートと関係の強いCSSの指定がたくさんあるような場合は便利。</p>
+<pre><code>@supports (display:flex and color:red){ ... }
+@supports (display:flex or display:none){ ... }
+@supports not (display:flex){ ... }
+</code></pre><p>CSSの場合は、基本的にサポートしていない値が指定されている場合はうまい感じに無視してくれるので、@supportsはあまり必要としませんが、flexboxのように特定の機能のサポートと関係の強いCSSの指定がたくさんあるような場合は便利。</p>
 <p>（参考までに<a href="http://codepen.io/memolog/pen/mHjJy" target="_blank" rel="noopener">閲覧中のブラウザが@supportsに対応している場合は、下の画面が黒くなるcodepen</a>）</p>
 <p><a href="http://myakura.hatenablog.com/entry/2012/08/08/012516" target="_blank" rel="noopener">@supports ― CSSのFeature Queries - fragmentary</a>もあわせて。</p>
 </div>

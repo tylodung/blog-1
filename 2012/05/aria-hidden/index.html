@@ -30,8 +30,17 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://css-tricks.com/html-for-icon-font-usage/" target="_blank" rel="noopener">HTML for Icon Font Usage | CSS-Tricks</a>でアイコン用フォントを使用して、対象の左側にアイコン画像を表示するという方法が紹介されているのですが、その中でスクリーンリーダー対策として「aria-hidden」という属性を入れている。</p>
 <a id="more"></a>
-<p></p><h2 id="stats"><br>  <span aria-hidden="true" data-icon="&#x21dd;"></span><br>  Stats<br></h2><br>----<br>[data-icon]:before {<br>  font-family: icons; /<em> BYO icon font, mapped smartly </em>/<br>  content: attr(data-icon);<br>  speak: none; /<em> Not to be trusted, but hey. </em>/<br>}<p></p>
-<p>このaria-hiddenについて知らなかったので（というよりARIAはlandmarkしか分からない…）、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden" target="_blank" rel="noopener">仕様</a>を読んだ。</p>
+<pre><code>&lt;h2 id=&quot;stats&quot;&gt;
+  &lt;span aria-hidden=&quot;true&quot; data-icon=&quot;&amp;#x21dd;&quot;&gt;&lt;/span&gt;
+  Stats
+&lt;/h2&gt;
+----
+[data-icon]:before {
+  font-family: icons; /* BYO icon font, mapped smartly */
+  content: attr(data-icon);
+  speak: none; /* Not to be trusted, but hey. */
+}
+</code></pre><p>このaria-hiddenについて知らなかったので（というよりARIAはlandmarkしか分からない…）、<a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden" target="_blank" rel="noopener">仕様</a>を読んだ。</p>
 <blockquote>
 <p>Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author. See related aria-disabled.</p>
 <p>If an element is only visible after some user action, authors MUST set the aria-hidden attribute to true. When the element is presented, authors MUST set the aria-hidden attribute to false or remove the attribute, indicating that the element is visible. Some assistive technologies access WAI-ARIA information directly through the DOM and not through platform accessibility supported by the browser. Authors MUST set aria-hidden=”true” on content that is not displayed, regardless of the mechanism used to hide it. This allows assistive technologies or user agents to properly skip hidden elements in the document.</p>

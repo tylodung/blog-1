@@ -33,8 +33,8 @@
 <p>getUserMediaの仕様は<a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html#dom-navigator-getusermedia" target="_blank" rel="noopener">W3Cのサイトを参照</a>。良く分からなかったけど…</p>
 <p>上述のサイトを参考にすると、第一引数に使用するメディアのタイプを指定して、第二引数にgetUserMediaの実行に成功した場合に実行される処理が入り、第三引数に失敗した場合に実行される処理が入る。</p>
 <p>getUserMediaを実行するときにはユーザーにWebカメラを使用するための許可が求められる（Prompts the user for permission to use their Web cam or other video or audio input）。ので、ユーザーが使用を許可した場合は第二引数の処理が動き、拒否した場合は第三引数の処理が動く、のが典型的な動きになる。</p>
-<p>navigator.getUserMedia(constraints, success, failure)</p>
-<p>see also <a href="http://www.brucelawson.co.uk/2012/specifying-which-camera-in-getusermedia/" target="_blank" rel="noopener">Bruce Lawson’s personal site  : Specifying which camera in getUserMedia</a></p>
+<pre><code>navigator.getUserMedia(constraints, success, failure)
+</code></pre><p>see also <a href="http://www.brucelawson.co.uk/2012/specifying-which-camera-in-getusermedia/" target="_blank" rel="noopener">Bruce Lawson’s personal site  : Specifying which camera in getUserMedia</a></p>
 </div>
       </article>
     </main>

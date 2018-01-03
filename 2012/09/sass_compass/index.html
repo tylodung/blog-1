@@ -28,37 +28,80 @@
             </time>
           </div>
         </header>
-        <div id="article-content" class="content" itemprop="articleBody"><p>前回（<a href="http://memolog.org/2012/09/rvm_jewelrybox_homebrew.php" target="_blank" rel="noopener">RVM / JewelryBox / Homebrew をインストール - メモログ</a>）でインストールした1.9.3に、SassとCompassをインストールするの巻。<a href="http://sass-lang.com/" target="_blank" rel="noopener">Sass</a>はCSSの記述をサポートしてくれるプリプロセッサー。<a href="http://compass-style.org/" target="_blank" rel="noopener">Compass</a>はSassのお役立ちMixinをたくさん用意しているCSS authoring framework。</p>
+        <div id="article-content" class="content" itemprop="articleBody"><p>前回（<a href="/blog//2012/09/rvm_jewelrybox_homebrew/">RVM / JewelryBox / Homebrew をインストール - メモログ</a>）でインストールした1.9.3に、SassとCompassをインストールするの巻。<a href="http://sass-lang.com/" target="_blank" rel="noopener">Sass</a>はCSSの記述をサポートしてくれるプリプロセッサー。<a href="http://compass-style.org/" target="_blank" rel="noopener">Compass</a>はSassのお役立ちMixinをたくさん用意しているCSS authoring framework。</p>
 <a id="more"></a>
 <h3 id="Sass-Compass-のインストール"><a href="#Sass-Compass-のインストール" class="headerlink" title="Sass / Compass のインストール"></a>Sass / Compass のインストール</h3><p>ターミナルで下記を実行。</p>
-<p>gem install sass<br>gem install compass</p>
-<h3 id="Sassの使い方"><a href="#Sassの使い方" class="headerlink" title="Sassの使い方"></a>Sassの使い方</h3><p>コマンドライン上で下記のコマンドを実行。</p>
-<p>sass –watch foobar.scss:foobar.css</p>
-<p>これでfoobar.scssを編集保存すると、foobar.cssにCSSが生成される。</p>
+<pre><code>gem install sass
+gem install compass
+</code></pre><h3 id="Sassの使い方"><a href="#Sassの使い方" class="headerlink" title="Sassの使い方"></a>Sassの使い方</h3><p>コマンドライン上で下記のコマンドを実行。</p>
+<pre><code>sass --watch foobar.scss:foobar.css
+</code></pre><p>これでfoobar.scssを編集保存すると、foobar.cssにCSSが生成される。</p>
 <p>さらなる使い方は<a href="http://sass-lang.com/tutorial.html" target="_blank" rel="noopener">Tutorial</a>（<a href="http://hail2u.net/documents/sass-tutorial.html" target="_blank" rel="noopener">日本語が便利</a>）を読むと一通り分かる。</p>
 <h3 id="Compassの使い方"><a href="#Compassの使い方" class="headerlink" title="Compassの使い方"></a>Compassの使い方</h3><p>Compassでは最初にプロジェクトを作成して、作成したプロジェクトでwatchする。</p>
-<p>compass create foobar<br>cd foobar<br>watch</p>
-<p>sassで–compassオプションを使って使用することもできる。</p>
-<p>sass –watch foobar.scss:foobar.css –compass</p>
-<p>たとえばCompassを使ってlinear-gradientを作成する場合は下記のように、必要なpartialをimportして、<a href="http://compass-style.org/reference/compass/css3/images/" target="_blank" rel="noopener">compassの書式</a>にあわせて記述する。</p>
-<p>@import “compass/css3/images”;</p>
-<p>#foobar{<br>  @include background(linear-gradient(45deg, #333 30&#x25;, #0c0));<br>}</p>
-<p>下記のようなCSSになる（-ms-は入らないのか）。</p>
-<p>#foobar {<br>  background: -webkit-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: -moz-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: -o-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>}</p>
-<p>さらなる使い方は<a href="http://compass-style.org/help/" target="_blank" rel="noopener">Compass Help | Compass Documentation</a>を参照。日本語のドキュメントとしては、<a href="https://gihyo.jp/dp/ebook/2012/978-4-7741-5123-6" target="_blank" rel="noopener">Sass入門</a>にチュートリアル的なのがある。<a href="http://linker.in/journal/2011/07/compasscss3.php" target="_blank" rel="noopener">Compassを触ってみて、CSS3のモジュールを眺めてみる。｜linker journal｜linker</a>も参考に。</p>
+<pre><code>compass create foobar
+cd foobar
+watch
+</code></pre><p>sassで–compassオプションを使って使用することもできる。</p>
+<pre><code>sass --watch foobar.scss:foobar.css --compass
+</code></pre><p>たとえばCompassを使ってlinear-gradientを作成する場合は下記のように、必要なpartialをimportして、<a href="http://compass-style.org/reference/compass/css3/images/" target="_blank" rel="noopener">compassの書式</a>にあわせて記述する。</p>
+<pre><code>@import &quot;compass/css3/images&quot;;
+
+#foobar{
+  @include background(linear-gradient(45deg, #333 30&amp;#x25;, #0c0));
+}
+</code></pre><p>下記のようなCSSになる（-ms-は入らないのか）。</p>
+<pre><code>#foobar {
+  background: -webkit-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: -moz-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: -o-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+}
+</code></pre><p>さらなる使い方は<a href="http://compass-style.org/help/" target="_blank" rel="noopener">Compass Help | Compass Documentation</a>を参照。日本語のドキュメントとしては、<a href="https://gihyo.jp/dp/ebook/2012/978-4-7741-5123-6" target="_blank" rel="noopener">Sass入門</a>にチュートリアル的なのがある。<a href="http://linker.in/journal/2011/07/compasscss3.php" target="_blank" rel="noopener">Compassを触ってみて、CSS3のモジュールを眺めてみる。｜linker journal｜linker</a>も参考に。</p>
 <h3 id="自分でmixinを書く"><a href="#自分でmixinを書く" class="headerlink" title="自分でmixinを書く"></a>自分でmixinを書く</h3><p>compassは便利だけど、都合にあわせて自分でmixin用意するなりした方が良い場合もあるかもしれない。たとえばvendor prefixをつけたいだけなら<a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#each-directive" target="_blank" rel="noopener">@each</a>を使うのでもいい。</p>
-<p>#foobar{<br>  @each $vendor in -webkit-,-moz-,-ms-,-o-,null {<br>    background: #{$vendor}linear-gradient(45deg,#333 30&#x25;, #0c0);<br>  }<br>}</p>
-<p>@eachの最後のnullは、non prefix用。Sass上で使われるnullは、#{}で指定された場合そこに何も出力しない。</p>
-<p>#foobar {<br>  background: -webkit-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: -moz-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: -ms-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: -o-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background: linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>}</p>
-<h3 id="カスタムファンクションを書く"><a href="#カスタムファンクションを書く" class="headerlink" title="カスタムファンクションを書く"></a>カスタムファンクションを書く</h3><p>rubyで自分用のカスタムファンクションを書くという手もある。</p>
-<p>module Sass::Script::Functions<br>  def generate_linear_gradient(*list)<br>    array = []<br>    list.each_with_index do |li,i|<br>      if i == 0 || li.is_a?(Sass::Script::Color) then<br>        array.push(li)<br>      else<br>        array[i-1] = Sass::Script::String.new(“#{array[i-1]} #{li}”)<br>      end<br>    end<br>    Sass::Script::List.new(array,’,’)<br>  end<br>end</p>
-<p>sassの-rオプションで用意したスクリプトをrequireする（ 上記のrubyスクリプトが~/Desktop/sample.rbという名前で存在すると想定）。</p>
-<p>sass –watch foobar.scss:foobar.css -r /Users/username/Desktop/sample.rb</p>
-<p>上のスクリプトの場合は、</p>
-<p>#foobar{<br>  @each $vendor in -webkit-,-moz-,-ms-,-o-,null {<br>    background-image: #{$vendor}linear-gradient(generate_linear_gradient(45deg,#333,30&#x25;,#0c0));<br>  }<br>}</p>
-<p>とすると、</p>
-<p>#foobar {<br>  background-image: -webkit-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background-image: -moz-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background-image: -ms-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background-image: -o-linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>  background-image: linear-gradient(45deg, #333333 30&#x25;, #00cc00);<br>}</p>
-<p>となる。colorとpercentageを分けて指定できるようになっている。</p>
+<pre><code>#foobar{
+  @each $vendor in -webkit-,-moz-,-ms-,-o-,null {
+    background: #{$vendor}linear-gradient(45deg,#333 30&amp;#x25;, #0c0);
+  }
+}
+</code></pre><p>@eachの最後のnullは、non prefix用。Sass上で使われるnullは、#{}で指定された場合そこに何も出力しない。</p>
+<pre><code>#foobar {
+  background: -webkit-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: -moz-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: -ms-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: -o-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background: linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+}
+</code></pre><h3 id="カスタムファンクションを書く"><a href="#カスタムファンクションを書く" class="headerlink" title="カスタムファンクションを書く"></a>カスタムファンクションを書く</h3><p>rubyで自分用のカスタムファンクションを書くという手もある。</p>
+<pre><code>module Sass::Script::Functions
+  def generate_linear_gradient(*list)
+    array = []
+    list.each_with_index do |li,i|
+      if i == 0 || li.is_a?(Sass::Script::Color) then
+        array.push(li)
+      else
+        array[i-1] = Sass::Script::String.new(&quot;#{array[i-1]} #{li}&quot;)
+      end
+    end
+    Sass::Script::List.new(array,&#39;,&#39;)
+  end
+end
+</code></pre><p>sassの-rオプションで用意したスクリプトをrequireする（ 上記のrubyスクリプトが~/Desktop/sample.rbという名前で存在すると想定）。</p>
+<pre><code>sass --watch foobar.scss:foobar.css -r /Users/username/Desktop/sample.rb
+</code></pre><p>上のスクリプトの場合は、</p>
+<pre><code>#foobar{
+  @each $vendor in -webkit-,-moz-,-ms-,-o-,null {
+    background-image: #{$vendor}linear-gradient(generate_linear_gradient(45deg,#333,30&amp;#x25;,#0c0));
+  }
+}
+</code></pre><p>とすると、</p>
+<pre><code>#foobar {
+  background-image: -webkit-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background-image: -moz-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background-image: -ms-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background-image: -o-linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+  background-image: linear-gradient(45deg, #333333 30&amp;#x25;, #00cc00);
+}
+</code></pre><p>となる。colorとpercentageを分けて指定できるようになっている。</p>
 <p>という感じ。compassで簡単に対応可能かをみつつ、都合にあわせて自作mixinを作るというのが良いかもしれない。</p>
 </div>
       </article>

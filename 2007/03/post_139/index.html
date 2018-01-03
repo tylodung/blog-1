@@ -34,15 +34,32 @@
 <p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4861004314/ref=nosim/yutakayamaguc-22" target="_blank" rel="noopener">Ajaxライブラリリファレンス</a>（p183）では、fx.Text()という関数での利用例が記載されていたのですが、どうやらmoo.fx.jsが2.xにアップデートしたときに、関数の構成が変わったようです（おそらくより汎用的になった）。fx.Testの代わりに<code>divObj = new fx.Style(&quot;latest-posts&quot;,&quot;font-size&quot;,{duration:100});</code>というような感じで利用すると、うまく動作します。</p>
 <p>この関数では始めのサイズと終わりのサイズを指定することができるのですが、始めのサイズを固定値にすると連続的な動きにならないので、現在のサイズを取得してそれを参照するようにしてみました。現在のサイズを取得するのもprototype.jsのElement.getStyleを利用して取得しています。うーん、便利。</p>
 <p>同じ要領で画像のサイズをページ内で拡大したり縮小したりもできそうですね。ふむふむ。</p>
-<script type="text/javascript" src="<$MTBlogURL$>prototype.js"></script>
-<script type="text/javascript" src="<$MTBlogURL$>moo/moo.fx.js"></script>
-<script type="text/javascript" src="<$MTBlogURL$>moo/moo.fx.pack.js"></script>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$MTBlogURL$&gt;prototype.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$MTBlogURL$&gt;moo/moo.fx.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$MTBlogURL$&gt;moo/moo.fx.pack.js&quot;&gt;&lt;/script&gt;
 
-<p><script type="text/javascript">&lt;!–<br>window.onload = function (){<br>divObj = new fx.Style(“latest-posts”,”font-size”,{duration:100});<br>}</p>
-<p>function changeTextSize(num){<br>n = Element.getStyle(“latest-posts”, “font-size”) ;<br>size = { current:””, changed:””};<br>size.current = parseInt(n.replace(“px”, “”));<br>size.changed = size.current + num;<br>divObj.custom(size.current, size.changed);<br>}</p>
-<p>function changeTextSizeReset(){<br>n = Element.getStyle(“latest-posts”, “font-size”) ;<br>size = { current:””, changed:””};<br>size.current = parseInt(n.replace(“px”, “”));<br>divObj.custom( size.current, 12);<br>}</p>
-<p>// –&gt;</p>
-</script></p></div>
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;!--
+window.onload = function (){
+divObj = new fx.Style(&quot;latest-posts&quot;,&quot;font-size&quot;,{duration:100});
+}
+
+function changeTextSize(num){
+n = Element.getStyle(&quot;latest-posts&quot;, &quot;font-size&quot;) ;
+size = { current:&quot;&quot;, changed:&quot;&quot;};
+size.current = parseInt(n.replace(&quot;px&quot;, &quot;&quot;));
+size.changed = size.current + num;
+divObj.custom(size.current, size.changed);
+}
+
+function changeTextSizeReset(){
+n = Element.getStyle(&quot;latest-posts&quot;, &quot;font-size&quot;) ;
+size = { current:&quot;&quot;, changed:&quot;&quot;};
+size.current = parseInt(n.replace(&quot;px&quot;, &quot;&quot;));
+divObj.custom( size.current, 12);
+}
+
+// --&gt;
+</code></pre></div>
       </article>
     </main>
   </div>

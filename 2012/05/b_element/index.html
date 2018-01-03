@@ -39,9 +39,11 @@
 <p>つまり、HTMLの仕様上「重要」とか「強調」とかの意味はないけど、注目させたいところにb要素を使用する。みたいな。うーん。分かるような分からないような。</p>
 <p>このb要素ですが、<a href="http://www.abookapart.com/products/responsive-web-design" target="_blank" rel="noopener">Responsive Web Designの本</a>の中では、CSSのフックとして使っている。</p>
 <blockquote>
-<div class="figure"> <p><br><img src="robot.jpg" alt=""><br><b class="figcaption">Lo, the robot walks</b> </p><br></div>
-
-<p>Nothing fancy: an img element, followed by a brief but de- scriptive caption wrapped in a b element. I’m actually appro- priating the HTML5 figure/figcaption tags as class names in this snippet, which makes for a solidly semantic foundation.</p>
+<pre><code>&lt;div class=&quot;figure&quot;&gt; &lt;p&gt;
+&lt;img src=&quot;robot.jpg&quot; alt=&quot;&quot; /&gt;
+&lt;b class=&quot;figcaption&quot;&gt;Lo, the robot walks&lt;/b&gt; &lt;/p&gt;
+&lt;/div&gt;
+</code></pre><p>Nothing fancy: an img element, followed by a brief but de- scriptive caption wrapped in a b element. I’m actually appro- priating the HTML5 figure/figcaption tags as class names in this snippet, which makes for a solidly semantic foundation.</p>
 <p>(Sharp-eyed readers will note that I’m using a b element for a non-semantic hook. Now, some designers might use a span element instead. Me, I like the terseness of shorter tags like b or i for non-semantic markup.)</p>
 </blockquote>
 <p>普通はnon-semanticなhookにはspan要素を使うだろうけど、b要素の方が短いしシンプルで好きだから… みたいな。上の例では、画像のキャプションをb要素で囲っていて、b要素でも別に違和感がないような気がしないでもない。</p>

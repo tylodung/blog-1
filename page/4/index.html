@@ -22,11 +22,24 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/test_content_security_policy_with_grunt-contrib-connect/">grunt で Content Security Policy をテストする</a></h1>
+            <div><time datetime="2013-09-09T12:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月9日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>Content Security Policy (CSP)をgrunt-contrib-connectで設定するのにはどうしたら良いかという話。</p>
+<p>やり方としては、<a href="/blog//2013/07/grunt-contrib-connect_with_cors/">grunt-contrib-connect タスクで CORS を有効にする - メモログ</a>と同様、middlewareのオプションに追加する。</p></div>
+            <div><a href="/blog/2013/09/test_content_security_policy_with_grunt-contrib-connect/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2013/09/basketjs_with_content_security_policy/">basket.js と Content Security Policy</a></h1>
             <div><time datetime="2013-09-08T12:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年9月8日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p><a href="http://memolog.org/2013/09/github_content_security_policy.php" target="_blank" rel="noopener">Github の Content Security Policy - メモログ</a>の続きのような感じで。</p></div>
+            <div class="content" itemprop="description"><p><a href="/blog//2013/09/github_content_security_policy/">Github の Content Security Policy - メモログ</a>の続きのような感じで。</p>
+<p><a href="http://addyosmani.github.io/basket.js/" target="_blank" rel="noopener">basket.js - a simple script loader that caches scripts with localStorag</a>というライブラリでは、requireで指定したURLのライブラリをlocalStorageに保存して再利用することができます。対象はスクリプトファイルだけですが、AppCacheと比べて1ファイル単位でキャッシュのexpireを設定できるので柔軟に扱える。</p></div>
             <div><a href="/blog/2013/09/basketjs_with_content_security_policy/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
@@ -117,17 +130,6 @@
             <div class="content" itemprop="description"><p>少し前までIE6で動かないから… というような気がするのですが、気がついたら過去のブラウザになっていて、サポート対象でもIE8が最低限のバージョンという感じになってきました。いつのまにか。</p>
 <p>しかしながらIE6の時代が長かったのもあり、IE6でもできることをベースに作成するクセがついている。個人的に。</p></div>
             <div><a href="/blog/2013/08/supported_in_ie8/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2013/08/-webkit-font-smoothing_and_usability/">-webkit-font-smoothing と Usability</a></h1>
-            <div><time datetime="2013-08-07T04:51:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年8月7日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p>最近になって-webkit-font-smoothingというプロパティの存在を知りました。<a href="http://maxvoltar.com/archive/-Webkit-font-smoothing" target="_blank" rel="noopener">maxvoltar - -webkit-font-smoothing</a>によると2010年には存在していたようですけど。</p></div>
-            <div><a href="/blog/2013/08/-webkit-font-smoothing_and_usability/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       

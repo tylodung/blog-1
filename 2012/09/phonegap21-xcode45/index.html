@@ -29,10 +29,11 @@
           </div>
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.phonegap.com/" target="_blank" rel="noopener">PhoneGap</a>の2.1を使用して作成したプロジェクトを、Xcodeの4.5でRunしたら下記のようなエラーが発生。</p>
-<p>clang: error: no such file or directory: </p>
-<a id="more"></a>
-<p>‘/Users/username/Library/Developer/Xcode/DerivedData/projectname/Build/Products/Debug-iphoneos/libCordova.a’</p>
-<p>Googleで検索したところによると、<a href="https://issues.apache.org/jira/browse/CB-1360" target="_blank" rel="noopener">[#CB-1360] iOS 6 - bump deployment target support to 4.3, add/remove architectures - ASF JIRA</a>で報告されているissueによるものらしくて、<a href="https://git-wip-us.apache.org/repos/asf?p=incubator-cordova-ios.git;a=commitdiff;h=07b54f14;hp=cf2412b5a0db4c67b144561abd201810e3f5f2a5" target="_blank" rel="noopener">ASF Git Repos - incubator-cordova-ios.git/commitdiff</a>の差分を、ダウンロードしてきたPhoneGapのライブラリ（lib/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj）に適用すると解消される。</p>
+<pre><code>clang: error: no such file or directory: 
+
+&lt;!-- more --&gt;
+&#39;/Users/username/Library/Developer/Xcode/DerivedData/projectname/Build/Products/Debug-iphoneos/libCordova.a&#39;
+</code></pre><p>Googleで検索したところによると、<a href="https://issues.apache.org/jira/browse/CB-1360" target="_blank" rel="noopener">[#CB-1360] iOS 6 - bump deployment target support to 4.3, add/remove architectures - ASF JIRA</a>で報告されているissueによるものらしくて、<a href="https://git-wip-us.apache.org/repos/asf?p=incubator-cordova-ios.git;a=commitdiff;h=07b54f14;hp=cf2412b5a0db4c67b144561abd201810e3f5f2a5" target="_blank" rel="noopener">ASF Git Repos - incubator-cordova-ios.git/commitdiff</a>の差分を、ダウンロードしてきたPhoneGapのライブラリ（lib/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj）に適用すると解消される。</p>
 <p>この修正は2.2では含まれるようなので、2.2では問題は発生しない（と思われる）。</p>
 </div>
       </article>

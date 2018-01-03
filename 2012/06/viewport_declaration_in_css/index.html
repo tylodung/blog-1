@@ -39,14 +39,17 @@
 <p>The Viewport META element is placed in the cascade as if it was a STYLE element, in the exact same place in the dom, that only contains a single @viewport rule.</p>
 </blockquote>
 <p>metaタグはstyle要素に@viewportのルールが書かれているかのように扱われると。なので、</p>
-<p><meta name="viewport" content="width=device-width; initial-scale=1.0"></p>
-<link rel="stylesheet" href="/styles.css" type="text/css">
-
-<p>という風にheadに記述されていたら、</p>
-<p><style><br>@viewport {<br>  width: device-width;<br>  zoom: 1.0;<br>}<br></style></p>
-<link rel="stylesheet" href="/styles.css" type="text/css">
-
-<p>というように扱われる、と思われる。metaの記述がCSSよりも上にある場合は、CSSに記述された@viewportルールが優先されると思われるけど、metaの方が下に書かれている場合はmetaの指定の方が効いてくるかもしれない（試してないので確証はない…）。</p>
+<pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width; initial-scale=1.0&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/styles.css&quot; type=&quot;text/css&quot; /&gt;
+</code></pre><p>という風にheadに記述されていたら、</p>
+<pre><code>&lt;style&gt;
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+&lt;/style&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/styles.css&quot; type=&quot;text/css&quot; /&gt;
+</code></pre><p>というように扱われる、と思われる。metaの記述がCSSよりも上にある場合は、CSSに記述された@viewportルールが優先されると思われるけど、metaの方が下に書かれている場合はmetaの指定の方が効いてくるかもしれない（試してないので確証はない…）。</p>
 </div>
       </article>
     </main>

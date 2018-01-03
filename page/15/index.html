@@ -22,6 +22,17 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2010/02/white-wagtail/">ハクセキレイとかセグロセキレイとか</a></h1>
+            <div><time datetime="2010-02-22T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2010年2月22日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://farm3.static.flickr.com/2804/4327224813_34bff2d351_b.jpg" target="_blank" rel="noopener"><img src="http://farm3.static.flickr.com/2804/4327224813_34bff2d351.jpg" alt="小金井/野川/セグロセキレイ？"></a></p></div>
+            <div><a href="/blog/2010/02/white-wagtail/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2010/02/the_beginning_of_kigo/">本：季語の誕生</a></h1>
             <div><time datetime="2010-02-21T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2010年2月21日</span></time></div>
           </header>
@@ -119,22 +130,17 @@
             <div><time datetime="2010-02-04T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2010年2月4日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p>今さら感はありつつも気が向くままにMTのウェブページ機能を使って404ページを作成してみました。新規ウェブページ作成画面を開いて404.phpというページを作成。.htaccessに下記のように記述。</p>
-<p>ErrorDocument 404 /404.php</p></div>
-            <div><a href="/blog/2010/02/make_404_page/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2010/02/css3_column-count/">CSS：column-count で3列レイアウトを作成</a></h1>
-            <div><time datetime="2010-02-03T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2010年2月3日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><ul>
-<li><a href="http://www.smashingmagazine.com/2009/12/16/stronger-better-faster-design-with-css3/" target="_blank" rel="noopener">Stronger, Better, Faster Design with CSS3</a></li>
-</ul></div>
-            <div><a href="/blog/2010/02/css3_column-count/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p>今さら感はありつつも気が向くままにMTのウェブページ機能を使って404ページを作成してみました。新規ウェブページ作成画面を開いて404.phpというページを作成。.htaccessに下記のように記述。</p>
+<pre><code>
+&lt;!-- more --&gt;
+ErrorDocument 404 /404.php
+</code></pre><p>コンテンツ部分以外は他のページと同じものが使われるので、あとはコンテンツの文言を考えるだけで完了。私は<a href="/404.php">こんな風な404ページ</a>にしてみました。404ページにだけスタイルを指定したい場合は、コンテンツ部分についている個別ページ用のid属性を使用しました。</p>
+<pre><code>#page-435 {margin:-40px 60px 30px;padding:20px 30px;border:10px solid #e6e6e6;}
+#page-435 #page-title { font-size:20px; font-family:serif; color:#333; font-weight:normal;}
+#page-435 form {margin:1em 0}
+#page-435 .asset-content {font-size:12px;line-height:1.8;}
+#page-435 .asset-content ul {margin-left:1.2em; list-style-type:circle;}
+</code></pre></div>
           
         </article>
       

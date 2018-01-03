@@ -31,19 +31,29 @@
         <div id="article-content" class="content" itemprop="articleBody"><p>少し前に<a href="http://meyerweb.com/eric/thoughts/2012/03/23/invented-elements/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Invented Elements</a>、<a href="http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Customizing Your Markup</a>、<a href="http://meyerweb.com/eric/thoughts/2012/04/10/element-customization/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Element Customization</a>で解説されていた話。</p>
 <a id="more"></a>
 <p><a href="http://typebutter.com/" target="_blank" rel="noopener">TypeButter</a>というサービスで、カーニング処理をするために「kern」という要素を挿入する。</p>
-<p><em style="font-size: 36px; line-height: 36px;">T</em></p>
-<p><kern style="letter-spacing:-0.02em">h</kern><br>e New <kern style="letter-spacing:-0.09em">Y</kern></p>
-<p><kern style="letter-spacing:-0.01em">o</kern>rk Knicks Are </p>
-<p><kern style="letter-spacing:-0.04em">F</kern></p>
-<p><kern style="letter-spacing:-0.02em">a</kern></p>
-<p><kern style="letter-spacing:-0.01em">m</kern></p>
-<p><kern style="letter-spacing:-0.02em">o</kern></p>
-<p><kern style="letter-spacing:-0.02em">u</kern>s<br><br>(<a href="http://typebutter.com/" target="_blank" rel="noopener">http://typebutter.com/</a>)</p>
-<p>kernという要素はHTML5に存在する要素ではなくて、TypeButterがカーニング処理のために独自に用意している要素。存在しない要素がブラウザ上で正常に処理するかというと、問題なく処理される。では、特定の用途のために独自の要素を用意していいかというと、HTML5の仕様上は許されない。</p>
+<pre><code>&lt;em style=&quot;font-size: 36px; line-height: 36px;&quot;&gt;T
+&lt;kern style=&quot;letter-spacing:-0.02em&quot;&gt;h&lt;/kern&gt;
+e New &lt;kern style=&quot;letter-spacing:-0.09em&quot;&gt;Y&lt;/kern&gt;
+&lt;kern style=&quot;letter-spacing:-0.01em&quot;&gt;o&lt;/kern&gt;rk Knicks Are 
+&lt;kern style=&quot;letter-spacing:-0.04em&quot;&gt;F&lt;/kern&gt;
+&lt;kern style=&quot;letter-spacing:-0.02em&quot;&gt;a&lt;/kern&gt;
+&lt;kern style=&quot;letter-spacing:-0.01em&quot;&gt;m&lt;/kern&gt;
+&lt;kern style=&quot;letter-spacing:-0.02em&quot;&gt;o&lt;/kern&gt;
+&lt;kern style=&quot;letter-spacing:-0.02em&quot;&gt;u&lt;/kern&gt;s
+&lt;/em&gt;
+(http://typebutter.com/)
+</code></pre><p>kernという要素はHTML5に存在する要素ではなくて、TypeButterがカーニング処理のために独自に用意している要素。存在しない要素がブラウザ上で正常に処理するかというと、問題なく処理される。では、特定の用途のために独自の要素を用意していいかというと、HTML5の仕様上は許されない。</p>
 <p>下記のようにelement要素を使用して要素のカスタマイズすることは可能らしい。</p>
-<p><element extends="span" name="x-kern"></element></p>
-<p></p><h1><br><span is="x-kern" style="...">A</span><br><span is="x-kern" style="...">u</span><br><span is="x-kern" style="...">t</span><br><span is="x-kern" style="...">u</span><br>mn<br></h1><br>(<a href="http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/" target="_blank" rel="noopener">http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/</a>)<p></p>
-<p>しかし、この仕様に沿ったカスタマイズ方法は不格好だし、独自の要素を使ったときに「既存のCSSとコンフリクトしない（span要素にCSSが設定されていたらそれに影響される）」という利点がなくなってしまう。だから現状使えるのだから独自要素を用意しても良いのではないかみたいなことを述べています。</p>
+<pre><code>&lt;element extends=&quot;span&quot; name=&quot;x-kern&quot;&gt;&lt;/element&gt;
+&lt;h1&gt;
+&lt;span is=&quot;x-kern&quot; style=&quot;...&quot;&gt;A&lt;/span&gt;
+&lt;span is=&quot;x-kern&quot; style=&quot;...&quot;&gt;u&lt;/span&gt;
+&lt;span is=&quot;x-kern&quot; style=&quot;...&quot;&gt;t&lt;/span&gt;
+&lt;span is=&quot;x-kern&quot; style=&quot;...&quot;&gt;u&lt;/span&gt;
+mn
+&lt;/h1&gt;
+(http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/)
+</code></pre><p>しかし、この仕様に沿ったカスタマイズ方法は不格好だし、独自の要素を使ったときに「既存のCSSとコンフリクトしない（span要素にCSSが設定されていたらそれに影響される）」という利点がなくなってしまう。だから現状使えるのだから独自要素を用意しても良いのではないかみたいなことを述べています。</p>
 <p>懸念事項としては、将来HTMLの仕様に「kern」が追加された場合にコンフリクトが発生してしまうておいうこと。だから「x-kern」のように「x-」のプレフィックスをつける方が安全だけど、要素の名前に「-」を追加できないという<a href="http://www.w3.org/TR/html5/syntax.html#syntax-tag-name" target="_blank" rel="noopener">タグ名の仕様</a>になっている。</p>
 <p>という話。</p>
 <p>新しい要素を使用しなければならないような状況はあんまりないようには思いますけど、CSSの厳密な管理が要求されるようなパーツであるなら、一考の余地はあるかもしれません。</p>

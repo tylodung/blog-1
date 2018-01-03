@@ -28,7 +28,7 @@
             </time>
           </div>
         </header>
-        <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://memolog.org/2012/09/css_transforms_2d.php" target="_blank" rel="noopener">CSS Transforms (2D) - メモログ</a>の続きで、transform-originについて。回転などtransformの変換はデフォルトでは要素の中心（50&#x25; 50&#x25;）を軸に行われる。たとえば、rotate(45deg)の場合は以下のような感じ</p>
+        <div id="article-content" class="content" itemprop="articleBody"><p><a href="/blog//2012/09/css_transforms_2d/">CSS Transforms (2D) - メモログ</a>の続きで、transform-originについて。回転などtransformの変換はデフォルトでは要素の中心（50&#x25; 50&#x25;）を軸に行われる。たとえば、rotate(45deg)の場合は以下のような感じ</p>
 <a id="more"></a>
 <p>サンプル</p>
 <p>サンプル</p>
@@ -38,16 +38,63 @@
 <p>transform-originを150&#x25; 150&#x25;などに設定することで、要素の外側に軸を設定することもできる。ので、たとえば下記のようなアニメーションをすることもできる</p>
 <p>@-moz-keyframes rotate { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } } @-webkit-keyframes rotate { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } } @-o-keyframes rotate { from { -o-transform: rotate(0deg); } to { -o-transform: rotate(360deg); } } @keyframes rotate { from { -o-transform: rotate(0deg); } to { -o-transform: rotate(360deg); } } .sample { font-size: 0.5em; width: 40px; height: 40px; border: 1px solid #ddd; background: #f0f0f0; -moz-transform-origin: 150&#x25; 150&#x25;; -moz-animation-duration: 2s; -moz-animation-name: rotate; -moz-animation-iteration-count: infinite; -moz-animation-timing-function: linear; -webkit-transform-origin: 150&#x25; 150&#x25;; -webkit-animation-duration: 2s; -webkit-animation-name: rotate; -webkit-animation-iteration-count: infinite; -webkit-animation-timing-function: linear; -ms-transform-origin: 150&#x25; 150&#x25;; -ms-animation-duration: 2s; -ms-animation-name: rotate; -ms-animation-iteration-count: infinite; -ms-animation-timing-function: linear; -o-transform-origin: 150&#x25; 150&#x25;; -o-animation-duration: 2s; -o-animation-name: rotate; -o-animation-iteration-count: infinite; -o-animation-timing-function: linear; transform-origin: 150&#x25; 150&#x25;; animation-duration: 2s; animation-name: rotate; animation-iteration-count: infinite; animation-timing-function: linear; }</p>
 <p>サンプル</p>
-<p>@-moz-keyframes rotate {<br>  from { -moz-transform: rotate(0deg); }<br>  to { -moz-transform: rotate(360deg); }<br>}</p>
-<p>@-webkit-keyframes rotate {<br>  from { -webkit-transform: rotate(0deg); }<br>  to { -webkit-transform: rotate(360deg); }<br>}  </p>
-<p>@-o-keyframes rotate {<br>  from { -o-transform: rotate(0deg); }<br>  to { -o-transform: rotate(360deg); }<br>}</p>
-<p>@keyframes rotate {<br>  from { -o-transform: rotate(0deg); }<br>  to { -o-transform: rotate(360deg); }<br>}</p>
-<p>.sample {<br>  font-size: 0.5em;<br>  width: 40px;<br>  height: 40px;<br>  border: 1px solid #ddd;<br>  background: #f0f0f0;<br>  -moz-transform-origin: 150&#x25; 150&#x25;;<br>  -moz-animation-duration: 2s;<br>  -moz-animation-name: rotate;<br>  -moz-animation-iteration-count: infinite;<br>  -moz-animation-timing-function: linear;<br>  -webkit-transform-origin: 150&#x25; 150&#x25;;<br>  -webkit-animation-duration: 2s;<br>  -webkit-animation-name: rotate;<br>  -webkit-animation-iteration-count: infinite;<br>  -webkit-animation-timing-function: linear;<br>  -ms-transform-origin: 150&#x25; 150&#x25;;<br>  -ms-animation-duration: 2s;<br>  -ms-animation-name: rotate;<br>  -ms-animation-iteration-count: infinite;<br>  -ms-animation-timing-function: linear;<br>  -o-transform-origin: 150&#x25; 150&#x25;;<br>  -o-animation-duration: 2s;<br>  -o-animation-name: rotate;<br>  -o-animation-iteration-count: infinite;<br>  -o-animation-timing-function: linear;<br>  transform-origin: 150&#x25; 150&#x25;;<br>  animation-duration: 2s;<br>  animation-name: rotate;<br>  animation-iteration-count: infinite;<br>  animation-timing-function: linear;<br>}</p>
-<h2 id="CSS-Transforms-関連記事"><a href="#CSS-Transforms-関連記事" class="headerlink" title="CSS Transforms 関連記事"></a>CSS Transforms 関連記事</h2><ul>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d.php" target="_blank" rel="noopener">CSS Transforms: transform</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d_2.php" target="_blank" rel="noopener">CSS Transforms: transform-origin</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_perspective.php" target="_blank" rel="noopener">CSS Transforms: perspective</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php" target="_blank" rel="noopener">CSS Transforms: 3D rendering context (transform-style)</a></li>
+<pre><code>@-moz-keyframes rotate {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); } 
+}
+
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); } 
+}  
+
+@-o-keyframes rotate {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); } 
+}
+
+@keyframes rotate {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); } 
+}
+
+.sample {
+  font-size: 0.5em;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  background: #f0f0f0;
+  -moz-transform-origin: 150&amp;#x25; 150&amp;#x25;;
+  -moz-animation-duration: 2s;
+  -moz-animation-name: rotate;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -webkit-transform-origin: 150&amp;#x25; 150&amp;#x25;;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: rotate;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -ms-transform-origin: 150&amp;#x25; 150&amp;#x25;;
+  -ms-animation-duration: 2s;
+  -ms-animation-name: rotate;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  -o-transform-origin: 150&amp;#x25; 150&amp;#x25;;
+  -o-animation-duration: 2s;
+  -o-animation-name: rotate;
+  -o-animation-iteration-count: infinite;
+  -o-animation-timing-function: linear;
+  transform-origin: 150&amp;#x25; 150&amp;#x25;;
+  animation-duration: 2s;
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+</code></pre><h2 id="CSS-Transforms-関連記事"><a href="#CSS-Transforms-関連記事" class="headerlink" title="CSS Transforms 関連記事"></a>CSS Transforms 関連記事</h2><ul>
+<li><a href="/blog//2012/09/css_transforms_2d/">CSS Transforms: transform</a></li>
+<li><a href="/blog//2012/09/css_transforms_2d_2/">CSS Transforms: transform-origin</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_perspective/">CSS Transforms: perspective</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_transform-style/">CSS Transforms: 3D rendering context (transform-style)</a></li>
 </ul>
 </div>
       </article>

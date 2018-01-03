@@ -22,6 +22,17 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/05/invited_elements/">独自要素を作成する</a></h1>
+            <div><time datetime="2012-05-29T06:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年5月29日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>少し前に<a href="http://meyerweb.com/eric/thoughts/2012/03/23/invented-elements/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Invented Elements</a>、<a href="http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Customizing Your Markup</a>、<a href="http://meyerweb.com/eric/thoughts/2012/04/10/element-customization/" target="_blank" rel="noopener">Eric’s Archived Thoughts:Element Customization</a>で解説されていた話。</p></div>
+            <div><a href="/blog/2012/05/invited_elements/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2012/05/favicons_next_to_external_link/">リンクの隣りにfaviconを表示する</a></h1>
             <div><time datetime="2012-05-28T06:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年5月28日</span></time></div>
           </header>
@@ -70,10 +81,40 @@
             <div><time datetime="2012-05-24T06:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年5月24日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p>（そのままではないか）</p>
+            <div class="content" itemprop="articleBody"><p>（そのままではないか）</p>
 <p>たとえば以下のようなHTMLがあるとして、</p>
-  <div class="entries"><br>    <article>foo</article><br>    <article>bar</article><br><br></div>
-            <div><a href="/blog/2012/05/last-child-required-the-last-child-in-the-parent-element/" itemprop="url">📖 続きを読む</a></div>
+<pre><code>  &lt;div class=&quot;entries&quot;&gt;
+    &lt;article&gt;foo&lt;/article&gt;
+    &lt;article&gt;bar&lt;/article&gt;
+
+&lt;!-- more --&gt;
+    &lt;article&gt;baz&lt;/article&gt;
+    &lt;article&gt;qux&lt;/article&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;next&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+</code></pre><p>article要素の最後の子要素に枠線を入れたいとして、下記のようにCSSを入れるとする。でもこれだとうまくいかない。どこにもborderはつかないことになる。</p>
+<pre><code>article:last-child{ border:1px solid #ddd; }
+</code></pre><p>仕様を参照すると、下記のように書かれている（:last-childは:nth-last-child(1)と同義なので、そちらの仕様）。</p>
+<blockquote>
+<h4 id="6-6-5-3-nth-last-child-pseudo-class"><a href="#6-6-5-3-nth-last-child-pseudo-class" class="headerlink" title="6.6.5.3. :nth-last-child() pseudo-class"></a>6.6.5.3. :nth-last-child() pseudo-class</h4><p>The :nth-last-child(an+b) pseudo-class notation represents an element that has <strong>an+b-1 siblings after it</strong> in the document tree …</p>
+<p><a href="http://www.w3.org/TR/selectors/#nth-last-child-pseudo" target="_blank" rel="noopener">http://www.w3.org/TR/selectors/#nth-last-child-pseudo</a></p>
+</blockquote>
+<p>:nth-last-child(an+b)では、an+b-1個の兄弟ノード(siblings)が後ろに存在する要素が対象になる。article:last-childの指定は「article要素の最後の要素」という意味ではなく、「兄弟ノードが後ろにない要素（親要素の最後の子要素）で、かつarticle要素」というような意味になる。articleのlast-childではなくて、last-childのarticle。</p>
+<p>上の例の場合では、div.entriesの最後にul要素が入っていて、これが「兄弟ノードが後ろにない要素」になる。しかしarticle要素ではないので、CSSの宣言の対象にならない。</p>
+<p>この場合、article:nth-last-child(2)というかたちで指定するか、下記のようにHTMLの構造を変更する。</p>
+<pre><code>  &lt;div class=&quot;entries&quot;&gt;
+    &lt;article&gt;foo&lt;/article&gt;
+    &lt;article&gt;bar&lt;/article&gt;
+    &lt;article&gt;baz&lt;/article&gt;
+    &lt;article&gt;qux&lt;/article&gt;
+  &lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;next&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+</code></pre><p>（追記）HTMLを返る必要はなく、article:last-type-of を使用すればいい。</p>
+</div>
           
         </article>
       
@@ -83,9 +124,53 @@
             <div><time datetime="2012-05-23T06:41:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年5月23日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p>いまさらながらのfloatとwidth:autoの話。たとえば</p>
-<div class="container"><br>  <div class="sidebar1">サイドバー</div><br>  <div class="main">超長い文章のつもり</div></div>
-            <div><a href="/blog/2012/05/float_and_width_auto/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p>いまさらながらのfloatとwidth:autoの話。たとえば</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;sidebar1&quot;&gt;サイドバー&lt;/div&gt;
+  &lt;div class=&quot;main&quot;&gt;超長い文章のつもり&lt;/div&gt;
+
+&lt;!-- more --&gt;
+  &lt;div class=&quot;sidebar2&quot;&gt;サイドバー&lt;/div&gt;
+  &lt;div class=&quot;footer&quot;&gt;フッター&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>というdivがあって、.sidebar1と.sidebar2を固定値のwidthにしてfloatして、.mainのwidthはautoにして可変にしたい…ということで、下記のようにCSSを設定してもうまくいかない。</p>
+<pre><code>.container{ width:auto; }
+.sidebar1{ float:left; width: 200px; }
+.main{ float:left; width:auto; }
+.sidebar2{ float:right; width: 200px; }
+</code></pre><p>width:autoは通常は包含ブロックの幅にフィットするような感じに計算されるけれど、 floatが設定されている要素の場合、<a href="http://www.w3.org/TR/CSS2/visudet.html#float-width" target="_blank" rel="noopener">10.3.5 Floating, non-replaced elements</a>の仕様に従うようになる。</p>
+<blockquote>
+<h3 id="10-3-5-Floating-non-replaced-elements"><a href="#10-3-5-Floating-non-replaced-elements" class="headerlink" title="10.3.5 Floating, non-replaced elements"></a>10.3.5 Floating, non-replaced elements</h3><p>If ‘margin-left’, or ‘margin-right’ are computed as ‘auto’, their used value is ‘0’.</p>
+<p>If ‘width’ is computed as ‘auto’, the used value is the “shrink-to-fit” width.</p>
+<p>Calculation of the shrink-to-fit width is similar to calculating the width of a table cell using the automatic table layout algorithm. Roughly: calculate the preferred width by formatting the content without breaking lines other than where explicit line breaks occur, and also calculate the preferred minimum width, e.g., by trying all possible line breaks. CSS 2.1 does not define the exact algorithm. Thirdly, find the available width: in this case, this is the width of the containing block minus the used values of ‘margin-left’, ‘border-left-width’, ‘padding-left’, ‘padding-right’, ‘border-right-width’, ‘margin-right’, and the widths of any relevant scroll bars.</p>
+<p>Then the shrink-to-fit width is: min(max(preferred minimum width, available width), preferred width).</p>
+</blockquote>
+<p>まず、preferred widthという最大値と最小値が計算される。これは（明示的に改行を発生するところを除いて）改行しないで伸ばしたときの幅が最大幅で、改行できるところで全部改行したときに得られる幅が最小値になる（CSS 2.1では正確なアルゴリズムは定義されていない）。さらにavailable widthが求められる。これはこの場合は包含ブロックからmarginとか諸々の幅を差し引いた、利用できる正味の幅になる。</p>
+<p>それで、「preferred widthの最小幅」と「available width」のどちらか大きい方の幅と、「preferred widthの最大幅」を比較して、小さい方の幅をwidthの値として使用する。</p>
+<p>なので、超長い文章の場合（available widthの方が小さくなる）ので、包含ブロックの幅一杯に.mainが広がることになる。</p>
+<p>上の例のような構成で3列にしたい場合は</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;sidebar1&quot;&gt;サイドバー&lt;/div&gt;
+  &lt;div class=&quot;sidebar2&quot;&gt;サイドバー&lt;/div&gt;
+  &lt;div class=&quot;main&quot;&gt;超長い文章のつもり&lt;/div&gt;
+  &lt;div class=&quot;footer&quot;&gt;フッター&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><pre><code>.container{ width:auto; }
+.sidebar1{ float:left; width: 200px; }
+.sidebar2{ float:right; width: 200px; }
+.main{ width:auto; overflow:hidden; }
+</code></pre><p>のように、.mainを.sidebar2の下にして、floatを外すとうまくいく。ただ、そのままだとサイドバーの下にテキストが回り込んでしまうので、overflow:hiddenを追加しておく。これはfloatと同様に <a href="http://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">Block formatting contexts</a>の原理が働くようにするため。</p>
+<blockquote>
+<h3 id="9-4-1-Block-formatting-contexts"><a href="#9-4-1-Block-formatting-contexts" class="headerlink" title="9.4.1 Block formatting contexts"></a>9.4.1 Block formatting contexts</h3><p>Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with ‘overflow’ other than ‘visible’ (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.</p>
+<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.</p>
+<p>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
+<p>For information about page breaks in paged media, please consult the section on allowed page breaks.</p>
+<p>…</p>
+<h2 id="9-5-Floats"><a href="#9-5-Floats" class="headerlink" title="9.5 Floats"></a>9.5 Floats</h2><p>…</p>
+<p>The border box of a table, a block-level replaced element, or an element in the normal flow that establishes a new block formatting context (such as an element with ‘overflow’ other than ‘visible’) must not overlap the margin box of any floats in the same block formatting context as the element itself. If necessary, implementations should clear the said element by placing it below any preceding floats, but may place it adjacent to such floats if there is sufficient space. They may even make the border box of said element narrower than defined by section 10.3.3. CSS2 does not define when a UA may put said element next to the float or by how much said element may become narrower.</p>
+</blockquote>
+<p>overflowで「visible」以外ではblock formatting contextsが新規に設定される。block formatting contextが設定された要素はその要素自身と同じblock formatting contextにあるfloatのマージンボックスと重なってはいけないということになっている（CSS2では要素がfloatの隣に配置されるタイミングやどこまで幅を狭くできるかについての定義はない）。そのため、float同士が（隣に十分なスペースがあれば）隣り合うように、floatとoverflow:hiddenも下に回りこまないように隣り合わせることができる。</p>
+</div>
           
         </article>
       
@@ -119,17 +204,6 @@
           
             <div class="content" itemprop="description"><p><a href="http://responsive.is/" target="_blank" rel="noopener">Responsive.is</a>というサイトで 自分のサイトがiPhoneやiPadなどでどのように表示されるかを疑似体験することができます（via <a href="http://konigi.com/tools/submissions/responsiveis-display-and-present-responsive-web-designs" target="_blank" rel="noopener">Responsive.is: Display and present responsive web designs | Konigi</a>）。実際には解像度の違いがあるのでiPhone4以降や最新のiPadでは画像の解像感に違いはありますけど、手元にiPhoneやiPadがない場合に、レスポンシブデザインに対応した自分のサイトがどのように見えるかを確認するには十分かなと思います。</p></div>
             <div><a href="/blog/2012/03/responsive-is/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2012/03/the_big_short/">本&#x3a; 世紀の空売り</a></h1>
-            <div><time datetime="2012-03-16T20:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年3月17日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p><a href="http://www.amazon.co.jp/gp/product/4163730907/ref=as_li_ss_il?ie=UTF8&amp;tag=yutakayamaguc-22&amp;linkCode=as2&amp;camp=247&amp;creative=7399&amp;creativeASIN=4163730907" target="_blank" rel="noopener"><img src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&amp;Format=_SL160_&amp;ASIN=4163730907&amp;MarketPlace=JP&amp;ID=AsinImage&amp;WS=1&amp;tag=yutakayamaguc-22&amp;ServiceVersion=20070822" alt=""></a><img src="http://www.assoc-amazon.jp/e/ir?t=yutakayamaguc-22&amp;l=as2&amp;o=9&amp;a=4163730907" alt=""></p></div>
-            <div><a href="/blog/2012/03/the_big_short/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       

@@ -30,12 +30,21 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.w3.org/TR/css3-transforms/" target="_blank" rel="noopener">CSS Transform</a>は要素の座標変換を行うもので、transformに<a href="http://www.w3.org/TR/css3-transforms/#transform-functions" target="_blank" rel="noopener">transform functions</a>を指定することで移動/拡大/縮小/回転などを簡単に行うことができる。2Dと3Dの変換に対応していて、transform-styleが設定されていない場合は2D（flat）となる。</p>
 <a id="more"></a>
-<p>#foobar {<br>  -moz-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);<br>  -webkit-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);<br>  -ms-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);<br>  -o-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);<br>  transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);<br>}</p>
-<p>translateが移動、rotateが回転、scaleが拡大/縮小。上記のようにtransform functionsが複数併記されている場合、下記のような指定をしたのと同じ変換になる（左から順に変換されるイメージ）。</p>
+<pre><code>#foobar {
+  -moz-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
+  -webkit-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
+  -ms-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
+  -o-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
+  transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
+}
+</code></pre><p>translateが移動、rotateが回転、scaleが拡大/縮小。上記のようにtransform functionsが複数併記されている場合、下記のような指定をしたのと同じ変換になる（左から順に変換されるイメージ）。</p>
 <p>transform functionsではmatrix(, , , , , )というかたちでどのように座標変換するか指定することもできるので、予め計算できるようであれば複数のtransform functionsを指定するよりmatrixで指定するほうが効率的であると思われる。</p>
-<div style="transform: translate(10px, 10px)"><br>    <div style="transform: rotate(45deg)"><br>        <div style="transform: scale(0.8,0.8)"></div><br>    </div><br></div>
-
-<p>サンプル</p>
+<pre><code>&lt;div style=&quot;transform: translate(10px, 10px)&quot;&gt;
+    &lt;div style=&quot;transform: rotate(45deg)&quot;&gt;
+        &lt;div style=&quot;transform: scale(0.8,0.8)&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>サンプル</p>
 <p>2Dの場合はskewX/skewYというのもあって、それらを指定するとX軸/Y軸に対して、傾けることもできる。</p>
 <p>skewX</p>
 <p>サンプル</p>
@@ -43,10 +52,10 @@
 <p>サンプル</p>
 <p>（というメモ）</p>
 <h2 id="CSS-Transforms-関連記事"><a href="#CSS-Transforms-関連記事" class="headerlink" title="CSS Transforms 関連記事"></a>CSS Transforms 関連記事</h2><ul>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d.php" target="_blank" rel="noopener">CSS Transforms: transform</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_2d_2.php" target="_blank" rel="noopener">CSS Transforms: transform-origin</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_perspective.php" target="_blank" rel="noopener">CSS Transforms: perspective</a></li>
-<li><a href="http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php" target="_blank" rel="noopener">CSS Transforms: 3D rendering context (transform-style)</a></li>
+<li><a href="/blog//2012/09/css_transforms_2d/">CSS Transforms: transform</a></li>
+<li><a href="/blog//2012/09/css_transforms_2d_2/">CSS Transforms: transform-origin</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_perspective/">CSS Transforms: perspective</a></li>
+<li><a href="/blog//2012/09/css_transforms_3d_and_transform-style/">CSS Transforms: 3D rendering context (transform-style)</a></li>
 </ul>
 </div>
       </article>

@@ -32,18 +32,41 @@
 <a id="more"></a>
 <p><a href="http://www.w3.org/TR/html5/document-metadata.html#attr-style-scoped" target="_blank" rel="noopener">style scopeの仕様</a>によると、sytle scoped要素の親要素をルートとして、その範囲のみにstyleを適用させるみたいな感じ。親要素の最初のノードとして配置する必要がある（コメントノードなどinter-element whitespaceを除く）。</p>
 <p>そして親要素のcontent modelは<a href="http://www.w3.org/TR/html5/dom.html#transparent" target="_blank" rel="noopener">transparent</a>であってはいけないらしい。代表的なのは<a href="http://www.w3.org/TR/html5/text-level-semantics.html#the-a-element" target="_blank" rel="noopener">a要素</a>（それ以外はinsとかmap要素がtransparentらしい）で、</p>
-<p><a></a></p>
-<p><style scoped><br>h1{ color:black }<br></style></p>
-<p></p><h1>foobar</h1><br><p></p>
-<p>ということはできないことになる。a要素の中にdivとか何かtransparnetでないものを入れないといけない。</p>
-<p><a></a></p>
-<div><br><style scoped><br>h1{ color:black }<br></style><br><h1>foobar</h1><br></div><br><br><br>あと、@global at-ruleが定義されていて、@globalで制限されたCSSは通常のstyle要素と同じようにDocument全体に適用されるらしい（まだブラウザ上では試せない）。<br><br><div><br><style scoped><br>@global{ div{ color:blue } }<br>h1 { width:95&#x25;; }<br></style><br><h1>foobar</h1><br></div><br><div><br>blue<br></div>
-
-<p>style scopedは、たとえば、この記事の中でだけ使いたいCSSなどを全体のCSSに配慮することなしに使うことができるという意味で便利。ドキュメント全体のCSSと連携するようなCSSが、個別の記事あるとメンテナンス大変だと思うけど。DOMとCSSの分離という点からもそもそもstyle属性は多用するものではないだろうけど、ウィジェット的な、独立分離が可能なパーツ的なものの場合には使いどころもあると思われる（iframe使えば良いかもしれないけど）。</p>
+<pre><code>&lt;a&gt;
+&lt;style scoped&gt;
+h1{ color:black }
+&lt;/style&gt;
+&lt;h1&gt;foobar&lt;/h1&gt;
+&lt;/a&gt;
+</code></pre><p>ということはできないことになる。a要素の中にdivとか何かtransparnetでないものを入れないといけない。</p>
+<pre><code>&lt;a&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+h1{ color:black }
+&lt;/style&gt;
+&lt;h1&gt;foobar&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+</code></pre><p>あと、@global at-ruleが定義されていて、@globalで制限されたCSSは通常のstyle要素と同じようにDocument全体に適用されるらしい（まだブラウザ上では試せない）。</p>
+<pre><code>&lt;div&gt;
+&lt;style scoped&gt;
+@global{ div{ color:blue } }
+h1 { width:95&amp;#x25;; }
+&lt;/style&gt;
+&lt;h1&gt;foobar&lt;/h1&gt;
+&lt;/div&gt;
+&lt;div&gt;
+blue
+&lt;/div&gt;
+</code></pre><p>style scopedは、たとえば、この記事の中でだけ使いたいCSSなどを全体のCSSに配慮することなしに使うことができるという意味で便利。ドキュメント全体のCSSと連携するようなCSSが、個別の記事あるとメンテナンス大変だと思うけど。DOMとCSSの分離という点からもそもそもstyle属性は多用するものではないだろうけど、ウィジェット的な、独立分離が可能なパーツ的なものの場合には使いどころもあると思われる（iframe使えば良いかもしれないけど）。</p>
 <p>あと、style scopedではなくても、親要素にid属性つけてそれをCSSで指定すれば同じようなことはできなくもない（style要素でインラインでする必要もないけど）。</p>
-<div id="foobar"><br><style><br>#foobar h1{ color:black }<br></style><br><h1>foobar</h1><br></div>
-
-<p>CSSのパフォーマンス的なところは不明ですが、scoped属性あるなしに関わらず、<a href="http://www.w3.org/TR/html5/document-metadata.html#styling" target="_blank" rel="noopener">W3CのStyleの仕様では</a>、style要素で@importなどでリソースを参照しない場合は同期実行されるので、レンダリングは一時的にブロックされる、かもしれない。</p>
+<pre><code>&lt;div id=&quot;foobar&quot;&gt;
+&lt;style&gt;
+#foobar h1{ color:black }
+&lt;/style&gt;
+&lt;h1&gt;foobar&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre><p>CSSのパフォーマンス的なところは不明ですが、scoped属性あるなしに関わらず、<a href="http://www.w3.org/TR/html5/document-metadata.html#styling" target="_blank" rel="noopener">W3CのStyleの仕様では</a>、style要素で@importなどでリソースを参照しない場合は同期実行されるので、レンダリングは一時的にブロックされる、かもしれない。</p>
 <blockquote>
 <p>When a style sheet is ready to be applied, its style sheet ready flag must be set. If the style sheet referenced no other resources (e.g. it was an internal style sheet given by a style element with no @import rules), then the style rules must be synchronously made available to script; otherwise, the style rules must only be made available to script once the event loop reaches its “update the rendering” step.</p>
 </blockquote>

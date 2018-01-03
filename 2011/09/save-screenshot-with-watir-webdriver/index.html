@@ -30,22 +30,45 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>小ネタでも挟もうではありませんか。watir-webdriverを使って簡単にスクリーンショット撮ることができます。Macにはrubyがもともと入っているので、事前準備はwatir-webdriverをインストールするだけです。インストールは、ターミナルを開いて下記のコマンドを実行する。</p>
 <a id="more"></a>
-<p>sudo gem install watir-webdriver</p>
-<p>インストール後、ターミナルでirbと入力して、irbを起動。</p>
-<p>irb</p>
-<p>そして、irb上でwatir-webdriverを起動して、gotoメソッドでキャプチャを撮りたい画面にアクセスしてsave_screenshotを実行します。</p>
-<p>require ‘watir-webdriver’<br>b = Watir::Browser.new<br>b.goto ‘<a href="http://memolog.org" target="_blank" rel="noopener">http://memolog.org</a>‘<br>b.driver.save_screenshot “#{Dir.pwd}/Desktop/screenshot.png”</p>
-<p>これでデスクトップ上にscreenshot.pngという新しいファイルが作成されます。撮ったスクリーンショットはこんな感じでページ全体になります。  </p>
+<pre><code>sudo gem install watir-webdriver
+</code></pre><p>インストール後、ターミナルでirbと入力して、irbを起動。</p>
+<pre><code>irb
+</code></pre><p>そして、irb上でwatir-webdriverを起動して、gotoメソッドでキャプチャを撮りたい画面にアクセスしてsave_screenshotを実行します。</p>
+<pre><code>require &#39;watir-webdriver&#39;
+b = Watir::Browser.new
+b.goto &#39;http://memolog.org&#39;
+b.driver.save_screenshot &quot;#{Dir.pwd}/Desktop/screenshot.png&quot;
+</code></pre><p>これでデスクトップ上にscreenshot.pngという新しいファイルが作成されます。撮ったスクリーンショットはこんな感じでページ全体になります。  </p>
 <p><a href="http://www.flickr.com/photos/91221720@N00/6108266015/in/photostream" target="_blank" rel="noopener"><img src="http://farm7.static.flickr.com/6205/6108266015_80210a0c21.jpg" alt="memolog"></a></p>
 <p>応用としては、撮りたいサイトをリストにしてキャプチャ撮って、サイトのtitle名で保存するとか。ファイル名を半角英数に限定したいならドットを除いたhost名（URI.parse(b.url).host.gsub(‘.’,’’)）とか使用しても良いかもしれません。</p>
-<p>require ‘watir-webdriver’</p>
-<p>sites = &#x25;w(<br><a href="http://memolog.org/" target="_blank" rel="noopener">http://memolog.org/</a><br><a href="http://blog.hayase.tv/" target="_blank" rel="noopener">http://blog.hayase.tv/</a><br><a href="http://www.sixapart.jp/" target="_blank" rel="noopener">http://www.sixapart.jp/</a><br>)</p>
-<p>b = Watir::Browser.new<br>sites.each do |site|<br>    b.goto site<br>    b.driver.save_screenshot “#{Dir.pwd}/Desktop/#{b.title}.png”<br>end</p>
-<p>さらに応用編としては、<a href="http://memolog.org/2010/12/watir-webdriver_with_firemobilesimulator.php" target="_blank" rel="noopener">watir-webdriver でFireMobileSimulatorを使用する</a>で紹介したFireMobileSimulatorを使用して、携帯用の画面（エミューレートですけど）の画面キャプチャを撮ることもできます。画面の横幅はb.execute_script “window.resizeTo(340,800)”として、resizeするJavascriptを実行することで変更可能です。</p>
-<p>require ‘watir-webdriver’</p>
-<p>profile = Selenium::WebDriver::Firefox::Profile.new<br>profile.add_extension(“./firemobilesimulator.xpi”,:firemobilesimulator)<br>profile[‘msim.current.carrier’]=’DC’<br>profile[‘msim.current.id’]=’1’<br>profile[‘msim.data.lastversion’]=’1.1.11’</p>
-<p>selenium = Selenium::WebDriver.for :firefox,:profile=&gt;profile<br>b = Watir::Browser.new selenium<br>b.execute_script “window.resizeTo(340,800)”<br>b.goto ‘<a href="http://blog.hayase.tv/" target="_blank" rel="noopener">http://blog.hayase.tv/</a>‘<br>b.driver.save_screenshot “#{Dir.pwd}/Desktop/screenshot.png”</p>
-<p>参考：<a href="https://github.com/jarib/watir-webdriver/issues/55" target="_blank" rel="noopener">#55: Screenshot API - Issues - jarib/watir-webdriver - GitHub</a></p>
+<pre><code>require &#39;watir-webdriver&#39;
+
+sites = &amp;#x25;w(
+http://memolog.org/
+http://blog.hayase.tv/
+http://www.sixapart.jp/
+)
+
+b = Watir::Browser.new
+sites.each do |site|
+    b.goto site
+    b.driver.save_screenshot &quot;#{Dir.pwd}/Desktop/#{b.title}.png&quot;
+end
+</code></pre><p>さらに応用編としては、<a href="/blog//2010/12/watir-webdriver_with_firemobilesimulator/">watir-webdriver でFireMobileSimulatorを使用する</a>で紹介したFireMobileSimulatorを使用して、携帯用の画面（エミューレートですけど）の画面キャプチャを撮ることもできます。画面の横幅はb.execute_script “window.resizeTo(340,800)”として、resizeするJavascriptを実行することで変更可能です。</p>
+<pre><code>require &#39;watir-webdriver&#39;
+
+profile = Selenium::WebDriver::Firefox::Profile.new
+profile.add_extension(&quot;./firemobilesimulator.xpi&quot;,:firemobilesimulator)
+profile[&#39;msim.current.carrier&#39;]=&#39;DC&#39;
+profile[&#39;msim.current.id&#39;]=&#39;1&#39;
+profile[&#39;msim.data.lastversion&#39;]=&#39;1.1.11&#39;
+
+selenium = Selenium::WebDriver.for :firefox,:profile=&gt;profile
+b = Watir::Browser.new selenium
+b.execute_script &quot;window.resizeTo(340,800)&quot;
+b.goto &#39;http://blog.hayase.tv/&#39;
+b.driver.save_screenshot &quot;#{Dir.pwd}/Desktop/screenshot.png&quot;
+</code></pre><p>参考：<a href="https://github.com/jarib/watir-webdriver/issues/55" target="_blank" rel="noopener">#55: Screenshot API - Issues - jarib/watir-webdriver - GitHub</a></p>
 </div>
       </article>
     </main>

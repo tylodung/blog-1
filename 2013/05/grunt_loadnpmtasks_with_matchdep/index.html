@@ -32,15 +32,17 @@
 <a id="more"></a>
 <p>しかし、grunt pluginを追加するたびにgrunt.loadNpmTasksをGruntfileに追加するのはわずらわしいし、お試しで追加したpluginとか使わなくなったpluginを削除するときにloadNpmTasksをいちいち除かないといけないのもまた面倒くさい。</p>
 <p>ので、<a href="https://npmjs.org/package/matchdep" target="_blank" rel="noopener">matchdep</a>を使用する。matchdepについては<a href="http://nantokaworks.com/?p=955" target="_blank" rel="noopener">matchdepを使ってGrunt.jsのプラグインを自動ロードする | Re* Programming</a>で簡潔に解説されています。</p>
-<p>require(‘matchdep’).filterDev(‘grunt-*’).forEach(grunt.loadNpmTasks);</p>
-<p>上記のように設定すると、package.jsonのdevDependenciesから、マッチングした対象の名前を返してくれます。そしてforEachでgrunt.loadNpmTasksに渡すと。devDependenciesにgrunt pluginを追加すれば、loadNpmTasksをGruntfileに記述しなくても、taskをloadしてくれるようになります。</p>
+<pre><code>require(&#39;matchdep&#39;).filterDev(&#39;grunt-*&#39;).forEach(grunt.loadNpmTasks);
+</code></pre><p>上記のように設定すると、package.jsonのdevDependenciesから、マッチングした対象の名前を返してくれます。そしてforEachでgrunt.loadNpmTasksに渡すと。devDependenciesにgrunt pluginを追加すれば、loadNpmTasksをGruntfileに記述しなくても、taskをloadしてくれるようになります。</p>
 <p>ただ、<a href="https://github.com/jsoverson/grunt-template-jasmine-requirejs" target="_blank" rel="noopener">grunt-template-jasmine-requirejs</a>のように、taskのないgrunt pluginをインストールしていると、</p>
-<blockquote>
-<p>> Local Npm module “grunt-template-jasmine-requirejs” not found. Is it installed?</p>
-</blockquote>
-<p>というwarningが発生するので、個人的には</p>
-<p>require(‘matchdep’).filterDev(‘grunt-*’).forEach(function (name) {<br>  if (!/template/.test(name)) {<br>    grunt.loadNpmTasks(name);<br>  }<br>});</p>
-<p>という感じで、名前にtemplateがある場合は、taskはないだろうということにして、loadNpmTasksの対象から外すようにしています。もっと良い方法があるかもしれませんけど、今のところはこれで。</p>
+<pre><code>&gt;&gt; Local Npm module &quot;grunt-template-jasmine-requirejs&quot; not found. Is it installed?
+</code></pre><p>というwarningが発生するので、個人的には</p>
+<pre><code>require(&#39;matchdep&#39;).filterDev(&#39;grunt-*&#39;).forEach(function (name) {
+  if (!/template/.test(name)) {
+    grunt.loadNpmTasks(name);
+  }
+});
+</code></pre><p>という感じで、名前にtemplateがある場合は、taskはないだろうということにして、loadNpmTasksの対象から外すようにしています。もっと良い方法があるかもしれませんけど、今のところはこれで。</p>
 </div>
       </article>
     </main>

@@ -22,6 +22,17 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/prevent_variables_collides_in_closure_compiled_scripts/">Google Closure&#x3a; compileしたjavascriptを複数同時に使う</a></h1>
+            <div><time datetime="2012-12-29T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月29日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>Closure CompilerのAdvanced modeでscriptをcompileした場合、Property RenamingとFlatteningがかかるので、global scope上にabとかBaとか短い名前のプロパティがたくさん作られるようになります。compileしたスクリプトが一つの場合は問題ありませんが、まったく別にcompileしたスクリプトを複数併用しようとすると、プロパティ名が衝突してしまって使うことができないという状態になります。</p></div>
+            <div><a href="/blog/2012/12/prevent_variables_collides_in_closure_compiled_scripts/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/css_supports_at-rule/">CSSのサポート状態で条件分岐をする @supports</a></h1>
             <div><time datetime="2012-12-28T07:12:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月28日</span></time></div>
           </header>
@@ -104,9 +115,14 @@
             <div><time datetime="2012-09-25T18:28:07.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月26日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p><a href="http://www.phonegap.com/" target="_blank" rel="noopener">PhoneGap</a>の2.1を使用して作成したプロジェクトを、Xcodeの4.5でRunしたら下記のようなエラーが発生。</p>
-<p>clang: error: no such file or directory: </p></div>
-            <div><a href="/blog/2012/09/phonegap21-xcode45/" itemprop="url">📖 続きを読む</a></div>
+            <div class="content" itemprop="articleBody"><p><a href="http://www.phonegap.com/" target="_blank" rel="noopener">PhoneGap</a>の2.1を使用して作成したプロジェクトを、Xcodeの4.5でRunしたら下記のようなエラーが発生。</p>
+<pre><code>clang: error: no such file or directory: 
+
+&lt;!-- more --&gt;
+&#39;/Users/username/Library/Developer/Xcode/DerivedData/projectname/Build/Products/Debug-iphoneos/libCordova.a&#39;
+</code></pre><p>Googleで検索したところによると、<a href="https://issues.apache.org/jira/browse/CB-1360" target="_blank" rel="noopener">[#CB-1360] iOS 6 - bump deployment target support to 4.3, add/remove architectures - ASF JIRA</a>で報告されているissueによるものらしくて、<a href="https://git-wip-us.apache.org/repos/asf?p=incubator-cordova-ios.git;a=commitdiff;h=07b54f14;hp=cf2412b5a0db4c67b144561abd201810e3f5f2a5" target="_blank" rel="noopener">ASF Git Repos - incubator-cordova-ios.git/commitdiff</a>の差分を、ダウンロードしてきたPhoneGapのライブラリ（lib/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj）に適用すると解消される。</p>
+<p>この修正は2.2では含まれるようなので、2.2では問題は発生しない（と思われる）。</p>
+</div>
           
         </article>
       
@@ -123,17 +139,6 @@
 </blockquote>
 </blockquote></div>
             <div><a href="/blog/2012/09/fallback_warning_in_sass/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2012/09/css_transforms_backface-visibility/">CSS Transforms&#x3a; backface-visibility</a></h1>
-            <div><time datetime="2012-09-23T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年9月23日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p>CSS Transformsには<a href="http://www.w3.org/TR/css3-transforms/#backface-visibility" target="_blank" rel="noopener">backface-visibility</a>という設定もあって、これはその名の通り、背面側を表示するかどうかの設定。</p></div>
-            <div><a href="/blog/2012/09/css_transforms_backface-visibility/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       

@@ -22,6 +22,17 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2015/08/firefox_40_csp/">Firefox 40 の CSP で「*」だけでは blob&#x3a; を許容しなくなった。</a></h1>
+            <div><time datetime="2015-08-24T05:51:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2015年8月24日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p>File APIから取得した画像のサムネイルを<a href="https://github.com/blueimp/JavaScript-Load-Image" target="_blank" rel="noopener">blueimp/JavaScript-Load-Image</a>を使って表示していたところが、Firefox 40になってから表示されなくなったので、なんでだろうなあと思っていたら、<a href="https://developer.mozilla.org/ja/Firefox/Releases/40/Site_Compatibility" target="_blank" rel="noopener">Firefox 40</a>からのCSPのポリシーに修正が入っていて、*（ワイルドカード）でblob:、data:、filesystem:のリソースを許容しなくなったのが原因でした。</p></div>
+            <div><a href="/blog/2015/08/firefox_40_csp/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2015/08/try-cryptojs/">CryptoJSを使ったクライアントとサーバー間の暗号化と復号化</a></h1>
             <div><time datetime="2015-08-16T18:30:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2015年8月17日</span></time></div>
           </header>
@@ -143,36 +154,6 @@ unzip Foobar.zip
           
             <div class="content" itemprop="description"><p>gruntからXcodeプロジェクトのDeployment infoを変更する。Xcodeから変更するのは簡単。でもそれをgruntでtaskとして実行する。こうした作業をgrunt taskで行うメリットは、繰り返し行う作業の場合は、それを自動化できるという点。  </p></div>
             <div><a href="/blog/2013/12/update_xcode_deployment_info_with_node_xcode/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2013/12/cordova_project_failed_on_archiving/">Cordovaプロジェクトをアーカイブしたときにエラー</a></h1>
-            <div><time datetime="2013-12-04T18:30:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年12月5日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="articleBody"><p>Cordova/PhoneGapで作成したXcodeのプロジェクトをアーカイブしようとしたときに下記のようなエラーが発生するようになりまして。</p>
-<pre class="line-numbers language-none"><code class="language-none">Stripping /Users/me/Library/Developer/Xcode/DerivedData/AppName-fiikgzftwgndirfiyeacmuhhgnft/Build/Intermediates/ArchiveIntermediates/AppName/IntermediateBuildFilesPath/UninstalledProducts/libCordova.a
-
-<!-- more -->
-    cd /Users/me/path/to/AppName/platforms/ios/CordovaLib
-    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -S /Users/me/Library/Developer/Xcode/DerivedData/AppName-fiikgzftwgndirfiyeacmuhhgnft/Build/Intermediates/ArchiveIntermediates/AppName/IntermediateBuildFilesPath/UninstalledProducts/libCordova.a
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip: can't open temporary file: (null) (Bad address)
-Command /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip failed with exit code 1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>どうもCordovaLibのStrip Linked Productのプロセスで、Strippingするときにtemporary fileを開くところで失敗しているみたい。なので、CordovaLibの「Strip Linked Product」を「No」に設定すると回避できる。  </p>
-<p><img src="http://farm6.staticflickr.com/5546/11203619224_9584d6cf87_o.png" alt=""></p>
-<p>根本的にはtmpディレクトリにアクセスできないのが原因のようなので、/private/tmpのディレクトリのパーミッションを変更すればエラーが発生しなくなる。tmpディレクトリのパーミションを変更した記憶はないのだけど…</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cd</span> /private
-<span class="token function">sudo</span> <span class="token function">chmod</span> 777 tmp
-<span class="token function">sudo</span> <span class="token function">chmod</span> +t tmp
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>ほかの人や他のMacではこのパーミッションであったので、設定自体は問題ないと思いますけど、変えた記憶はないんだよなあ。</p>
-<p>というメモ。</p>
-</div>
           
         </article>
       

@@ -35,10 +35,19 @@
 </blockquote>
 <p>CSSをパースするときに、ブラウザはat-rule（@mediaとか）、style rule（.classとか）、declaration（color:#ccc;とか）を構築する。（ので、それぞれの処理でエラーハンドリングがある）</p>
 <p>declarationの場合は、エラーの発生した宣言は捨てられて、次の「;」が見つかるまで進む（it throws away the declaration, then seeks forward until it finds a semicolon that’s not inside of a {}, [], or () block.）。記事の下の方に下記のような例が出ていて、この例の場合、「radial-gradient」は認識できずにエラーとなるけど、そのときは「;」の部分まで無視されることになる。ので、後ろについているtransparentも無視される。</p>
-<p>.foo {<br>  color: white;<br>  background: black;<br>  background: radial-gradient(black, rgba(0,0,0,.5)) transparent;<br>}</p>
-<p>仕様の方には、下記のような例が記載されている。</p>
-<p>p {<br>  color: green;<br>  font-family: ‘Courier New Times<br>  color: red;<br>  color: green;<br>}</p>
-<p>font-familyの「’」が閉じられていないので、エラーとなるけれど、その場合、次の「;」までが無視されるようになる。なので、color:redの宣言も無視される。</p>
+<pre><code>.foo {
+  color: white;
+  background: black;
+  background: radial-gradient(black, rgba(0,0,0,.5)) transparent;
+}
+</code></pre><p>仕様の方には、下記のような例が記載されている。</p>
+<pre><code>p {
+  color: green;
+  font-family: &#39;Courier New Times
+  color: red;
+  color: green;
+}
+</code></pre><p>font-familyの「’」が閉じられていないので、エラーとなるけれど、その場合、次の「;」までが無視されるようになる。なので、color:redの宣言も無視される。</p>
 <p>at-ruleの場合は、エラーが発生したらat-ruleが及ぶ範囲全体が無視されるようになる。たとえば@modia{ … }みたいな場合は、{}全体が無視されて、@inport( … );みたいな場合は「;」までが無視される。</p>
 <p>style ruleの場合は、エラーが発生したら{}ブロック全体が無視されるようになる。<a href="http://www.w3.org/TR/CSS2/syndata.html#rule-sets" target="_blank" rel="noopener">仕様</a>には下記のような記載がある。</p>
 <blockquote>
@@ -47,11 +56,19 @@
 </blockquote>
 <p>特定のセレクタだけに問題があって、カンマで区切られた残りのセレクタは問題ない場合でも、カンマが将来のCSSでは（セレクタを分ける以外の）他の意味を持っている場合があるかもしれないから、記述全体を無視すべしと。</p>
 <p>たとえば</p>
-<p>.foo,<br>.bar:nth-child(2n+1):after,<br>.baz {<br>  clear: left;<br>}</p>
-<p>というCSSだと、nth-childが認識できないブラウザだと、.fooや.bazに対するclear:left;も行われなくなる。対応していないブラウザに対処するには、ruleをひとまとめにしないで、.foo,.bazと、bar:nth-child(2n+1):afterの2つに分ける必要がある。</p>
-<p>.foo,<br>.baz {<br>  clear: left;<br>}</p>
-<p>.bar:nth-child(2n+1):after { clear: left; }</p>
-<p>逆に言うと、vendor prefixがついたセレクタなどは、そのvendorでしか対応していないので、セレクタの中にそれを入れておけば、特定のブラウザだけに{}内の宣言を適用させるみたいなハックができる、ということになる。see also <a href="http://hail2u.net/blog/webdesign/unknown-css-selector.html" target="_blank" rel="noopener">不明なCSSセレクター - Weblog - hail2u.net</a></p>
+<pre><code>.foo,
+.bar:nth-child(2n+1):after,
+.baz {
+  clear: left;
+}
+</code></pre><p>というCSSだと、nth-childが認識できないブラウザだと、.fooや.bazに対するclear:left;も行われなくなる。対応していないブラウザに対処するには、ruleをひとまとめにしないで、.foo,.bazと、bar:nth-child(2n+1):afterの2つに分ける必要がある。</p>
+<pre><code>.foo,
+.baz {
+  clear: left;
+}
+
+.bar:nth-child(2n+1):after { clear: left; }
+</code></pre><p>逆に言うと、vendor prefixがついたセレクタなどは、そのvendorでしか対応していないので、セレクタの中にそれを入れておけば、特定のブラウザだけに{}内の宣言を適用させるみたいなハックができる、ということになる。see also <a href="http://hail2u.net/blog/webdesign/unknown-css-selector.html" target="_blank" rel="noopener">不明なCSSセレクター - Weblog - hail2u.net</a></p>
 <p>ひとつのセレクタがエラーである場合は、そのセレクタだけを無視するのが望ましいと思われるけど、上のようなハックなど、現状の挙動に依存しているサイトもあるから変更できないよねみたいなことが、最後の方に書かれていました。</p>
 </div>
       </article>

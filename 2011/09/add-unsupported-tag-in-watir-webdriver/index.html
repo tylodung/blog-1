@@ -31,11 +31,29 @@
         <div id="article-content" class="content" itemprop="articleBody"><p>watir-webdriverでは広範囲のHTMLタグ（ほとんど全部）をサポートしているけれど、svgやcircleなど一部のタグは現在のところサポートしていません（参考：<a href="http://groups.google.com/group/watir-general/msg/271325e18d2b98f2?pli=1" target="_blank" rel="noopener">Does watir support svg - Watir General | Google グループ</a>）。</p>
 <a id="more"></a>
 <p>なので、自分で追加して使おうという話。watir-webdriver上にタグを追加するのは仕組み上は簡単で、下記のようにclassを追加すれば良い（circleでの追加例）。</p>
-<p>module Watir<br>class Circle &lt; HTMLElement<br>  attributes(:string =&gt; [:cx,:cy,:r,:stroke,:’stroke-width’,<br>                         :’fill-opacity’,:fill])<br>end<br>class CircleCollection &lt; ElementCollection</p>
-<p>def element_class<br>  Circle<br> end<br>end</p>
-<p>module Container<br>  def circle(*args)<br>    Circle.new(self, extract_selector(args).merge(:tag_name =&gt; “circle”))<br>  end</p>
-<p>  def circles(*args)<br>    CircleCollection.new(self,<br>                     extract_selector(args).merge(:tag_name =&gt; “circle”))<br>  end<br>end<br>end</p>
-<p>これで「b.circle」とか「b.circles」とかでcircleタグの要素を取ってくることができます</p>
+<pre><code>module Watir
+class Circle &lt; HTMLElement
+  attributes(:string =&gt; [:cx,:cy,:r,:stroke,:&#39;stroke-width&#39;,
+                         :&#39;fill-opacity&#39;,:fill])
+end
+class CircleCollection &lt; ElementCollection
+def element_class
+  Circle
+ end
+end
+
+module Container
+  def circle(*args)
+    Circle.new(self, extract_selector(args).merge(:tag_name =&gt; &quot;circle&quot;))
+  end
+
+  def circles(*args)
+    CircleCollection.new(self, 
+                     extract_selector(args).merge(:tag_name =&gt; &quot;circle&quot;))
+  end
+end
+end
+</code></pre><p>これで「b.circle」とか「b.circles」とかでcircleタグの要素を取ってくることができます</p>
 <p>ただし制限があって、「b.circle(:fill,’#ffffff’)」のように属性を指定して取得することが今のところできません。watir-webdriverでの要素の取得は、属性を指定する場合、最終的にseleniumのインスタンスに対して、find_elementメソッドと内部生成したxpathを使って取得します（element_locator.rbのlocateメソッド）。しかしseleniumにおいて、find_element(:xpath,”.//circle[@fill=’#ffffff’]“)というようなxpathで要素を取得することができないみたいです（現在のところ）。</p>
 <p>属性を指定しない場合（「b.circle」みたいに）は内部的にtag_nameを使って取得するため大丈夫みたいです（find_element(:tag_name,’circle’)）。なので、b.circle(:fill,’#ffffff’)と同じ要素を取得したい場合は、b.circles.find{|c| c.fill == ‘#ffffff’}みたいな感じで回避することができます。ちょっと不格好ですけど。</p>
 </div>

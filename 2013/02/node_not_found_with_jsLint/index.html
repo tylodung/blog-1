@@ -30,13 +30,29 @@
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>Sublime Text 2に<a href="https://github.com/darrenderidder/Sublime-JSLint" target="_blank" rel="noopener">JSLint</a>というpackageをインストールしているのですが、これが下記のようなno such file or directoryでエラーになる。</p>
 <a id="more"></a>
-<p>[Errno 2] No such file or directory<br>[cmd:  [u’node’, u’/Users/…/Library/Application Support/<br>Sublime Text 2/Packages/JSLint/linter.js’, u’–sloppy’,<br>u’–indent’, u’2’, u’–node’, u’–nomen’, u’–vars’,<br>u’–plusplus’, u’–stupid’, u’–todo’, u’foobar.js’]]<br>[dir:  /Users/…]<br>[path: /usr/bin:/bin:/usr/sbin:/sbin]<br>[Finished]</p>
-<p>どうやらhomebrewでインストールしたnodeが、/usr/local/bin/nodeに存在していて、/usr/bin:/bin:/usr/sbin:/sbinに存在していないためみたい。</p>
+<pre><code>[Errno 2] No such file or directory
+[cmd:  [u&#39;node&#39;, u&#39;/Users/.../Library/Application Support/
+Sublime Text 2/Packages/JSLint/linter.js&#39;, u&#39;--sloppy&#39;, 
+u&#39;--indent&#39;, u&#39;2&#39;, u&#39;--node&#39;, u&#39;--nomen&#39;, u&#39;--vars&#39;, 
+u&#39;--plusplus&#39;, u&#39;--stupid&#39;, u&#39;--todo&#39;, u&#39;foobar.js&#39;]]
+[dir:  /Users/...]
+[path: /usr/bin:/bin:/usr/sbin:/sbin]
+[Finished]
+</code></pre><p>どうやらhomebrewでインストールしたnodeが、/usr/local/bin/nodeに存在していて、/usr/bin:/bin:/usr/sbin:/sbinに存在していないためみたい。</p>
 <p><a href="https://github.com/darrenderidder/Sublime-JSLint/issues/5" target="_blank" rel="noopener">[Error 2] The system cannot find the file specified ? Issue #5 ? darrenderidder/Sublime-JSLint ? GitHub</a>の話を参考に、JSLint.sublime-buildのcmdの「node」を「/usr/local/bin/node」に変更したら、動くようになりましたと..</p>
-<p>{<br>    “cmd”: [<br>      “/usr/local/bin/node”,<br>      “${packages}/JSLint/linter.js”,<br>      // tolerate missing ‘use strict’ pragma<br>      “–sloppy”,<br>      // suggest an indent level of two spaces<br>      “–indent”, “2”,<br>      // assume node.js to predefine node globals</p>
-<p>でも少し考えて、/usr/bin にsymlinkつけても良いかと思って、上の変更は止めて、symlinkをつける方向に。</p>
-<p>cd /usr/bin<br>sudo ln -s /usr/local/bin/node</p>
-<p>というメモ。Sublime Text 2でコマンド実行したときに/usr/local/binも参照してくれれば良いのにとか思うのですけど、あ、symlinkじゃなくてPATHを通せば良いのか..（いや、PATHは通ってる雰囲気…）</p>
+<pre><code>{
+    &quot;cmd&quot;: [
+      &quot;/usr/local/bin/node&quot;, 
+      &quot;${packages}/JSLint/linter.js&quot;,
+      // tolerate missing &#39;use strict&#39; pragma
+      &quot;--sloppy&quot;,
+      // suggest an indent level of two spaces
+      &quot;--indent&quot;, &quot;2&quot;,
+      // assume node.js to predefine node globals
+</code></pre><p>でも少し考えて、/usr/bin にsymlinkつけても良いかと思って、上の変更は止めて、symlinkをつける方向に。</p>
+<pre><code>cd /usr/bin
+sudo ln -s /usr/local/bin/node
+</code></pre><p>というメモ。Sublime Text 2でコマンド実行したときに/usr/local/binも参照してくれれば良いのにとか思うのですけど、あ、symlinkじゃなくてPATHを通せば良いのか..（いや、PATHは通ってる雰囲気…）</p>
 </div>
       </article>
     </main>

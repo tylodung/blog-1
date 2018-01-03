@@ -32,8 +32,15 @@
 <a id="more"></a>
 <p>このgridが便利かどうかは使ってみないとなんともですが、その中で紹介されているbox-sizingというプロパティが面白い（ずいぶん前からあるみたいですけど）。box-sizingではwidth/heightの数値にどの範囲までを含めるかを設定することができる（参照:<a href="https://developer.mozilla.org/En/CSS/Box-sizing" target="_blank" rel="noopener">box-sizing - MDN</a>）。初期設定は標準モードで使われる「content-box（widthはコンテンツのエリアのみでpadding/border/marginは含まれない）」。これを「border-box」に設定すると、widthにpaddingとborderを含めることができる（IE6の互換モードと同じ）。</p>
 <p>たとえば画像にborderで枠をつけつつ、横幅いっぱいに表示したいというときに、便利。content-boxのままだと、borderの1pxとかpaddingの幅をある程度考慮してwidthを調整しないといけなくなるけど、border-boxにしてしておけば</p>
-<p>img.image-full{<br>  -moz-box-sizing: border-box;<br>  -webkig-box-sizing: border-box;<br>  box-sizing: border-box;<br>  border: 1px solid #ddd;<br>  padding: 5px;<br>  max-width: 100&#x25;;<br>}</p>
-<p>みたいな感じで簡単に指定できる。IE8以降ではないと使用できないけど、<a href="https://github.com/Schepp/box-sizing-polyfill" target="_blank" rel="noopener">IE7/6用のpolyfill</a>が存在するので、IE6にも適用したい場合はそれを使うという手がある（試してないけど）。</p>
+<pre><code>img.image-full{
+  -moz-box-sizing: border-box;
+  -webkig-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 5px;
+  max-width: 100&amp;#x25;;
+}
+</code></pre><p>みたいな感じで簡単に指定できる。IE8以降ではないと使用できないけど、<a href="https://github.com/Schepp/box-sizing-polyfill" target="_blank" rel="noopener">IE7/6用のpolyfill</a>が存在するので、IE6にも適用したい場合はそれを使うという手がある（試してないけど）。</p>
 <p>responsiveなレイアウトではwidthには&#x25;が使われるので、border-boxを使うことでborderとpaddingを気にしなくて良いというのはそうとう便利な気がする（特にborderは&#x25;で指定できないのできびしい）。<a href="http://paulirish.com/2012/box-sizing-border-box-ftw/" target="_blank" rel="noopener">* { box-sizing: border-box } FTW « Paul Irish</a>では、さらに全称セレクタでborder-boxを指定するというアイデアが紹介されている（box-sizingの指定は継承されない）。</p>
 </div>
       </article>

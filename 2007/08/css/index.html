@@ -37,8 +37,9 @@
 </ul>
 <p>各ブラウザが独自で用意している拡張CSS（CSS extensions）を利用して、角丸コーナーを作ろうという話。CSS3 に<a href="http://www.w3.org/TR/2005/WD-css3-background-20050216/#the-border-radius" target="_blank" rel="noopener">border-radius</a>というボーダーの角を丸くするためのプロパティが提案されており、ゆくゆくはborder-radiusにスタイルが引き継がれていくのかなと推測しています。</p>
 <p>CSSの指定の仕方は簡単で、下記のようにwebkitやmozのプレフィックスをつけて指定するだけ。webkitはwebkitとsafari向け、mozはmozilla系のブラウザ向けの指定。IEでは適用されません。</p>
-<p>-moz-border-radius: 5px;<br>-webkit-border-radius: 5px;</p>
-<p>実際に右にある「最近のブログ記事」のリストに指定してみました。若干、カクカクした感じになりますけど、個人的には許容範囲。</p>
+<pre><code>-moz-border-radius: 5px; 
+-webkit-border-radius: 5px;
+</code></pre><p>実際に右にある「最近のブログ記事」のリストに指定してみました。若干、カクカクした感じになりますけど、個人的には許容範囲。</p>
 <p>そのほかにもブラウザが独自に用意している拡張CSSはたくさんあって、そのへんは下記のリンクなどが参考になります。これでしばらくは楽しめそうです。</p>
 <ul>
 <li><a href="http://qooxdoo.org/documentation/general/webkit_css_styles" target="_blank" rel="noopener">qooxdoo » WebKit CSS Styles</a></li>

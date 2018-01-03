@@ -31,21 +31,24 @@
         <div id="article-content" class="content" itemprop="articleBody"><p>gem installするだけで簡単だろうと思って始めてみたら意外と面倒だったのでメモ。Rubyは<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">RubyInstallerのDownloadページ</a>から「Ruby 1.8.7-p358」をダウンロードしてインストールしました。</p>
 <a id="more"></a>
 <h2 id="watir-webdriverのインストール"><a href="#watir-webdriverのインストール" class="headerlink" title="watir-webdriverのインストール"></a>watir-webdriverのインストール</h2><p>とりあえず下記のコマンドを実行</p>
-<p>gem install watir-webdriver</p>
-<p>ひとつふたつの依存モジュールのインストールに成功したあとに問題発生。</p>
+<pre><code>gem install watir-webdriver
+</code></pre><p>ひとつふたつの依存モジュールのインストールに成功したあとに問題発生。</p>
 <h3 id="ffi-1-0-11がインストールできない"><a href="#ffi-1-0-11がインストールできない" class="headerlink" title="ffi-1.0.11がインストールできない"></a>ffi-1.0.11がインストールできない</h3><p>ffiの最新が現在1.0.11ですが、これはWindows XPには「Please update your PATH to include build tools or download the DevKit..」というエラーが発生して入りませんでした。このエラーはDevKitをインストールする主旨のようですが、インストールしても最新のffiはインストールできなかったので、1.0.9をインストールして回避しました。</p>
-<p>gem install ffi -v 1.0.9</p>
-<p>これで再度、gem install watir-webdriverを実行。今度はインストールを完了させることができました。</p>
+<pre><code>gem install ffi -v 1.0.9
+</code></pre><p>これで再度、gem install watir-webdriverを実行。今度はインストールを完了させることができました。</p>
 <p>DevKitはたぶん不要ですが、一応インストールのメモ。<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">RubyInstallerのDownloadページ</a>から DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe をダウンロード。そのあと、C:\Program Files\ に「devkit」というフォルダを新規作成して、ダウンロードしたexeファイルを解凍した中身を保管。コマンドプロンプトを起動して、下記の操作を実行。</p>
-<p>cd C:\Program Files\devkit<br>ruby dk.rb init<br>ruby dk.rb install</p>
-<h3 id="multi-jsonがエラーを出す"><a href="#multi-jsonがエラーを出す" class="headerlink" title="multi_jsonがエラーを出す"></a>multi_jsonがエラーを出す</h3><p>watir-webdriverのインストールは成功するものの、Watir::Browser.newでFirefoxが起動したら「multi_json-1.2.0… `to_json’: wrong argument type Hash …」とかいうエラーが発生… どうやらto_jsonを実行する時のencodeに問題があるようですが、詳細はあまり調べてません。1.2.0から順番に一つ前のバージョンをインストールして、起動して、、ということを繰り返した結果、1.0.4なら大丈夫の様子。</p>
-<p>gem unistall multi_json<br>gem install multi_json -v 1.0.4</p>
-<h3 id="multi-jsonがさらにエラーを出す"><a href="#multi-jsonがさらにエラーを出す" class="headerlink" title="multi_jsonがさらにエラーを出す"></a>multi_jsonがさらにエラーを出す</h3><p>multi_jsonが「`to_json’: source sequence is illegal/malformed (JSON:GeneratorError)」とかいうエラーを出す場合があって、これは保存しているフォルダのパスに全角文字のフォルダが含まれているからみたい。「デスクトップ」とか…</p>
+<pre><code>cd C:\Program Files\devkit
+ruby dk.rb init
+ruby dk.rb install
+</code></pre><h3 id="multi-jsonがエラーを出す"><a href="#multi-jsonがエラーを出す" class="headerlink" title="multi_jsonがエラーを出す"></a>multi_jsonがエラーを出す</h3><p>watir-webdriverのインストールは成功するものの、Watir::Browser.newでFirefoxが起動したら「multi_json-1.2.0… `to_json’: wrong argument type Hash …」とかいうエラーが発生… どうやらto_jsonを実行する時のencodeに問題があるようですが、詳細はあまり調べてません。1.2.0から順番に一つ前のバージョンをインストールして、起動して、、ということを繰り返した結果、1.0.4なら大丈夫の様子。</p>
+<pre><code>gem unistall multi_json
+gem install multi_json -v 1.0.4
+</code></pre><h3 id="multi-jsonがさらにエラーを出す"><a href="#multi-jsonがさらにエラーを出す" class="headerlink" title="multi_jsonがさらにエラーを出す"></a>multi_jsonがさらにエラーを出す</h3><p>multi_jsonが「`to_json’: source sequence is illegal/malformed (JSON:GeneratorError)」とかいうエラーを出す場合があって、これは保存しているフォルダのパスに全角文字のフォルダが含まれているからみたい。「デスクトップ」とか…</p>
 <p>保存しているフォルダの場所を「My Documents」に変更して回避… 以上の方法でとりあえずWindows XPでもwatir-webdriverが動くようになりました。とりあえず。</p>
 <h3 id="（蛇足）css-parserのインストール"><a href="#（蛇足）css-parserのインストール" class="headerlink" title="（蛇足）css_parserのインストール"></a>（蛇足）css_parserのインストール</h3><p>あと、テストスクリプトの中でcss_parserを使用しているのですが（watir-webdriverの依存モジュールではない）、これも現在最新の1.2.6はXPにインストールできませんでした。「Gem files remain installed in C:/……/json-1.6.6 for inspection」みたいなエラーが発生する。</p>
 <p>ので、1.2.5のバージョンをインストールすることで回避しました。これは蛇足。</p>
-<p>gem install css_parser -v 1.2.5</p>
-</div>
+<pre><code>gem install css_parser -v 1.2.5
+</code></pre></div>
       </article>
     </main>
   </div>

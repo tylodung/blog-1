@@ -29,15 +29,79 @@
           </div>
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>Action Streamで得たFlickrのActivityをThickBoxを利用して表示したいなと思いたち、そこで<a href="http://www.movabletype.jp/documentation/actionstreams/building_action_streams_plugin.html" target="_blank" rel="noopener">独自のAction Streamsプラグインを作成する</a>のページと、既存のAction Stream pluginとGoogle検索などを見ながら、自分用のFlickr for thickbox pluginを作成してみました。<br><a id="more"></a><br>作成したconfig.yaml（action_streams部分のみ）はこんな感じ。</p>
-<p>action_streams:<br>    flickrthickbox:<br>        photos:<br>            name: Photos<br>            description: Photos you posted<br>            fields:<br>                - thumbnail_b<br>            html_form: ‘<a href="\[\_2\]" class="thickbox"><img src="\[\_3\]" title="\[\_4\]"></a> on <a href="\[_5\]">Flickr</a>‘<br>            html_params:<br>                - thumbnail_b<br>                - thumbnail<br>                - title<br>                - url<br>            url: ‘<a href="http://www.flickr.com/photos/" target="_blank" rel="noopener">http://www.flickr.com/photos/</a>/‘<br>            identifier: url<br>            scraper:<br>                foreach: ‘p.Photo’<br>                get:<br>                    title:<br>                        - a<br>                        - ‘@title’<br>                    url:<br>                        - a<br>                        - ‘@href’<br>                    thumbnail:<br>                        - img<br>                        - ‘@src’<br>                    thumbnail_b:<br>                        - img<br>                        - ‘@src’</p>
-<p>callbacks:<br>    pre_build_action_streams_event.flickrthickbox_photos: sub { $_[2]-&gt;{thumbnail_b} =~ s/_m\.jpg/_b\.jpg/ }</p>
-<p>scraperで行ったのは、thickbox　実行時に表示するための大きな画像(thumbnail_b)のURLを取得するために　‘thumbnail_b’=&gt; [‘@src’,sub { s/_m\.jpg/_b\.jpg/}]　みたいなことをやろうとしてのことだったのですが、Action Stream　のplugin上ではうまく動かず・・。結局、callbacksで置換するようにしました。scraperでやる必然性は特になく、atomでもrssでも同じことはできそう。</p>
+<pre><code>action_streams:
+    flickrthickbox:
+        photos:
+            name: Photos
+            description: Photos you posted
+            fields:
+                - thumbnail_b
+            html_form: &#39;&lt;a href=&quot;[_2]&quot; class=&quot;thickbox&quot;&gt;&lt;img src=&quot;[_3]&quot; title=&quot;[_4]&quot;&gt;&lt;/a&gt; on &lt;a href=&quot;[_5]&quot;&gt;Flickr&lt;/a&gt;&#39;
+            html_params:
+                - thumbnail_b
+                - thumbnail
+                - title
+                - url
+            url: &#39;http://www.flickr.com/photos/{{ident}}/&#39;
+            identifier: url
+            scraper:
+                foreach: &#39;p.Photo&#39;
+                get:
+                    title:
+                        - a
+                        - &#39;@title&#39;
+                    url:
+                        - a
+                        - &#39;@href&#39;
+                    thumbnail:
+                        - img
+                        - &#39;@src&#39;
+                    thumbnail_b:
+                        - img
+                        - &#39;@src&#39;
+
+callbacks:
+    pre_build_action_streams_event.flickrthickbox_photos: sub { $_[2]-&gt;{thumbnail_b} =~ s/_m\.jpg/_b\.jpg/ }
+</code></pre><p>scraperで行ったのは、thickbox　実行時に表示するための大きな画像(thumbnail_b)のURLを取得するために　‘thumbnail_b’=&gt; [‘@src’,sub { s/_m\.jpg/_b\.jpg/}]　みたいなことをやろうとしてのことだったのですが、Action Stream　のplugin上ではうまく動かず・・。結局、callbacksで置換するようにしました。scraperでやる必然性は特になく、atomでもrssでも同じことはできそう。</p>
 <p>そして実際に表示させてみたのですが、思ったより収まりが悪い。外観についてはまたそのうち考えてみよう・・</p>
 <p><strong>そして追記。</strong></p>
 <p>やはりatomから取得する方法変えてみました。あとストリームの名前を「flickr」にして、既存のflickrストリームを上書きするかたちにしました（それに伴ってfavoritesも一応追加）。pluginを追加する前のflickrのストリームには「thumbnail_b」がないので、リンクをクリックしても何も表示されないのが難点。</p>
-<p>action_streams:<br>    flickr:<br>        favorites:<br>            name: Favorites<br>            description: Photos you marked as favorites<br>            fields:<br>                - by<br>            html_form: ‘[_1] saved <a href="\[\_2\]">[_3]</a> as a favorite photo’<br>            html_params:<br>                - url<br>                - title<br>            url: ‘<a href="http://api.flickr.com/services/feeds/photos\_faves.gne?nsid=" target="_blank" rel="noopener">http://api.flickr.com/services/feeds/photos\_faves.gne?nsid=</a>&amp;lang=en-us&amp;format=atom_10’<br>            atom:<br>                thumbnail: content<br>                by: author/name<br>        photos:<br>            name: Photos<br>            description: Photos you posted<br>            fields:<br>                - thumbnail_b<br>            html_form: ‘<a href="\[\_2\]" class="thickbox"><img src="\[\_3\]" title="\[\_4\]"></a> on <a href="\[_5\]">Flickr</a>‘<br>            html_params:<br>                - thumbnail_b<br>                - thumbnail<br>                - title<br>                - url<br>            url: ‘<a href="http://api.flickr.com/services/feeds/photos\_public.gne?id=" target="_blank" rel="noopener">http://api.flickr.com/services/feeds/photos\_public.gne?id=</a>&amp;lang=en-us&amp;format=atom_10’<br>            identifier: url<br>            atom:<br>                thumbnail: content</p>
-<p>callbacks:<br>    pre_build_action_streams_event.flickr_photos:           $ActionStreams::ActionStreams::Fix::flickr_photo_thumbnail<br>    pre_build_action_streams_event.flickr_photos:           sub { $_[2]-&gt;{thumbnail_b} = $_[2]-&gt;{thumbnail}; $_[2]-&gt; {thumbnail_b} =~ s/_t\.jpg/_b\.jpg/ }<br>    pre_build_action_streams_event.flickr_favorites:        $ActionStreams::ActionStreams::Fix::flickr_photo_thumbnail</p>
-</div>
+<pre><code>action_streams:
+    flickr:
+        favorites:
+            name: Favorites
+            description: Photos you marked as favorites
+            fields:
+                - by
+            html_form: &#39;[_1] saved &lt;a href=&quot;[_2]&quot;&gt;[_3]&lt;/a&gt; as a favorite photo&#39;
+            html_params:
+                - url
+                - title
+            url: &#39;http://api.flickr.com/services/feeds/photos_faves.gne?nsid={{ident}}&amp;lang=en-us&amp;format=atom_10&#39;
+            atom:
+                thumbnail: content
+                by: author/name
+        photos:
+            name: Photos
+            description: Photos you posted
+            fields:
+                - thumbnail_b
+            html_form: &#39;&lt;a href=&quot;[_2]&quot; class=&quot;thickbox&quot;&gt;&lt;img src=&quot;[_3]&quot; title=&quot;[_4]&quot;&gt;&lt;/a&gt; on &lt;a href=&quot;[_5]&quot;&gt;Flickr&lt;/a&gt;&#39;
+            html_params:
+                - thumbnail_b
+                - thumbnail
+                - title
+                - url
+            url: &#39;http://api.flickr.com/services/feeds/photos_public.gne?id={{ident}}&amp;lang=en-us&amp;format=atom_10&#39;
+            identifier: url
+            atom:
+                thumbnail: content
+
+callbacks:
+    pre_build_action_streams_event.flickr_photos:           $ActionStreams::ActionStreams::Fix::flickr_photo_thumbnail
+    pre_build_action_streams_event.flickr_photos:           sub { $_[2]-&gt;{thumbnail_b} = $_[2]-&gt;{thumbnail}; $_[2]-&gt; {thumbnail_b} =~ s/_t\.jpg/_b\.jpg/ }
+    pre_build_action_streams_event.flickr_favorites:        $ActionStreams::ActionStreams::Fix::flickr_photo_thumbnail
+</code></pre></div>
       </article>
     </main>
   </div>

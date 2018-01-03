@@ -22,6 +22,21 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2018/import-from-old-blog/">古い記事のインポート</a></h1>
+            <div><time datetime="2018-01-03T18:36:06.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2018年1月4日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="articleBody"><p>ブログの古い記事なんてほとんど顧みることはない。ほとんどの記事が「以前は役に立ったかもしれないけど、すでに役には立たない」コードの端切れのようなものだから、古い記事なんてそのまま放置していつの日かインターネットから姿を消すくらいでもいいかなあとか思っていたのだが、数は少ないけどまだ誰かの役に立つかもしれないもの（本の感想とか）もあるし、過去の時点で自分が何を書いていたのか振り返ることもあるかもしれない（今まで一度もなかったけど）、と思い直し、頑張ってインポートをしてみることにした。</p>
+<p>MT形式のエクスポートファイルをHexoで読み込めるファイルに作り直すのは<a href="https://github.com/domchristie/turndown" target="_blank" rel="noopener">TurnDown</a> というHTMLをMarkdownに変換するモジュールのおかげで、そんなに難しくなかった。コードブロックの前に不要な改行が入ってしまうパターンは気がついたら手直ししていこうと思う。</p>
+<p>そこまではよかったんだけど、古い記事でアップロードしていた画像の扱い（フェッチしてディレクトリに保存するようにして、URLを置換した）とか、古いURLがなるべく変更されないように調整するのとか、Hexo（というかたぶんejs）でHTMLを生成するときにBodyに「&#x25;」があるためにエラーになってしまうので数値参照にしたり、Titleに「:」があるとエラーになるのでやっぱり数値参照にしたりとか、ついでにCSSを変えてみたりとか、そういった細かいところの調整に時間がかかってしまった。</p>
+<p>作成した変換ツールは<a href="https://github.com/memolog/hexo-mt-converter" target="_blank" rel="noopener">memolog/hexo-mt-converter</a> に公開してある。けど他の人にはあまり役に立たないツールかもしれない。</p>
+<p>とにかく、これで古い記事どうようしかな〜とかいう心配は必要なくなる。ブログを書かなくなって維持し続けるを迷っていたドメインとかレンタルサーバーとかも、今年中には止めることができそうである。なんだかんだでまた使い始めるかもしれないけど。</p>
+</div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2018/New-Year-Resolutions/">New Year Resolutions</a></h1>
             <div><time datetime="2018-01-02T22:34:59.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2018年1月3日</span></time></div>
           </header>
@@ -126,17 +141,6 @@
           
             <div class="content" itemprop="description"><p><a href="/blog//2015/08/encrypt-with-cryptswift-and-then-decrypt-it-with-nodejs/">CryptoSwiftを使ってAES-256-CBCで暗号化してNodeで復号化する</a>の記事で、CryptoSwift (iOS) で暗号化したデータをサーバー側（Node.js）で復号化する話をしましたが、今回はその逆向きで、Node.jsでABS-256-CBCで暗号化したデータをCryptoSwiftで復号化するという話。</p></div>
             <div><a href="/blog/2015/08/encrypt-with-nodejs-and-then-decrypt-it-with-cryptoswift/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2015/08/firefox_40_csp/">Firefox 40 の CSP で「*」だけでは blob&#x3a; を許容しなくなった。</a></h1>
-            <div><time datetime="2015-08-24T05:51:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2015年8月24日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p>File APIから取得した画像のサムネイルを<a href="https://github.com/blueimp/JavaScript-Load-Image" target="_blank" rel="noopener">blueimp/JavaScript-Load-Image</a>を使って表示していたところが、Firefox 40になってから表示されなくなったので、なんでだろうなあと思っていたら、<a href="https://developer.mozilla.org/ja/Firefox/Releases/40/Site_Compatibility" target="_blank" rel="noopener">Firefox 40</a>からのCSPのポリシーに修正が入っていて、*（ワイルドカード）でblob:、data:、filesystem:のリソースを許容しなくなったのが原因でした。</p></div>
-            <div><a href="/blog/2015/08/firefox_40_csp/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       

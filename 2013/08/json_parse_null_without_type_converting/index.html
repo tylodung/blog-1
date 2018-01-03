@@ -35,10 +35,10 @@
 <p>さらに悪いことに、console.logでも、渡した値がtoStringをもたない場合は、エラーになってしまう。console.logでデバックするときに、渡した値がundefinedやnullになっていると、そこで処理が止まってしまう。 これはなかなかつらい。外部動作的にはただ処理が途中で止まっているようにしか見えないし、console.logでも状況把握が一歩遅れる。</p>
 <p>さらにさらに悪いことに、この現象、HTC EVO(2.3.4)では再現するけど、他の2.3.4端末では発生しない… ブラウザのバージョンは（UserAgentを見る限りでは）533.1で同じに見えるけど、ビルドの違いで発生するのか、なんなのか… この点もつらい。手元にない端末で現象が発生すると、再現できないから原因も分からない。骨が折れる調査になることは間違いない。</p>
 <p>JSON.parse用の回避策は簡単で、localStorageの値を判定してnull(falsy)の場合はparseしないという風にしておけば良い。</p>
-<p>var parsedItem = localStorage.getItem(‘noStoredItem’) ? JSON.parse(localStorage.getItem(‘noStoredItem’)) : null;</p>
-<p>または</p>
-<p>var parsedItem = JSON.parse((localStorage.getItem(‘noStoredItem’)||’null’));</p>
-<p>というメモ</p>
+<pre><code>var parsedItem = localStorage.getItem(&#39;noStoredItem&#39;) ? JSON.parse(localStorage.getItem(&#39;noStoredItem&#39;)) : null;
+</code></pre><p>または</p>
+<pre><code>var parsedItem = JSON.parse((localStorage.getItem(&#39;noStoredItem&#39;)||&#39;null&#39;));
+</code></pre><p>というメモ</p>
 </div>
       </article>
     </main>

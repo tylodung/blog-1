@@ -22,11 +22,22 @@
       
         <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
           <header class="header">
+            <h1 class="header__title" itemprop="name"><a href="/blog/2013/04/preparation_for_xxhdpi/">xxhdpiの準備とdpiとdpについて</a></h1>
+            <div><time datetime="2013-04-21T06:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年4月21日</span></time></div>
+          </header>
+          
+            <div class="content" itemprop="description"><p><a href="http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density" target="_blank" rel="noopener">List of displays by pixel density - Wikipedia, the free encyclopedia</a> を見ていて気がついたのですけど、Galaxy S4は<a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank" rel="noopener">Supporting Multiple Screens | Android Developers</a>で言うところの「xxhdpi」という枠に入るらしい。Android Developersには記載がないのですけど、<a href="https://plus.google.com/+NickButcher/posts/ePQya3KsTjW" target="_blank" rel="noopener">Nick Butcher - Google+ - Nexus 10 launcher icons The gorgeous screen on the Nexus…</a>に、（Nexus 10はxhdpiの範囲を超えてくるので）xxhdpiかdrawable-480dpiフォルダーを用意する必要がある、というような記述がある（Nexus 10は300ppiと仕様には書かれていますけど、事実関係は未調査）。</p></div>
+            <div><a href="/blog/2013/04/preparation_for_xxhdpi/" itemprop="url">📖 続きを読む</a></div>
+          
+        </article>
+      
+        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
+          <header class="header">
             <h1 class="header__title" itemprop="name"><a href="/blog/2013/04/sublime_text_2_jshint/">Sublime Text 2 で JSHint</a></h1>
             <div><time datetime="2013-04-13T05:50:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2013年4月13日</span></time></div>
           </header>
           
-            <div class="content" itemprop="description"><p><a href="http://memolog.org/2013/02/node_not_found_with_jsLint.php" target="_blank" rel="noopener">Sublime Text 2 の JSLint から node がみつからない - メモログ</a>と関連して、少しの間JSLintを使用していたのですが、jQueryなどglobalに定義されている変数があるとそこで定義されていないと言われたりなどしてしまい、若干使い勝手が悪い。</p></div>
+            <div class="content" itemprop="description"><p><a href="/blog//2013/02/node_not_found_with_jsLint/">Sublime Text 2 の JSLint から node がみつからない - メモログ</a>と関連して、少しの間JSLintを使用していたのですが、jQueryなどglobalに定義されている変数があるとそこで定義されていないと言われたりなどしてしまい、若干使い勝手が悪い。</p></div>
             <div><a href="/blog/2013/04/sublime_text_2_jshint/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
@@ -116,17 +127,6 @@
           
             <div class="content" itemprop="description"><p>jQueryで要素を作成する場合、<a href="http://api.jquery.com/jQuery/#entry-examples-1" target="_blank" rel="noopener">jQuery()のExample</a>を参考にすると、作り方としては下記の二通りの方法があります。</p></div>
             <div><a href="/blog/2013/01/jquery_peformance_about_creating_element/" itemprop="url">📖 続きを読む</a></div>
-          
-        </article>
-      
-        <article class="article-summary" itemprop="blogPost" itemscope itemType="http://schema.org/BlogPosting">
-          <header class="header">
-            <h1 class="header__title" itemprop="name"><a href="/blog/2012/12/prevent_variables_collides_in_closure_compiled_scripts/">Google Closure&#x3a; compileしたjavascriptを複数同時に使う</a></h1>
-            <div><time datetime="2012-12-29T13:00:00.000Z" itemprop="datePublished"><span class="calendar-icon">📅</span><span>2012年12月29日</span></time></div>
-          </header>
-          
-            <div class="content" itemprop="description"><p>Closure CompilerのAdvanced modeでscriptをcompileした場合、Property RenamingとFlatteningがかかるので、global scope上にabとかBaとか短い名前のプロパティがたくさん作られるようになります。compileしたスクリプトが一つの場合は問題ありませんが、まったく別にcompileしたスクリプトを複数併用しようとすると、プロパティ名が衝突してしまって使うことができないという状態になります。</p></div>
-            <div><a href="/blog/2012/12/prevent_variables_collides_in_closure_compiled_scripts/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       
