@@ -1,5 +1,5 @@
 body {
-  background-color: #FCFAF2;
+  background-color: white;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
@@ -25,7 +25,7 @@ a:visited {
 
 .header__title {
   display: inline-block;
-  background-color: #E9E5D3;
+  background-color: #f5f2f0;
   margin: .5em 0 .2em;
   padding: 5px;
   font-size: 1.8em;
@@ -135,7 +135,7 @@ a:visited {
     margin-bottom: 0; }
 
 .article-summary {
-  margin-bottom: 2em;
+  margin-bottom: 5em;
 }
 
 .header time {
@@ -156,16 +156,11 @@ a:visited {
 }
 
 .content p > code {
-  background-color: #E9E5D3;
+  background-color: #f5f2f0;
   display: inline-block;
   padding: 0 6px;
   border-radius: .3em;
   color:#444;
-}
-
-.content pre[class*="language-"] {
-  background-color: #E9E5D3;
-  color: #444;
 }
 
 .content code[class*="language-"] {
