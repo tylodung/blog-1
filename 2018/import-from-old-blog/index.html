@@ -28,11 +28,45 @@
             </time>
           </div>
         </header>
-        <div id="article-content" class="content" itemprop="articleBody"><p>ブログの古い記事なんてほとんど顧みることはない。ほとんどの記事が「以前は役に立ったかもしれないけど、すでに役には立たない」コードの端切れのようなものだから、古い記事なんてそのまま放置していつの日かインターネットから姿を消すくらいでもいいかなあとか思っていたのだが、数は少ないけどまだ誰かの役に立つかもしれないもの（本の感想とか）もあるし、過去の時点で自分が何を書いていたのか振り返ることもあるかもしれない（今まで一度もなかったけど）、と思い直し、頑張ってインポートをしてみることにした。</p>
-<p>MT形式のエクスポートファイルをHexoで読み込めるファイルに作り直すのは<a href="https://github.com/domchristie/turndown" target="_blank" rel="noopener">TurnDown</a> というHTMLをMarkdownに変換するモジュールのおかげで、そんなに難しくなかった。コードブロックの前に不要な改行が入ってしまうパターンは気がついたら手直ししていこうと思う。</p>
-<p>そこまではよかったんだけど、古い記事でアップロードしていた画像の扱い（フェッチしてディレクトリに保存するようにして、URLを置換した）とか、古いURLがなるべく変更されないように調整するのとか、Hexo（というかたぶんejs）でHTMLを生成するときにBodyに「&#x25;」があるためにエラーになってしまうので数値参照にしたり、Titleに「:」があるとエラーになるのでやっぱり数値参照にしたりとか、ついでにCSSを変えてみたりとか、そういった細かいところの調整に時間がかかってしまった。</p>
+        <div id="article-content" class="content" itemprop="articleBody"><p>ブログの古い記事なんてほとんど顧みることはない。ほとんどの記事が「以前は役に立ったかもしれないけど、すでに役には立たない」コードの端切れのようなもので古い記事なんてそのまま放置していつの日かインターネットから姿を消すくらいでもいいかなあとか思っていた。</p>
+<p>のだが、数は少ないけどまだ誰かの役に立つかもしれないものもたぶんあるだろうし、過去の時点で自分が何を書いていたのか振り返ることもあるかもしれない（今まで一度もなかったけど）と思い直し、頑張ってインポートをしてみることにした。<br><a id="more"></a><br>MT形式のエクスポートファイルをHexoで読み込めるファイルに作り直すのは<a href="https://github.com/domchristie/turndown" target="_blank" rel="noopener">TurnDown</a> というHTMLをMarkdownに変換するモジュールのおかげで、そんなに難しくなかった。コードブロックの前に不要な改行が入ってしまうパターンは元々の入力内容の問題もあるので気がついたら手直ししていこうと思う。</p>
+<p>ということで、大まかな点では大きな問題はなかったのだが、古い記事でアップロードしていた画像の扱い（フェッチしてディレクトリに保存するようにして、URLを置換した）とか、古いURLがなるべく変更されないように調整するのとか、Hexo（というかたぶんejs）でHTMLを生成するときにBodyに「&#x25;」があるためにエラーになってしまうので数値参照にしたり、Titleに「:」があるとエラーになるのでやっぱり数値参照にしたりとか、ついでにCSSを変えてみたりとか、そういった細かいところの調整に時間がかかってしまった。</p>
 <p>作成した変換ツールは<a href="https://github.com/memolog/hexo-mt-converter" target="_blank" rel="noopener">memolog/hexo-mt-converter</a> に公開してある。けど他の人にはあまり役に立たないツールかもしれない。</p>
-<p>とにかく、これで古い記事どうようしかな〜とかいう心配は必要なくなる。ブログを書かなくなって維持し続けるを迷っていたドメインとかレンタルサーバーとかも、今年中には止めることができそうである。なんだかんだでまた使い始めるかもしれないけど。</p>
+<p>せっかくなのでturndownの拡張した部分のコードだけを記しておく。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">const</span> TurndownService <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'turndown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> turndownService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TurndownService</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  codeBlockStyle<span class="token punctuation">:</span> <span class="token string">'fenced'</span><span class="token punctuation">,</span>
+  fence<span class="token punctuation">:</span> <span class="token string">'```'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+turndownService<span class="token punctuation">.</span><span class="token function">addRule</span><span class="token punctuation">(</span><span class="token string">'fencedCodeBlock'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  filter<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>node<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      options<span class="token punctuation">.</span>codeBlockStyle <span class="token operator">===</span> <span class="token string">'fenced'</span> <span class="token operator">&amp;&amp;</span>
+      node<span class="token punctuation">.</span>nodeName <span class="token operator">===</span> <span class="token string">'PRE'</span> <span class="token operator">&amp;&amp;</span>
+      <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>node<span class="token punctuation">.</span>firstChild <span class="token operator">&amp;&amp;</span> node<span class="token punctuation">.</span>firstChild<span class="token punctuation">.</span>nodeName <span class="token operator">===</span> <span class="token string">'CODE'</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>className <span class="token operator">===</span> <span class="token string">'prettyprint'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+
+  replacement<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>content<span class="token punctuation">,</span> node<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> className <span class="token operator">=</span> node<span class="token punctuation">.</span>firstChild<span class="token punctuation">.</span>className <span class="token operator">||</span> node<span class="token punctuation">.</span>className <span class="token operator">||</span> <span class="token string">''</span>
+    <span class="token keyword">var</span> language <span class="token operator">=</span> <span class="token punctuation">(</span>className<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex">/language-(\S+)/</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token string">'\n\n'</span> <span class="token operator">+</span> options<span class="token punctuation">.</span>fence <span class="token operator">+</span> language <span class="token operator">+</span> <span class="token string">'\n'</span> <span class="token operator">+</span>
+      node<span class="token punctuation">.</span>firstChild<span class="token punctuation">.</span>textContent <span class="token operator">+</span>
+      <span class="token string">'\n'</span> <span class="token operator">+</span> options<span class="token punctuation">.</span>fence <span class="token operator">+</span> <span class="token string">'\n\n'</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>コードブロックの出力はデフォルトでは「indent」になっているので、これを「fenced」に変更。して、fencedのフィルター部分を自分のエクスポートデータの内容に応じて少し調整している。旧いデータだとcode要素にはclass名がついていなくて、pre要素にだけついているというHTMLもあったので、code要素にclassNameがなかったら親のpre要素のclassNameも参照するようにしている。また、投稿によっては「prettyprint」を使ってコードブロックを記述していたところもあったので、prettyprintの場合でもコードブロックとして扱うように追加している。prettyprintの場合はclassNameにlanguage-xxxがというのがないので、出力内容はプレーンでハイライトがつかない状態になっているけど、これは気が向いたら直そうと思う。</p>
+<hr>
+<p>そんな感じでとにかくインポートできた。これで古い記事どうようしかな〜とかいう心配は必要なくなる。ブログを書かなくなって維持し続けるを迷っていたドメインとかレンタルサーバーとかも、今年中には止めることができそうである。なんだかんだでまた使い始めるかもしれないけど。</p>
 </div>
       </article>
     </main>
