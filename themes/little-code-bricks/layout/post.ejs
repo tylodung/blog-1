@@ -15,10 +15,14 @@
               <span class="calendar-icon">📅</span><span><%- page.date.locale(config.language).format('LL') %></span>
             </time>
           </div>
+          <% if (page.featured) { %>
+            <%- partial('_partial/feature-image', {featured: page.featured}) %>
+          <% } %>
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><%- page.content %></div>
       </article>
     </main>
   </div>
+  <%- partial('_partial/common-body-footer') %>
 </body>
 </html>
