@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,19 @@
               <span class="calendar-icon">📅</span><span>2018年1月4日</span>
             </time>
           </div>
+          
+            <div class="header__feature">
+  <div>
+    <picture>
+      <source data-srcset="https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_450.jpg, https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_450@2x.jpg 2x, https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_450@3x.jpg 3x" type="image/jpeg" media="(max-width: 450px)" />
+      <source data-srcset="https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_750.webp, https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_750@2x.webp 2x" type="image/webp" />
+      <source data-srcset="https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_750.jpeg, https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_750@2x.jpeg 2x" type="image/jpeg" />
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://df4ggxtayph0v.cloudfront.net/images/chuttersnap-255215/chuttersnap-255215_750.jpg" class="lazyload" />
+    </picture>              
+  </div>
+  <div class="feature__credit">Photo by <a href="https://unsplash.com/photos/fN603qcEA7g?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">chuttersnap</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></div>
+</div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>ブログの古い記事なんてほとんど顧みることはない。ほとんどの記事が「以前は役に立ったかもしれないけど、すでに役には立たない」コードの端切れのようなもので古い記事なんてそのまま放置していつの日かインターネットから姿を消すくらいでもいいかなあとか思っていた。</p>
 <p>のだが、数は少ないけどまだ誰かの役に立つかもしれないものもたぶんあるだろうし、過去の時点で自分が何を書いていたのか振り返ることもあるかもしれない（今まで一度もなかったけど）と思い直し、頑張ってインポートをしてみることにした。<br><a id="more"></a><br>MT形式のエクスポートファイルをHexoで読み込めるファイルに作り直すのは<a href="https://github.com/domchristie/turndown" target="_blank" rel="noopener">TurnDown</a> というHTMLをMarkdownに変換するモジュールのおかげで、そんなに難しくなかった。コードブロックの前に不要な改行が入ってしまうパターンは元々の入力内容の問題もあるので気がついたら手直ししていこうと思う。</p>
@@ -71,5 +85,6 @@ turndownService<span class="token punctuation">.</span><span class="token functi
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

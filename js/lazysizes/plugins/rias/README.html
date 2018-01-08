@@ -1,0 +1,262 @@
+<h1 id="lazySizes-RIaS-extension-Responsive-image-as-a-service-Responsive-image-on-demand"><a href="#lazySizes-RIaS-extension-Responsive-image-as-a-service-Responsive-image-on-demand" class="headerlink" title="lazySizes RIaS extension (Responsive image as a service / Responsive image on demand)"></a>lazySizes RIaS extension (Responsive image as a service / Responsive image on demand)</h1><p>The RiaS plugin enables lazySizes to generate the best suitable image source based on an URL pattern. It works with pre-build images (i.e. grunt-responsive-images) as also with any third party (ReSrc, Pixtulate, mobify, WURFL’s Image Tailor …) or self hosted restful responsive image services (responsive image on demand).</p>
+<p>In general the RIaS  plugin combines the simplicity of the famous Imager.js solution with the future power of native responsive images implementations and the webcomponent-like working of lazySizes’ <code>.lazyload</code> elements (self-initialization, self-configuration and self-destroying).</p>
+<p>In case the browser does support <code>srcset</code> the RIaS plugin will also produce a list of source candidates so that any current and future improvements (low bandwidth, metered bandwidth, user preferences, browser zoom etc.) to the native responsive image support is automatically exploited.</p>
+<p>The RiaS plugin also allows art direction by combining placeholder URLs with a <code>picture</code> element.</p>
+<h2 id="Basic-quick-usage"><a href="#Basic-quick-usage" class="headerlink" title="Basic/quick usage"></a>Basic/quick usage</h2><ul>
+<li>Add the RiaS plugin right before the lazySizes script or concat those scripts into your script bundle:</li>
+</ul>
+<pre><code class="html"><span class="comment">&lt;!-- include lazysizes + rias extension --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../plugins/rias/ls.rias.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lazysizes.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<ul>
+<li>Add the <code>lazyload</code> class and the <code>data-sizes=&quot;auto&quot;</code> attribute to your image and include the placeholder <code>{width}</code> at the point, where your image service expects the requested width of the image.</li>
+</ul>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://wit.wurfl.io/w_{width}/http://wurfl.io/assets/sunsetbeach.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a><a href="http://afarkas.github.io/lazysizes/rias/">Demo</a></h2><p>A <a href="http://afarkas.github.io/lazysizes/rias/">demo with markup and code examples can be seen here</a>.</p>
+<h2 id="Configuration-Options"><a href="#Configuration-Options" class="headerlink" title="Configuration/Options"></a>Configuration/Options</h2><p>The RIaS plugin can be configured through the <code>lazySizesConfig.rias</code> option object, which should be configured before the lazySizes script.</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+<span class="built_in">window</span>.lazySizesConfig.rias = <span class="built_in">window</span>.lazySizesConfig.rias || {};
+
+<span class="comment">// configure available widths to replace with the {width} placeholder</span>
+<span class="built_in">window</span>.lazySizesConfig.rias.widths = [<span class="number">320</span>, <span class="number">480</span>, <span class="number">640</span>, <span class="number">960</span>];
+<span class="built_in">window</span>.lazySizesConfig.rias.absUrl = <span class="literal">true</span>;
+</code></pre>
+<p>or element specific and declarative with corresponding <code>data-*</code> attributes:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-widths</span>=<span class="string">"[160, 320]"</span></span>
+<span class="tag">    <span class="attr">data-absurl</span>=<span class="string">"false"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<p>or element specific and functional using the <code>lazyriasmodifyoptions</code> event.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazyriasmodifyoptions'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>{</span>
+<span class="javascript">    <span class="comment">// event.detail referes the placeholders/options and event.target the corresponding element</span></span>
+<span class="javascript">    event.detail.quality = (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>) &gt; <span class="number">1.9</span> ? <span class="number">50</span> : <span class="number">80</span>;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image-w{width}-q{quality}.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<p>All <code>rias</code> options can also be used as <code>data-*</code> attributes.</p>
+<h3 id="URL-generation-and-placeholder-s"><a href="#URL-generation-and-placeholder-s" class="headerlink" title="URL generation and {placeholder}s"></a>URL generation and {placeholder}s</h3><p>The url is dynamically generated by replacing placeholder values, which are enclosed by curly brackets.</p>
+<p>All RiAS options can also be used as a {placeholder} inside the url.</p>
+<h3 id="List-of-Options"><a href="#List-of-Options" class="headerlink" title="List of Options"></a>List of Options</h3><ul>
+<li><code>lazySizesConfig.rias.srcAttr</code> (default: <code>&quot;data-src&quot;</code>): The attribute, which should be transformed to <code>src</code>/<code>srcset</code>. (The extension will also automatically check the <code>lazySizesConfig.srcsetAttr</code> and <code>lazySizesConfig.srcAttr</code>)</li>
+<li><code>lazySizesConfig.rias.widths</code> (<code>array of numbers</code>): The widths option reduces the calculated <code>width</code> to the allowed widths. The numeric width can also be simply mapped to a string (i.e.: small, medium, large) using the <code>widthmap</code> option. The default value is the following array: <code>[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592, 2808, 3024]</code>.</li>
+<li><p><code>lazySizesConfig.rias.widthmap</code> (<code>{}</code>): The widthmap option allows you to simply transform a numeric width to a string.</p>
+<pre><code class="js"> <span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+ <span class="built_in">window</span>.lazySizesConfig.rias = <span class="built_in">window</span>.lazySizesConfig.rias || {};
+
+ <span class="built_in">window</span>.lazySizesConfig.rias.widths = [<span class="number">320</span>, <span class="number">640</span>, <span class="number">940</span>];
+ <span class="built_in">window</span>.lazySizesConfig.rias.widthmap = {
+     <span class="number">320</span>: <span class="string">'small'</span>,
+     <span class="number">640</span>: <span class="string">'medium'</span>,
+     <span class="number">940</span>: <span class="string">'large'</span>
+};
+</code></pre>
+</li>
+<li><p><code>lazySizesConfig.rias.modifyOptions</code> (default: <code>function</code> noop ): A <code>function</code> that gets an data object passed with the options as the <code>details</code> and the corresponding <code>img</code> element as the <code>target</code>. Can be used to modify existing options/placeholder values or to add new placeholder values. An event with the name <code>lazyriasmodifyoptions</code> is also fired at the element.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.rias = <span class="built_in">window</span>.lazySizesConfig.rias || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.rias.modifyOptions = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{</span>
+<span class="javascript">    <span class="comment">//create higher compressed images on HighDPI devices:</span></span>
+<span class="javascript">    data.detail.quality = (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>) &gt; <span class="number">1.9</span> ? <span class="number">50</span> : <span class="number">80</span>;</span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image-w{width}-q{quality}.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+</li>
+<li><p><code>lazySizesConfig.rias.absUrl</code> (default: <code>false</code>): Wether the value of the <code>data-src</code> attribute should be resolved to an absolute url. The value must not contain any placeholders in this case. Use in conjunction with <code>prefix</code> and/or <code>postfix</code> option.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript">    <span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript">    <span class="built_in">window</span>.lazySizesConfig.rias = {</span>
+<span class="javascript">        prefix: <span class="string">'http://wit.wurfl.io/w_{width}/'</span>,</span>
+<span class="javascript">        absUrl: <span class="literal">true</span></span>
+<span class="undefined">    };</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"assets/sunsetbeach.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+</li>
+<li><p><code>lazySizesConfig.rias.prefix</code> (default: <code>&quot;&quot;</code>): A string, which is prepended to the generated src.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.rias = {</span>
+<span class="javascript">    prefix: <span class="string">'http://placehold.it/'</span></span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"{width}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+</li>
+<li><code>lazySizesConfig.rias.postfix</code> (default: <code>&quot;&quot;</code> ): A string, which is appended to the generated src.</li>
+</ul>
+<p>With lazySizes + RIaS extension you have a script to rule them all. You won’t need to include a script provided by a third party image on demand service.</p>
+<h2 id="Advanced-Examples"><a href="#Advanced-Examples" class="headerlink" title="Advanced Examples"></a>Advanced Examples</h2><h3 id="Embedding-via-CDN-and-combohandler"><a href="#Embedding-via-CDN-and-combohandler" class="headerlink" title="Embedding via CDN and combohandler"></a>Embedding via CDN and combohandler</h3><p>In case you want to use a CDN you can use jsDelivr’s combohandler service:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/rias/ls.rias.min.js)"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<h3 id="Using-art-direction"><a href="#Using-art-direction" class="headerlink" title="Using art direction"></a>Using art direction</h3><p>In case you want to use art direction simply also use placeholder urls inside of your <code>source[data-srcset]</code> or <code>source[data-src]</code> attributes.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">            <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}/1111ee/fff"</span></span>
+<span class="tag">            <span class="attr">media</span>=<span class="string">"(max-width: 500px)"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">            <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}/e8117f/fff"</span></span>
+<span class="tag">            <span class="attr">media</span>=<span class="string">"(max-width: 1090px)"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">            <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}/7D26CD/fff"</span></span>
+<span class="tag">            <span class="attr">media</span>=<span class="string">"(min-width: 1224px)"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">            <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">             /&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;/audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"http://placehold.it/100"</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+</code></pre>
+<h3 id="Using-different-widths-options-for-different-images"><a href="#Using-different-widths-options-for-different-images" class="headerlink" title="Using different widths options for different images"></a>Using different <code>widths</code> options for different images</h3><p>Often you will have different image formats with different allowed available <code>widths</code>. This can be configured in two ways:</p>
+<h4 id="Descriptive-way-the-data-widths-attribute"><a href="#Descriptive-way-the-data-widths-attribute" class="headerlink" title="Descriptive way the data-widths attribute"></a>Descriptive way the <code>data-widths</code> attribute</h4><pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">        <span class="attr">data-widths</span>=<span class="string">"[320, 480, 640]"</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">        <span class="attr">data-widths</span>=<span class="string">"[640, 800, 960]"</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<h4 id="Scripted-way-using-the-lazyriasmodifyoptions-event"><a href="#Scripted-way-using-the-lazyriasmodifyoptions-event" class="headerlink" title="Scripted way using the lazyriasmodifyoptions event"></a>Scripted way using the <code>lazyriasmodifyoptions</code> event</h4><pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazyriasmodifyoptions'</span>, (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span>
+<span class="javascript">    <span class="keyword">var</span> formats = {</span>
+<span class="undefined">        full: [640, 800, 960, 1280, 1600],</span>
+<span class="undefined">        content: [320, 480, 640]</span>
+<span class="undefined">    };</span>
+<span class="javascript">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">       <span class="keyword">var</span> format = e.target.getAttribute(<span class="string">'data-format'</span>);</span>
+<span class="javascript">       <span class="keyword">if</span>(formats[format]){</span>
+<span class="undefined">           e.detail.widths = formats[format];</span>
+<span class="undefined">       }</span>
+<span class="undefined">   };</span>
+<span class="undefined">})());</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">    <span class="attr">data-format</span>=<span class="string">"full"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">    <span class="attr">data-format</span>=<span class="string">"content"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<h3 id="Overriding-existing-placeholders-or-Extending-new-placeholders"><a href="#Overriding-existing-placeholders-or-Extending-new-placeholders" class="headerlink" title="Overriding existing placeholders or Extending new placeholders"></a>Overriding existing placeholders or Extending new placeholders</h3><p>The RIaS plugin is highly flexible in extending possible {placeholder} values. Each {placeholder} will be tried to be replaced by searching it in the <code>lazySizesConfig.rias</code> option object or by searching for a corresponding <code>data-*</code> attribute.</p>
+<p>Additionally the <code>modifyOptions</code> callback or the equivalent <code>lazyriasmodifyoptions</code> event can be used to generate new or modify existing placeholders:</p>
+<p><strong>Using <code>data-*</code> to override an existing placeholder:</strong></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-widths</span>=<span class="string">"[160, 320]"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p><strong>Using <code>data-*</code> to define a new placeholder:</strong></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-custom</span>=<span class="string">"foo"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}/{custom}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p><strong>Using the <code>lazySizesConfig.rias</code> object to define a new placeholder:</strong></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.rias = {</span>
+<span class="javascript">    custom: <span class="string">'test'</span>,</span>
+<span class="javascript">    dynCustom: <span class="function"><span class="keyword">function</span>(<span class="params">elem, opts</span>)</span>{</span>
+<span class="javascript">        <span class="keyword">return</span> <span class="string">'computed-something'</span>;</span>
+<span class="undefined">    }</span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/{width}/{custom}/{dynCustom}"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<p><strong>Using the <code>lazyriasmodifyoptions</code> event to define or change a placeholder object:</strong></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazyriasmodifyoptions'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">    <span class="comment">// change available widths and widthmap for .special-widths elements</span></span>
+<span class="javascript">    <span class="keyword">if</span>($(e.target).is(<span class="string">'.special-widths'</span>)){</span>
+<span class="javascript">        <span class="comment">// (Note: With version 1.1.0 the ``details`` property will be renamed to ``detail``.)</span></span>
+<span class="undefined">        e.detail.widths = [320, 480, 600];</span>
+<span class="undefined">        e.detail.widthmap = {</span>
+<span class="javascript">              <span class="number">320</span>: <span class="string">'small'</span>,</span>
+<span class="javascript">              <span class="number">480</span>: <span class="string">'medium'</span>,</span>
+<span class="javascript">              <span class="number">600</span>: <span class="string">'large'</span></span>
+<span class="undefined">         };</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span>
+<span class="javascript">    <span class="comment">//add new custom property with value 'foo'</span></span>
+<span class="javascript">    e.detail.custom = <span class="string">'foo'</span>;</span>
+<span class="undefined"></span>
+<span class="javascript">    e.detail.quality = (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>) &gt; <span class="number">1.9</span> ? <span class="number">50</span> : <span class="number">80</span>;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image-w{width}-w{custom}-q{quality}.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload special-widths"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<h3 id="Tip-Constraining-the-pixel-density-for-a-generated-srcset-attribute"><a href="#Tip-Constraining-the-pixel-density-for-a-generated-srcset-attribute" class="headerlink" title="Tip: Constraining the pixel density for a generated srcset attribute."></a>Tip: Constraining the pixel density for a generated <code>srcset</code> attribute.</h3><p>In case you don’t want to generate additional compressive images for high resolution displays you can combine the RIaS extension with the <a href="../optimumx">optimumx extension</a> to constrain the maximum pixel density for the generated <code>srcset</code> list.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/rias/ls.rias.min.js+plugins/optimumx/ls.optimumx.min.js)"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image-width-{width}.jpg"</span></span>
+<span class="tag">    <span class="attr">data-optimumx</span>=<span class="string">"1.6"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>

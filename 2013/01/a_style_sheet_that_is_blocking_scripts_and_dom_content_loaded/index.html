@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2013年1月23日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://molily.de/weblog/domcontentloaded" target="_blank" rel="noopener">DOMContentLoaded and stylesheets · molily</a>（via <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/DOMContentLoaded_&#x25;28event&#x25;29" target="_blank" rel="noopener">DOMContentLoaded - Mozilla event reference | MDN</a>）にて、head内のスタイルシートとJavascriptの配置の違いで、DOMContentLoadedイベントが発生するタイミングが変わるという内容が掲載されています。スタイルシートのあとにJavascriptが入っていると、DOMContentLoadedはスタイルシートをロードしたあとに発生して、スタイルシートのあとにJavascriptがないと、スタイルシートのロードを待たずにDOMContentLoadedが発生する。</p>
 <a id="more"></a>
@@ -43,5 +45,6 @@
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

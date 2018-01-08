@@ -1,0 +1,75 @@
+<h1 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h1><h2 id="4-0-0-RC1"><a href="#4-0-0-RC1" class="headerlink" title="4.0.0-RC1"></a>4.0.0-RC1</h2><pre><code>* make all plugins CommonJS compatible (thx to @claudiobmgrtnr and @jantimon)
+* added `loadHidden` option(thx to @justinvoelker)
+* added artdirection plugin (no documentation yet, but great)
+* iOS 8.1 fixes has to be loaded explicitly in non CommonJS environments (not included in respimg plugin anymore)
+* removed `picture` support for old FF 38-
+</code></pre><h2 id="2-0-0"><a href="#2-0-0" class="headerlink" title="2.0.0"></a>2.0.0</h2><ul>
+<li>lazysizes core:<ul>
+<li>heavily improved performance (<code>requestIdleCallback</code>, better debouncing and a lot more).</li>
+</ul>
+</li>
+<li>plugins:<ul>
+<li>new plugin: <a href="plugins/object-fit"><strong>object fit polyfill</strong></a>.</li>
+<li>improved new options for <a href="plugins/parent-fit">parent-fit plugin</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-5-0"><a href="#1-5-0" class="headerlink" title="1.5.0"></a>1.5.0</h2><p>Breaking change:</p>
+<pre><code>* the lazysizes.js and lazysizes.min.js files do not register as AMD modules anymore, if you need an AMD module use the new lazysizes-umd.js or lazysizes-umd.min.js file.
+</code></pre><ul>
+<li>lazysizes core:<ul>
+<li>improved lazyloading in background tabs.</li>
+<li>fixed set lazyloaded class to early in FF.</li>
+</ul>
+</li>
+<li>bgset/parentFit plugin:<ul>
+<li>improved avoiding layout thrashing.</li>
+</ul>
+</li>
+<li>respimg/bgset/parentFit plugin:<ul>
+<li>fixed bug in Edge 14 to parse height descriptors correctly.</li>
+</ul>
+</li>
+<li>unload plugin:<br>  unload plugin was broken since version 1.4.0 (thanks to @hokamoto)</li>
+</ul>
+<h2 id="1-4-0"><a href="#1-4-0" class="headerlink" title="1.4.0"></a>1.4.0</h2><ul>
+<li>lazysizes core:<ul>
+<li>improved lazyloading in background tabs.</li>
+<li>improved avoiding layout thrashing</li>
+<li>support of SVG elements (<code>svg</code>/<code>image</code>/<code>use</code>…)</li>
+</ul>
+</li>
+<li>bgset/parentFit plugin:<ul>
+<li>improved avoiding layout thrashing</li>
+</ul>
+</li>
+<li>rias (and bgset):<ul>
+<li>added support for height calculation (thx to @LRancez, <a href="https://github.com/aFarkas/lazysizes/pull/213">#213</a>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-2"><a href="#1-3-2" class="headerlink" title="1.3.2"></a>1.3.2</h2><ul>
+<li>lazysizes core:<ul>
+<li>add <code>hFactor</code> option (see #181).</li>
+</ul>
+</li>
+<li>unload plugin:<ul>
+<li>simplified <code>unloadPixelThreshold</code> calculation.</li>
+</ul>
+</li>
+<li>bgset plugin:<ul>
+<li>add an empty alt to image (see #200).</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-1-version"><a href="#1-3-1-version" class="headerlink" title="1.3.1 version"></a>1.3.1 version</h2><ul>
+<li>lazysizes core:<ul>
+<li>replace <code>setImmediate</code> with <code>setTimeout</code> (improved performance for IE/EDGE).</li>
+</ul>
+</li>
+<li>plugins:<ul>
+<li>fixed conflict with respimg plugin in combination with bgset plugin, in case of art direction and resize to smaller.</li>
+<li>fixed conflict with RIaS plugin in combination with respimg plugin/picturefill in Safari 8/9.</li>
+</ul>
+</li>
+</ul>

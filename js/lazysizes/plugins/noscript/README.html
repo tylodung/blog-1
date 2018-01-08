@@ -1,0 +1,55 @@
+<h1 id="lazysizes-noscript-progressive-enhancement-extension"><a href="#lazysizes-noscript-progressive-enhancement-extension" class="headerlink" title="lazysizes noscript/progressive enhancement extension"></a>lazysizes noscript/progressive enhancement extension</h1><p>The noscript extension is the true ultimate progressive enhancement extension for lazySizes. It allows you to transform any HTML inside a <code>noscript</code> element as soon as it becomes visible.</p>
+<h2 id="Markup"><a href="#Markup" class="headerlink" title="Markup"></a>Markup</h2><p>The <code>lazyload</code> class has to be added to the parent element of the <code>noscript</code> element and this element has to also have a <code>data-noscript</code> attribute. As soon as it is near the viewport the content of the <code>noscript</code> element will replace the content of the <code>`.lazyload</code>  element.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-noscript</span>=<span class="string">""</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">p</span>&gt;</span>any kind of content you want to be unveiled<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="comment">&lt;!-- or --&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-noscript</span>=<span class="string">""</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+            <span class="comment">&lt;!--[if IE 9]&gt;&lt;video style="display: none;&gt;&lt;![endif]--&gt;</span>
+            <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">                <span class="attr">srcset</span>=<span class="string">"http://placehold.it/500x600/11e87f/fff"</span></span>
+<span class="tag">                <span class="attr">media</span>=<span class="string">"(max-width: 480px)"</span> /&gt;</span>
+            <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">                <span class="attr">srcset</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">                <span class="attr">media</span>=<span class="string">"(max-width: 700px)"</span> /&gt;</span>
+            <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">                <span class="attr">srcset</span>=<span class="string">"http://placehold.it/1400x600/e8117f/fff"</span></span>
+<span class="tag">                <span class="attr">media</span>=<span class="string">"(max-width: 1400px)"</span> /&gt;</span>
+            <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">                <span class="attr">srcset</span>=<span class="string">"http://placehold.it/1800x900/117fe8/fff"</span> /&gt;</span>
+            <span class="comment">&lt;!--[if IE 9]&gt;&lt;/video&gt;&lt;![endif]--&gt;</span>
+            <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">                <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">                <span class="attr">alt</span>=<span class="string">"image with artdirection"</span> /&gt;</span>
+        <span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+
+
+         <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"0"</span></span>
+<span class="tag">                <span class="attr">allowfullscreen</span>=<span class="string">""</span></span>
+<span class="tag">                <span class="attr">src</span>=<span class="string">"//www.youtube.com/embed/ZfV-aYdU4uE"</span>&gt;</span>
+            <span class="tag">&lt;/<span class="name">iframe</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p><strong>Important note</strong>: While you also can transform responsive images with this plugin, neither the <code>data-sizes</code> nor the <code>customMedia</code> features do work with the <code>noscript</code> extension. Also note: Android 2.x is not supported with this plugin.</p>
+<h2 id="Troubleshooting-Escaped-HTML-entities"><a href="#Troubleshooting-Escaped-HTML-entities" class="headerlink" title="Troubleshooting: Escaped HTML entities"></a>Troubleshooting: Escaped HTML entities</h2><p>Normally the content of a <code>noscript</code> must be retrieved as text. But in some cases for example, if the <code>noscript</code> element was created in a XML documented/context, it must be retrieved as HTML. This can’t be automatically detected.</p>
+<p>In case this happens, you can fix this either by making sure that <code>noscript</code> elements are always created in a <em>text/html</em> context or by overriding the <code>getNoscriptContent</code> option callback:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+
+<span class="built_in">window</span>.lazySizesConfig.getNoscriptContent =  <span class="function"><span class="keyword">function</span>(<span class="params">noScript</span>)</span>{
+    <span class="keyword">return</span> (noScript.isXML) ? noScript.innerHTML : (noScript.textContent || noScript.innerText);
+};
+</code></pre>
+<h2 id="Add-IE8-support-with-conditional-comments"><a href="#Add-IE8-support-with-conditional-comments" class="headerlink" title="Add IE8- support with conditional comments"></a><a name="ie8"></a>Add IE8- support with conditional comments</h2><p>The noscript extension can also be used in conjunction with conditional comments to add progressive enhancement support for IE8-:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-noscript</span>=<span class="string">""</span>&gt;</span>
+    <span class="comment">&lt;!--[if lte IE 8]&gt;&lt;noscript&gt;&lt;![endif]--&gt;</span>
+        <span class="tag">&lt;<span class="name">p</span>&gt;</span>any kind of content you want to be unveiled<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+    <span class="comment">&lt;!--[if lte IE 8]&gt;&lt;/noscript&gt;&lt;![endif]--&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>

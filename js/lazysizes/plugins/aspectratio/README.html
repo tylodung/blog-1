@@ -1,0 +1,48 @@
+<h1 id="lazysizes-aspectratio-extension"><a href="#lazysizes-aspectratio-extension" class="headerlink" title="lazysizes aspectratio extension"></a>lazysizes aspectratio extension</h1><p>This plugin helps to pre-occupy the space needed for an image by calculating the height from the image width or the width from the height (This means the width or height has to be calculable before the image is loaded). This can serve as an alternative to the different CSS intrinsic ratio patterns.</p>
+<p>Note: The CSS patterns are recommended, but especially in case of different ratio’s for art directed images not so convenient.</p>
+<h2 id="Markup-API"><a href="#Markup-API" class="headerlink" title="Markup API:"></a>Markup API:</h2><p>The value of the <code>data-aspectratio</code> has to be defined as the <em>width</em> divided by the <em>height</em>  of the image.</p>
+<p>Example values for an image with a width of 400 and a height of 200 (all mean the same): <code>&quot;400/200&quot;</code>, <code>&quot;4/2&quot;</code>, <code>&quot;2/1&quot;</code>, <code>&quot;2&quot;</code></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-aspectratio</span>=<span class="string">"2/1"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://lorempixel.com/400/200/people/1/ 400w,</span></span>
+<span class="tag"><span class="string">    http://lorempixel.com/600/300/people/1/ 600w,</span></span>
+<span class="tag"><span class="string">    http://lorempixel.com/800/400/people/1/ 800w"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;video style="display: none;"&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/500x600/11e87f/fff"</span></span>
+<span class="tag">        <span class="attr">data-aspectratio</span>=<span class="string">"5/6"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--small"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">        <span class="attr">data-aspectratio</span>=<span class="string">"700/300"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--medium"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1400x600/e8117f/fff"</span></span>
+<span class="tag">        <span class="attr">data-aspectratio</span>=<span class="string">"14/6"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--large"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1800x900/117fe8/fff"</span></span>
+<span class="tag">        <span class="attr">data-aspectratio</span>=<span class="string">"2"</span> /&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;/video&gt;&lt;![endif]--&gt;</span>
+    <span class="comment">&lt;!-- <span class="doctag">note:</span> the img element always has to have data-apsectratio attribute, even if it is using a dummy/placeholder image --&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">data-aspectratio</span>=<span class="string">""</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">"image with artdirection"</span></span>
+<span class="tag">        <span class="attr">style</span>=<span class="string">"width: 100%;"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+</code></pre>
+<h2 id="JS-API"><a href="#JS-API" class="headerlink" title="JS API"></a>JS API</h2><p>In case new elements are added to the DOM the global <code>imageRatio.processImages</code> method can be used. The method takes either an element representing the container/wrapper of the new elements or a list of image elements:</p>
+<pre><code class="js">imageRatio.processImages(<span class="built_in">document</span>.querySelector(<span class="string">'#dynaimc-wrapper'</span>);
+imageRatio.processImages(<span class="built_in">document</span>.querySelectorAll(<span class="string">'#dynaimc-wrapper img[data-aspectratio]'</span>);
+</code></pre>
+<p>In case jQuery, ZEPTO, shoestring or another jQuery-like library is used the <code>imageRatio</code> plugin is added also:</p>
+<pre><code class="js">$(<span class="string">'.dynamic-wrapper'</span>).imageRatio();
+$(<span class="string">'.dynamic-wrapper img[data-aspectratio]'</span>).imageRatio();
+</code></pre>
+<p>Note: This plugin can also be used without lazySizes core script.</p>

@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2010年2月1日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>メモ。例えば記事の出力ファイル名を「test_test」とアンダースコアを入れてに設定しているのに、実際に出力されるファイル名は「test-test」とハイフンになってしまう。</p>
 <p>なんでかなあと思っていたら、テンプレートのアーカイブマッピングのパスが「basenameyyyy/mm/entry-basename.php（&#x25;-f）」となっていました。この場合、区切り文字がハイフンに統一される。バージョンアップしたときにここが変更されてしまったみたいです。パスを「&#x25;f」に変更して再構築を実行。</p>
@@ -39,5 +41,6 @@
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

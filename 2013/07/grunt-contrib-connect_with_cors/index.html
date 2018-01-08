@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2013年7月31日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="https://github.com/gruntjs/grunt-contrib-jasmine" target="_blank" rel="noopener">grunt-contrib-jasmine</a>のThird party templatesにある<a href="https://github.com/maenu/grunt-template-jasmine-istanbul" target="_blank" rel="noopener">Code coverage output with Istanbul</a>を使ってjasmineテストのcoverageの計測をしようとしているのですが、XMLHttpRequestを実行するところでCross Originの制約にひっかかってエラーになってしまう。localhostで実行されるのが理由かなとは思われるのですが、普通にjasmineテストを実行した場合はひっかからない不思議…（エラーに「file://」が出ているのも不明） jasmineのcoverage用のタスクのオプションでhostをlocalhostに指定していなかったためだった。そのため、localfile system (file://) で起動していた… 設定を追加したらCORSの設定は必要なかった。</p>
 <a id="more"></a>
@@ -40,5 +42,6 @@
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

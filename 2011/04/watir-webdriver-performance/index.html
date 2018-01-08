@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2011年4月19日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>「<a href="http://altentee.com/blogs/2011/watir-webdriver-performance-gem-released/" target="_blank" rel="noopener">Watir-Webdriver-Performance gem released</a>」にて紹介されているものを紹介。watir-webdriver上で<a href="http://w3c-test.org/webperf/specs/NavigationTiming/#nt-navigation-timing-interface" target="_blank" rel="noopener">PerformanceTiming</a>に関する情報を収集できるようになります。PeformanceTimingとはJavascriptについてweb application内でクライアントサイドの待ち時間の測定を行えるようにするためのインターフェイスだそう（To address the need for complete information on user experience, this document introduces the PerformanceTiming interfaces. This interface allows JavaScript mechanisms to provide complete client-side latency measurements within applications. ）。Javascriptの処理毎の細かな待ち時間情報を得ることができるらしい。詳細は<a href="http://w3c-test.org/webperf/specs/NavigationTiming/" target="_blank" rel="noopener">Navigation Timing</a>を参照。</p>
 <a id="more"></a>
@@ -42,5 +44,6 @@ puts b.peformance.summary[:response_time]
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

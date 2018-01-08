@@ -1,0 +1,89 @@
+<h1 id="lazysizes-respimg-polyfill-extension"><a href="#lazysizes-respimg-polyfill-extension" class="headerlink" title="lazysizes respimg polyfill extension"></a>lazysizes respimg polyfill extension</h1><p>While <a href="https://github.com/scottjehl/picturefill">picturefill</a> are full functional responsive images polyfills, the lazySizes respimg polyfill extension is only a partial polyfill, which supports only the most important subset of the native responsive images standard and only in conjunction with the lazySizes core script.</p>
+<p>As a result it is an extreme fast and lightweight plugin.</p>
+<h2 id="constrained-Markup-support"><a href="#constrained-Markup-support" class="headerlink" title="constrained Markup support"></a>constrained Markup support</h2><p>This plugin supports both art directed responsive images using the <code>picture</code> element as also resolution switching based on <code>data-srcset</code> using the width descriptor (and of course the combination of both).</p>
+<h3 id="What-is-not-supported"><a href="#What-is-not-supported" class="headerlink" title="What is not supported:"></a>What is <em>not</em> supported:</h3><ul>
+<li>The use of explicit density descriptors (<strong>x</strong> descriptor) are not supported (This should not be a problem, because all use cases of the density descriptor can always also be substituted with a width descriptor).</li>
+<li>If <code>data-srcset</code> with width descriptors (<strong>w</strong> descriptor)  are used either the <code>data-sizes=&quot;auto&quot;</code> feature has to be used or the <code>sizes</code> value has to consist of just one source size value with the CSS <em>px</em> unit.</li>
+<li>If picture is used the <code>img</code> element should not have a <code>srcset</code>/<code>data-srcset</code> attribute, instead the last <code>source</code> element should/can be used without a <code>media</code> and <code>type</code> attribute.</li>
+<li>The use of the <code>source[type]</code> attribute is not automatically supported, but can be manually added by overriding the <code>lazySizesConfig.supportsType</code> option callback function.</li>
+<li>The use of the <code>source[media]</code> is supported for all browsers, which <a href="http://caniuse.com/#search=matchMedia">do support <code>matchMedia</code></a>. To add full support for IE9 and other legacy browsers a <a href="https://github.com/paulirish/matchMedia.js/"><code>window.matchMedia</code> polyfill</a> or <code>Modernizr.mq</code> (Modernizr Media Queries) can be used.</li>
+</ul>
+<h3 id="What-is-fully-supported"><a href="#What-is-fully-supported" class="headerlink" title="What is fully supported"></a>What is <em>fully</em> supported</h3><p>Aside from above mentioned constraints everything else is fully supported. Here are some practical examples of fully supported responsive images:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="comment">//in case you want to use custom media query aliases in your markup, instead of full media queries</span></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.customMedia = {</span>
+<span class="javascript">    <span class="string">'--small'</span>: <span class="string">'(max-width: 480px)'</span>,</span>
+<span class="javascript">    <span class="string">'--medium'</span>: <span class="string">'(max-width: 700px)'</span>,</span>
+<span class="javascript">    <span class="string">'--large'</span>: <span class="string">'(max-width: 1400px)'</span></span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+
+<span class="comment">&lt;!-- use of width descriptor + data-sizes="auto" --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image1.jpg 300w,</span></span>
+<span class="tag"><span class="string">    image2.jpg 600w,</span></span>
+<span class="tag"><span class="string">    image3.jpg 900w"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+
+<span class="comment">&lt;!-- picture with one implicit density descriptor per srcset --&gt;</span>
+<span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/500x600/11e87f/fff"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--small"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--medium"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1400x600/e8117f/fff"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--large"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">            <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1800x900/117fe8/fff"</span> /&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;/audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">"image with artdirection"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+
+<span class="comment">&lt;!-- picture with explicit w descriptors and data-sizes="auto" --&gt;</span>
+<span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/500x600/11e87f/fff 500w,</span></span>
+<span class="tag"><span class="string">            http://placehold.it/750x900/11e87f/fff 750w"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--small"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">            http://placehold.it/1050x450 1050w"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--medium"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1400x600/e8117f/fff 1400w,</span></span>
+<span class="tag"><span class="string">            http://placehold.it/2100x900/e8117f/fff 2100w"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--large"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1800x900/117fe8/fff 1800w,</span></span>
+<span class="tag"><span class="string">            http://placehold.it/2700x1350/117fe8/fff 2700w"</span> /&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;/audio&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">"image with artdirection"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+
+<span class="comment">&lt;!-- use of width descriptors + simple sizes value with px unit --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image1.jpg 300w,</span></span>
+<span class="tag"><span class="string">    image3.jpg 600w"</span></span>
+<span class="tag">    <span class="attr">sizes</span>=<span class="string">"300px"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<h3 id="Tip-Using-Generating-more-complex-dynamic-sizes"><a href="#Tip-Using-Generating-more-complex-dynamic-sizes" class="headerlink" title="Tip: Using/Generating more complex dynamic sizes"></a>Tip: Using/Generating more complex dynamic <code>sizes</code></h3><p>As explained above this partial polyfill only accepts one value for <code>sizes</code> using only the <em>px</em> length. Due to the fact, that also <code>data-sizes=&quot;auto&quot;</code> is supported the <code>lazybeforesizes</code> event can be used to dynamically change/add different <code>sizes</code>:</p>
+<pre><code class="js"><span class="built_in">document</span>.addEventListener(<span class="string">'lazybeforesizes'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    <span class="comment">//calculate the size as a number</span>
+    e.detail.width =  yourCalculation(e.target) || e.detail.width;
+});
+</code></pre>

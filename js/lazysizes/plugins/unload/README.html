@@ -1,0 +1,21 @@
+<h1 id="lazysizes-unload"><a href="#lazysizes-unload" class="headerlink" title="lazysizes unload"></a>lazysizes unload</h1><p>Unloads <code>img.lazyload</code> (including <code>picture</code>) elements if they consume a lot of memory and they are out of view. To improve memory consumption as also resize/orientationchange performance.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Simply add the lazysizes unload extension to your site.</p>
+<h2 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h2><ul>
+<li><code>lazySizesConfig.unloadClass</code> (default: <code>&quot;lazyunload&quot;</code>): Elements with this class will be unloaded even if they only consume less memory/pixels than defined in <code>unloadPixelThreshold</code>.</li>
+<li><code>lazySizesConfig.unloadedClass</code> (default: <code>&quot;lazyunloaded&quot;</code>): If an element was unloaded it becomes the class <code>lazyunloaded</code>.</li>
+<li><code>lazySizesConfig.unloadPixelThreshold</code> (default: Number is dynamically calculated): If the amount of image pixels exceeds this threshold this image will be unloaded.</li>
+<li><code>lazySizesConfig.autoUnload</code> (default: <code>true</code>): Whether unloading should happen automatically with all lazyload images. If set to false, only elements with the class <code>lazyunload</code> will be unloaded.</li>
+<li><code>lazySizesConfig.emptySrc</code> (default: transparent data uri): The src to be used as unload image.</li>
+<li><code>lazySizesConfig.unloadHidden</code> (default: <code>true</code>): Whether hidden images (<code>display: none;</code>) also should be unloaded.</li>
+</ul>
+<p><strong>Note</strong>: In case you dynamically change the <code>data-src</code>/<code>data-srcset</code> of an already unloaded element, you have to remove the <code>lazyunloaded</code> class.</p>
+<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><ul>
+<li><p><code>lazyafterunload</code>: This event will be fired on the unloaded lazyload elements. This event can be used to extend the unload functionality.<br>```js<br>//div ajax example which returns DOM string:<br>document.addEventListener(‘lazybeforeunveil’, function (e) {<br>  var containerId = e.target.getAttribute(‘data-id’);</p>
+<p>  //load ajax content with containerId<br>  //append content to e.target.innerHTML<br>});</p>
+</li>
+</ul>
+<p>//clean DOM nodes inside container that where previously loaded by ajax:<br>//lazyafterunload gives possibility to take care of the cleanup in this case<br>document.addEventListener(‘lazyafterunload’, function (e) {<br>    var container = e.target;</p>
+<pre><code>while (container.firstElementChild) {
+    container.removeChild(container.firstElementChild);
+}
+</code></pre><p>});<br>```</p>

@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2012年12月21日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>PhoneGapからAndroidでカメラを起動して撮影すると、たまにアプリが止まってしまうという問題について。</p>
 <p>これは<a href="https://issues.apache.org/jira/browse/CB-1513" target="_blank" rel="noopener">[#CB-1513] Cordova app gets killed by garbage collector when out of memory due to camera - ASF JIRA</a>に書いてある内容によると、カメラが起動している間は、PhoneGapのアプリ本体はバックグラウンドにいるので、その間にガベージコレクタがメモリを解放しようとして、アプリ本体のアクティビティをkillするのだそう（おそらくカメラ機能はメモリをたくさん使う）。</p>
@@ -37,5 +39,6 @@
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

@@ -1,0 +1,524 @@
+<h1 id="lazysizes"><a href="#lazysizes" class="headerlink" title="lazysizes"></a>lazysizes</h1><p><strong>lazysizes</strong> is a fast (jank-free), SEO-friendly and self-initializing lazyloader for images (including responsive images <code>picture</code>/<code>srcset</code>), iframes, scripts/widgets and much more. It also prioritizes resources by differentiating between crucial in view and near view elements to make perceived performance even faster.</p>
+<p>It may become also your number one tool to integrate responsive images. It can automatically calculate the <code>sizes</code> attribute for your responsive images, it allows you to share media queries for your <code>media</code> attributes with your CSS, helping to separate layout (CSS) from content/structure (HTML) and it makes integrating responsive images into any environment really simple. It also includes a set of optional plugins to further extend its functionality.</p>
+<h2 id="How-to"><a href="#How-to" class="headerlink" title="How to"></a>How to</h2><ol>
+<li><p>Download the <a href="http://afarkas.github.io/lazysizes/lazysizes.min.js">lazysizes.min.js script</a> and include <strong>lazysizes</strong> in your webpage. (Or install via npm: <code>npm install lazysizes --save</code> or bower <code>bower install lazysizes --save</code>)</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"lazysizes.min.js"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<p> Note: For more information see <a href="#include-early">here</a>.</p>
+</li>
+<li><p>lazysizes does not need any JS configuration: Add the <code>class</code> <code>&quot;lazyload&quot;</code> to your images/iframes in conjunction with a <code>data-src</code> and/or <code>data-srcset</code> attribute. Optionally you can also add a <code>src</code> attribute with a low quality image:</p>
+<pre><code class="html"><span class="comment">&lt;!-- non-responsive: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<pre><code class="html"><span class="comment">&lt;!-- responsive example with automatic sizes calculation: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image2.jpg"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image1.jpg 300w,</span></span>
+<span class="tag"><span class="string">    image2.jpg 600w,</span></span>
+<span class="tag"><span class="string">    image3.jpg 900w"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<pre><code class="html"><span class="comment">&lt;!-- iframe example --&gt;</span>
+<span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"0"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">allowfullscreen</span>=<span class="string">""</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"//www.youtube.com/embed/ZfV-aYdU4uE"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">iframe</span>&gt;</span>
+</code></pre>
+</li>
+</ol>
+<h2 id="Demo-with-code-examples"><a href="#Demo-with-code-examples" class="headerlink" title="Demo with code examples"></a><a href="http://afarkas.github.io/lazysizes/#examples">Demo with code examples</a></h2><p>Can be seen <a href="http://afarkas.github.io/lazysizes/#examples">here</a></p>
+<h2 id="Responsive-image-support-picture-and-or-srcset"><a href="#Responsive-image-support-picture-and-or-srcset" class="headerlink" title="Responsive image support (picture and/or srcset)"></a>Responsive image support (picture and/or srcset)</h2><p>Lazysizes is built upon the Responsive image standard and extends it with additional functionality. For full cross browser responsive image support you must use either a full polyfill like <a href="https://github.com/scottjehl/picturefill">picturefill</a> or use the extreme lightweight partial <a href="plugins/respimg">respimg polyfill plugin</a> or the <a href="plugins/rias">responsive image on demand plugin</a>. Alternatively you can simply define a fallback src via the <code>data-src</code> attribute. If you want to learn more about the responsive image syntax read “<a href="https://jakearchibald.com/2015/anatomy-of-responsive-images/">The anatomy of responsive images</a>“.</p>
+<h2 id="What-makes-lazysizes-so-awesome"><a href="#What-makes-lazysizes-so-awesome" class="headerlink" title="What makes lazysizes so awesome:"></a>What makes lazysizes so awesome:</h2><p><strong>lazysizes</strong> is different than other lazy image loaders.</p>
+<ol>
+<li><strong>Detects any visibility changes on current and future lazyload elements in any web environment automatically</strong>: The script works as an universal, self-initializing, self-configuring and self-destroying component and detects any changes to the visibility of any current and future image/iframe elements automatically no matter whether it becomes visible through a user scroll, a CSS animation triggered through <code>:hover</code> or through any kind of JS behavior (carousel, slider, infinite scroll, masonry, isotope/filtering/sorting, AJAX, SPAs…). It also works automatically in conjunction with any kind of JS-/CSS-/Frontend-Framework (jQuery mobile, Bootstrap, Backbone, Angular, React, Ember (see also the <a href="plugins/attrchange">attrchange/re-initialization extension</a>)).</li>
+<li><strong>Future-proof</strong>: It directly includes standard responsive image support (<code>picture</code> and <code>srcset</code>)</li>
+<li><strong>Separation of concerns</strong>: For responsive image support it adds an automatic <code>sizes</code> calculation as also alias names for media queries feature. There is also no JS change needed if you add a scrollable container with CSS (overflow: auto) or create a mega menu containing images.</li>
+<li><strong>Performance</strong>: It’s based on highly efficient, best practice code (runtime <strong>and</strong> network) to work jank-free at 60fps and can be used with hundreds of images/iframes on CSS and JS-heavy pages or webapps.</li>
+<li><strong>Extendable</strong>: It provides JS and CSS hooks to extend lazysizes with any kind of lazy loading, lazy instantiation, in view callbacks or effects (see also the <a href="#plugins">available plugins/snippets</a>).</li>
+<li><strong>Intelligent prefetch/Intelligent resource prioritization</strong>: lazysizes prefetches/preloads near the view assets to improve user experience, but only while the browser network is idling (see also <code>expand</code>, <code>expFactor</code> and <code>loadMode</code> options). This way in view elements are loaded faster and near of view images are preloaded lazily before they come into view.</li>
+<li><strong>Lightweight, but mature solution</strong>: lazysizes has the right balance between a lightweight and a fast, reliable solution</li>
+<li><strong>SEO improved</strong>: lazysizes does not hide images/assets from google. No matter what markup pattern you use.</li>
+</ol>
+<h2 id="More-about-the-API"><a href="#More-about-the-API" class="headerlink" title="More about the API"></a>More about the API</h2><p><strong>lazysizes</strong> comes with a simple markup and JS API. Normally you will only need to use the markup API.</p>
+<h3 id="Markup-API"><a href="#Markup-API" class="headerlink" title="Markup API"></a>Markup API</h3><p>Add the <code>class</code> <code>lazyload</code> to all <code>img</code> and <code>iframe</code> elements, which should be loaded lazy. <em>Instead</em> of a <code>src</code> or <code>srcset</code> attribute use a <code>data-src</code> or <code>data-srcset</code> attribute:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+<span class="comment">&lt;!-- retina optimized image: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">data-srcset</span>=<span class="string">"responsive-image1.jpg 1x, responsive-image2.jpg 2x"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p><strong>lazysizes</strong> supports setting the <code>sizes</code> attribute automatically, corresponding to the current size of your image - just set the value of <code>data-sizes</code> to  <code>auto</code>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"responsive-image1.jpg 300w,</span></span>
+<span class="tag"><span class="string">        responsive-image2.jpg 600w,</span></span>
+<span class="tag"><span class="string">        responsive-image3.jpg 900w"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p><strong>Important: How <code>sizes</code> is calculated</strong>: The automatic sizes calculation uses the display width of the image. This means that the width of the image has to be calculable at least approximately before the image itself is loaded. Often the following general CSS rule might help: <code>img[data-sizes=&quot;auto&quot;] { display: block; width: 100%; }</code> (see also <a href="#specify-dimensions">specifying image/iframe dimensions with the recommended aspect ratio definition</a>). If it is below <code>40</code> (can be configured through the <code>minSize</code> option), lazysizes traverses up the DOM tree until it finds a parent which is over <code>40</code> and uses this number.</p>
+<p>The width auto-calculated by lazysizes can be modified using the <code>lazybeforesizes</code> event (<a href="#lazybeforesizes-documentation">lazybeforesizes documentation</a>). Alternatively, the <a href="plugins/parent-fit">parent fit plugin</a> can be used for sizing images to fit a parent / container, and is the only solution when an image’s height needs to be taken into account when fitting it to its container.</p>
+<p>The <code>data-sizes=&quot;auto&quot;</code> feature only makes sense if you use the <code>data-srcset</code> attribute with <em>width</em> descriptors which allows the most appropriate image can be selected (It does not make sense if you use the x descriptor or only <code>src</code>.).</p>
+<h2 id="Recommended-possible-markup-patterns"><a href="#Recommended-possible-markup-patterns" class="headerlink" title="Recommended/possible markup patterns"></a>Recommended/possible markup patterns</h2><p>lazysizes allows you to write an endless variety of different markup patterns. Find your own/best pattern or choose one of the following. (All of the following patterns can be also used for art direction using the <code>picture</code> element.)</p>
+<h3 id="Simple-pattern"><a href="#Simple-pattern" class="headerlink" title="Simple pattern"></a>Simple pattern</h3><p>Add the class <code>lazyload</code> and simply omit the <code>src</code> attribute  or add a data uri as fallback <code>src</code>.</p>
+<pre><code class="html">
+<span class="comment">&lt;!--  responsive adaptive example --&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image.jpg 1x, image2.jpg 2x"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">"my image"</span> /&gt;</span>
+<span class="comment">&lt;!--  retina optimized example --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"progressive-image.jpg 1x, progressive-image2.jpg 2x"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">"my image"</span> /&gt;</span>
+
+<span class="comment">&lt;!-- or non-responsive: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image.jpg"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>Note: In case you are using either <code>srcset</code>/<code>data-srcset</code> or <code>picture</code>, we recommend to extend this pattern with either a <code>data-src</code> (see next pattern: “Combine <code>data-srcset</code> with <code>data-src</code>“) or with a suitable <code>src</code> attribute (see:  “modern pattern” or “LQIP”).</p>
+<h3 id="Combine-data-srcset-with-data-src"><a href="#Combine-data-srcset-with-data-src" class="headerlink" title="Combine data-srcset with data-src"></a>Combine <code>data-srcset</code> with <code>data-src</code></h3><p>In case you want to use responsive images for supporting browsers, but don’t want to include a polyfill, simply combine your <code>data-srcset</code> with a <code>data-src</code> attribute.</p>
+<pre><code class="html"><span class="comment">&lt;!-- responsive example: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image3.jpg"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image3.jpg 600w,</span></span>
+<span class="tag"><span class="string">        image1.jpg 220w,</span></span>
+<span class="tag"><span class="string">        image2.jpg 300w,</span></span>
+<span class="tag"><span class="string">        image3.jpg 600w,</span></span>
+<span class="tag"><span class="string">        image4.jpg 900w"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>Note: Due to the fact that the <code>data-src</code> will also be picked up by “Read-Later” Apps and other tools (for example Pin it button), this pattern also makes sense if you use a polyfill. In case you don’t use a polyfill it is recommended that the first image candidate matches the fallback <code>src</code>.</p>
+<h3 id="LQIP-blurry-image-placeholder-Blur-up-image-technique"><a href="#LQIP-blurry-image-placeholder-Blur-up-image-technique" class="headerlink" title="LQIP/blurry image placeholder/Blur up image technique"></a>LQIP/blurry image placeholder/Blur up image technique</h3><p>If you are using the LQIP (Low Quality Image Placeholder) pattern, simply add a low quality image as the <code>src</code>:</p>
+<pre><code class="html"><span class="comment">&lt;!-- responsive example: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"lqip-src.jpg"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"lqip-src.jpg 220w,</span></span>
+<span class="tag"><span class="string">    image2.jpg 300w,</span></span>
+<span class="tag"><span class="string">    image3.jpg 600w,</span></span>
+<span class="tag"><span class="string">    image4.jpg 900w"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+
+<span class="comment">&lt;!-- or non-responsive: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"lqip-src.jpg"</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>The LQIP technique can be enhanced by combining it with CSS transitions/animation to sharpen/unblur or overfade the LQIP image:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="undefined">    .blur-up {</span>
+<span class="undefined">        -webkit-filter: blur(5px);</span>
+<span class="undefined">        filter: blur(5px);</span>
+<span class="undefined">        transition: filter 400ms, -webkit-filter 400ms;</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span>
+<span class="undefined">    .blur-up.lazyloaded {</span>
+<span class="undefined">        -webkit-filter: blur(0);</span>
+<span class="undefined">        filter: blur(0);</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"lqip-src.jpg"</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload blur-up"</span> /&gt;</span>
+
+<span class="comment">&lt;!-- ... --&gt;</span>
+
+<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="undefined">    .fade-box .lazyload,</span>
+<span class="undefined">     .fade-box .lazyloading {</span>
+<span class="undefined">        opacity: 0;</span>
+<span class="undefined">        transition: opacity 400ms;</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span>
+<span class="undefined">    .fade-box img.lazyloaded {</span>
+<span class="undefined">        opacity: 1;</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ratio-box fade-box"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"lqip-src.jpg"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="modern-transparent-srcset-pattern"><a href="#modern-transparent-srcset-pattern" class="headerlink" title="modern transparent srcset pattern"></a>modern transparent <code>srcset</code> pattern</h3><p>Combine a normal <code>src</code> attribute with a transparent or low quality image as <code>srcset</code> value and a <code>data-srcset</code> attribute. This way modern browsers will lazy load without loading the <code>src</code> attribute and all others will simply fallback to the initial <code>src</code> attribute (without lazyload). (This nice pattern originated from @ivopetkov.)</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"image3.jpg"</span></span>
+<span class="tag">    <span class="attr">srcset</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image3.jpg 600w,</span></span>
+<span class="tag"><span class="string">        image1.jpg 220w,</span></span>
+<span class="tag"><span class="string">        image2.jpg 300w,</span></span>
+<span class="tag"><span class="string">        image4.jpg 900w"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>Note: It is recommended that the first image candidate in <code>data-srcset</code> matches the <code>src</code> fallback image. (See also <a href="https://github.com/aFarkas/lazysizes/issues/150">#150</a>.)</p>
+<h3 id="The-noscript-pattern"><a href="#The-noscript-pattern" class="headerlink" title="The noscript pattern"></a>The noscript pattern</h3><p>In case disabled JavaScript is a concern you can combine this simple pattern with an image inside a <code>noscript</code> element.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="undefined">    .no-js img.lazyload {</span>
+<span class="undefined">        display: none;</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="comment">&lt;!-- noscript pattern --&gt;</span>
+<span class="tag">&lt;<span class="name">noscript</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"image.jpg"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">noscript</span>&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"transparent.jpg"</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>Note: As an alternative to the noscript pattern also checkout the <a href="plugins/noscript">noscript extension</a>.</p>
+<h3 id="data-expand-attribute"><a href="#data-expand-attribute" class="headerlink" title="[data-expand] attribute"></a>[data-expand] attribute</h3><p>Normally lazysizes will expand the viewport area to lazy preload images/iframes which might become visible soon. This value can be adjusted using the <code>expand</code> option.</p>
+<p>Additionally this general option can be overridden with the <code>data-expand</code> attribute for each element. Different than the general <code>expand</code> option the <code>data-expand</code> attribute also accepts negative values (All numbers but <code>0</code> are accepted!).</p>
+<p>This becomes especially handy to add unveiling effects for teasers or other elements:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="undefined">.lazyload,</span>
+<span class="undefined">.lazyloading {</span>
+<span class="undefined">    opacity: 0;</span>
+<span class="undefined">}</span>
+<span class="undefined">.lazyloaded {</span>
+<span class="undefined">    opacity: 1;</span>
+<span class="undefined">    transition: opacity 300ms;</span>
+<span class="undefined">}</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"teaser lazyload"</span> <span class="attr">data-expand</span>=<span class="string">"-20"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">data-src</span>=<span class="string">"image.jpg"</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Teaser Title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">p</span>&gt;</span>...<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="CSS-API"><a href="#CSS-API" class="headerlink" title="CSS API"></a>CSS API</h3><p>lazysizes adds the class <code>lazyloading</code> while the images are loading and the class <code>lazyloaded</code> as soon as the image is loaded. This can be used to add unveil effects:</p>
+<pre><code class="css"><span class="comment">/* fade image in after load */</span>
+<span class="selector-class">.lazyload</span>,
+<span class="selector-class">.lazyloading</span> {
+    <span class="attribute">opacity</span>: <span class="number">0</span>;
+}
+<span class="selector-class">.lazyloaded</span> {
+    <span class="attribute">opacity</span>: <span class="number">1</span>;
+    <span class="attribute">transition</span>: opacity <span class="number">300ms</span>;
+}
+</code></pre>
+<pre><code class="css"><span class="comment">/* fade image in while loading and show a spinner as background image (good for progressive images) */</span>
+
+<span class="selector-class">.lazyload</span> {
+    <span class="attribute">opacity</span>: <span class="number">0</span>;
+}
+
+<span class="selector-class">.lazyloading</span> {
+    <span class="attribute">opacity</span>: <span class="number">1</span>;
+    <span class="attribute">transition</span>: opacity <span class="number">300ms</span>;
+    <span class="attribute">background</span>: <span class="number">#f7f7f7</span> <span class="built_in">url</span>(loader.gif) no-repeat center;
+}
+</code></pre>
+<h3 id="JS-API"><a href="#JS-API" class="headerlink" title="JS API"></a>JS API</h3><p><strong>lazysizes</strong> automatically detects new elements with the class <code>lazyload</code> so you won’t need to call or configure anything in most situations.</p>
+<h4 id="JS-API-options"><a href="#JS-API-options" class="headerlink" title="JS API - options"></a>JS API - options</h4><p>Options can be set by declaring a global configuration option object named <code>lazySizesConfig</code>. This object must be defined before the lazysizes script. A basic example:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+
+<span class="comment">// use .lazy instead of .lazyload</span>
+<span class="built_in">window</span>.lazySizesConfig.lazyClass = <span class="string">'lazy'</span>;
+
+<span class="comment">// use data-original instead of data-src</span>
+lazySizesConfig.srcAttr = <span class="string">'data-original'</span>;
+
+<span class="comment">//page is optimized for fast onload event</span>
+lazySizesConfig.loadMode = <span class="number">1</span>;
+</code></pre>
+<p>Here the list of options:</p>
+<ul>
+<li><code>lazySizesConfig.lazyClass</code> (default: <code>&quot;lazyload&quot;</code>): Marker class for all elements which should be lazy loaded (There can be only one <code>class</code>. In case you need to add some other element, without the defined class, simply add it per JS: <code>$(&#39;.lazy-others&#39;).addClass(&#39;lazyload&#39;);</code>)</li>
+<li><code>lazySizesConfig.preloadAfterLoad</code> (default: <code>false</code>): Whether lazysizes should load all elements after the window onload event. Note: lazySizes will then still download those not-in-view images inside of a lazy queue, so that other downloads after onload are not blocked.)</li>
+<li><code>lazySizesConfig.preloadClass</code> (default: <code>&quot;lazypreload&quot;</code>): Marker class for elements which should be lazy pre-loaded after onload. Those elements will be even preloaded, if the <code>preloadAfterLoad</code> option is set to <code>false</code>. Note: This <em>class</em> can be also dynamically set (<code>$currentSlide.next().find(&#39;.lazyload&#39;).addClass(&#39;lazypreload&#39;);</code>).</li>
+<li><code>lazySizesConfig.loadingClass</code> (default: <code>&quot;lazyloading&quot;</code>): This <code>class</code> will be added to <code>img</code> element as soon as image loading starts. Can be used to add unveil effects.</li>
+<li><code>lazySizesConfig.loadedClass</code> (default: <code>&quot;lazyloaded&quot;</code>): This <code>class</code> will be added to any element as soon as the image is loaded or the image comes into view. Can be used to add unveil effects or to apply styles.</li>
+<li><code>lazySizesConfig.expand</code> (default: <code>370-500</code>): The <code>expand</code> option expands the calculated visual viewport area in all directions, so that elements can be loaded before they become visible. The default value is calculated depending on the viewport size of the device. (Note: Reasonable values are between <code>300</code> and <code>1000</code> (depending on the <code>expFactor</code> option.) In case you have a lot of small images or you are using the LQIP pattern you can lower the value, in case you have larger images set it to a higher value. Also note, that lazySizes will dynamically shrink this value to <code>0</code> if the browser is currently downloading and expand it if the browser network is currently idling and the user not scrolling (by multiplying the <code>expand</code> option with <code>1.5</code> (<code>expFactor</code>)). This option can also be overridden with the <code>[data-expand]</code> attribute.</li>
+<li><code>lazySizesConfig.minSize</code> (default: <code>40</code>): For <code>data-sizes=&quot;auto&quot;</code> feature. The minimum size of an image that is used to calculate the <code>sizes</code> attribute. In case it is under <code>minSize</code> the script traverses up the DOM tree until it finds a parent that is over <code>minSize</code>.</li>
+<li><code>lazySizesConfig.srcAttr</code> (default: <code>&quot;data-src&quot;</code>): The attribute, which should be transformed to <code>src</code>.</li>
+<li><code>lazySizesConfig.srcsetAttr</code> (default: <code>&quot;data-srcset&quot;</code>): The attribute, which should be transformed to <code>srcset</code>.</li>
+<li><code>lazySizesConfig.sizesAttr</code> (default: <code>&quot;data-sizes&quot;</code>): The attribute, which should be transformed to <code>sizes</code>. Makes almost only makes sense with the value <code>&quot;auto&quot;</code>. Otherwise the <code>sizes</code> attribute should be used directly.</li>
+<li><code>lazySizesConfig.customMedia</code> (default: <code>{}</code>): The <code>customMedia</code> option object is an alias map for different media queries. It can be used to separate/centralize your multiple specific media queries implementation (layout) from the <code>source[media]</code> attribute (content/structure) by creating labeled media queries. (See also the <a href="plugins/custommedia">custommedia extension</a>).</li>
+<li><code>lazySizesConfig.loadHidden</code> (default: <code>true</code>): Wether to load <code>visibility: hidden</code> elements.</li>
+<li><code>lazySizesConfig.ricTimeout</code> (default: <code>300</code>): The timeout option used for the <code>requestIdleCallback</code>. Reasonable values between: 50 - 1000.<br>```html<script>
+window.lazySizesConfig = window.lazySizesConfig || {};
+window.lazySizesConfig.customMedia = {
+  '--small': '(max-width: 480px)',
+  '--medium': '(max-width: 900px)',
+  '--large': '(max-width: 1400px)',
+};
+</script>
+
+
+</li>
+</ul>
+<p><picture><br>    <!--[if IE 9]><video style="display: none;><![endif]--><br>    <source
+        data-srcset="http://placehold.it/500x600/11e87f/fff"
+        media="--small" /><br>    <source
+        data-srcset="http://placehold.it/700x300"
+        media="--medium" /><br>    <source
+        data-srcset="http://placehold.it/1400x600/e8117f/fff"
+        media="--large" /><br>    <source
+        data-srcset="http://placehold.it/1800x900/117fe8/fff" /><br>    <!--[if IE 9]></video><![endif]--><br>    <img
+        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        data-src="http://placehold.it/1400x600/e8117f/fff"
+        class="lazyload"
+        alt="image with artdirection" /><br></picture></p>
+<pre><code>* ``lazySizesConfig.expFactor`` (default: ``1.5``): The ``expFactor`` is used to calculate the &quot;preload expand&quot;, by multiplying the normal ``expand`` with the ``expFactor`` which is used to preload assets while the browser is idling (no important network traffic and no scrolling). (Reasonable values are between ``1.5`` and ``4`` depending on the ``expand`` option).
+* ``lazySizesConfig.hFac`` (default: ``0.8``): The ``hFac`` (horizontal factor) modifies the horizontal expand by multiplying the ``expand`` value with the ``hFac`` value. Use case: In case of carousels there is often the wish to make the horizontal expand narrower than the normal vertical expand option. Reasonable values are between 0.4 - 1. In the unlikely case of a horizontal scrolling website also 1 - 1.5.
+* ``lazySizesConfig.loadMode`` (default: ``2``): The ``loadMode`` can be used to constrain the allowed loading mode. Possible values are 0 = don&apos;t load anything, 1 = only load visible elements, 2 = load also very near view elements (``expand`` option) and 3 = load also not so near view elements (``expand`` * ``expFactor`` option). This value is automatically set to ``3`` after onload. Change this value to ``1`` if you (also) optimize for the onload event or change it to ``3`` if your onload event is already heavily delayed.
+* ``lazySizesConfig.init`` (default: ``true``): By default lazysizes initializes itself, to load in view assets as soon as possible. In the unlikely case you need to setup/configure something with a later script you can set this option to ``false`` and call ``lazySizes.init();`` later explicitly.
+
+#### JS API - events
+**lazysizes** provides three events to modify or extend the behavior of **lazysizes**.
+
+* ``lazybeforeunveil``: This event will be fired on each lazyload element right before of the &quot;unveil&quot; transformation. This event can be used to extend the unveil functionality. In case the event is ``defaultPrevented`` the default transformation action will be prevented (see also the [ls.unveilhooks.js plugin](plugins/unveilhooks/ls.unveilhooks.js)):
+```js
+//add simple support for background images:
+document.addEventListener(&apos;lazybeforeunveil&apos;, function(e){
+    var bg = e.target.getAttribute(&apos;data-bg&apos;);
+    if(bg){
+        e.target.style.backgroundImage = &apos;url(&apos; + bg + &apos;)&apos;;
+    }
+});
+//or add AJAX loading
+//&lt;div class=&quot;lazyload&quot; data-ajax=&quot;my-url.html&quot;&gt;&lt;/div&gt;
+
+$(document).on(&apos;lazybeforeunveil&apos;, function(){
+    var ajax = $(e.target).data(&apos;ajax&apos;);
+    if(ajax){
+        $(e.target).load(ajax);
+    }
+});
+</code></pre><p>The <code>lazybeforeunveil</code> can also be used for lazy initialization and due to the fact that lazysizes also detects new elements in the DOM automatically also for auto- and self-initialization of UI widgets:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazybeforeunveil'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">    $(e.target)</span>
+<span class="javascript">        .filter(<span class="string">'.slider'</span>)</span>
+<span class="undefined">        .slider({</span>
+<span class="javascript">            sliderOption: <span class="literal">true</span></span>
+<span class="undefined">        })</span>
+<span class="undefined">    ;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazybeforeunveil'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">    $(e.target)</span>
+<span class="javascript">        .filter(<span class="string">'.chart'</span>)</span>
+<span class="undefined">        .chart({</span>
+<span class="javascript">            animate: <span class="literal">true</span></span>
+<span class="undefined">        })</span>
+<span class="undefined">    ;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider lazyload lazypreload"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"chart lazyload"</span> <span class="attr">data-expand</span>=<span class="string">"-10"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>*<a id="lazyloaded-documentation"></a><code>lazyloaded</code>: After the image is fully loaded lazysizes dispatches a <code>lazyloaded</code> event. While this often duplicates the native <code>load</code> event it is often more convenient.</p>
+<ul>
+<li><a id="lazybeforesizes-documentation"></a><code>lazybeforesizes</code>: This event will be fired on each element with the <code>data-sizes=&quot;auto&quot;</code> attribute right before the calculated <code>sizes</code> attribute will be set. The <code>event.detail.width</code> property is set to the calculated width of the element and can be changed to any number. In case the event is <code>defaultPrevented</code> the <code>sizes</code> attribute won’t be set. See also the <a href="plugins/parent-fit">parent-fit extension</a>.<pre><code class="js">$(<span class="built_in">document</span>).on(<span class="string">'lazybeforesizes'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+  <span class="comment">//use width of parent node instead of the image width itself</span>
+  e.detail.width = $(e.target).closest(<span class="string">':not(picture)'</span>).innerWidth() || e.detail.width;
+});
+</code></pre>
+</li>
+</ul>
+<h4 id="JS-API-methods"><a href="#JS-API-methods" class="headerlink" title="JS API - methods"></a>JS API - methods</h4><h5 id="lazySizes-loader-unveil-DOMNode"><a href="#lazySizes-loader-unveil-DOMNode" class="headerlink" title="lazySizes.loader.unveil(DOMNode)"></a><code>lazySizes.loader.unveil(DOMNode)</code></h5><p>In case a developer wants to show an image even if it is not inside the viewport the <code>lazySizes.loader.unveil(DOMNode)</code> can be called:</p>
+<pre><code class="js">lazySizes.loader.unveil(imgElem);
+</code></pre>
+<p>Note: As a more lazy alternative the <code>lazypreload</code> class can be set: <code>$(imgElem).addClass(&#39;lazypreload&#39;);</code>.</p>
+<h5 id="lazySizes-autoSizer-checkElems"><a href="#lazySizes-autoSizer-checkElems" class="headerlink" title="lazySizes.autoSizer.checkElems()"></a><code>lazySizes.autoSizer.checkElems()</code></h5><p>In case one or more image elements with the attribute <code>data-sizes=&quot;auto&quot;</code> have changed in size <code>lazySizes.autoSizer.updateElems</code> can be called (For example to implement element queries):</p>
+<pre><code class="js">lazySizes.autoSizer.checkElems();
+</code></pre>
+<h5 id="lazySizes-loader-checkElems"><a href="#lazySizes-loader-checkElems" class="headerlink" title="lazySizes.loader.checkElems()"></a><code>lazySizes.loader.checkElems()</code></h5><p>Tests whether new elements has came into view. Normally this method only needs to be called, if <code>lazySizesConfig.loadMode</code> was set to <code>0</code>.</p>
+<h5 id="lazySizes-init"><a href="#lazySizes-init" class="headerlink" title="lazySizes.init()"></a><code>lazySizes.init()</code></h5><p>LazySizes initializes itself automatically. In case you set <code>lazySizesConfig.init</code> to <code>false</code> you need to explicitly call <code>lazySizes.init()</code>. Note: You can speed up initial loading of in view images if you call <code>lazySizesConfig.init()</code> explicitly after lazysizes and all plugins are loaded.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.init = <span class="literal">false</span>;</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"lazysizes.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"other-script.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="undefined">lazySizes.init();</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<h2 id="Browser-Support"><a href="#Browser-Support" class="headerlink" title="Browser Support"></a>Browser Support</h2><p><strong>lazysizes</strong> supports all browsers, that support <a href="http://caniuse.com/#feat=getelementsbyclassname"><code>document.getElementsByClassName</code></a> (== all browsers but not IE8-). In case you need to support IE8, see also the <a href="plugins/noscript/README.md#ie8">noscript extension</a> (or use a modified noscript pattern or the LQIP pattern).</p>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p>Fixes, PRs and issues are always welcome, make sure to create a new branch from the <strong>master</strong> (not the gh-pages branch), validate against JSHint and test in all browsers. In case of an API/documentation change make sure to also document it here in the readme.md.</p>
+<h2 id="Available-plugins-in-this-repo"><a href="#Available-plugins-in-this-repo" class="headerlink" title="Available plugins in this repo"></a><a name="plugins"></a>Available plugins in this repo</h2><p>It is recommended to concat all plugins together with lazySizes. In case you don’t concat it is recommended to include the plugin scripts <em>before</em> the lazySizes main script.</p>
+<h3 id="respimg-polyfill-plugin"><a href="#respimg-polyfill-plugin" class="headerlink" title="respimg polyfill plugin"></a><a href="plugins/respimg">respimg polyfill plugin</a></h3><p>The respimg polyfill plugin is an extremely lightweight alternate polyfill for the most important subsets of responsive images (srcset and picture).</p>
+<h3 id="OPTIMUMX-plugin"><a href="#OPTIMUMX-plugin" class="headerlink" title="OPTIMUMX plugin"></a><a href="plugins/optimumx">OPTIMUMX plugin</a></h3><p>The <code>srcset</code> attribute with the <em>w</em> descriptor and <code>sizes</code> attribute automatically also includes high DPI images. But each image has a different optimal pixel density, which might be lower (for example 1.5x) than the pixel density of your device (2x or 3x). This information is unknown to the browser and therefore can’t be optimized for. The <a href="plugins/optimumx">lazySizes optimumx extension</a> gives you more control to trade between perceived quality vs. perceived performance.</p>
+<h3 id="parent-fit-extension"><a href="#parent-fit-extension" class="headerlink" title="parent-fit extension"></a><a href="plugins/parent-fit">parent-fit extension</a></h3><p>The <a href="plugins/parent-fit">parent fit plugin</a> extends the <code>data-sizes=&quot;auto&quot;</code> feature to also calculate the right <code>sizes</code> for <code>object-fit: contain|cover</code> image elements and other <strong>height</strong> ( and width) constrained image elements in general.</p>
+<h3 id="object-fit-extension"><a href="#object-fit-extension" class="headerlink" title="object-fit extension"></a><a href="plugins/object-fit">object-fit extension</a></h3><p>The <a href="plugins/object-fit">object fit plugin</a> polyfills the <code>object-fit</code> and the <code>object-position</code> property in non supporting browsers.</p>
+<h3 id="unveilhooks-plugin"><a href="#unveilhooks-plugin" class="headerlink" title="unveilhooks plugin"></a><a href="plugins/unveilhooks">unveilhooks plugin</a></h3><p>The <a href="plugins/unveilhooks">unveilhooks plugin</a> plugin enables lazySizes to lazyload background images, widgets/components/scripts, styles and video/audio elements.</p>
+<h3 id="include-plugin"><a href="#include-plugin" class="headerlink" title="include plugin"></a><a href="plugins/include">include plugin</a></h3><p>The <a href="plugins/include">include plugin</a> plugin enables lazySizes to lazyload content, styles or AMD modules either simply postponed or conditionally (for example matching certain media queries). This extension also heavily simplifies the architecture of conditional, dynamically changing responsive behavior and has great scalability.</p>
+<h3 id="bgset-plugin-lazy-responsive-background-image"><a href="#bgset-plugin-lazy-responsive-background-image" class="headerlink" title="bgset plugin - lazy responsive background-image"></a><a href="plugins/bgset">bgset plugin - lazy responsive background-image</a></h3><p>The bgset plugin allows lazyloading of multiple background images with different resolutions/sizes and/or media queries (responsive background images). In case you only need one image use the unveilhooks extension.</p>
+<h3 id="lazysizes-custommedia-extension"><a href="#lazysizes-custommedia-extension" class="headerlink" title="lazysizes custommedia extension"></a><a href="plugins/custommedia">lazysizes custommedia extension</a></h3><p><a href="plugins/custommedia">lazySizes custommedia extension</a> allows you to automatically sync and manage your breakpoints between your CSS and the <code>media</code> attributes of your <code>&quot;picture &gt; source&quot;</code> elements using the <code>customMedia</code> option of lazySizes.</p>
+<h3 id="attrchange-re-initialization-extension"><a href="#attrchange-re-initialization-extension" class="headerlink" title="attrchange / re-initialization extension"></a><a href="plugins/attrchange">attrchange / re-initialization extension</a></h3><p>In case you are changing the <code>data-src</code>/<code>data-srcset</code> attributes of already transformed lazyload elements, you must normally also re-add the <code>lazyload</code> class to the element.</p>
+<p>This <a href="plugins/attrchange">attrchange / re-initialization extension</a> automatically detects changes to your <code>data-*</code> attributes and adds the class for you.</p>
+<h3 id="unload-extension"><a href="#unload-extension" class="headerlink" title="unload extension"></a><a href="plugins/unload">unload extension</a></h3><p>The <a href="plugins/unload">unload</a> extends lazysizes to unload not in view images to improve memory consumption and orientationchange/resize performance.</p>
+<h3 id="noscript-extension"><a href="#noscript-extension" class="headerlink" title="noscript extension"></a><a href="plugins/noscript">noscript extension</a></h3><p>The <a href="plugins/noscript">noscript extension</a> is the ultimate progressive enhancement extension for lazySizes. It allows you to transform any HTML inside a <code>noscript</code> element as soon as it becomes visible.</p>
+<h3 id="aspectratio-extension"><a href="#aspectratio-extension" class="headerlink" title="aspectratio extension"></a><a href="plugins/aspectratio">aspectratio extension</a></h3><p>The <a href="plugins/aspectratio">aspectratio extension</a> allows you to control the aspectratio of your images using markup instead of CSS. It is an alternative for the <a href="#specify-dimensions">CSS intrinsic ratio technique</a>.</p>
+<h3 id="progressive-plugin"><a href="#progressive-plugin" class="headerlink" title="progressive plugin"></a><a href="plugins/progressive">progressive plugin</a></h3><p>The <a href="plugins/progressive">progressive plugin</a> adds better support for rendering progressive jpgs/pngs.</p>
+<h3 id="RIaS-plugin-Responsive-Images-as-a-Service-Responsive-image-on-demand"><a href="#RIaS-plugin-Responsive-Images-as-a-Service-Responsive-image-on-demand" class="headerlink" title="RIaS plugin - (Responsive Images as a Service / Responsive image on demand)"></a><a href="plugins/rias">RIaS plugin - (Responsive Images as a Service / Responsive image on demand)</a></h3><p>The <a href="plugins/rias">RIaS plugin is a neat full responsive images solution</a> without the need of any additional plugins/polyfills.</p>
+<p>It enables lazySizes to generate the best suitable image source based on an URL pattern. It works with pre-build images (i.e. grunt-responsive-images) as also with any third party (ReSrc, Pixtulate, mobify, WURFL’s Image Tailor …) or self hosted restful responsive image service (responsive image on demand). It makes responsive images even more easier without any need for another third party script.</p>
+<h2 id="Tip-Specifying-image-dimensions-minimizing-reflows-and-avoiding-page-jumps"><a href="#Tip-Specifying-image-dimensions-minimizing-reflows-and-avoiding-page-jumps" class="headerlink" title="Tip: Specifying image dimensions (minimizing reflows and avoiding page jumps)"></a><a name="specify-dimensions"></a>Tip: Specifying image dimensions (minimizing reflows and avoiding page jumps)</h2><p>To minimize reflows, content jumping or unpredictable behavior with some other JS widgets (isotope, masonry, some sliders/carousels…) the width <strong>and</strong> the height of an image should be calculable by the browser before the image source itself is loaded. For “static” images this can be done using either CSS or using the content attributes:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">width</span>=<span class="string">"350"</span></span>
+<span class="tag">    <span class="attr">height</span>=<span class="string">"150"</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/350x150 1x,</span></span>
+<span class="tag"><span class="string">    http://placehold.it/700x300 2x"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://placehold.it/350x150"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>
+<p>For flexible responsive images the <a href="http://www.mademyday.de/css-height-equals-width-with-pure-css.html">CSS intrinsic ratio scaling technique</a> should be used:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="css"><span class="selector-class">.ratio-container</span> {</span>
+<span class="undefined">    position: relative;</span>
+<span class="undefined">}</span>
+<span class="css"><span class="selector-class">.ratio-container</span><span class="selector-pseudo">:after</span> {</span>
+<span class="undefined">    content: '';</span>
+<span class="undefined">    display: block;</span>
+<span class="undefined">    height: 0;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="css">    <span class="comment">/* 16:9 = 56.25% = calc(9 / 16 * 100%) */</span></span>
+<span class="css">    <span class="selector-tag">padding-bottom</span>: 42<span class="selector-class">.86</span>%;</span>
+<span class="undefined">}</span>
+<span class="css"><span class="selector-class">.ratio-container</span> &gt; * {</span>
+<span class="undefined">    position: absolute;</span>
+<span class="undefined">    top: 0;</span>
+<span class="undefined">    left: 0;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="undefined">    height: 100%;</span>
+<span class="undefined">    display: block;</span>
+<span class="undefined">}</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ratio-container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/175x75 175w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/350x150 350w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w"</span></span>
+<span class="tag">        <span class="attr">data-src</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>In case you want to dynamically calculate your intrinsic ratios for many different formats you can vary the pattern to something like this:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="css"><span class="selector-class">.ratio-box</span> {</span>
+<span class="undefined">    position: relative;</span>
+<span class="undefined">    height: 0;</span>
+<span class="undefined">    display: block;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="css">    <span class="comment">/* padding-bottom is calculated and rendered in to HTML */</span></span>
+<span class="undefined">}</span>
+<span class="undefined"></span>
+<span class="css"><span class="selector-class">.ratio-box</span> <span class="selector-tag">img</span>,</span>
+<span class="css"><span class="selector-class">.ratio-box</span> <span class="selector-tag">iframe</span>,</span>
+<span class="css"><span class="selector-class">.ratio-box</span> <span class="selector-tag">video</span> {</span>
+<span class="undefined">    position: absolute;</span>
+<span class="undefined">    top: 0;</span>
+<span class="undefined">    left: 0;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="undefined">    height: 100%;</span>
+<span class="undefined">    display: block;</span>
+<span class="undefined">}</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ratio-box"</span> <span class="attr">style</span>=<span class="string">"padding-bottom: 42.85% /* calc(75 / 175 * 100%)*/;"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/175x75 175w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/350x150 350w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w"</span></span>
+<span class="tag">        <span class="attr">data-src</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>In case the exact ratio of your image is unknown you can also vary the intrinsic ratio like this:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="css"><span class="selector-class">.ratio-container</span> {</span>
+<span class="undefined">    position: relative;</span>
+<span class="undefined">}</span>
+<span class="css"><span class="selector-class">.ratio-container</span><span class="selector-pseudo">:after</span> {</span>
+<span class="undefined">    content: '';</span>
+<span class="undefined">    display: block;</span>
+<span class="undefined">    height: 0;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="css">    <span class="comment">/* 16:9 = 56.25% = calc(9 / 16 * 100%) */</span></span>
+<span class="css">    <span class="selector-tag">padding-bottom</span>: 56<span class="selector-class">.25</span>%;</span>
+<span class="undefined">    content: "";</span>
+<span class="undefined">}</span>
+<span class="css"><span class="selector-class">.ratio-container</span> &gt; * {</span>
+<span class="undefined">    position: absolute;</span>
+<span class="undefined">    top: 0;</span>
+<span class="undefined">    left: 0;</span>
+<span class="undefined">    width: 100%;</span>
+<span class="undefined">    height: 100%;</span>
+<span class="undefined">}</span>
+<span class="undefined"></span>
+<span class="css"><span class="comment">/* unknown ration variation */</span></span>
+<span class="css"><span class="selector-class">.unknown-ratio-container</span> &gt; * {</span>
+<span class="undefined">    max-width: 100%;</span>
+<span class="undefined">    max-height: 100%;</span>
+<span class="undefined">    width: auto;</span>
+<span class="undefined">    height: auto;</span>
+<span class="undefined">}</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ratio-container unknown-ratio-container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">data-src</span>=<span class="string">"http://placehold.it/350x150"</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>or at least add a <code>min-height</code> (and <code>min-width</code>) to minimize content jumps:</p>
+<pre><code class="css"><span class="selector-class">.lazyload</span>,
+<span class="selector-class">.lazyloading</span> {
+    <span class="attribute">min-height</span>: <span class="number">200px</span>;
+}
+</code></pre>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>If you use the “unknown intrinsic ratio pattern” and the width of the loaded image will not (approximately) match the width of its container, the <code>data-sizes=&quot;auto&quot;</code> feature will not be effective when used on its own. In this situation the most appropriate size for the image to fit in the available space can be calculated automatically using the <a href="plugins/parent-fit">parent fit plugin</a>.</li>
+<li>see also the <a href="plugins/aspectratio">aspectratio extension</a> for an alternative way to add aspectratio.</li>
+</ul>
+<h3 id="Updating-layout-of-JS-widgets"><a href="#Updating-layout-of-JS-widgets" class="headerlink" title="Updating layout of JS widgets"></a>Updating layout of JS widgets</h3><p>In case you can’t specify the image dimensions using CSS or one of the above suggested methods and your JS widgets have problems to calculate the right dimensions. You can use the following pattern to update your JS widgets (sliders/masonry):</p>
+<pre><code class="js">$(<span class="string">'.my-widget'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">var</span> $<span class="built_in">module</span> = $(<span class="keyword">this</span>);
+    <span class="keyword">var</span> update = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+        $<span class="built_in">module</span>.myWidget(<span class="string">'updateLayout'</span>);
+    };
+
+    <span class="comment">// Note: Instead of waiting for all images until we initialize the widget</span>
+    <span class="comment">// we use event capturing to update the widget's layout progressively.</span>
+    <span class="keyword">this</span>.addEventListener(<span class="string">'load'</span>, update, <span class="literal">true</span>);
+
+    $<span class="built_in">module</span>.myWidget();
+});
+</code></pre>
+<p>For this update pattern you may want to combine this at least with the <code>min-height</code> pattern explained above.</p>
+<h2 id="Tip-Where-How-to-include-lazySizes"><a href="#Tip-Where-How-to-include-lazySizes" class="headerlink" title="Tip: Where/How to include lazySizes"></a><a id="include-early"></a>Tip: Where/How to include lazySizes</h2><p>While lazy loading is a great feature, it is important for users that crucial in view images are loaded as fast as possible. (Most users start to interact with a page after in view images are loaded.)</p>
+<p>In case you normally combine all your scripts into one large script and add this to the bottom of your page, it can be better for perceived performance to generate two or sometimes more script packages: One small package, which includes all scripts which have heavy influence on the content or the UI and another larger one which includes the normal behavior of the page.</p>
+<p>This smaller script, which should include lazySizes (and all its plugins), should than be placed <strong>before</strong> any other blocking elements (i.e.: script(s)) at the end of the body or after any blocking elements (i.e.: scripts, stylesheets) in the head to load the crucial content as fast possible. (Note: It might make also sense to call <code>lazySizes.init();</code> explicitly right after lazySizes and all its plugins are added.)</p>
+<h2 id="Why-lazysizes"><a href="#Why-lazysizes" class="headerlink" title="Why lazysizes"></a>Why lazysizes</h2><p>In the past I often struggled using lazy image loaders, because the “main check function” is called repeatedly and with a high frequency. Which makes it hard to fulfill two purposes runtime and memory efficiency. And looking into the source code of most so called lazy loaders often also unveils lazy developers…</p>
+<p>But in a world of responsive retina optimized images on the one hand and JS widgets like carousels or tabs (a lot of initially hidden images) on the other hand lazy loading images becomes more and more important, so I created this project.</p>
+<p><strong>lazysizes</strong> is different:</p>
+<p>Due to the fact, that it is designed to be invoked with a high frequency and therefore works highly efficient, it was possible to hook into all kinds of events as a mutationobserver meaning this lazyloader works as a simple drop in solution - you simply write/render your markup and no matter whether the <code>.lazyload</code> element was added by AJAX or revealed by a JS or CSS animation it will be picked up by <strong>lazysizes</strong>.</p>
+<pre><code class="html"><span class="comment">&lt;!-- responsive example: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"image2.jpg 300w,</span></span>
+<span class="tag"><span class="string">    image3.jpg 600w,</span></span>
+<span class="tag"><span class="string">    image4.jpg 900w"</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image3.jpg"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+
+<span class="comment">&lt;!-- or non-responsive: --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image.jpg"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span> /&gt;</span>
+</code></pre>

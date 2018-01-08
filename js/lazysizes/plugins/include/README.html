@@ -1,0 +1,325 @@
+<h1 id="lazysizes-include-plugin"><a href="#lazysizes-include-plugin" class="headerlink" title="lazysizes include plugin"></a>lazysizes include plugin</h1><p><strong>lazysizes</strong> include extension/plugin asynchronously include non crucial content, styles or JS modules. Due to lazyloading, prioritized queuing and preload after load techniques lazySizes include extension scales much better than similar other solutions.</p>
+<p>Typical use cases are:</p>
+<ul>
+<li>lazy loading different content, styles or JS modules depending on certain conditions (responsive content, responsive behavior, media queries, existence of a DOM element, browser features, user preferences, element queries…)</li>
+<li>deferring heavy to render or uncacheable content (client or server side)</li>
+<li>progressively enhancing the document with new JS enabled content</li>
+<li>splitting or deferred loading of large JS/CSS modules in larger projects</li>
+<li>clean and simple architecture for initialization/loading and/or destroying/unloading of (conditional) JS behaviors</li>
+<li>deferred self-initializing of DOM behaviors</li>
+</ul>
+<h2 id="Basic-usage"><a href="#Basic-usage" class="headerlink" title="Basic usage"></a>Basic usage</h2><p>Put a <code>data-include</code> attribute on your <code>.lazyload</code> element and reference the URL to load:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">aside</span> <span class="attr">class</span>=<span class="string">"related-articles lazyload"</span> <span class="attr">data-include</span>=<span class="string">"related-articles.html?contentid=32"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">aside</span>&gt;</span>
+</code></pre>
+<p>The <code>data-include</code> can also consume a list of candidates represented by a URL in combination with an optional parenthesised condition. The lazySizes include extension will then take the first URL, that matches the condition:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"large.html (min-width: 800px), small.html"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>The condition is either a media query or the name of a configured condition rule. The condition rule can be configured through CSS or through JS via the <code>include.conditions</code> option.</p>
+<h3 id="Condition-configuration-through-CSS"><a href="#Condition-configuration-through-CSS" class="headerlink" title="Condition configuration through CSS"></a>Condition configuration through CSS</h3><p>The Lazysizes include extension checks wether the condition name matches the CSS <code>content</code> value the of <code>:after</code> or <code>:before</code> pseudo elements from the <code>html</code> element (can be configured).</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="css"><span class="selector-tag">html</span><span class="selector-pseudo">:after</span> {</span>
+<span class="undefined">    display: none;</span>
+<span class="undefined">    content: "small";</span>
+<span class="undefined">}</span>
+<span class="undefined"></span>
+<span class="css">@<span class="keyword">media</span> (min-width: <span class="number">760px</span>){</span>
+<span class="css">    <span class="selector-tag">html</span><span class="selector-pseudo">:after</span> {</span>
+<span class="undefined">        content: "medium";</span>
+<span class="undefined">    }</span>
+<span class="undefined">}</span>
+<span class="undefined"></span>
+<span class="css">@<span class="keyword">media</span> (min-width: <span class="number">980px</span>){</span>
+<span class="css">    <span class="selector-tag">html</span><span class="selector-pseudo">:after</span> {</span>
+<span class="undefined">        content: "large";</span>
+<span class="undefined">    }</span>
+<span class="undefined">}</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"large.html (large), medium.html (medium), small.html"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Condition-configuration-through-JS"><a href="#Condition-configuration-through-JS" class="headerlink" title="Condition configuration through JS"></a>Condition configuration through JS</h3><p>A condition can also be configured through the <code>lazySizesConfig.include.conditions</code> option map. Each key is either a string representing a media query or a function:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = {</span>
+<span class="undefined">    include: {</span>
+<span class="undefined">        conditions: {</span>
+<span class="javascript">            small: <span class="string">'(max-width: 480px)'</span>,</span>
+<span class="javascript">            custom: <span class="function"><span class="keyword">function</span>(<span class="params">element, data</span>)</span>{</span>
+<span class="javascript">                <span class="keyword">return</span> <span class="literal">true</span> || <span class="literal">false</span>;</span>
+<span class="undefined">            }</span>
+<span class="undefined">        }</span>
+<span class="undefined">    }</span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"small.html (small), custom.html (custom), default.html"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>If the last include candidate has a condition, the <code>innerHTML</code> of the initial content is used as unconditioned fallback content.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"large.html (min-width: 800px)"</span>&gt;</span>
+    <span class="comment">&lt;!-- initial content + content for (max-width 799px) --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>As soon as the content is changed a <code>lazyincluded</code> event is fired at the element:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazyincluded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">    <span class="comment">// e.target has new content</span></span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span> <span class="attr">data-include</span>=<span class="string">"small.html"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Loading-Styles-or-AMD-Modules"><a href="#Loading-Styles-or-AMD-Modules" class="headerlink" title="Loading Styles or (AMD) Modules"></a>Loading Styles or (AMD) Modules</h3><p>The include feature can also load CSS, AMD or ES6 modules. To mark an URL as CSS put a <code>css:</code>, to load an AMD module put a <code>amd:</code> or to load an ES6 module put a <code>module:</code> identifier in front of the URL:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span> <span class="attr">data-include</span>=<span class="string">"css:my-style.css (large)"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider lazyload"</span> <span class="attr">data-include</span>=<span class="string">"amd:path/slider-module"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>Content, Style and AMD includes can also be mixed and used with or without conditions:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"slider.html amd:path/slider-module css:slider.css (large),</span></span>
+<span class="tag"><span class="string">        module:path/mobile-slider, css:mobile-slider.css"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>In case content and a behavior include is used together lazySizes will load them in parallel but makes sure to first include the content and then initialize the behavior. </p>
+<h4 id="AMD-ES6-module-features"><a href="#AMD-ES6-module-features" class="headerlink" title="AMD/ES6 module features"></a>AMD/ES6 module features</h4><p>While you can write your AMD/ES6 module how you want lazysizes include extension will check wether your module provides the following methods:</p>
+<ul>
+<li><code>yourmodule.lazytransform</code>: Will be invoked before the content is inserted. Especially to transform the AJAX response. (For example JSON to HTML)</li>
+<li><code>yourmodule.lazyload</code>: Callback function to initialize the module. Will be invoked after the content was inserted.</li>
+<li><code>yourmodule.lazyunload</code>: Callback function to destroy your widget. Will be invoked before old content is removed</li>
+</ul>
+<p>Each of those methods are optional static methods of a module. Here is a simple example:</p>
+<pre><code class="js">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+    <span class="comment">// constructor</span>
+    <span class="keyword">var</span> Slider = <span class="function"><span class="keyword">function</span>(<span class="params">element,options</span>) </span>{
+
+    };
+
+    Slider.prototype = {
+        destroy: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}
+    };
+
+    <span class="comment">// lazysizes include features:</span>
+
+    <span class="comment">// called with the DOM element (data.target) and some other useful data (data.detail)</span>
+    <span class="comment">// useful to initialize with the DOM element</span>
+    Slider.lazyload = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        <span class="keyword">var</span>    Slider = <span class="keyword">new</span> Slider(data.target);
+        <span class="comment">// save instance for destroy / lazyunload</span>
+        <span class="comment">// data.element._slider = Slider;</span>
+    };
+
+    <span class="comment">// in case of a conditioned include and</span>
+    <span class="comment">// the need to destroy the instance (i.e.: unbind global events)</span>
+    Slider.lazyunload = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        <span class="comment">// data.target._slider.destroy();</span>
+    };
+
+    <span class="comment">// gets invoked with the a simplified XHR object (data.detail)</span>
+    <span class="comment">// and the dom element (data.target)</span>
+    Slider.lazytransform = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        <span class="comment">// var json = JSON.parse(data.detail.responseText);</span>
+        <span class="comment">// data.detail.response = template(json);</span>
+    };
+
+    <span class="keyword">return</span> Slider;
+});
+</code></pre>
+<p>In case a candidate includes new markup while another candidate only includes an AMD behavior. The initial content will be automatically resetted in case of a condition switch:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"slider.html amd:js/slider (big),</span></span>
+<span class="tag"><span class="string">    amd:js/mobileSlider"</span>&gt;</span>
+    <span class="comment">&lt;!-- amd:mobileSlider always works with the initial content and never on the slider.html include --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>In case both candidates has an amd module but not a content include the markup won’t be resetted automatically. But the unloading module can request this behavior inside of it’s unload method or the to initialized module can request this inside the <code>lazytransform</code> method using the <code>resetHTML</code> propety:</p>
+<pre><code class="js">Slider.lazyunload = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+    <span class="comment">// data.element._slider.destroy();</span>
+    data.resetHTML = <span class="literal">true</span>;
+};
+
+<span class="comment">//or</span>
+
+NewSlider.lazytransform = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+    <span class="comment">// data.element._slider.destroy();</span>
+    data.resetHTML = <span class="literal">true</span>;
+};
+</code></pre>
+<p>In case the content doesn’t contain any mutable states, that need to be transferred to the new behavior (i.e. input fields etc.), this option makes it extremley simple to cleanup the HTML for the next module.</p>
+<p>The data object is shared between the <code>lazyunload</code>, <code>lazytransform</code> and <code>lazyload</code> so that a possible state can be transferred.</p>
+<h4 id="Loading-multiple-styles-and-modules"><a href="#Loading-multiple-styles-and-modules" class="headerlink" title="Loading multiple styles and modules"></a>Loading multiple styles and modules</h4><p>Multiple styles or AMD modules for one candidate can be configured by separating them with <code>|,|</code> signs:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider lazyload"</span></span>
+<span class="tag">    <span class="attr">data-include</span>=<span class="string">"amd:path/uiModule|,|path/slider-module css:slider-core.css|,|slider.css (large),</span></span>
+<span class="tag"><span class="string">        amd:path/mobile-slider, css:slider-core.css|,|mobile-slider.css"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Scalability-and-queue-priority"><a href="#Scalability-and-queue-priority" class="headerlink" title="Scalability and queue priority"></a>Scalability and queue priority</h3><p>The include feature will always use a download queue to make sure, that multiple includes do not jam the browsers own request queue. In case of many non crucial includes mixed with some crucial includes on one page the <code>data-lazyqueue</code> attribute can be used to add a queue priority for the include extension:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Category 1
+        (articles:
+        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"count-service?id=32"</span> <span class="attr">data-lazyqueue</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        )
+    <span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Category 2
+        (articles:
+        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"count-service?id=33"</span> <span class="attr">data-lazyqueue</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        )
+    <span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Category 3
+        (articles:
+        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"count-service?id=34"</span> <span class="attr">data-lazyqueue</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        )
+    <span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">li</span>&gt;</span>
+<span class="comment">&lt;!-- more lazyqueued elements --&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"large.html (min-width: 800px), default.html"</span>&gt;</span>
+    <span class="comment">&lt;!-- crucial conditional content --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h3><ul>
+<li><code>lazyincludeload</code> is a cancelable event fired at the element before the request is started. The <code>event.detail</code> object can be used to modify the XHR request.</li>
+<li><code>lazyincludeloaded</code> is a cancelable event fired at the element after the request is complete, but before the content is added. The <code>event.detail.content</code> property can be used to modify the content (for example to transform JSON to HTML).</li>
+<li><code>lazyincluded</code> is an event fired at the element right after the HTML was injected.</li>
+</ul>
+<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>All include options are configurable through the <code>lazySizesConfig.include</code> option object:</p>
+<h4 id="contentElement-default-quot-html-quot"><a href="#contentElement-default-quot-html-quot" class="headerlink" title="contentElement (default: &quot;html&quot;):"></a><code>contentElement</code> (default: <code>&quot;html&quot;</code>):</h4><p>The selector of the element, which should be used to check for the CSS content value:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = {
+    include: {
+        contentElement: <span class="string">'#mediaqueries'</span> <span class="comment">// 'html'</span>
+    }
+};
+</code></pre>
+<h4 id="conditions-option-default"><a href="#conditions-option-default" class="headerlink" title="conditions option (default: {}):"></a><code>conditions</code> option (default: <code>{}</code>):</h4><p>The conditions option can be used to create new custom conditions.</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = {
+    addClasses: <span class="literal">true</span>, <span class="comment">// good to add loading styles</span>
+    include: {
+        conditions: {
+            small: <span class="string">'(max-width: 480px)'</span>,
+            custom: <span class="function"><span class="keyword">function</span>(<span class="params">elem, data</span>)</span>{
+                <span class="keyword">return</span> <span class="literal">true</span> || <span class="literal">false</span>;
+            }
+        }
+    }
+};
+</code></pre>
+<h4 id="map-option-default"><a href="#map-option-default" class="headerlink" title="map option (default: {}):"></a><code>map</code> option (default: <code>{}</code>):</h4><p>The <code>map</code> option allows to map the value of the <code>data-include</code> attribute to another string. This does not only work for the hole value, but also for parsed parts.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = {</span>
+<span class="javascript">    addClasses: <span class="literal">true</span>, <span class="comment">// good to add loading styles</span></span>
+<span class="undefined">    include: {</span>
+<span class="undefined">        map: {</span>
+<span class="javascript">            slider: <span class="string">'slider.html amd:path/slider (large)'</span>,</span>
+<span class="javascript">            amdSlider: <span class="string">'jquery|,|path/ui-slick'</span></span>
+<span class="undefined">        }</span>
+<span class="undefined">    }</span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"slider"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"amd:amdSlider"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>This option becomes useful to separate content from behavior.</p>
+<p>The include feature works together with all normal lazySizes options (i.e.: <code>addClasses</code> for load indicators), events and methods.</p>
+<h2 id="Reacting-to-user-interaction"><a href="#Reacting-to-user-interaction" class="headerlink" title="Reacting to user interaction"></a>Reacting to user interaction</h2><p>Of course it is also possible to react to a user interaction.</p>
+<pre><code class="html"><span class="comment">&lt;!-- markup has data-include, but no lazyload class --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content"</span> <span class="attr">data-include</span>=<span class="string">"include.html"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"load-include"</span>&gt;</span>load content<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript">$(<span class="built_in">document</span>).on(<span class="string">'click'</span>, <span class="string">'.load-include'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span>
+<span class="javascript">    $(<span class="keyword">this</span>)</span>
+<span class="javascript">        <span class="comment">//set button to disabled</span></span>
+<span class="javascript">        .prop(<span class="string">'disabled'</span>, <span class="literal">true</span>)</span>
+<span class="javascript">            <span class="comment">//get parent include area</span></span>
+<span class="javascript">            .closest(<span class="string">'[data-include]'</span>)</span>
+<span class="javascript">            <span class="comment">// and activate lazySizes by adding lazyload class</span></span>
+<span class="javascript">            .addClass(<span class="string">'lazyload'</span>)</span>
+<span class="undefined">    ;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<p>It’s also possible to change the <code>data-include</code> value and reevaluate it:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dynamic-content lazyload"</span> <span class="attr">data-include</span>=<span class="string">"include.html amd:module (min-width: 800px)"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"load-include"</span> <span class="attr">data-setinclude</span>=<span class="string">"include.html amd:module"</span>&gt;</span>load content<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript">$(<span class="built_in">document</span>).on(<span class="string">'click'</span>, <span class="string">'.load-include'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span>
+<span class="javascript">    $(<span class="keyword">this</span>)</span>
+<span class="javascript">        <span class="comment">//set button to disabled</span></span>
+<span class="javascript">        .prop(<span class="string">'disabled'</span>, <span class="literal">true</span>)</span>
+<span class="javascript">            <span class="comment">//get parent include area</span></span>
+<span class="javascript">            .closest(<span class="string">'[data-include]'</span>)</span>
+<span class="javascript">            <span class="comment">//change data-include value</span></span>
+<span class="javascript">            .attr(<span class="string">'data-include'</span>, $.attr(<span class="keyword">this</span>, <span class="string">'data-setinclude'</span>))</span>
+<span class="javascript">            <span class="comment">// and activate/refresh lazySizes by re-adding lazyload class</span></span>
+<span class="javascript">            .addClass(<span class="string">'lazyload'</span>)</span>
+<span class="undefined">    ;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<h2 id="Sharing-States-between-two-modules"><a href="#Sharing-States-between-two-modules" class="headerlink" title="Sharing States between two modules"></a>Sharing States between two modules</h2><pre><code class="html"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-include</span>=<span class="string">"amd:js/nav (big),</span></span>
+<span class="tag"><span class="string">    amd:js/mobileNav"</span>&gt;</span>
+    <span class="comment">&lt;!-- content  --&gt;</span>
+<span class="tag">&lt;/<span class="name">nav</span>&gt;</span>
+</code></pre>
+<pre><code class="js">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+    <span class="comment">// constructor</span>
+    <span class="keyword">var</span> Nav = <span class="function"><span class="keyword">function</span>(<span class="params">element,options</span>) </span>{
+
+    };
+
+    Nav.prototype = {
+
+    };
+
+    Nav.lazyunload = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        <span class="comment">//Reset HTML for mobileNav</span>
+        data.resetHTML = <span class="literal">true</span>;
+        <span class="comment">//share the value of the input field with mobileNav</span>
+        data.shareState = {
+            searchValue: $(<span class="string">'input.search'</span>, data.target).val();
+        };
+    };
+
+    Nav.lazyload = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{
+        <span class="comment">//check wether mobileNav has shared some data</span>
+        <span class="keyword">if</span>(data.shareState){
+            $(<span class="string">'input.search'</span>, data.target).val(data.shareState.searchValue || <span class="string">''</span>);
+        }
+    };
+
+    <span class="keyword">return</span> Nav;
+});
+</code></pre>
+<p>Note: For amd require JS or SystemJS to work the <code>requireJs</code> and/or the <code>systemJs</code> option has to be provided:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+
+<span class="built_in">window</span>.lazySizesConfig.requireJs = <span class="function"><span class="keyword">function</span>(<span class="params">modules, cb</span>)</span>{
+    <span class="built_in">window</span>.require(modules, cb);
+};
+
+<span class="built_in">window</span>.lazySizesConfig.systemJs = <span class="function"><span class="keyword">function</span>(<span class="params">module, cb</span>)</span>{
+    <span class="built_in">window</span>.System.import(<span class="built_in">module</span>).then(cb);
+};
+</code></pre>

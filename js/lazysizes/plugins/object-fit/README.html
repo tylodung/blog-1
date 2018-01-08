@@ -1,0 +1,60 @@
+<h1 id="lazySizes-object-fit-extension"><a href="#lazySizes-object-fit-extension" class="headerlink" title="lazySizes object fit extension"></a>lazySizes object fit extension</h1><p>This extension polyfills <code>object-fit</code>: <code>cover</code> and <code>contain</code> properties as also the <code>object-position</code> in non supporting browsers. Here you find a <a href="https://jsfiddle.net/trixta/x2p17f31/">simple demo</a>.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="Include-JS-files"><a href="#Include-JS-files" class="headerlink" title="Include JS files:"></a>Include JS files:</h3><p>Include lazysizes and lazysizes object fit and optionally lazysizes parent-fit and lazysizes respimg plugin. Lazysizes object-fit and respimg plugin are only needed in browser that don’t support object fit or responsive images. Lazysizes parent-fit is recommended if you use object fit responsive images in combination with <code>data-sizes=&quot;auto&quot;</code>.</p>
+<pre><code class="html"><span class="comment">&lt;!-- polyfill for object-fit (only needed in browsers that don't support object-fit) --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../plugins/object-fit/ls.object-fit.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="comment">&lt;!-- required: --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lazysizes.min.js"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="comment">&lt;!-- only for data-sizes="auto" in combination with object-fit CSS property (native or polyfill) --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../plugins/parent-fit/ls.parent-fit.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="comment">&lt;!-- respimg polyfill (only needed in browser that don't support respimg) --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../plugins/respimg/ls.respimg.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<h3 id="Add-markup"><a href="#Add-markup" class="headerlink" title="Add markup"></a>Add markup</h3><p>The object-fit plugin is not a full polyfill.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"imagecontainer"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"imagecontainer-img lazyload"</span></span>
+<span class="tag">         <span class="attr">data-srcset</span>=<span class="string">"https://placehold.it/800x400 800w 400h,</span></span>
+<span class="tag"><span class="string">             https://placehold.it/1200x600 1200w"</span></span>
+<span class="tag">         <span class="attr">data-sizes</span>=<span class="string">"auto"</span> &gt;</span>
+    /&gt;
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"imagecontainer"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"imagecontainer-img lazyload"</span></span>
+<span class="tag">         <span class="attr">data-srcset</span>=<span class="string">"https://placehold.it/500x700 500w 700h,</span></span>
+<span class="tag"><span class="string">             https://placehold.it/643x900 643w"</span></span>
+<span class="tag">         <span class="attr">data-sizes</span>=<span class="string">"auto"</span> &gt;</span>
+    /&gt;
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p>To init the plugin on an image simply use the <code>font-family</code> property directly on your image.</p>
+<pre><code class="css"><span class="selector-class">.imagecontainer</span> {
+    <span class="attribute">position</span>: relative;
+    <span class="attribute">border</span>: <span class="number">3px</span> solid <span class="number">#ccc</span>;
+}
+
+<span class="selector-class">.imagecontainer</span><span class="selector-pseudo">:before</span> {
+    <span class="attribute">display</span>: block;
+    <span class="attribute">width</span>: <span class="number">100%</span>;
+    <span class="attribute">content</span>: <span class="string">""</span>;
+    <span class="attribute">padding-bottom</span>: <span class="number">100%</span>;
+    <span class="attribute">height</span>: <span class="number">0</span>;
+}
+
+<span class="selector-class">.imagecontainer-img</span> {
+    <span class="attribute">position</span>: absolute;
+    <span class="attribute">display</span>: block;
+    <span class="attribute">top</span>: <span class="number">0</span>;
+    <span class="attribute">left</span>: <span class="number">0</span>;
+    <span class="attribute">width</span>: <span class="number">100%</span>;
+    <span class="attribute">height</span>: <span class="number">100%</span>;
+    <span class="attribute">transition</span>: <span class="number">400ms</span> transform;
+
+    <span class="attribute">object-fit</span>: contain;
+    <span class="attribute">font-family</span>: <span class="string">"object-fit: contain"</span>;
+}
+
+<span class="selector-class">.imagecontainer-img</span><span class="selector-pseudo">:hover</span> {
+    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1);
+}
+</code></pre>

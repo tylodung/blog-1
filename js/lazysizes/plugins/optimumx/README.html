@@ -1,0 +1,170 @@
+<h1 id="lazysizes-optimumx-plugin"><a href="#lazysizes-optimumx-plugin" class="headerlink" title="lazysizes optimumx plugin"></a>lazysizes optimumx plugin</h1><p><strong>lazysizes</strong> optimumx plugin helps you to limit/constrain the maximum resolution in case the <strong>w descriptor</strong> is used. Simply add the attribute <code>data-optimumx=&quot;1.6&quot;</code> to constrain the max resolution to 1.6.</p>
+<p>It gives you therefore more control to trade perceived quality against perceived performance on HD retina devices, than the HTML responsive image standard gives you.</p>
+<p>This plugin depends on the <code>data-sizes=&quot;auto&quot;</code> feature of <strong>lazysizes</strong>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/300x150 300w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/2800x1200 2800w"</span></span>
+<span class="tag">     <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">     <span class="attr">data-optimumx</span>=<span class="string">"1.5"</span></span>
+<span class="tag">     <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">     <span class="attr">src</span>=<span class="string">"http://placehold.it/300x150"</span></span>
+<span class="tag">     <span class="attr">alt</span>=<span class="string">"flexible image"</span> /&gt;</span>
+</code></pre>
+<p>A <strong>simple <a href="http://afarkas.github.io/lazysizes/optimumx/">demo can be seen here</a></strong>. This extension also supports art-directed responsive images using the <code>picture</code> element.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><pre><code class="html"><span class="comment">&lt;!-- concat the following scripts into one and add them to your HTML --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"lazysizes.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"ls.optimumx.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="comment">&lt;!-- then use it --&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/300x150 300w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/2800x1200 2800w"</span></span>
+<span class="tag">     <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">     <span class="attr">data-optimumx</span>=<span class="string">"1.5"</span></span>
+<span class="tag">     <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">     <span class="attr">src</span>=<span class="string">"http://placehold.it/300x150"</span></span>
+<span class="tag">     <span class="attr">alt</span>=<span class="string">"flexible image"</span> /&gt;</span>
+</code></pre>
+<p>In case you want to use a CDN you can use the combohandler service provided by jsDelivr:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/optimumx/ls.optimumx.min.js)"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<p><strong>Note</strong>: For full cross-browser support either a <a href="https://github.com/aFarkas/respimage">responsive images polyfill like respimage or picturefill</a> or the <a href="../rias">neat Responsive Images as a Service extension (RIaS)</a> or the <a href="../respimg">extreme lightweight alternate mini respimg polyfill extension</a> needs to be used.</p>
+<pre><code class="html"><span class="comment">&lt;!--  RIaS example: --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/optimumx/ls.optimumx.min.js+plugins/rias/ls.rias.min.js)"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"http://wit.wurfl.io/w_{width}/http://wurfl.io/assets/sunsetbeach.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">data-optimumx</span>=<span class="string">"1.5"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<pre><code class="html"><span class="comment">&lt;!--  respimage example: --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">loadJS</span>(<span class="params">u</span>)</span>{<span class="keyword">var</span> r=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>],s=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);s.src=u;r.parentNode.insertBefore(s,r);}</span>
+<span class="undefined"></span>
+<span class="javascript">    <span class="keyword">if</span>(!<span class="built_in">window</span>.HTMLPictureElement || !(<span class="string">'sizes'</span> <span class="keyword">in</span> <span class="built_in">document</span>.createElement(<span class="string">'img'</span>))){</span>
+<span class="javascript">        loadJS(<span class="string">"http://cdn.jsdelivr.net/g/respimage(respimage.min.js)"</span>);</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="comment">&lt;!--  your stylesheets --&gt;</span>
+
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/optimumx/ls.optimumx.min.js)"</span> <span class="attr">async</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+</code></pre>
+<h3 id="The-getOptimumX-option-callback"><a href="#The-getOptimumX-option-callback" class="headerlink" title="The getOptimumX option callback"></a>The <code>getOptimumX</code> option callback</h3><p>Normally the image specific optimal pixel density should be added as a floating point number using the <code>data-optimumx</code> attribute. Additionally it is also possible to add the <code>&quot;auto&quot;</code> keyword as a value of the <code>data-optimumx</code> attribute. In that case the <code>getOptimumX</code> option callback is invoked with the element as the first argument.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.getOptimumX = <span class="function"><span class="keyword">function</span>(<span class="params">element</span>)</span>{</span>
+<span class="javascript">    <span class="keyword">return</span> <span class="built_in">window</span>.devicePixelRatio &gt; <span class="number">1.6</span> ? devicePixelRatio * <span class="number">0.9</span> : <span class="number">1</span>;</span>
+<span class="undefined">};</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/300x150 300w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/2800x1200 2800w"</span></span>
+<span class="tag">     <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">     <span class="attr">data-optimumx</span>=<span class="string">"auto"</span></span>
+<span class="tag">     <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">     <span class="attr">src</span>=<span class="string">"http://placehold.it/300x150"</span></span>
+<span class="tag">     <span class="attr">alt</span>=<span class="string">"flexible image"</span> /&gt;</span>
+</code></pre>
+<p>The predefined (ugly) <code>getOptimumX</code> callback looks like this:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+<span class="built_in">window</span>.lazySizesConfig.config.getOptimumX = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="regexp">/*element*/</span></span>)</span>{
+    <span class="keyword">var</span> dpr = <span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>;
+    <span class="keyword">if</span>(dpr &gt; <span class="number">2.5</span>){
+        dpr *= <span class="number">0.6</span>; <span class="comment">// returns 1.8 for 3</span>
+    } <span class="keyword">else</span> <span class="keyword">if</span>(dpr &gt; <span class="number">1.9</span>){
+        dpr *= <span class="number">0.8</span>; <span class="comment">// returns 1.6 for 2</span>
+    } <span class="keyword">else</span> {
+        dpr -= <span class="number">0.01</span>;
+    }
+    <span class="keyword">return</span> <span class="built_in">Math</span>.min(<span class="built_in">Math</span>.round(dpr * <span class="number">100</span>) / <span class="number">100</span>, <span class="number">2</span>);
+};
+</code></pre>
+<h3 id="The-constrainPixelDensity-option"><a href="#The-constrainPixelDensity-option" class="headerlink" title="The constrainPixelDensity option"></a>The <code>constrainPixelDensity</code> option</h3><p>In case the <code>constrainPixelDensity</code> is set to <code>true</code>. All images without a <code>data-optimumx</code> attribute are treated as they would have a <code>data-optimumx=&quot;auto&quot;</code> attribute.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};</span>
+<span class="javascript"><span class="built_in">window</span>.lazySizesConfig.constrainPixelDensity = <span class="literal">true</span>;</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/300x150 300w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/700x300 700w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/1400x600 1400w,</span></span>
+<span class="tag"><span class="string">        http://placehold.it/2800x1200 2800w"</span></span>
+<span class="tag">     <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">     <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">     <span class="attr">src</span>=<span class="string">"http://placehold.it/300x150"</span></span>
+<span class="tag">     <span class="attr">alt</span>=<span class="string">"flexible image"</span> /&gt;</span>
+</code></pre>
+<h2 id="Background-information-Compressive-picture-pattern"><a href="#Background-information-Compressive-picture-pattern" class="headerlink" title="Background information: Compressive picture pattern"></a><a name="compressive-picture-pattern"></a>Background information: Compressive picture pattern</h2><p>From a perceived performance vs. perceived quality standpoint the best way to deal with High DPI images is to serve higher compressed candidates to clients with high resolution displays.</p>
+<p>This is due to the fact, that on higher DPI displays small details can be compressed more aggressively.</p>
+<p>For native images support the <code>picture</code> element can be used to achieve the result:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+<span class="comment">&lt;!--[if IE 9]&gt;&lt;video style="display: none;"&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"image-w1600-q50.jpg 1600w,</span></span>
+<span class="tag"><span class="string">            image-w1440-q50.jpg 1440w,</span></span>
+<span class="tag"><span class="string">            image-w1200-q50.jpg 1200w,</span></span>
+<span class="tag"><span class="string">            image-w800-q50.jpg 800w,</span></span>
+<span class="tag"><span class="string">            image-w600-q50.jpg 600w"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"(-webkit-min-device-pixel-ratio: 1.9),</span></span>
+<span class="tag"><span class="string">            (min-resolution: 1.9dppx)"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"image-w1440-q80.jpg 1440w,</span></span>
+<span class="tag"><span class="string">                image-w1200-q80.jpg 1200w,</span></span>
+<span class="tag"><span class="string">                image-w800-q80.jpg 800w,</span></span>
+<span class="tag"><span class="string">                image-w600-q80.jpg 600w,</span></span>
+<span class="tag"><span class="string">                image-w400-q80.jpg 400w"</span> /&gt;</span>
+<span class="comment">&lt;!--[if IE 9]&gt;&lt;/video&gt;&lt;![endif]--&gt;</span>
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">"picture but without artdirection"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+</code></pre>
+<p>Or in case you are using the <a href="../rias">Responsive Images as a Service extension (RIaS)</a>:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazyriasmodifyoptions'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>{</span>
+<span class="javascript">    data.detail.quality = (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>) &gt; <span class="number">1.9</span> ?</span>
+<span class="undefined">        50 :</span>
+<span class="undefined">        80;</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">    <span class="attr">data-src</span>=<span class="string">"image-w{width}-q{quality}.jpg"</span></span>
+<span class="tag">    <span class="attr">data-sizes</span>=<span class="string">"auto"</span></span>
+<span class="tag">    <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">    <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span>
+</code></pre>
+<p>Unfortunately these techniques also double or even triple (think 1x: 65-85q, 2x: 30-50q, 3x/4x 15-40q) the amount of generated image candidates. In case you don’t have so much resources the optimumx extension in conjunction with proper image compression is the best thing you can do.</p>
+<p>But be aware each image has different characteristics: While some images look great on a HIGH DPI device even with a <code>data-optimumx=&quot;1.2&quot;</code> other will need a much higher density for a good perceived quality.</p>
+<h2 id="Background-information-Lying-sizes-attribute"><a href="#Background-information-Lying-sizes-attribute" class="headerlink" title="Background information: Lying sizes attribute"></a><a name="lying-sizes"></a>Background information: Lying sizes attribute</h2><p>There is also another much more lightweight way to get a similar effect. Instead of parsing and constraining the <code>srcset</code> to meet the <code>data-optimumx</code> constraint, there is also the possibility to modify the <code>sizes</code> attribute instead.</p>
+<p>A <code>data-optimumx</code> implementation with the <code>lazybeforesizes</code> event could then look something like this:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="built_in">document</span>.addEventListener(<span class="string">'lazybeforesizes'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span>
+<span class="javascript">    <span class="keyword">var</span> maxx = <span class="built_in">parseFloat</span>(e.target.getAttribute(<span class="string">'data-optimumx'</span>) || <span class="string">''</span>, <span class="number">10</span>);</span>
+<span class="javascript">    <span class="keyword">var</span> dpr = (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>);</span>
+<span class="javascript">    <span class="keyword">if</span>(maxx &amp;&amp; maxx &lt; (<span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>)){</span>
+<span class="undefined">        e.detail.width = e.detail.width * (maxx / dpr);</span>
+<span class="undefined">    }</span>
+<span class="undefined">});</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-sizes</span>=<span class="string">"auto"</span> <span class="attr">data-optimumx</span>=<span class="string">"1.5"</span> <span class="attr">data-srcset</span>=<span class="string">"..."</span> /&gt;</span>
+</code></pre>
+<p>Compared to the size of this plugin this is a very neat, simple and lightweight technique.</p>
+<p>But this technique should be used with caution because the browsers algorithm is tricked and operates with wrong values, which can result in unpredictable and bad results.</p>
+<p>In case the <code>sizes</code> attribute is faked to a lower value and the browser already wants to select a lower candidate, (because the device has a low or metered bandwidth) the browser might choose an unfeasible image candidate instead.</p>
+<p>In case the <code>sizes</code> attribute is faked to a higher value and the browser already wants to select a higher candidate, (because the user has zoomed into this particular image) the browser might be tricked to download a much heavier image candidate than the device actually needs.</p>
+<p>But still this technique can be sometimes used to tell the browser <strong>small</strong> lies.</p>

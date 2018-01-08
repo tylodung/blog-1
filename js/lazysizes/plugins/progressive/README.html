@@ -1,0 +1,17 @@
+<h1 id="lazysizes-progressive-extension"><a href="#lazysizes-progressive-extension" class="headerlink" title="lazysizes progressive extension"></a>lazysizes progressive extension</h1><p>This plugin optimizes perceived performance by adding better support for rendering progressive JPGs/PNGs in conjunction with the LQIP pattern.</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><ul>
+<li><a href="http://www.webpagetest.org/video/view.php?id=150207_0d904cee5186ebf124d4e3014aa5df39895618f0">Watch video</a></li>
+<li>Or try yourself: <a href="http://codepen.io/jschroeter/full/NPwXNv">lazysizes + progressive plugin</a> vs. <a href="http://codepen.io/jschroeter/full/MYOrjB">lazysizes</a></li>
+</ul>
+<h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><p>By default, <a href="http://w3facility.org/question/progressive-jpeg-isnt-progressive-when-changing-image-src-dynamically/">browsers don’t render images progressively when switching from one image to another</a> (e.g. changing the <code>src</code> or adding <code>srcset</code>).<br>When lazysizes detects the image gets visible, this plugin will remove the <code>src</code> attribute and insert it as a background image until the image from <code>srcset</code> is completely loaded.<br>So when using the LQIP pattern, the low quality placeholder will stay visible and the high quality image will render progressively on top of it.<br>This looks especially nice for large images on slow connections.</p>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><ul>
+<li>Use <a href="https://github.com/aFarkas/lazysizes#lqip">LQIP pattern</a></li>
+<li>Make sure your JPGs/PNGs are saved with the progressive/interlaced option: <a href="http://highloadtools.com/progressivejpeg">Online Progressive JPEG checker</a></li>
+</ul>
+<h2 id="Browser-support"><a href="#Browser-support" class="headerlink" title="Browser support"></a>Browser support</h2><p>All browsers with native <code>srcset</code> support. Successfully tested on</p>
+<ul>
+<li>Chrome</li>
+<li>Chrome for Android</li>
+<li>Native Android Browser 4.4</li>
+</ul>
+<p>Actually it works great in Firefox too, but currently Firefox shows an annoying broken image icon for a few seconds after removing the <code>src</code> attribute. To prevent that, the plugin is disabled for browsers without native <code>srcset</code> support. Hopefully this issue will be gone when Firefox gets native <code>srcset</code> support.</p>

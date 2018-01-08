@@ -1,0 +1,49 @@
+<h1 id="lazysizes-unveilhooks-extension"><a href="#lazysizes-unveilhooks-extension" class="headerlink" title="lazysizes unveilhooks extension"></a>lazysizes unveilhooks extension</h1><p>The unveilhooks plugin extends lazySizes to also unveil / lazyload scripts/widgets, background images, styles and video/audio elements:</p>
+<pre><code class="html"><span class="comment">&lt;!-- Background image example: --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-bg</span>=<span class="string">"bg-img.jpg"</span>&gt;</span>
+    <span class="comment">&lt;!-- content --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="comment">&lt;!-- Scripts/Widgets example: --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-script</span>=<span class="string">"module-name.js"</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="comment">&lt;!-- Styles --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-link</span>=<span class="string">"my-style.css"</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="comment">&lt;!-- Video example: --&gt;</span>
+<span class="tag">&lt;<span class="name">video</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-poster</span>=<span class="string">"poster.jpg"</span> <span class="attr">preload</span>=<span class="string">"none"</span>&gt;</span>
+     <span class="comment">&lt;!-- sources --&gt;</span>
+<span class="tag">&lt;/<span class="name">video</span>&gt;</span>
+
+<span class="comment">&lt;!-- require.js * example --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-require</span>=<span class="string">"module-name"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+
+<span class="comment">&lt;!-- Styles &amp; script combined --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lazyload"</span> <span class="attr">data-script</span>=<span class="string">"my-script.js"</span> <span class="attr">data-link</span>=<span class="string">"my-style.css"</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>Note: In case you want to lazyload a background image via a <code>class</code> you can do so by using the <code>addClasses</code> option:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span>
+<span class="css">    <span class="selector-class">.bg-stage</span><span class="selector-class">.lazyloaded</span> {</span>
+<span class="css">        <span class="selector-tag">background-image</span>: <span class="selector-tag">url</span>(<span class="selector-tag">lazyloaded-bg</span><span class="selector-class">.jpg</span>);</span>
+<span class="undefined">    }</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg-stage lazyload"</span>&gt;</span>
+    <span class="comment">&lt;!-- content --&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>For support responsive background images see the <a href="../bgset">bgset extension</a>.</p>
+<p>For more complex loading of styles and AMD modules please see the <a href="../include">include extension</a>.</p>
+<p>Note: To support the require example you need to the requireJs option:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig = <span class="built_in">window</span>.lazySizesConfig || {};
+<span class="built_in">window</span>.lazySizesConfig.requireJs = <span class="function"><span class="keyword">function</span>(<span class="params">modules, cb</span>)</span>{
+    <span class="built_in">window</span>.require(modules, cb);
+};
+</code></pre>

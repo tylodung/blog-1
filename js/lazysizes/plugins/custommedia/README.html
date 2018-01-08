@@ -1,0 +1,66 @@
+<h1 id="lazysizes-custommedia-extension"><a href="#lazysizes-custommedia-extension" class="headerlink" title="lazysizes custommedia extension"></a>lazysizes custommedia extension</h1><p>lazySizes custommedia extension allows you to automatically sync and manage your breakpoints between your CSS and the <code>media</code> attributes of your <code>&quot;picture &gt; source&quot;</code> elements using the <code>customMedia</code> option of lazySizes.</p>
+<h2 id="Configuration-via-CSS"><a href="#Configuration-via-CSS" class="headerlink" title="Configuration via CSS"></a>Configuration via CSS</h2><p>The following CSS…</p>
+<pre><code class="css"><span class="selector-tag">html</span><span class="selector-pseudo">:after</span> {
+    <span class="attribute">display</span>: none;
+    <span class="attribute">content</span>: <span class="string">'--small: (max-width: 500px) | --medium: (max-width: 1100px) | --large: (max-width: 1500px)'</span>;
+}
+</code></pre>
+<p>… allows you to write the following markup:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">picture</span>&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;video style="display: none;"&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/500x600/11e87f/fff"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--small"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/700x300"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--medium"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">source</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1400x600/e8117f/fff"</span></span>
+<span class="tag">        <span class="attr">media</span>=<span class="string">"--large"</span> /&gt;</span>
+    <span class="comment">&lt;!--[if IE 9]&gt;&lt;/video&gt;&lt;![endif]--&gt;</span>
+    <span class="tag">&lt;<span class="name">img</span></span>
+<span class="tag">        <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="</span></span>
+<span class="tag">        <span class="attr">class</span>=<span class="string">"lazyload"</span></span>
+<span class="tag">        <span class="attr">data-srcset</span>=<span class="string">"http://placehold.it/1800x900/117fe8/fff"</span></span>
+<span class="tag">        <span class="attr">alt</span>=<span class="string">"image with artdirection"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">picture</span>&gt;</span>
+</code></pre>
+<p>The parsed custom media query object can be accessed through the <code>lazySizesConfig.customMedia</code> option object:</p>
+<pre><code class="js"><span class="built_in">window</span>.lazySizesConfig.customMedia; <span class="comment">// returns:</span>
+
+<span class="comment">/*</span>
+<span class="comment">{</span>
+<span class="comment">    '--small': '(max-width: 500px)',</span>
+<span class="comment">    '--medium': (min-width: 1100px)',</span>
+<span class="comment">    '--large': '(max-width: 1100px)'</span>
+<span class="comment">}</span>
+<span class="comment">*/</span>
+</code></pre>
+<pre><code class="scss"><span class="comment">/*</span>
+<span class="comment"> Simple Sass mixin to share a map of breakpoints between CSS and JS</span>
+<span class="comment"> Usage:</span>
+<span class="comment"> $breakpoints: (</span>
+<span class="comment">   --small: (max-width: 480px),</span>
+<span class="comment">   --medium: (max-width: 1024px),</span>
+<span class="comment">   --large: (min-width: 1280px)</span>
+<span class="comment"> );</span>
+<span class="comment"></span>
+<span class="comment"> html:after {</span>
+<span class="comment">     @include shareBreakpoints($breakpoints);</span>
+<span class="comment"> }</span>
+<span class="comment">*/</span>
+@<span class="keyword">mixin</span> shareBreakpoints(<span class="variable">$map</span> , <span class="variable">$cssprop</span>: content){
+  <span class="variable">$description</span>: <span class="string">''</span>;
+
+  @<span class="keyword">each</span> <span class="variable">$property</span>, <span class="variable">$value</span> in <span class="variable">$map</span>
+   {
+    @<span class="keyword">if</span> <span class="variable">$description</span> !=  <span class="string">''</span> {
+      <span class="variable">$description</span>: <span class="variable">$description</span> + <span class="string">' | '</span>;
+    }
+    <span class="variable">$description</span>: <span class="variable">$description</span> + <span class="variable">$property</span> +<span class="string">': '</span>+ inspect(<span class="variable">$value</span>);
+  }
+
+  <span class="attribute">display</span>: none;
+  #{<span class="variable">$cssprop</span>}:  <span class="variable">$description</span>;
+}
+</code></pre>

@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2007年3月4日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4861004314/ref=nosim/yutakayamaguc-22" target="_blank" rel="noopener"><img src="http://ec2.images-amazon.com/images/P/4861004314.01._AA130_SCLZZZZZZZ_.jpg" alt=""></a> <a href="http://www.amazon.co.jp/exec/obidos/ASIN/4861004314/ref=nosim/yutakayamaguc-22" target="_blank" rel="noopener">Ajaxライブラリリファレンス</a>を参考に「フォントのサイズを段階的に変更する」というJavascriptを実験してみました。右のサイドバー（トップページのみ）の右上にひっそりとある「+ | - | reset」というリンクをクリックすると、記事のフォントサイズが大きくなったり小さくなったりします。「reset」をクリックすると、元のサイズ（12px）に戻ります。機能的にはあまり役に立ちませんが、課題演習だと思っていただければ。。</p>
 <a id="more"></a>
@@ -63,5 +65,6 @@ divObj.custom( size.current, 12);
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
   <meta name="description" content="💡 Personal notes about somthing I&#39;m interested in" id="meta-description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/blog/css/global.css">
+  <script>window.lazyLoadOptions = {};</script>
 <link rel="stylesheet" href="/blog/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/blog/css/prism-line-numbers.css" type="text/css"></head>
 <body>
@@ -27,6 +28,7 @@
               <span class="calendar-icon">📅</span><span>2009年4月18日</span>
             </time>
           </div>
+          
         </header>
         <div id="article-content" class="content" itemprop="articleBody"><p>WatirをWindows VistaのIE 7で実行する場合は、「保護モード」を何とかする必要がある。これが有効になっていると、Watirで起動したIEに対して処理を指令できなくなる。たとえば、Watir::IE.newしたあとに、gotoメソッド（内部でnavigateメソッドを使用）を実行すると、newしたブラウザではなく、別ブラウザが立ち上がってgotoで指定したURLに移動してしまう。</p>
 <a id="more"></a>
@@ -35,5 +37,6 @@
       </article>
     </main>
   </div>
+  <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
 </body>
 </html>
