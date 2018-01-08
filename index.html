@@ -35,15 +35,13 @@
       <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://df4ggxtayph0v.cloudfront.net/images/benjamin-voros-365387/benjamin-voros-365387_750.jpg" class="lazyload" />
     </picture>              
   </div>
-  <div class="feature__credit">Photo by <a href="" target="_blank" rel="noopener">Benjamin Voros</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></div>
+  <div class="feature__credit">Photo by <a href="https://unsplash.com/photos/StFUwkNsvcY?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Benjamin Voros</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></div>
 </div>
                         
           </header>
           
-            <div class="content" itemprop="articleBody"><p>記事のタイトル下によくあるFeatured Imageを</p>
-<hr>
-<p><img src="/blog/assets/images/generate-responsive-images.png" alt="キャプチャー"></p>
-</div>
+            <div class="content" itemprop="description"><p>記事のタイトル下によくあるFeatured Imageを設置してみようと思い立って、<a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>から良い感じの画像をダウンロードして入れてみた。ちょっと大きい気もするけどまあ良いか。ページサイズ的には特に内容と関係ない画像を入れることのメリットはないけど、、しばらくはそのまま使ってみようと思う。<br></div>
+            <div><a href="/blog/2018/display-featured-image/" itemprop="url">📖 続きを読む</a></div>
           
         </article>
       
@@ -193,5 +191,16 @@
     </main>
   </div>
   <script src="/blog/js/lazysizes/lazysizes.min.js" async></script>
+<script type="text/javascript">
+  // http://css-tricks.com/favicons-next-to-external-links/
+  for (const article of document.getElementsByTagName('article')){
+    for (const link of article.getElementsByTagName('a')){
+      const hostname = link.hostname;
+      if (hostname === location.hostname) { continue; }
+      link.style.background = `url(http://www.google.com/s2/favicons?domain=${hostname}) 4px center no-repeat`;
+      link.style.paddingLeft = '24px';
+    }
+  }
+</script>
 </body>
 </html>
