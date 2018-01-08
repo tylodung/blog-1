@@ -15,6 +15,7 @@ tags:
 
 たとえば画像にborderで枠をつけつつ、横幅いっぱいに表示したいというときに、便利。content-boxのままだと、borderの1pxとかpaddingの幅をある程度考慮してwidthを調整しないといけなくなるけど、border-boxにしてしておけば
 
+```
 img.image-full{
   -moz-box-sizing: border-box;
   -webkig-box-sizing: border-box;
@@ -23,6 +24,8 @@ img.image-full{
   padding: 5px;
   max-width: 100&#x25;;
 }
+
+```
 
 みたいな感じで簡単に指定できる。IE8以降ではないと使用できないけど、[IE7/6用のpolyfill](https://github.com/Schepp/box-sizing-polyfill)が存在するので、IE6にも適用したい場合はそれを使うという手がある（試してないけど）。
 

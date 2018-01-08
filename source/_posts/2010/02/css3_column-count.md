@@ -16,8 +16,11 @@ tags:
 
 追加したCSSは下記のよう感じです。他にもいろいろ追加してますけど不要な部分は割愛。
 
+```
 -webkit-column-count: 3; -webkit-column-gap: 10px;
 -moz-column-count: 3; -moz-column-gap: 10px;
+
+```
 
 -webkitがSafari用で-mozがFirefox用。colum-countは列（カラム）の数を指定して、column-gapは列と列の間の隙間の大きさを指定します。
 

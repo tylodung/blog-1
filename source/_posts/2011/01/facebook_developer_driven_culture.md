@@ -10,7 +10,7 @@ tags:
 
 <!-- more -->
 
-QAについては、公式なQAチームは存在しないと言及しています（「[Facebookには専任のQAチームがいない - メモログ](http://memolog.org/2010/07/facebook_has_no_dedicated_qa.php)」でも以前に紹介しました）。開発者同士でコードレビューしたり、ステージング的な環境に問題があった場合はみんなで報告し合う。
+QAについては、公式なQAチームは存在しないと言及しています（「[Facebookには専任のQAチームがいない - メモログ](/blog//2010/07/facebook_has_no_dedicated_qa/)」でも以前に紹介しました）。開発者同士でコードレビューしたり、ステージング的な環境に問題があった場合はみんなで報告し合う。
 
 そのへん「[How Facebook Ships Code « FrameThink](http://framethink.wordpress.com/2011/01/17/how-facebook-ships-code/)」の記事の長いリストの中で少し詳しく触れられています。前に紹介していたunit testとかintegration testとかは散発的に(sporadically)使用しているみたいで、日常的にはあまり使用していない雰囲気。あとQAチームがあるとバグはQAで発見するからと自分のコードを精査しないで投げちゃうインセンティブになる的なことが書かれています（主観的な意見だけど、通常の開発体制との引き合いで記載しているとの但し書き付き。私の知っているエンジニアの人にはそんな人いません）。あと、push-blockingのテストはリリース前に必ずやるみたい。
 

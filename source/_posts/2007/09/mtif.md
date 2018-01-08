@@ -16,6 +16,7 @@ Movable Type 4 から追加されたMTIfタグを利用して、現在いるペ�
 
 まずナビゲーションのHTMLがこちら。アクティブにしたいタブに「here」というclassを指定しています。MTUnless を併用するともう少しかしこいHTMLにできるかもしれません。
 
+```
 <div id="banner-image">
 <div id="banner-image-inner">
 
@@ -23,10 +24,10 @@ Movable Type 4 から追加されたMTIfタグを利用して、現在いるペ�
 <div id="topnavi-inner">
 <ul>
 <li class="rss"><a href="http://feeds.feedburner.jp/memolog">
-<img width="9" height="9" alt="RSS" src="http://memolog.org/mt/mt-static/images/status_icons/feed.gif"/>
+<img width="9" height="9" alt="RSS" src="/blog//assets/mt/mt-static/images/status_icons/feed.gif"/>
 RSS</a></li>
 <li class="archives<MTIf name="archive_index"> here</MTIf><
-MTIf name="entry\_template"> here</MTIf><MTIf name="datebased\_archive"> here</MTIf>"><a href="
+MTIf name="entry_template"> here</MTIf><MTIf name="datebased_archive"> here</MTIf>"><a href="
 <$MTBlogURL$>/archives.html">archives</a></li>
 <li class="profile"><a href="http://memolog.org/mt/mt-search.cgi?tag=profile&IncludeBlogs=5">profile</a></li>
 <li class="home <MTIf name="main_index">here</MTIf>"><a href="<$MTBlogURL$>">home</a></li>
@@ -37,10 +38,13 @@ MTIf name="entry\_template"> here</MTIf><MTIf name="datebased\_archive"> here</M
 </div>
 </div>
 
+```
+
 CSSはこんな感じ。背景画像の上にタブを載せているので、表示がずれないようにピクセル単位でガチガチに指定しています（ulのマージンが入ることに気づかずに、しばらく悩んだ）。
 
-/\* top navigation */
-#banner-image {height:160px; background:#fff url(http://memolog.org/site-design/0701/050101.gif) no-repeat; width:940px; margin:0 auto;}
+```
+/* top navigation */
+#banner-image {height:160px; background:#fff url(/blog//assets/site-design/0701/050101.gif) no-repeat; width:940px; margin:0 auto;}
 #banner-image-inner {padding-top:125px;}
 
 #topnavi {height:35px;}
@@ -53,3 +57,5 @@ font-size:11px; font-familiy:Verdana,sans-serif; opacity: 0.8;-moz-opacity: 0.8;
 #topnavi li.here a{background-color:#fff; opacity: 1;-moz-opacity: 1;filter: alpha(opacity=100);}
 #topnavi li a:hover {background-color:#A1D0FF; opacity: 1;-moz-opacity: 1;filter: alpha(opacity=100);}
 #topnavi li.rss img {margin-right:4px;}
+
+```

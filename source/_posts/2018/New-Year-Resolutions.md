@@ -1,6 +1,10 @@
 ---
 title: New Year Resolutions
 date: 2018-01-03 07:34:59
+featured: 
+  author: NordWood Themes
+  image: nordwood-themes-467442
+  authorLink: https://unsplash.com/photos/zNS6oFkwlG4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 ---
 今年は何をするかについて簡単なメモをとっておこうと思う。全部はできないとは思うけど、いくつかは達成したい。
 

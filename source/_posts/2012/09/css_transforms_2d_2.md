@@ -7,7 +7,7 @@ tags:
 - css
 - transform
 ---
-[CSS Transforms (2D) - メモログ](http://memolog.org/2012/09/css_transforms_2d.php)の続きで、transform-originについて。回転などtransformの変換はデフォルトでは要素の中心（50&#x25; 50&#x25;）を軸に行われる。たとえば、rotate(45deg)の場合は以下のような感じ
+[CSS Transforms (2D) - メモログ](/blog//2012/09/css_transforms_2d/)の続きで、transform-originについて。回転などtransformの変換はデフォルトでは要素の中心（50&#x25; 50&#x25;）を軸に行われる。たとえば、rotate(45deg)の場合は以下のような感じ
 
 <!-- more -->
 
@@ -27,6 +27,7 @@ transform-originを150&#x25; 150&#x25;などに設定することで、要素の
 
 サンプル
 
+```
 @-moz-keyframes rotate {
   from { -moz-transform: rotate(0deg); }
   to { -moz-transform: rotate(360deg); } 
@@ -80,10 +81,12 @@ transform-originを150&#x25; 150&#x25;などに設定することで、要素の
   animation-timing-function: linear;
 }
 
+```
+
 CSS Transforms 関連記事
 -------------------
 
-*   [CSS Transforms: transform](http://memolog.org/2012/09/css_transforms_2d.php)
-*   [CSS Transforms: transform-origin](http://memolog.org/2012/09/css_transforms_2d_2.php)
-*   [CSS Transforms: perspective](http://memolog.org/2012/09/css_transforms_3d_and_perspective.php)
-*   [CSS Transforms: 3D rendering context (transform-style)](http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php)
+*   [CSS Transforms: transform](/blog//2012/09/css_transforms_2d/)
+*   [CSS Transforms: transform-origin](/blog//2012/09/css_transforms_2d_2/)
+*   [CSS Transforms: perspective](/blog//2012/09/css_transforms_3d_and_perspective/)
+*   [CSS Transforms: 3D rendering context (transform-style)](/blog//2012/09/css_transforms_3d_and_transform-style/)

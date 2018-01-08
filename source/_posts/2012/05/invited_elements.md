@@ -12,6 +12,7 @@ tags:
 
 [TypeButter](http://typebutter.com/)というサービスで、カーニング処理をするために「kern」という要素を挿入する。
 
+```
 <em style="font-size: 36px; line-height: 36px;">T
 <kern style="letter-spacing:-0.02em">h</kern>
 e New <kern style="letter-spacing:-0.09em">Y</kern>
@@ -24,10 +25,13 @@ e New <kern style="letter-spacing:-0.09em">Y</kern>
 </em>
 (http://typebutter.com/)
 
+```
+
 kernという要素はHTML5に存在する要素ではなくて、TypeButterがカーニング処理のために独自に用意している要素。存在しない要素がブラウザ上で正常に処理するかというと、問題なく処理される。では、特定の用途のために独自の要素を用意していいかというと、HTML5の仕様上は許されない。
 
 下記のようにelement要素を使用して要素のカスタマイズすることは可能らしい。
 
+```
 <element extends="span" name="x-kern"></element>
 <h1>
 <span is="x-kern" style="...">A</span>
@@ -37,6 +41,8 @@ kernという要素はHTML5に存在する要素ではなくて、TypeButterが�
 mn
 </h1>
 (http://meyerweb.com/eric/thoughts/2012/03/28/customizing-your-markup/)
+
+```
 
 しかし、この仕様に沿ったカスタマイズ方法は不格好だし、独自の要素を使ったときに「既存のCSSとコンフリクトしない（span要素にCSSが設定されていたらそれに影響される）」という利点がなくなってしまう。だから現状使えるのだから独自要素を用意しても良いのではないかみたいなことを述べています。
 

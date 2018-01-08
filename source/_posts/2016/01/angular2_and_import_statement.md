@@ -12,7 +12,6 @@ tags:
 <!-- more -->
 
 ```javascript
-
 import {Component} from 'angular2/core';
 
 @Component({
@@ -20,7 +19,6 @@ import {Component} from 'angular2/core';
     template: 'My First Angular 2 App'
 })
 export class AppComponent { }
-
 ```
 
 これはES6（ES2015）で追加された[import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)機能。ES7でも[javascript-decorators/README.md at master ? wycats/javascript-decorators](https://github.com/leebyron/ecmascript-more-export-from)にて追加の宣言が提案されていて、このページには、ES6の宣言方法もリストにされてあって見やすい。
@@ -28,41 +26,31 @@ export class AppComponent { }
 使い方は、たとえばモジュール側で[export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)で下記のように宣言したとする。
 
 ```javascript
-
 export function foo (){}
 export function bar (){}
-
 ```
 
 それをimportで呼び出すには、同じfunction名を使って呼び出すだけでいい。カンマ区切りで複数のfunctionを同時にimportできる。
 
 ```javascript
-
 import {foo, bar} from "./foobar.js"
-
 ```
 
 モジュール全体を呼び出すなら、「*」を使って呼び出すだけで良い。
 
 ```javascript
-
 import * as foobar from "./foobar.js"
 foobar.foo()
-
 ```
 
 exportするモジュールでdefaultが設定されていれば、defaultのモジュールをシンプルな書き方で呼び出せる。
 
 ```javascript
-
 export default function  (){ console.log("foobar") }
-
 ```
 
 ```javascript
-
 import foobar from "foobar.js"
-
 ```
 
 import / export のstatementは、現状で使われている CommonJS方式やAMD方式のメリットを踏襲しつつ、より簡潔で静的な解析がしやすい（=optimizeがしやすい）ものになっている。らしい。詳しくは[ECMAScript 6 modules: the final syntax](http://www.2ality.com/2014/09/es6-modules-final.html)が参考になる。いまのところ直接サポートしているブラウザはなくて、[Babel](https://babeljs.io/docs/learn-es2015/#modules)などのtranspilerを使う感じになる。

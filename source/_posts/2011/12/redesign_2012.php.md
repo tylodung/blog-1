@@ -7,11 +7,11 @@ tags:
 - design
 - jquery
 ---
-デザインを変更してみました。前回の変更は[こちら](http://memolog.org/2010/12/redesign_2011.php)。今回はコンテンツ部分はほとんど変えずに、ヘッダー/フッター周りとかを中心に。
-
-<!-- more -->
+デザインを変更してみました。前回の変更は[こちら](/blog//2010/12/redesign_2011/)。今回はコンテンツ部分はほとんど変えずに、ヘッダー/フッター周りとかを中心に。
 
 メインの変更としましては、今年流行の[responsive web design](http://www.alistapart.com/articles/responsive-web-design/)的な対応をしてみました。[Breakpoints.js](http://coliss.com/articles/build-websites/operation/javascript/jquery-plugin-breakpoints.html)というjqueryのpluginを使用すると、bodyに「breakpoint-1024」みたいなclassを表示サイズにあわせて追加してくれるので、そこでCSSを追加しただけというシンプルな方法で。あとviewpointの設定を<meta name="viewport" content="width=device-width" />に変更しました。まあとりあえず動作するところまで作りたかったので、もろもろ随時改善はしていきたいなあと思っています（思っているだけ）。
+
+<!-- more -->
 
 いまのところCSSで非表示にしているだけなので、コンテンツの出力はするし、画像も表示サイズにフィットするようにはしてみましたがファイルサイズは変わらないので、3Gで写真系のコンテンツを見ようとすると結構時間がかかってします。そのあたりも最適化できるのが理想ではあります。けど、まあ、簡単にできる方法がわからないので保留（簡単な方法あるのかな）。
 
@@ -40,9 +40,12 @@ tags:
 
 トップページとカテゴリーアーカイブについては、記事部分の幅を「95&#x25;」にしつつ、各記事が3つずつ並ぶように調整してみました。float:leftで回り込みさせているだけなので、概要の長さによって期待通りに3列になってくれない場合がある。ので、.post:nth-child(3n+1)でclear:floatしてみました。nth-childに対応していないブラウザでは気にしない方向で..
 
+```
 .index #posts,.category #posts{ max-width: 95&#x25;; }
 .breakpoint-768 .list-post,.breakpoint-1024 .list-post{width: 31&#x25;; float:left; margin: 1em 1em 0 0;}
 .post:nth-child(3n+1){clear:both;}
+
+```
 
 #### 追記 (2012/5/23)
 
@@ -50,4 +53,4 @@ Breakpoint.jsをやめて、普通にmedia queriesで処理するように変更
 
 #### 追記（2012/6/18）
 
-JQuery Masonryを使用してpinterest風にしてみました。[縦方向のfloatを実現するjQuery Masonry - メモログ](http://memolog.org/2012/06/jquery_masonry.php)
+JQuery Masonryを使用してpinterest風にしてみました。[縦方向のfloatを実現するjQuery Masonry - メモログ](/blog//2012/06/jquery_masonry/)

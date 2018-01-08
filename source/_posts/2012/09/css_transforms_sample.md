@@ -28,6 +28,7 @@ Firefox/Chromeでは動作確認済み。Operaは[transformの3Dが未対応](ht
 
 sassのコードは下記のような感じ。
 
+```
 @import "compass/css3/box-sizing";
 @import "compass/css3/transform";
 
@@ -38,7 +39,7 @@ sassのコードは下記のような感じ。
   @if($bottom){ bottom: $bottom }  
 }
 
-\* {
+* {
   @include box-sizing(border-box);
 }
 
@@ -51,7 +52,7 @@ sassのコードは下記のような感じ。
   width: 400px;
   height: 400px;
   
-  \> div,
+  > div,
   .five,.six {
     position: absolute;
     width: 100px;
@@ -308,6 +309,8 @@ sassのコードは下記のような感じ。
     100&#x25;{ @include transform(rotateX(-90deg)) }
   }
 
+```
+
 vendor prefixのせいもありやたら長いですが、やっていることは全体をてきとうに回転させつつ、サイコロの各面の要素を90度に回転させているだけです。あとは、各面の接しているところが離れないようにtransform-originを設定していたりとか、「5」と「6」は二面を90度に曲げたあとに「6」だけさらに90度曲げるために、five-sixという親divを用意してそこに3D rendering contextを別途生成しています。でも、そのくらい。
 
 という感じ。実用的かどうかはさておき、いつの間にかCSSだけでここまでできるようになっていて、いろいろすごい。隔世の感があります。
@@ -315,10 +318,10 @@ vendor prefixのせいもありやたら長いですが、やっていること�
 CSS Transforms 関連記事
 -------------------
 
-*   [CSS Transforms: transform](http://memolog.org/2012/09/css_transforms_2d.php)
-*   [CSS Transforms: transform-origin](http://memolog.org/2012/09/css_transforms_2d_2.php)
-*   [CSS Transforms: perspective](http://memolog.org/2012/09/css_transforms_3d_and_perspective.php)
-*   [CSS Transforms: 3D rendering context (transform-style)](http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php)
-*   [CSS Transforms: backface-visibility](http://memolog.org/2012/09/css_transforms_backface-visibility.php)
+*   [CSS Transforms: transform](/blog//2012/09/css_transforms_2d/)
+*   [CSS Transforms: transform-origin](/blog//2012/09/css_transforms_2d_2/)
+*   [CSS Transforms: perspective](/blog//2012/09/css_transforms_3d_and_perspective/)
+*   [CSS Transforms: 3D rendering context (transform-style)](/blog//2012/09/css_transforms_3d_and_transform-style/)
+*   [CSS Transforms: backface-visibility](/blog//2012/09/css_transforms_backface-visibility/)
 
 var dice = document.getElementById('dice'); dice.addEventListener('touchstart',function(e){ e.preventDefalt(); e.stopPropagation(); dice.className = 'dice dice-active'; }); dice.addEventListener('touchend',function(e){ dice.className = 'dice'; });

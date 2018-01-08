@@ -12,8 +12,12 @@ jQueryで要素を作成する場合、[jQuery()のExample](http://api.jquery.co
 
 <!-- more -->
 
+```
 $( "<div><p>Hello</p></div>" ).appendTo( "body" )
 
+```
+
+```
 $( "<div/>", {
 "class": "test",
 text: "Click me!",
@@ -22,16 +26,21 @@ $( this ).toggleClass( "test" );
 }
 }).appendTo( "body" );
 
+```
+
 処理としては、前者は最終的にdocumentFragmentにappendしたdiv要素のinnerHTMLを使って要素を作成して、後者はcreateElementで要素を作成した後に二番目の引数に指定したattributeをそれぞれ設定していく感じ。
 
 それでどちらの方法が処理的に速いのかなと思って、[jsperfにテストを用意してみました](http://jsperf.com/innerhtml-vs-addattribute-later)。このテストでは、前者のinnerHTMLを使用する方が速かったです。後者の場合はattributeを一つずつ設定していくので、結果としてinnerHTMLより遅くなる雰囲気（たぶん）。設定するプロパティが増えてくると、innerHTMLとの差がより顕著に出るかもしれません。
 
 jsperfのテストでは、さらに下記のような素のJavaScriptで実行した場合の結果もつけてみました。素の方が当たり前ですが、色々何もしないので高速。
 
+```
 var div = document.createElement('div');
 div.setAttribute('class','foobar');
 'textContent' in div ? div.textContent = 'foobar' : div.appendChild(document.createTextNode('foobar'));
 var $div = $(div);
+
+```
 
 最後の行の「var $div = $(div);」のように、引数がDOMElementの場合はjQueryオブジェクトのcontextにその引数を設定するだけみたいなので、素のJavaScriptでDOMElementを生成して、それをjQueryオブジェクトとしてラップする方が速い雰囲気（buildFragmentの過程で生成されるキャッシュが有効に活用できる場合はjQueryで生成した方が総合的には速いのかもしれないけど未確認）。
 

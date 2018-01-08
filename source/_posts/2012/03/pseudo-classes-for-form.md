@@ -20,6 +20,7 @@ Read and Write
 
 上記のHTMLソースはこんな感じ（あまり良い例ではない）。
 
+```
 <form id="form">
 <style>
 <!--
@@ -32,8 +33,8 @@ Read and Write
 #form #email:invalid + label::after { content: ' NG'; }
 #form #email:valid + label::after { content: ' OK'; }
 #form #email:valid + label{ color:green; }
-#form input\[type='number'\]:out-of-range { border-color: #c90000; }
-#form input\[type='number'\]:in-range { border-color: green; }
+#form input[type='number']:out-of-range { border-color: #c90000; }
+#form input[type='number']:in-range { border-color: green; }
 #form textarea:read-only { user-select: none; -moz-user-select: none;-webkit-user-select: none; border:2px dashed #ccc;}
 #form textarea:read-write { user-select: text; }
 -->
@@ -45,6 +46,8 @@ Read and Write
 <textarea readonly>Read only</textarea><br />
 <textarea>Read and Write</textarea>
 </form>
+
+```
 
 type=emailの場合のvalidationについては、[HTML5のE-mailの項目](http://dev.w3.org/html5/spec/Overview.html#e-mail-state-type-email)の下の方に詳しく記載されています。RFC5322の規定よりも実際的な内容になっていて、いわゆるDocomo携帯の「@」の前に「.」が入ったアドレスでもvalidとして判定されます。
 

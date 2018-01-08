@@ -10,12 +10,13 @@ tags:
 
 <!-- more -->
 
-Cyclomatic complexityは、（Wikipediaに書いてありますが）コードの中で独立した処理の進み方がいくつあるかを示したもので、コードの複雑度の指標となります。[Sublime Text 2 で JSHint](http://memolog.org/2013/04/sublime_text_2_jshint.php)の記事でもそういえば書いていましたが（忘れてた）、Cyclomatic complexityは10以下が妥当な範囲としています（[Testable JavaScript](http://www.amazon.co.jp/gp/product/B00B1WLE92/ref=as_li_ss_tl?ie=UTF8&camp=247&creative=7399&creativeASIN=B00B1WLE92&linkCode=as2&tag=yutakayamaguc-22)![](http://ir-jp.amazon-adsystem.com/e/ir?t=yutakayamaguc-22&l=as2&o=9&a=B00B1WLE92) 参照）。JSHintでは[maxcomplexity](http://www.jshint.com/docs/options/#maxcomplexity)で設定することができます。
+Cyclomatic complexityは、（Wikipediaに書いてありますが）コードの中で独立した処理の進み方がいくつあるかを示したもので、コードの複雑度の指標となります。[Sublime Text 2 で JSHint](/blog//2013/04/sublime_text_2_jshint/)の記事でもそういえば書いていましたが（忘れてた）、Cyclomatic complexityは10以下が妥当な範囲としています（[Testable JavaScript](http://www.amazon.co.jp/gp/product/B00B1WLE92/ref=as_li_ss_tl?ie=UTF8&camp=247&creative=7399&creativeASIN=B00B1WLE92&linkCode=as2&tag=yutakayamaguc-22)![](http://ir-jp.amazon-adsystem.com/e/ir?t=yutakayamaguc-22&l=as2&o=9&a=B00B1WLE92) 参照）。JSHintでは[maxcomplexity](http://www.jshint.com/docs/options/#maxcomplexity)で設定することができます。
 
 計測には、M = E - N + P という計算式が使われます。詳細は[Cyclomatic complexity - Description](http://en.wikipedia.org/wiki/Cyclomatic_complexity#Description)に書かれていますが、Javascriptのfunctionは、functionの処理が終わった後は、処理を実行した場所(entry point)に戻るので、JavascriptのfunctionのCyclomatic complexityを調べるなら、2PではなくPになる（日本語のWikipediaはそのあたりの説明が薄い）。
 
 この式のMはcomplexityで、Eがedgeの数、Nがnodeの数で、Pがexit nodeの数になる（javascript functionの場合、常に1つだけになる）。[Cyclomatic complexity - Implications for Software Testing](http://en.wikipedia.org/wiki/Cyclomatic_complexity#Implications_for_Software_Testing)の内容を参考にすると、
 
+```
 function () {
   if (c1()) {
     f1();
@@ -29,6 +30,8 @@ function () {
     f4();
   }
 }
+
+```
 
 のような処理をcontrol flow graphにすると、添付の図のようになる。edge(E)は矢印の部分になる。nodeは丸の部分で、赤丸がentry point、青色がexit pointとなっている。  
   

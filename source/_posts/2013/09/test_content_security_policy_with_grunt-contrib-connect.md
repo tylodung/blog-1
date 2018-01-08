@@ -9,7 +9,7 @@ tags:
 ---
 Content Security Policy (CSP)をgrunt-contrib-connectで設定するのにはどうしたら良いかという話。
 
-やり方としては、[grunt-contrib-connect タスクで CORS を有効にする - メモログ](http://memolog.org/2013/07/grunt-contrib-connect_with_cors.php)と同様、middlewareのオプションに追加する。
+やり方としては、[grunt-contrib-connect タスクで CORS を有効にする - メモログ](/blog//2013/07/grunt-contrib-connect_with_cors/)と同様、middlewareのオプションに追加する。
 
 <!-- more -->
 

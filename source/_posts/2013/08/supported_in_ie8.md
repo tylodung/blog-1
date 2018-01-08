@@ -30,7 +30,7 @@ last-childには対応していない。first-childは使えるけど完璧で�
 
 あと、max-width/min-width/max-height/min-heightは、box-sizingを変更してもcontent boxの状態で計算されるという問題がありました。
 
-box-sizingについては、[responsive grid と box-sizing](http://memolog.org/2012/05/responsive_grid_box-sizing.php)で紹介していましたが（忘れてたけど）、widthの対象をborderまで含めると、いろいろと楽な面が大きい。vendor-prefixを含めれば、どのブラウザでもほぼ問題なく使用できる。もうボックスモデルの問題は過去のものになったと言える。たぶん。
+box-sizingについては、[responsive grid と box-sizing](/blog//2012/05/responsive_grid_box-sizing/)で紹介していましたが（忘れてたけど）、widthの対象をborderまで含めると、いろいろと楽な面が大きい。vendor-prefixを含めれば、どのブラウザでもほぼ問題なく使用できる。もうボックスモデルの問題は過去のものになったと言える。たぶん。
 
 max-width/min-widthも地味に便利。IE8以前では、コンテンツの幅より大きなサイズの画像の場合だけ、コンテンツの幅にあわせて表示する、ということが簡単にできなかった。display:inline-block や display:table はverticalな配置を整えるときに便利。
 

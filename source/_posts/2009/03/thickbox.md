@@ -6,7 +6,7 @@ categories:
 tags:
 - photo
 ---
-前回使ってみた[Flickr to HTML](http://memolog.org/2009/03/flickr-to-html.php)ではlightboxのためのrel属性がデフォルトで付いているので、[jqueryで使えるlightbox](http://leandrovieira.com/projects/jquery/lightbox/)を使ってみようかなと思ったのですが、モーションテンプレートでは[Thickbox](http://jquery.com/demo/thickbox/)をもともと使えるようになっているのでFlickr to HTML のHTMLを少しだけ変えて、Thickboxを有効にしてみる。
+前回使ってみた[Flickr to HTML](/blog//2009/03/flickr-to-html/)ではlightboxのためのrel属性がデフォルトで付いているので、[jqueryで使えるlightbox](http://leandrovieira.com/projects/jquery/lightbox/)を使ってみようかなと思ったのですが、モーションテンプレートでは[Thickbox](http://jquery.com/demo/thickbox/)をもともと使えるようになっているのでFlickr to HTML のHTMLを少しだけ変えて、Thickboxを有効にしてみる。
 
 <!-- more -->
 

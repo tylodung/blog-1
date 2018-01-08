@@ -10,6 +10,7 @@ tags:
 
 たとえば以下のようなHTMLがあるとして、
 
+```
   <div class="entries">
     <article>foo</article>
     <article>bar</article>
@@ -22,9 +23,14 @@ tags:
     </ul>
   </div>
 
+```
+
 article要素の最後の子要素に枠線を入れたいとして、下記のようにCSSを入れるとする。でもこれだとうまくいかない。どこにもborderはつかないことになる。
 
+```
 article:last-child{ border:1px solid #ddd; }
+
+```
 
 仕様を参照すると、下記のように書かれている（:last-childは:nth-last-child(1)と同義なので、そちらの仕様）。
 
@@ -40,6 +46,7 @@ article:last-child{ border:1px solid #ddd; }
 
 この場合、article:nth-last-child(2)というかたちで指定するか、下記のようにHTMLの構造を変更する。
 
+```
   <div class="entries">
     <article>foo</article>
     <article>bar</article>
@@ -49,5 +56,7 @@ article:last-child{ border:1px solid #ddd; }
   <ul>
     <li><a href="#">next</a></li>
   </ul>
+
+```
 
 （追記）HTMLを返る必要はなく、article:last-type-of を使用すればいい。

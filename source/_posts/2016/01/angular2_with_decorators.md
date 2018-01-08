@@ -18,7 +18,6 @@ Decorators は [ECMAScript](https://github.com/tc39/ecma262) で Propose とな�
 [Exploring ES2016 Decorators -- Google Developers -- Medium](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841)に記述されているサンプルコード（一部）は下記のような感じ。
 
 ```javascript
-
 function readonly(target, key, descriptor){
   descriptor.writable = false;
   return descriptor
@@ -27,7 +26,6 @@ class Cat {
   @readonly
   meow() { return `${this.name} says Meow`; }
 }
-
 ```
 
 上記の例の場合、meow functionオブジェクトの writable プロパティが false に設定される。
@@ -35,7 +33,6 @@ class Cat {
 Angular.ioの[5 Min Quickstart](https://angular.io/docs/ts/latest/quickstart.html)では、下記のようなサンプルコードが載っている。@ComponentのDecoratorsで設定したプロパティが、AppComponentに設定される。
 
 ```javascript
-
 import {Component} from 'angular2/core';
 
 @Component({
@@ -43,7 +40,6 @@ import {Component} from 'angular2/core';
     template: 'My First Angular 2 App'
 })
 export class AppComponent { }
-
 ```
 
 （なお、TypeScriptをJavascriptにcompileする場合には、tsconfigのcompilerOptionsで"experimentalDecorators": trueの設定が必要がある。）

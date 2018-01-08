@@ -14,7 +14,10 @@ tags:
 
 追加したCSSはこんな感じ。特に何のひねりもないです。
 
+```
 .asset-content{text-align:justify; text-justify:distribute;}
+
+```
 
 IE 6で確認した感じでは、日本語の両端揃えはまだtext-justifyの方が有効に機能するようなので、text-justify:distribute;を入れています。英文であればtext-align:justifyのみで問題なさそうな感じでした。
 

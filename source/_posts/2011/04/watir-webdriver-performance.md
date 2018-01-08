@@ -14,11 +14,14 @@ tags:
 
 watir-webdriver-performanceの使い方はrequireするだけ。requireするとWatir::Browserのclassをオープンしてpeformanceとかメソッドを追加してくれます。内部的にはexecute_scriptでJavascriptのwindow.peformance、またはそれに準じたブラウザ固有の関数を実行してまとめる、みたいなことをしています。window.peformanceは[W3C Navigation Timing API: Better Page Load Time Measurements in Chrome and IE | Web Performance Optimization](http://blog.yottaa.com/2011/03/w3c-navigation-timing-api-better-page-load-time-measurements-in-chrome-and-ie/)によると、現在はIE9とChromeのみが対応しているみたいで、Firefoxとかで使用しても現在はnilになってしまいます。
 
+```
 require 'watir-webdriver'
 require 'watir-webdriver-performance'
 
 b = Watir::Browser.new :chrome
 b.goto 'http://memolog.org'
-puts b.peformance.summary\[:response_time\]
+puts b.peformance.summary[:response_time]
+
+```
 
 正直、watir上でこの情報を収集できることの利点が良く分かっていませんが、たとえばターゲットのURLに100回アクセスしてパフォーマンスの平均を取るとか、そういうことをしたい場合は有用かもしれません。

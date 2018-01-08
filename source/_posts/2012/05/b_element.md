@@ -22,10 +22,13 @@ HTML5になってb要素の定義が変更されている。4.01のときの仕�
 
 このb要素ですが、[Responsive Web Designの本](http://www.abookapart.com/products/responsive-web-design)の中では、CSSのフックとして使っている。
 
+> ```
 > <div class="figure"> <p>
 > <img src="robot.jpg" alt="" />
 > <b class="figcaption">Lo, the robot walks</b> </p>
 > </div>
+> 
+> ```
 > 
 > Nothing fancy: an img element, followed by a brief but de- scriptive caption wrapped in a b element. I'm actually appro- priating the HTML5 figure/figcaption tags as class names in this snippet, which makes for a solidly semantic foundation.
 > 

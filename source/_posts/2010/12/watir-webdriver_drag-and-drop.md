@@ -8,7 +8,7 @@ tags:
 - watir
 - webdriver
 ---
-一つ前の記事で[watirはselenium-webdriverのラッパー的な感じ](http://memolog.org/2010/12/watir-webdriver-alternative-attach-method.php)であると申しました。なので、watir-webdriverでもselenium-webdriverで実装されているメソッドを直接使用することも可能です。
+一つ前の記事で[watirはselenium-webdriverのラッパー的な感じ](/blog//2010/12/watir-webdriver-alternative-attach-method/)であると申しました。なので、watir-webdriverでもselenium-webdriverで実装されているメソッドを直接使用することも可能です。
 
 <!-- more -->
 
@@ -18,21 +18,27 @@ drag\_and\_drop\_by(right\_by, down\_by) は、メソッドの対象の要素の
 
 実際にwatir-webdriver上で動かす場合はこんな具合に。
 
+```
 require 'rubygems'
 require 'watir-webdriver'
 
 browser = Watir::Browser.new :firefox
-target\_element = browser.driver.find\_element(:name,'foo')
-target\_element.drag\_and\_drop\_by 100,200
+target_element = browser.driver.find_element(:name,'foo')
+target_element.drag_and_drop_by 100,200
+
+```
 
 drag\_and\_drop_onを使用する場合はこんな具合。
 
+```
 require 'rubygems'
 require 'watir-webdriver'
 
 browser = Watir::Browser.new :firefox
-target\_element = browser.driver.find\_element(:name,'foo')
+target_element = browser.driver.find_element(:name,'foo')
 distination = browser.driver.find_element(:name,'bar')
-target\_element.drag\_and\_drop\_on distination
+target_element.drag_and_drop_on distination
+
+```
 
 現在はこのメソッドはFirefoxでのみ動作するみたいですが、これは助かりますね。

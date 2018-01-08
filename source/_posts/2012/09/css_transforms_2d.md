@@ -11,6 +11,7 @@ tags:
 
 <!-- more -->
 
+```
 #foobar {
   -moz-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
   -webkit-transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
@@ -19,15 +20,20 @@ tags:
   transform: translate(10px,10px), rotate(45deg), scale(0.8,0.8);
 }
 
+```
+
 translateが移動、rotateが回転、scaleが拡大/縮小。上記のようにtransform functionsが複数併記されている場合、下記のような指定をしたのと同じ変換になる（左から順に変換されるイメージ）。
 
 transform functionsではmatrix(, , , , , )というかたちでどのように座標変換するか指定することもできるので、予め計算できるようであれば複数のtransform functionsを指定するよりmatrixで指定するほうが効率的であると思われる。
 
+```
 <div style="transform: translate(10px, 10px)">
     <div style="transform: rotate(45deg)">
         <div style="transform: scale(0.8,0.8)"></div>
     </div>
 </div>
+
+```
 
 サンプル
 
@@ -46,7 +52,7 @@ skewY
 CSS Transforms 関連記事
 -------------------
 
-*   [CSS Transforms: transform](http://memolog.org/2012/09/css_transforms_2d.php)
-*   [CSS Transforms: transform-origin](http://memolog.org/2012/09/css_transforms_2d_2.php)
-*   [CSS Transforms: perspective](http://memolog.org/2012/09/css_transforms_3d_and_perspective.php)
-*   [CSS Transforms: 3D rendering context (transform-style)](http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php)
+*   [CSS Transforms: transform](/blog//2012/09/css_transforms_2d/)
+*   [CSS Transforms: transform-origin](/blog//2012/09/css_transforms_2d_2/)
+*   [CSS Transforms: perspective](/blog//2012/09/css_transforms_3d_and_perspective/)
+*   [CSS Transforms: 3D rendering context (transform-style)](/blog//2012/09/css_transforms_3d_and_transform-style/)

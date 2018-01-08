@@ -12,6 +12,7 @@ watir-webdriverからFirefoxを起動すると、webdriver用に調整された�
 
 <!-- more -->
 
+```
 require 'rubygems'
 require 'watir-webdriver'
 
@@ -19,6 +20,8 @@ profile = Selenium::WebDriver::Firefox::Profile.new
 profile.add_extension("./firebug.xpi",:firebug)
 selenium = Selenium::WebDriver.for :firefox,:profile=>profile
 watir = Watir::Browser.new selenium
+
+```
 
 単純にWatir::Browser.newとすると、Selenium::Webdriverで用意したデフォルトの設定しか利用できないため、Selenium::Webdriver用の独自のプロフィールファイルを作成して、それを読み込ませたSelenium::WebdriverをWatirで操作するオブジェクトとします。
 

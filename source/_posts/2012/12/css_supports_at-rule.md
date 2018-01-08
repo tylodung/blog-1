@@ -10,18 +10,24 @@ tags:
 
 <!-- more -->
 
+```
 @supports (display:flex) {
   section { display: flex }
   ...
 }
 
-@supportsは、上記のような感じで「(property:value)」と指定して、そのプロパティと値をブラウザがサポートしている場合のみ、{}内のCSSが適用されるというもの。at-ruleなので、@supportsを使用できないブラウザでは、{}内は無視される（このへんの詳細は[CSSのエラーの扱い方 - メモログ](http://memolog.org/2012/06/how_css_handles_errors.php)を参照）。サポート状況は[Can I use CSS Feature Queries](http://caniuse.com/css-featurequeries)によると、現時点ではOpera（と[Firefox Aurora](http://www.mozilla.jp/firefox/preview/)）のみなので、実用にはまだ時間がかかりそう。
+```
+
+@supportsは、上記のような感じで「(property:value)」と指定して、そのプロパティと値をブラウザがサポートしている場合のみ、{}内のCSSが適用されるというもの。at-ruleなので、@supportsを使用できないブラウザでは、{}内は無視される（このへんの詳細は[CSSのエラーの扱い方 - メモログ](/blog//2012/06/how_css_handles_errors/)を参照）。サポート状況は[Can I use CSS Feature Queries](http://caniuse.com/css-featurequeries)によると、現時点ではOpera（と[Firefox Aurora](http://www.mozilla.jp/firefox/preview/)）のみなので、実用にはまだ時間がかかりそう。
 
 @supportsの指定では「and」と「or」を使って条件を複数指定することと、「not」を指定して否定の条件を指定することもできます。「else」のようなものはないので、特定の機能をサポートしている場合としていない場合でCSSを宣言したい場合は、@supportsのルールを二つ用意する必要がある。
 
+```
 @supports (display:flex and color:red){ ... }
 @supports (display:flex or display:none){ ... }
 @supports not (display:flex){ ... }
+
+```
 
 CSSの場合は、基本的にサポートしていない値が指定されている場合はうまい感じに無視してくれるので、@supportsはあまり必要としませんが、flexboxのように特定の機能のサポートと関係の強いCSSの指定がたくさんあるような場合は便利。
 

@@ -12,13 +12,16 @@ tags:
 <!-- more -->
 *   [疑似クラス、疑似要素とは何か \- メモログ](/blog//2007/07/pseudo-classes-pseudo-elements/)
 
-CSS3にあるtarget疑似クラスをつかって表示をオン・オフすることができるんだよ。それはすごい！というような内容の話。target疑似クラスとはアンカーのあるリンクを特定する方法で、たとえば「#test:target」というCSSは、URLが「http://memolog.org/index.html#test」の場合にのみ作用します。言い換えると、「<a href="index.html#test">test</a>」というリンクをクリックしたあとのページで作用するようなCSSになります。
+CSS3にあるtarget疑似クラスをつかって表示をオン・オフすることができるんだよ。それはすごい！というような内容の話。target疑似クラスとはアンカーのあるリンクを特定する方法で、たとえば「#test:target」というCSSは、URLが「/blog//index/#test」の場合にのみ作用します。言い換えると、「<a href="index.html#test">test</a>」というリンクをクリックしたあとのページで作用するようなCSSになります。
 
 実際にトラックバック欄で試してみました。下記のCSSを追加しました。
 
+```
 #trackbacks:target #trackbacks-open-content {display:block !important;}
 
-このサイト（メモログ）では、トラックバック入力欄は通常非表示の状態になっていますが、記事タイトル下側にある「[トラックバック(0)](http://memolog.org/2008/02/target_pseudo_selector.html#trackbacks)」というリンクをクリックした場合は、トラックバック入力欄が表示されます。!importantがついているのは、[prototype.jsを利用した項目の開閉](http://memolog.org/2007/10/prototypejs.html)をするのにインラインにdisplay:none;が入っているため。display:noneをスタイルシート上で指定していれば、!imortantは必要ありません。
+```
+
+このサイト（メモログ）では、トラックバック入力欄は通常非表示の状態になっていますが、記事タイトル下側にある「[トラックバック(0)](/blog//2008/02/target_pseudo_selector/#trackbacks)」というリンクをクリックした場合は、トラックバック入力欄が表示されます。!importantがついているのは、[prototype.jsを利用した項目の開閉](/blog//2007/10/prototypejs/)をするのにインラインにdisplay:none;が入っているため。display:noneをスタイルシート上で指定していれば、!imortantは必要ありません。
 
 [CSS3 . Info](http://www.css3.info/target-pseudo-selector-tutorial/)によると、target疑似クラスはすべての「current browser」でサポートしているとのこと。実際にFirefox 2.0とsafari 3（mac）で試してみましたが、きちんと動作していました。
 

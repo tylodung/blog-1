@@ -6,11 +6,11 @@ categories:
 tags:
 - csp
 ---
-[Github の Content Security Policy - メモログ](http://memolog.org/2013/09/github_content_security_policy.php)の続きのような感じで。
-
-<!-- more -->
+[Github の Content Security Policy - メモログ](/blog//2013/09/github_content_security_policy/)の続きのような感じで。
 
 [basket.js - a simple script loader that caches scripts with localStorag](http://addyosmani.github.io/basket.js/)というライブラリでは、requireで指定したURLのライブラリをlocalStorageに保存して再利用することができます。対象はスクリプトファイルだけですが、AppCacheと比べて1ファイル単位でキャッシュのexpireを設定できるので柔軟に扱える。
+
+<!-- more -->
 
 ただ、basket.jsはキャッシュをロードする場合、localStorageにキャッシュした内容をscript要素のtextとして使用するので、インラインのscriptとして挿入することになる。そのため、Content Security Policy（CSP）を導入しようとすると、script-srcにunsafe-inlineを設定する必要が出てしまう。
 

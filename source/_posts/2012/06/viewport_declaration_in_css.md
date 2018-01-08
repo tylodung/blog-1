@@ -20,11 +20,15 @@ CSSとmetaタグの両方が書かれている場合はどのように処理さ�
 
 metaタグはstyle要素に@viewportのルールが書かれているかのように扱われると。なので、
 
+```
 <meta name="viewport" content="width=device-width; initial-scale=1.0" />
 <link rel="stylesheet" href="/styles.css" type="text/css" />
 
+```
+
 という風にheadに記述されていたら、
 
+```
 <style>
 @viewport {
   width: device-width;
@@ -32,5 +36,7 @@ metaタグはstyle要素に@viewportのルールが書かれているかのよ�
 }
 </style>
 <link rel="stylesheet" href="/styles.css" type="text/css" />
+
+```
 
 というように扱われる、と思われる。metaの記述がCSSよりも上にある場合は、CSSに記述された@viewportルールが優先されると思われるけど、metaの方が下に書かれている場合はmetaの指定の方が効いてくるかもしれない（試してないので確証はない...）。

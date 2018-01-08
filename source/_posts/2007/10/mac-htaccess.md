@@ -10,12 +10,15 @@ tags:
 
 <!-- more -->
 
+```
 <Directory "/Users/username/Sites/">
     Options Indexes MultiViews ExecCGI
     AllowOverride All
     Order allow,deny
     Allow from all
 </Directory>
+
+```
 
 設定を有効にするにはApache再起動が必要。Macのシステム環境設定の「共有」から「パーソナルWeb共有」の設定をオフにしてオンし直すか、ターミナルで sudo /usr/sbin/apachectl restart して再起動する。
 

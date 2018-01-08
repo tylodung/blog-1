@@ -7,7 +7,7 @@ tags:
 - performance
 - watir
 ---
-[Gridinit](http://gridinit.com/)という新サービスをざっくり紹介。SeleniumやWatirなどの自動化スクリプトをクラウド上にある複数のブラウザに配布してくれるそうです。作成したテストスクリプトを複数ブラウザで実行することによって、負荷検証を行うことができる、みたいな。「[watir-webdriver-performance: PerformanceTimingの集計 - メモログ](http://memolog.org/2011/04/watir-webdriver-performance.php)」で紹介したwatir-webdriver-peformanceのモジュールを組み合わせてブラウザのPerformanceTimingの情報を取得することもできるみたい。
+[Gridinit](http://gridinit.com/)という新サービスをざっくり紹介。SeleniumやWatirなどの自動化スクリプトをクラウド上にある複数のブラウザに配布してくれるそうです。作成したテストスクリプトを複数ブラウザで実行することによって、負荷検証を行うことができる、みたいな。「[watir-webdriver-performance: PerformanceTimingの集計 - メモログ](/blog//2011/04/watir-webdriver-performance/)」で紹介したwatir-webdriver-peformanceのモジュールを組み合わせてブラウザのPerformanceTimingの情報を取得することもできるみたい。
 
 <!-- more -->
 

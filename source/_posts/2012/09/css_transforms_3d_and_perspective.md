@@ -28,7 +28,7 @@ Example 6でperspectiveも指定した状態でrotateYをした要素が例示�
 CSS Transforms 関連記事
 -------------------
 
-*   [CSS Transforms: transform](http://memolog.org/2012/09/css_transforms_2d.php)
-*   [CSS Transforms: transform-origin](http://memolog.org/2012/09/css_transforms_2d_2.php)
-*   [CSS Transforms: perspective](http://memolog.org/2012/09/css_transforms_3d_and_perspective.php)
-*   [CSS Transforms: 3D rendering context (transform-style)](http://memolog.org/2012/09/css_transforms_3d_and_transform-style.php)
+*   [CSS Transforms: transform](/blog//2012/09/css_transforms_2d/)
+*   [CSS Transforms: transform-origin](/blog//2012/09/css_transforms_2d_2/)
+*   [CSS Transforms: perspective](/blog//2012/09/css_transforms_3d_and_perspective/)
+*   [CSS Transforms: 3D rendering context (transform-style)](/blog//2012/09/css_transforms_3d_and_transform-style/)

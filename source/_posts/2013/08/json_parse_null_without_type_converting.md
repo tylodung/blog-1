@@ -21,10 +21,16 @@ HTC EVO(2.3.4)のAndroid端末で、localStorageに入れた値をJSON.parseし�
 
 JSON.parse用の回避策は簡単で、localStorageの値を判定してnull(falsy)の場合はparseしないという風にしておけば良い。
 
+```
 var parsedItem = localStorage.getItem('noStoredItem') ? JSON.parse(localStorage.getItem('noStoredItem')) : null;
+
+```
 
 または
 
+```
 var parsedItem = JSON.parse((localStorage.getItem('noStoredItem')||'null'));
+
+```
 
 というメモ

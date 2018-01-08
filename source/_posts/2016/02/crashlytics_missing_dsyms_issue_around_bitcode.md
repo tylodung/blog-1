@@ -24,12 +24,10 @@ Xcodeでpublishした内部テスター向けのビルドで、[Crashlytics](htt
 なので、[iTunes Connect](https://itunesconnect.apple.com/)のTestFlight -> iOS(TestFlight iOS ビルド)からビルドを選択して「dSYM をダウンロード」して、下記のような手順で解凍して検索したら、missingなUUIDを発見することができました。それをCrashlyticsのmissing dSYMの画面でアップロードしたら問題解消できました。
 
 ```bash
-
 cd ~/Downloads
 unzip dSYMs -d _dSYMs
 cd _dSYMs
 ls -q | grep -v META-INF | xargs dwarfdump -u
-
 ```
 
 今のところ新しいビルドをパブリッシュしたら、毎回手動でdSYMをアップロードしないといけないみたい。AppleがrecompileしたアプリのdSYMはiTunes Connectで処理完了するまでは取得する手段もなさそう。これはなかなかに面倒くさい。

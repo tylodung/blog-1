@@ -10,6 +10,7 @@ tags:
 
 <!-- more -->
 
+```
 <style>
 .foo {margin:10px 0 20px 0;}
 .bar {margin:25px 0 5px 0;}
@@ -21,10 +22,13 @@ tags:
   <p class="baz">baz</p>
 </div>
 
+```
+
 上のようなHTML/CSSの場合、h3.fooのmargin bottomとdiv.barとp.bazのmargin topが、垂直方向に隣接するマージンとなるので相殺の対象となる。その場合、大きい値のマージンが残る。上の例ではdiv.barの25pxのマージンが残る。
 
 マージンの相殺は
 
+```
 <style>
 p{ margin:10px; }
 </style>
@@ -32,6 +36,8 @@ p{ margin:10px; }
 <p>foo</p>
 <p>bar</p>
 <p>baz</p>
+
+```
 
 のようなHTML/CSSの場合に、3つのpタグの上下にマージンを入れつつ、pタグの間のマージンも重複しないで同じマージン幅であけることができるので、状況によって便利
 
@@ -56,10 +62,11 @@ p{ margin:10px; }
 
 と書いてあり、「same block formatting」の中にある要素でないと、マージンの相殺は発生しない。
 
-overflowは[floatとwidth:auto - メモログ](http://memolog.org/2012/05/float_and_width_auto.php)でも触れましたけれど、visible以外の値が設定されている場合は、new block formatting contextsを構築するので、マージンの相殺が発生しなくなる。
+overflowは[floatとwidth:auto - メモログ](/blog//2012/05/float_and_width_auto/)でも触れましたけれど、visible以外の値が設定されている場合は、new block formatting contextsを構築するので、マージンの相殺が発生しなくなる。
 
 上の例の場合だと
 
+```
 <style>
 .foo {margin:10px 0 20px 0;}
 .bar {margin:25px 0 5px 0; overflow:hidden;}
@@ -70,6 +77,8 @@ overflowは[floatとwidth:auto - メモログ](http://memolog.org/2012/05/float_
 <div class="bar">
   <p class="baz">baz</p>
 </div>
+
+```
 
 のように、div.barにoverflow:hiddenがつくと、h3.fooとdiv.bar/p.bazとの間のマージンの相殺は行われなくなる（div.barとp.bazとの間の相殺は発生する）。
 

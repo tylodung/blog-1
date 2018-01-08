@@ -20,8 +20,11 @@ tags:
 
 開閉用のリンクは下記のように追加。prototype.jsの機能の一つのElement.toggle(element)を使っているだけ。toggle(element)は、指定したタグのidを表示を切り替えてくれます。
 
+```
 <a href="javascript:void(0)" onclick="javascript:Element.toggle('trackbacks-open-content');">
 開く/閉じる</a> 
+
+```
 
 表示するリンクと非表示にするリンクを別々にしたいときには、Element.show()、Element.hideを使うとできます。
 

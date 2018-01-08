@@ -6,7 +6,7 @@ categories:
 tags:
 - javascript
 ---
-[Sublime Text 2 の JSLint から node がみつからない - メモログ](http://memolog.org/2013/02/node_not_found_with_jsLint.php)と関連して、少しの間JSLintを使用していたのですが、jQueryなどglobalに定義されている変数があるとそこで定義されていないと言われたりなどしてしまい、若干使い勝手が悪い。
+[Sublime Text 2 の JSLint から node がみつからない - メモログ](/blog//2013/02/node_not_found_with_jsLint/)と関連して、少しの間JSLintを使用していたのですが、jQueryなどglobalに定義されている変数があるとそこで定義されていないと言われたりなどしてしまい、若干使い勝手が悪い。
 
 <!-- more -->
 
@@ -18,14 +18,17 @@ JSLintのチェックをいろいろ設定可能な状態にするところか�
 
 Sublime Text 2へのJSHintのインストールは下記のような感じ。
 
-1.  nodeが入っていなかったらnodeをインストール（homebrewが入っていたらbrew install nodeでインストールできる。[RVM / JewelryBox / Homebrew をインストール - メモログ](http://memolog.org/2012/09/rvm_jewelrybox_homebrew.php)）
+1.  nodeが入っていなかったらnodeをインストール（homebrewが入っていたらbrew install nodeでインストールできる。[RVM / JewelryBox / Homebrew をインストール - メモログ](/blog//2012/09/rvm_jewelrybox_homebrew/)）
 2.  \[sudo\] npm install -g jshint で、nodeからJSHintをインストール
 3.  メニューのTools - Command Paletteを開いて、「Package Controll: Install Package」を選択して、JSHintを選択
 
 Sublime Text 2のJSHintの設定は、~/Library/Application Support/Sublime Text 2/Packages/JSHint/.jshintrc にあります。デフォルトの設定を変更したい場合は、これをUserのディレクトリにコピーして、それを編集します。
 
+```
 cd ~/Library/Application Support/Sublime Text 2/Packages/
 cp JSHint/.jshintrc User/JSHint.jshintrc
+
+```
 
 設定は[Documentation -- JSHint](http://www.jshint.com/docs/)を参照。Enforcing optionsは書き方を制限する系の設定で、Relaxing optionsは逆に制限を緩める（warningなどを出さないように抑制する）系の設定で、Environmentsは環境関連。jquery: trueにすると、JQueryや$などはどこかでglobal変数に定義されているものとして扱ってくれます。
 

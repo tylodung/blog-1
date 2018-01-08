@@ -16,6 +16,9 @@ getUserMediaの仕様は[W3Cのサイトを参照](http://dev.w3.org/2011/webrtc
 
 getUserMediaを実行するときにはユーザーにWebカメラを使用するための許可が求められる（Prompts the user for permission to use their Web cam or other video or audio input）。ので、ユーザーが使用を許可した場合は第二引数の処理が動き、拒否した場合は第三引数の処理が動く、のが典型的な動きになる。
 
+```
 navigator.getUserMedia(constraints, success, failure)
+
+```
 
 see also [Bruce Lawson’s personal site  : Specifying which camera in getUserMedia](http://www.brucelawson.co.uk/2012/specifying-which-camera-in-getusermedia/)

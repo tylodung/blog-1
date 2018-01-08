@@ -14,10 +14,11 @@ watir-webdriverでは広範囲のHTMLタグ（ほとんど全部）をサポー�
 
 なので、自分で追加して使おうという話。watir-webdriver上にタグを追加するのは仕組み上は簡単で、下記のようにclassを追加すれば良い（circleでの追加例）。
 
+```
 module Watir
 class Circle < HTMLElement
-  attributes(:string => \[:cx,:cy,:r,:stroke,:'stroke-width',
-                         :'fill-opacity',:fill\])
+  attributes(:string => [:cx,:cy,:r,:stroke,:'stroke-width',
+                         :'fill-opacity',:fill])
 end
 class CircleCollection < ElementCollection
 def element_class
@@ -27,15 +28,17 @@ end
 
 module Container
   def circle(*args)
-    Circle.new(self, extract\_selector(args).merge(:tag\_name => "circle"))
+    Circle.new(self, extract_selector(args).merge(:tag_name => "circle"))
   end
 
   def circles(*args)
     CircleCollection.new(self, 
-                     extract\_selector(args).merge(:tag\_name => "circle"))
+                     extract_selector(args).merge(:tag_name => "circle"))
   end
 end
 end
+
+```
 
 これで「b.circle」とか「b.circles」とかでcircleタグの要素を取ってくることができます
 

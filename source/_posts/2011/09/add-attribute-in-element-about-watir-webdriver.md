@@ -15,22 +15,28 @@ html.slice(/data-expanded-url=\\"(\[^"\]+)\\"/,1)みたいにしてhtmlからsli
 
 そこで要素で使用できる属性を追加するという話。属性はmodule Watirの中のclassでattributesのクラスメソッドによってメソッド化されています。同じような手順で好きな属性を追加することができます。
 
+```
 require 'watir-webdriver'
 
 module Watir
   class Anchor
-    attributes(:string => \[:'data-expanded-url'\])
+    attributes(:string => [:'data-expanded-url'])
   end
 end
+
+```
 
 これでlinkのメソッドに「data-expaneded-url」が追加されます（メソッド名にハイフンが含まれると、その部分がマイナスの演算子として認識されてしまうので、実際にはlink.send('data-expanded-url')みたいな形で使用するかなんとかにしないといけませんが）。
 
 metaタグのproperty属性（og:imageとか指定するのに使う）を取得したい場合も同じ要領で簡単にとれるようになります。
 
+```
 module Watir
   class Meta
-    attributes(:string => \[:property\])
+    attributes(:string => [:property])
   end
 end
 
 b.meta(:property,'og:image').content
+
+```

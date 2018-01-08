@@ -8,6 +8,7 @@ tags:
 ---
 いまさらながらのfloatとwidth:autoの話。たとえば
 
+```
 <div class="container">
   <div class="sidebar1">サイドバー</div>
   <div class="main">超長い文章のつもり</div>
@@ -17,12 +18,17 @@ tags:
   <div class="footer">フッター</div>
 </div>
 
+```
+
 というdivがあって、.sidebar1と.sidebar2を固定値のwidthにしてfloatして、.mainのwidthはautoにして可変にしたい...ということで、下記のようにCSSを設定してもうまくいかない。
 
+```
 .container{ width:auto; }
 .sidebar1{ float:left; width: 200px; }
 .main{ float:left; width:auto; }
 .sidebar2{ float:right; width: 200px; }
+
+```
 
 width:autoは通常は包含ブロックの幅にフィットするような感じに計算されるけれど、 floatが設定されている要素の場合、[10.3.5 Floating, non-replaced elements](http://www.w3.org/TR/CSS2/visudet.html#float-width)の仕様に従うようになる。
 
@@ -44,6 +50,7 @@ width:autoは通常は包含ブロックの幅にフィットするような感�
 
 上の例のような構成で3列にしたい場合は
 
+```
 <div class="container">
   <div class="sidebar1">サイドバー</div>
   <div class="sidebar2">サイドバー</div>
@@ -51,10 +58,15 @@ width:autoは通常は包含ブロックの幅にフィットするような感�
   <div class="footer">フッター</div>
 </div>
 
+```
+
+```
 .container{ width:auto; }
 .sidebar1{ float:left; width: 200px; }
 .sidebar2{ float:right; width: 200px; }
 .main{ width:auto; overflow:hidden; }
+
+```
 
 のように、.mainを.sidebar2の下にして、floatを外すとうまくいく。ただ、そのままだとサイドバーの下にテキストが回り込んでしまうので、overflow:hiddenを追加しておく。これはfloatと同様に [Block formatting contexts](http://www.w3.org/TR/CSS2/visuren.html#block-formatting)の原理が働くようにするため。
 

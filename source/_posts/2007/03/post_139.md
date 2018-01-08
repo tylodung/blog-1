@@ -18,6 +18,7 @@ tags:
 
 同じ要領で画像のサイズをページ内で拡大したり縮小したりもできそうですね。ふむふむ。
 
+```
 <script type="text/javascript" src="<$MTBlogURL$>prototype.js"></script>
 <script type="text/javascript" src="<$MTBlogURL$>moo/moo.fx.js"></script>
 <script type="text/javascript" src="<$MTBlogURL$>moo/moo.fx.pack.js"></script>
@@ -43,3 +44,5 @@ divObj.custom( size.current, 12);
 }
 
 // -->
+
+```

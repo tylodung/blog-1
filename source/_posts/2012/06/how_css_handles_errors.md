@@ -16,20 +16,26 @@ CSSをパースするときに、ブラウザはat-rule（@mediaとか）、styl
 
 declarationの場合は、エラーの発生した宣言は捨てられて、次の「;」が見つかるまで進む（it throws away the declaration, then seeks forward until it finds a semicolon that's not inside of a {}, \[\], or () block.）。記事の下の方に下記のような例が出ていて、この例の場合、「radial-gradient」は認識できずにエラーとなるけど、そのときは「;」の部分まで無視されることになる。ので、後ろについているtransparentも無視される。
 
+```
 .foo {
   color: white;
   background: black;
   background: radial-gradient(black, rgba(0,0,0,.5)) transparent;
 }
 
+```
+
 仕様の方には、下記のような例が記載されている。
 
+```
 p {
   color: green;
   font-family: 'Courier New Times
   color: red;
   color: green;
 }
+
+```
 
 font-familyの「'」が閉じられていないので、エラーとなるけれど、その場合、次の「;」までが無視されるようになる。なので、color:redの宣言も無視される。
 
@@ -45,20 +51,26 @@ style ruleの場合は、エラーが発生したら{}ブロック全体が無�
 
 たとえば
 
+```
 .foo,
 .bar:nth-child(2n+1):after,
 .baz {
   clear: left;
 }
 
+```
+
 というCSSだと、nth-childが認識できないブラウザだと、.fooや.bazに対するclear:left;も行われなくなる。対応していないブラウザに対処するには、ruleをひとまとめにしないで、.foo,.bazと、bar:nth-child(2n+1):afterの2つに分ける必要がある。
 
+```
 .foo,
 .baz {
   clear: left;
 }
 
 .bar:nth-child(2n+1):after { clear: left; }
+
+```
 
 逆に言うと、vendor prefixがついたセレクタなどは、そのvendorでしか対応していないので、セレクタの中にそれを入れておけば、特定のブラウザだけに{}内の宣言を適用させるみたいなハックができる、ということになる。see also [不明なCSSセレクター - Weblog - hail2u.net](http://hail2u.net/blog/webdesign/unknown-css-selector.html)
 

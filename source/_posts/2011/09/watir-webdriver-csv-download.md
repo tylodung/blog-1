@@ -13,13 +13,16 @@ FirefoxでCSVファイルにアクセスすると、ダウンロードのダイ�
 
 pdfファイルやicoファイルなどブラウザで処理しないような拡張子のファイルなどは同じような手順でダウンロード可能。jpgなどの画像ファイルは基本的にブラウザ上で表示するのでこの設定を入れるだけではダウンロードの状態にすることはできないみたい。
 
+```
 profile = Selenium::WebDriver::Firefox::Profile.new
-profile\['browser.download.useDownloadDir'\] = true
-profile\['browser.download.folderList'\] = 2
-profile\['browser.download.dir'\] = './download'
-profile\['browser.helperApps.neverAsk.saveToDisk'\] = "text/plain, 
+profile['browser.download.useDownloadDir'] = true
+profile['browser.download.folderList'] = 2
+profile['browser.download.dir'] = './download'
+profile['browser.helperApps.neverAsk.saveToDisk'] = "text/plain, 
     application/vnd.ms-excel, text/csv, 
     text/comma-separated-values, application/octet-stream"
 selenium = Selenium::WebDriver.for driver,:profile=>profile
 b = Watir::Browser.new selenium
 b.goto 'http://example.com/foobar.csv'
+
+```

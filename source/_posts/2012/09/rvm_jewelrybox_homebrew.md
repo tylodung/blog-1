@@ -14,7 +14,10 @@ RVM（Ruby version manager）はMacでデフォルトのバージョン以外の
 
 [HomeBrew](http://mxcl.github.com/homebrew/)のサイトに書いてある通りにターミナルで下記を実行
 
+```
 ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
+
+```
 
 ### JewelryBoxのインストール
 
@@ -28,12 +31,18 @@ JewelryBoxを起動したら、RVMをインストールするかどうかを尋�
 
 RVMでRubyをインストールする前に使用するときに必要なものをHomebrewを使ってインストール。下記のコマンドをターミナルで実行（JewerlyBoxのDashboardのrelease noteに書いてあるコマンド）。
 
+```
 brew install libksba
 
+```
+
+```
 brew update
 brew tap homebrew/dupes
 brew install autoconf automake apple-gcc42
 rvm pkg install openssl
+
+```
 
 上のは、1.9.3を使用するときに必要なもの。下のは、Xcode4.2以降でなくなってしまった、Rubyをコンパイルするときに必要なもの。
 

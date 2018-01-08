@@ -13,4 +13,4 @@ categories:
 
 ただし、hrefにクエリストリングが含まれるような場合や（/blog//index/?foo=0 みたいな）、hrefがhttp以外の場合はprefetchは行わないようになっている。逆に言えば、prefetchしてほしくないときはhrefに適当なクエリストリング的なパスを入れておけば良いみたい。
 
-prefetchによるHTTP リクエストには「X-moz: prefetch」というヘッダが付与されているのでどのリクエストがprefetchによるものかは判別できる。これをうまく利用してprefetchをしないようにすることもできるかのかなと思います。 ![cap082101.png](http://memolog.org/i/2007/08/cap082101.png)
+prefetchによるHTTP リクエストには「X-moz: prefetch」というヘッダが付与されているのでどのリクエストがprefetchによるものかは判別できる。これをうまく利用してprefetchをしないようにすることもできるかのかなと思います。 ![cap082101.png](/blog//assets/i/2007/08/cap082101.png)

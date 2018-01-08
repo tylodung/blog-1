@@ -24,4 +24,4 @@ HTMLとCSSの分離に代表されるように、ここ１〜２年の間でデ�
 
 Weblog・SNSの絶対数の増加に伴い、Scalabilityが重要な課題になってきているのは間違いないと思います。これからはディスク容量は機能面だけではなく、安定性と快適なトランザクションがサービスのウリになっていくものかと思います。
 
-[![](http://memolog.org/i/etc/data.gif)](/blog//assets/i/etc/data.gif)
+[![](/blog//assets/i/etc/data.gif)](/blog//assets/i/etc/data.gif)

@@ -27,6 +27,7 @@ phpでないと動作しないので、phpファイルのインデックステ�
 
 エントリーの生成部分を下記のように変更。max_sectionsで1ページあたりのエントリー数を指定して、ページネートするエントリーの件数はMTEntriesで100件に指定。
 
+```
 <MTPaginate>
 <MTPaginateContent max_sections="5">
 <MTEntries lastn="100">
@@ -46,17 +47,22 @@ phpでないと動作しないので、phpファイルのインデックステ�
 
 </MTPaginate>
 
+```
+
 #### CSSの追加
 
 CSSはこんな感じのを追加しました（そのうち変更するかもしれません）。
 
-/\* pagenate */
+```
+/* pagenate */
 .pagenate,.lastpage {font-size:11px; color:#666; margin:1em 0; border-top:1px dashed #ccc; padding-top:0.7em;}
 .lastpage {border:none;margin-top:0; padding-top:0;}
 .pagenate a {border:1px solid #ccc; text-decoration:none;padding:2px 1px; font-size:11px;}
 .pagenate a:hover {color:#fff; background-color:#fc3; border-color:#fc3;}
 .pagenate .pagenate-last {border:none; text-decoration:underline;}
 .pagenate a.pagenate-last:hover{background-color:transparent; color:#666;}
+
+```
 
 #### index.html の撤収
 

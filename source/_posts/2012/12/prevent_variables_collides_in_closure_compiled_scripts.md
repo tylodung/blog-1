@@ -13,7 +13,10 @@ Closure CompilerのAdvanced modeでscriptをcompileした場合、Property Renam
 
 併用するスクリプトを全部まとめて1つのファイルにcompileすることで回避することもできますが、--output_wrapperというオプションでスクリプト全体を無名関数で囲われるかたちにすれば、複数のスクリプトを併用しつつ、global scope上でプロパティ名が衝突するのを回避することができます。
 
+```
 java -jar compiler.jar --output_wrapper="(function(){&#x25;output&#x25;})();" ....
+
+```
 
 と、ブログに書く前にGoogleで検索したら[FAQ - closure-compiler - Frequently asked questions. - Closure Compiler (When using Advanced Optimizations, Closure Compiler adds new variables to the global scope. How do I make sure my variables don't collide with other scripts on the page?)](http://code.google.com/p/closure-compiler/wiki/FAQ#When_using_Advanced_Optimizations,_Closure_Compiler_adds_new_var)にさらっと書いてありました。
 

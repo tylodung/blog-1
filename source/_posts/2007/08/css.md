@@ -15,8 +15,11 @@ tags:
 
 CSSの指定の仕方は簡単で、下記のようにwebkitやmozのプレフィックスをつけて指定するだけ。webkitはwebkitとsafari向け、mozはmozilla系のブラウザ向けの指定。IEでは適用されません。
 
+```
 -moz-border-radius: 5px; 
 -webkit-border-radius: 5px;
+
+```
 
 実際に右にある「最近のブログ記事」のリストに指定してみました。若干、カクカクした感じになりますけど、個人的には許容範囲。
 

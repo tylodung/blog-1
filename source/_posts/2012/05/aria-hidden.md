@@ -11,16 +11,19 @@ tags:
 
 <!-- more -->
 
+```
 <h2 id="stats">
   <span aria-hidden="true" data-icon="&#x21dd;"></span>
   Stats
 </h2>
-\-\-\-\-
-\[data-icon\]:before {
+----
+[data-icon]:before {
   font-family: icons; /* BYO icon font, mapped smartly */
   content: attr(data-icon);
   speak: none; /* Not to be trusted, but hey. */
 }
+
+```
 
 このaria-hiddenについて知らなかったので（というよりARIAはlandmarkしか分からない...）、[仕様](http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden)を読んだ。
 

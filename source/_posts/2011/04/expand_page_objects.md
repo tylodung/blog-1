@@ -6,7 +6,7 @@ categories:
 tags:
 - page-objects
 ---
-以前に[Page Objects : テストスイート構築のためのデザインパターン - メモログ](http://memolog.org/2010/11/page_objects.php)というのを紹介しました。今回はそのパターンをちょっと拡張してみようという話。なお、特に参考にした訳ではないのですが、[Selenium Page Objects + Site Objects, Data Objects & High Level Navigation « Fiji Ecuador Seattle Greece Montana](http://fijiaaron.wordpress.com/2009/09/02/selenium-page-objects-site-objects-data-objects-high-level-navigation/)に同じような話を提示している人はいます（2年前に）。
+以前に[Page Objects : テストスイート構築のためのデザインパターン - メモログ](/blog//2010/11/page_objects/)というのを紹介しました。今回はそのパターンをちょっと拡張してみようという話。なお、特に参考にした訳ではないのですが、[Selenium Page Objects + Site Objects, Data Objects & High Level Navigation « Fiji Ecuador Seattle Greece Montana](http://fijiaaron.wordpress.com/2009/09/02/selenium-page-objects-site-objects-data-objects-high-level-navigation/)に同じような話を提示している人はいます（2年前に）。
 
 <!-- more -->
 
@@ -18,6 +18,7 @@ Page Objectsの上位のオブジェクトして「Site Object」を設けて、
 
 イメージとしてはこんな感じ。
 
+```
 (lib/zenback)
 require 'watir-webdriver'
 
@@ -46,6 +47,9 @@ end
 ....
 end
 
+```
+
+```
 require 'lib/zenback'
 z = Zenback::Zenback.new
 z.goto 'http://zenback.jp/dashboard'
@@ -53,16 +57,19 @@ z.dashboard.add 'http://memolog.org'
 z.goto 'http://zenback.jp/dashboard/blog/123456789/'
 z.customize.set_modules
 
+```
+
 実際のスクリプトはページごとにスクリプトファイル変えたりとか、単純にgotoメソッドで画面遷移しないとかいろいろあったりしますが、基本的なイメージとしてはこんな感じです。「zenback」というSite Objectを呼び出して、Site ObjectからPage Objectsを操作していく。Page Objectsのパターンではアクション実行後にPage Objectを返すのが基本ですが、Site ObjectがあるとPage Objectsの選択はSite Object上で自分で選択できるのでPage Objectの返りはあってもなくてもいい。あとzenbackのSite Objectで起動したwatir-webdriverのオブジェクトをPage Objectsの引数として渡すことでPage Objects個々の独立性を保ちつつ、サイト全体でwatir-webdriverのオブジェクトを使えるようにしています。
 
 そして、Page Objectの下位のオブジェクトとして「Data Objects」も（必要に応じて）設けます。たとえば記事の一覧のページなど、ページには表示するデータがあって、それをひとつのオブジェクトとして捉えて、データの各要素（idとかtitleとか）を取り出しやすい形にしておく。イメージとしてはこんな感じ（こちらもかなり省略しています）。
 
+```
 module Zenback
 class Dashboard
   class Blog
     attr_accessor :id, :name
     def initialize(tr)
-       @id = tr.th.link.href.slice(/\[0-9\]+/)
+       @id = tr.th.link.href.slice(/[0-9]+/)
        @name = tr.tr.link.text
     end
   end
@@ -71,6 +78,8 @@ class Dashboard
   end
 end
 end
+
+```
 
 zenbackで言うと、ダッシュボードに表示されるブログ一覧の一つのブログを「Data Object」として捉えて、idや名前を取り出しやすい形にしておく。これでblog.id とかでブログのidを取り出すことできます。Blogのclassに「tr」を渡していますが、これはこの一覧がtableで組まれていて、trごとにブログのデータが記載されるためです。
 

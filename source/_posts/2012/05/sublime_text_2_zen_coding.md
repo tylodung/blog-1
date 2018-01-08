@@ -26,6 +26,7 @@ tags:
 
 ただ、標準のEmmetのパッケージでは、下記のようにlangの設定として「en-US」が入ってくる。
 
+```
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
@@ -37,16 +38,21 @@ tags:
 </body>
 </html>
 
+```
+
 これを変更するには、ユーザーの設定で上書きする。Sublime Text 2のメニューから「Preferences」を選んで、「Package Settings -> Emmet -> Settings - User」を選択する。Sublime text上にオープンされた「Emmet.sublime-settings - User」というファイルに下記のような設定を追加する。
 
+```
 {
   "snippets": {
     "html": {
         "snippets": {
-          "html:5": "<!doctype html>\\n<html>\\n<head>\\n\\t<meta charset=\\"${charset}\\">\\n\\t<title>${1:Document}</title>\\n</head>\\n<body>\\n\\t${child}${2}\\n</body>\\n</html>"
+          "html:5": "<!doctype html>\n<html>\n<head>\n\t<meta charset=\"${charset}\">\n\t<title>${1:Document}</title>\n</head>\n<body>\n\t${child}${2}\n</body>\n</html>"
         }
       }
   }
 }
+
+```
 
 SASSのようなPreprocessorとEmmetとどちらの方が良いかは使う人（使う目的）次第だとは思いますけど、そこそこ便利な感（まだよく分かってないけど）。SubLimeは標準の入力補完も充実している感があるので、Emmetをインストールしなくても便利な感はあるけれども。

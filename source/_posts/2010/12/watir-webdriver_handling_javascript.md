@@ -18,6 +18,7 @@ watirとwatir-webdriver違いは[Comparison with watir 1.x - watir-webdriver - G
 
 そして[Testing webpages with JavaScript popups correctly](http://www.itreallymatters.net/post/1482786902/testing-webpages-with-javascript-popups-correctly)では、それを簡単に実行するためのメソッドを紹介しています。使い方はこんな感じ。
 
+```
 require 'rubygems'
 require 'watir-webdriver'
 require 'watir-webdriver/extensions/alerts'
@@ -26,6 +27,8 @@ browser = Watir::Webdriver.new
 browser.confirm(true) do
   browser.link.click
 end
+
+```
 
 watir-webdriver/extensions/alerts は拡張機能（extension）という位置づけであるため、watir-webdriverとは別にrequire する必要があります。
 

@@ -14,15 +14,18 @@ tags:
 
 使用方法は（上のブログとほぼ同じですが...）下記のような感じ。てきとうに改行入れています。selenium-serverは[Downloads - selenium - Project Hosting on Google Code](http://code.google.com/p/selenium/downloads/list)のページからダウンロードできます。サーバーはJavaで動作します。
 
+```
 require 'selenium/server'
-Selenium\_Server = File.expand\_path('selenium-server-standalone-2.0b1.jar')
+Selenium_Server = File.expand_path('selenium-server-standalone-2.0b1.jar')
 @server = Selenium::Server.new(Selenium_Server, :background => true)
 @server.start
 capabilities = Selenium::WebDriver::Remote::Capabilities
                                  .htmlunit(:javascript_enabled => true)
 @b = Watir::Browser.new(:remote, :url => "http://127.0.0.1:4444/wd/hub", 
                                  :desired_capabilities => capabilities)
-\## いろいろな動作
+## いろいろな動作
 @server.stop # 最後にサーバーを止める
+
+```
 
 ブラウザを立ち上げずに実行できるので、Hudson(Jenkins)などを使ってインテグレーションテストをするようなときに便利、という話。通常のブラウザと比較するとまだ動作が不安定のように見えますけど（betaだし）。

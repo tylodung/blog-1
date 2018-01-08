@@ -13,22 +13,29 @@ jasmineでのテストで、requireJSのmoduleに対してspyOnしたい場合�
 
 たとえば下記のようなモジュールの場合。foo.jsというファイル名でモジュール名は「foo」となるとして。
 
+```
 define(function(){
   return function(arg1,arg2){
     // do sutekina something
   }
 });
 
+```
+
 上記のモジュールをDependencyとして扱う下記のようなモジュールがあるとする。モジュール名は「bar」となるとして。
 
-define(\[foo\],function(Foo){
+```
+define([foo],function(Foo){
   return function(){
     var foo = new Foo('hoge','fuga');
   }
 });
 
+```
+
 それで、barのモジュールのテストで、fooにきちんと値がわたっているかを確認したいとする。
 
+```
 it('a small world',function(){
   var flag;
   var stubModule = {
@@ -38,13 +45,13 @@ it('a small world',function(){
     }
   };
 
-  define('foo', \[\], function(){
+  define('foo', [], function(){
     return stubModule.stub;
   });
   
   spyOn(stubModule, 'stub').andCallThrough();
 
-  require(\['bar'\], function (Bar) {
+  require(['bar'], function (Bar) {
     new Bar();
   });
 
@@ -54,10 +61,12 @@ it('a small world',function(){
 
   runs(function () {
     var args = stubModule.stub.mostRecentCall.args;
-    expect(args\[0\]).toEqual('hoge');
-    expect(args\[1\]).toEqual('fuga');
+    expect(args[0]).toEqual('hoge');
+    expect(args[1]).toEqual('fuga');
   });
 });
+
+```
 
 spyOnはspyOn(object, methodName)という形で、第一引数でobjectを渡して、第二引数でobjectの中のメソッド名を指定するという風に使うので、stubModuleはオブジェクトとして用意する。 そして、defineでfooモジュールを定義して、stubModule.stubを返すようにする。
 
